@@ -5,7 +5,6 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
 #include <gtest/gtest.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +12,7 @@
 #include <unistd.h>
 #include <fstream>
 #include <streambuf>
+#include <algorithm>
 
 #ifdef __APPLE__
 #include <OpenCL/opencl.h>
@@ -47,11 +47,41 @@ public:
 	size_t *global_work_size;
 	size_t *local_work_size;
 	vector<string> libraries;
+	char** librariesStrs;
 protected:
 	OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
+		libraries.push_back("src/main/cpp/use_opencl.h");
 		libraries.push_back("src/main/cpp/opencl_utils.h");
 		libraries.push_back("src/main/cpp/utility.h");
 	};
+
+	void printBuildLog() {
+		size_t log_size;
+		clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG,
+				0, NULL, &log_size);
+
+		// Allocate memory for the log
+		char *log = (char*) malloc(log_size);
+
+		// Get the log
+		clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG,
+				log_size, log, NULL);
+
+		// Print the log
+		printf("%s\n", log);
+	}
+
+	vector<const char*> strlist(vector<string> &input) {
+	    vector<const char*> result;
+	    // remember the nullptr terminator
+	    result.reserve(input.size()+1);
+	    transform(begin(input), end(input),
+	                   back_inserter(result),
+	                   [](string &s) { return s.data(); }
+	                  );
+	    result.push_back(nullptr);
+	    return result;
+	}
 
 	virtual void SetUp() {
 		cl_int err;
@@ -97,18 +127,21 @@ protected:
 		queue = clCreateCommandQueueWithProperties(context, devices[0], 0, &err);
 		EXPECT_EQ(err, 0) << "Create command queue error.";
 
-		vector<const char*> sources;
-		for (auto library : libraries) {
+		librariesStrs = new char*[libraries.size() + 1];
+		int i;
+		for (i = 0; i < libraries.size(); i++) {
+			auto library = libraries[i];
 			ifstream f(library.c_str());
 			string s((istreambuf_iterator<char>(f)), istreambuf_iterator<char>());
-			printf("%s\n", s.c_str());
-			sources.push_back(s.c_str());
+			librariesStrs[i] = new char[s.size() + 1];
+			strcpy(librariesStrs[i], s.c_str());
 		}
 
 		auto t = GetParam();
-		sources.push_back(t.source.c_str());
+		librariesStrs[i] = new char[t.source.size() + 1];
+		strcpy(librariesStrs[i], t.source.c_str());
 
-		program = clCreateProgramWithSource(context, sources.size(), sources.data(), NULL, &err);
+		program = clCreateProgramWithSource(context, i, (const char**)librariesStrs, NULL, &err);
 		if (err != CL_SUCCESS) {
 			switch (err) {
 				case CL_INVALID_CONTEXT:
@@ -131,13 +164,19 @@ protected:
 
 		err = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 		if (err != CL_SUCCESS) {
+			printBuildLog();
 			switch (err) {
-				case CL_INVALID_PROGRAM:
-					EXPECT_EQ(err, CL_SUCCESS) << "Build program error: CL_INVALID_PROGRAM";
-					break;
-				default:
-					EXPECT_EQ(err, CL_SUCCESS) << "Build program error";
-					break;
+			case CL_INVALID_PROGRAM:
+				EXPECT_EQ(err, CL_SUCCESS)
+						<< "Build program error: CL_INVALID_PROGRAM";
+				break;
+			case CL_BUILD_PROGRAM_FAILURE:
+				EXPECT_EQ(err, CL_SUCCESS)
+						<< "Build program error: CL_BUILD_PROGRAM_FAILURE";
+				break;
+			default:
+				EXPECT_EQ(err, CL_SUCCESS) << "Build program error";
+				break;
 			}
 		}
 
@@ -167,6 +206,11 @@ protected:
 	}
 
 	virtual void TearDown() {
+		for (int i = 0; i < libraries.size() + 1; i++) {
+			const char* s = librariesStrs[i];
+			delete s;
+		}
+		delete librariesStrs;
 		for (cl_mem m : memobjs) {
 			clReleaseMemObject(m);
 		}
@@ -205,9 +249,7 @@ INSTANTIATE_TEST_SUITE_P(opencl, OpenCL_Context_Fixture,
 __kernel void value_noise2D_test(__global float2 *in, __global float2 *out,
                           __local float *sMemx, __local float *sMemy) {
 	int tid = get_local_id(0);
-	printf("%d\n", tid);
+	int x = fast_floor(1.0);
 }
 )EOT", &value_noise2D_buffers})
 		);
-
-#endif

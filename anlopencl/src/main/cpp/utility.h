@@ -12,8 +12,9 @@
 extern "C" {
 #endif
 
-#include "opencl_utils.h"
+#include <opencl_utils.h>
 
+#ifndef USE_OPENCL
 REAL clamp(REAL v, REAL l, REAL h) {
 	if (v < l)
 		v = l;
@@ -22,6 +23,7 @@ REAL clamp(REAL v, REAL l, REAL h) {
 
 	return v;
 }
+#endif
 
 REAL lerp(REAL t, REAL a, REAL b) {
 	return a + t * (b - a);

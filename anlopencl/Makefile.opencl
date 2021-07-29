@@ -1,25 +1,24 @@
-MKDIR   := md
+MKDIR   := mkdir -p
 RMDIR   := rd /S /Q
 CC      := clang
-BIN     := ./OpenCL/bin
 OBJ     := ./OpenCL/obj
 INCLUDE := ./src/main/cpp
 SRC     := ./src/test/cpp
 SRCS    := $(wildcard $(SRC)/*.cl)
 OBJS    := $(patsubst $(SRC)/%.cl,$(OBJ)/%.ll,$(SRCS))
-CFLAGS  := -S -emit-llvm -x cl -I$(INCLUDE)
+CFLAGS  := -Xclang -finclude-default-header -S -emit-llvm -x cl -I$(INCLUDE)
+LDFLAGS :=
 LDLIBS  := 
 
-.PHONY: all run clean
+.PHONY: all clean
 
-all: $(OBJS) | $(BIN)
-    $(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+all: $(OBJS)
 
 $(OBJ)/%.ll: $(SRC)/%.cl | $(OBJ)
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -o $@ $<
 
-$(BIN) $(OBJ):
-    $(MKDIR) $@
+$(OBJ):
+	$(MKDIR) $@
 
 clean:
-    $(RMDIR) $(OBJ) $(BIN)
+	$(RMDIR) $(OBJ)
