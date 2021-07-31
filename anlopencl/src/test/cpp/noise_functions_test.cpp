@@ -56,22 +56,22 @@
 using ::testing::TestWithParam;
 using ::testing::Values;
 
-struct Func2D {
-	REAL x;
-	REAL y;
-	uint seed;
-	interp_func interp;
-	REAL noise;
-};
-
-class value_noise2D_params: public ::testing::TestWithParam<Func2D> {
-};
-
-TEST_P(value_noise2D_params, value_noise2D) {
-	auto t = GetParam();
-	EXPECT_FLOAT_EQ(value_noise2D(t.x, t.y, t.seed, t.interp), t.noise);
-}
-
-INSTANTIATE_TEST_SUITE_P(noise, value_noise2D_params,
-		Values(Func2D { 0.000, 0.000, 100, &noInterp, -0.15294117 })
-		);
+//struct Func2D {
+//	REAL x;
+//	REAL y;
+//	uint seed;
+//	interp_func interp;
+//	REAL noise;
+//};
+//
+//class value_noise2D_params: public ::testing::TestWithParam<Func2D> {
+//};
+//
+//TEST_P(value_noise2D_params, value_noise2D) {
+//	auto t = GetParam();
+//	EXPECT_FLOAT_EQ(value_noise2D(t.x, t.y, t.seed, t.interp), t.noise);
+//}
+//
+//INSTANTIATE_TEST_SUITE_P(noise, value_noise2D_params,
+//		Values(Func2D { 0.000, 0.000, 100, &noInterp, -0.15294117 })
+//		);

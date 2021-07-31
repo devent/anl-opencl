@@ -46,7 +46,7 @@ struct OpenCL_Context {
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<OpenCL_Context> {
 public:
 	std::shared_ptr<spdlog::logger> logger;
-	std::vector<Program> programs;
+	std::vector<Program> libraries;
 protected:
 	OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
 	};
@@ -92,15 +92,49 @@ protected:
 	}
 
 	void createPrograms() {
-		//input_headers.push_back(readFile("src/main/cpp/opencl_utils.h"));
-		//input_header_names.push_back("opencl_utils.h");
-		//input_headers.push_back(readFile("src/main/cpp/utility.h"));
-		//input_header_names.push_back("utility.h");
-		auto opencl_utils = compileProgram(readFile("src/main/cpp/opencl_utils.h"));
-		programs.push_back(opencl_utils);
-		auto t = GetParam();
-		auto kernel = compileProgram(t.source);
-		programs.push_back(kernel);
+		std::vector<Program> programs;
+		auto opencl_utils_h = compileProgram(readFile("src/main/cpp/opencl_utils.h"));
+		programs.push_back(opencl_utils_h);
+		auto utility_h = compileProgram(readFile("src/main/cpp/utility.h"),
+				{opencl_utils_h}, { "opencl_utils.h" });
+		programs.push_back(utility_h);
+		auto hashing_h = compileProgram(readFile("src/main/cpp/hashing.h"),
+				{ opencl_utils_h }, { "opencl_utils.h" });
+		programs.push_back(hashing_h);
+		auto hashing_c = compileProgram(readFile("src/main/cpp/hashing.c"),
+				{ opencl_utils_h, hashing_h }, { "opencl_utils.h", "hashing.h" });
+		programs.push_back(hashing_c);
+
+		Program hashing_lib;
+		try {
+			hashing_lib = linkProgram(programs, "-create-library");
+			logger->debug("Successfully linked {}", "hashing_lib");
+			libraries.push_back(hashing_lib);
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "hashing_lib", ex.err(), ex.what());
+	    	throw ex;
+	    }
+
+	    programs.clear();
+		auto noise_gen_h = compileProgram(readFile("src/main/cpp/noise_gen.h"),
+				{ opencl_utils_h }, { "opencl_utils.h" });
+		programs.push_back(noise_gen_h);
+		auto noise_gen_c = compileProgram(readFile("src/main/cpp/noise_gen.c"),
+				{ noise_gen_h, opencl_utils_h, hashing_h, utility_h },
+				{ "noise_gen.h", "opencl_utils.h", "hashing.h", "utility.h", });
+		programs.push_back(noise_gen_c);
+		try {
+			Program noise_gen_lib = linkProgram(hashing_lib, noise_gen_c, "-create-library");
+			logger->debug("Successfully linked {}", "noise_gen_lib");
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "noise_gen_lib", ex.err(), ex.what());
+			 cl_int buildErr = CL_SUCCESS;
+			 auto buildInfo = noise_gen_c.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+			 for (auto &pair : buildInfo) {
+				 logger->error("Error link {} {}", "noise_gen_lib", std::string(pair.second));
+			 }
+	    	throw ex;
+	    }
 	}
 
 	Program compileProgram(
@@ -109,13 +143,13 @@ protected:
 			std::vector<std::string> inputHeaderNames = std::vector<std::string>()) {
 		ProgramEx p(s);
 		try {
-			logger->debug("Compiling {}", s);
+			logger->debug("Compiling {}", s.substr(0, 60));
 			p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
 		} catch (...) {
 			 cl_int buildErr = CL_SUCCESS;
 			 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
 			 for (auto &pair : buildInfo) {
-				 logger->error("Error compile {} for: {}", std::string(pair.second), s);
+				 logger->error("Error compile {}", std::string(pair.second));
 			 }
 		}
 		return std::move(p);
@@ -123,12 +157,19 @@ protected:
 
 	virtual void SetUp() {
 		logger = spdlog::stderr_color_mt("a", spdlog::color_mode::automatic);
-		logger->set_level(spdlog::level::info);
+		logger->set_level(spdlog::level::debug);
 		logger->flush_on(spdlog::level::err);
 		EXPECT_TRUE(loadPlatform()) << "Unable to load platform";
 		createPrograms();
 		auto t = GetParam();
-		auto pfinal = linkProgram(programs);
+		Program kernel = compileProgram(t.source);
+		Program pfinal;
+//		try {
+//			pfinal = linkProgram(library, kernel);
+//	    } catch (const cl::Error &ex) {
+//	    	logger->error("Link program error {}: {}", ex.err(), ex.what());
+//	    	throw ex;
+//	    }
 
 		int numElements = 64;
 	    std::vector<int> output(numElements, 0xdeadbeef);

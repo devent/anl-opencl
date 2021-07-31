@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#include "opencl_utils.h"
+#include <opencl_utils.h>
 
 #define FNV_32_PRIME ((uint)0x01000193)
 #define FNV_32_INIT ((uint )2166136261)

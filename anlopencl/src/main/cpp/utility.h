@@ -59,7 +59,7 @@ REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c) {
 }
 
 REAL bias(REAL b, REAL t) {
-	return pow(t, log(b) / log(0.5));
+	return pow(t, log(b) / log((REAL)0.5));
 }
 
 REAL gain(REAL g, REAL t) {

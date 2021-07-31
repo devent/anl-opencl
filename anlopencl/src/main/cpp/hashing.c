@@ -5,7 +5,7 @@
  *      Author: Erwin Müller
  */
 
-#include "hashing.h"
+#include <hashing.h>
 
 #ifdef ANL_LONG_PERIOD_HASHING
 // Use long-period hashing
