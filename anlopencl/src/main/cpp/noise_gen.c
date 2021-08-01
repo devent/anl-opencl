@@ -50,9 +50,13 @@
  *      Author: Erwin Müller
  */
 
+#ifndef USE_OPENCL
+
 #include <noise_gen.h>
 #include <hashing.h>
 #include <utility.h>
+
+#endif // USE_OPENCL
 
 REAL noInterp(REAL t) {
 	return 0;

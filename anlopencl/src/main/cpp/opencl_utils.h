@@ -1,5 +1,5 @@
 /*
- * utils.h
+ * opencl_utils.h
  *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
@@ -24,10 +24,10 @@ typedef float float2 __attribute__((ext_vector_type(2)));
 typedef float float3 __attribute__((ext_vector_type(3)));
 typedef float float4 __attribute__((ext_vector_type(4)));
 
-#endif
+#endif // USE_OPENCL
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
 #endif /* OPENCL_UTILS_H_ */

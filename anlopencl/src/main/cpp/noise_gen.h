@@ -57,7 +57,11 @@
 extern "C" {
 #endif
 
+#ifndef USE_OPENCL
+
 #include <opencl_utils.h>
+
+#endif // USE_OPENCL
 
 typedef REAL (*interp_func)(REAL);
 typedef REAL (*noise_func2)(REAL, REAL, uint, interp_func);

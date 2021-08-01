@@ -9,8 +9,31 @@
 #define PROGRAM_EX_HPP_
 
 #include <CL/cl2.hpp>
+#include <spdlog/spdlog.h>
 
 using namespace cl;
+
+bool loadPlatform(std::shared_ptr<spdlog::logger> logger) {
+    std::vector<Platform> platforms;
+    Platform::get(&platforms);
+    Platform plat;
+    for (auto &p : platforms) {
+        std::string platver = p.getInfo<CL_PLATFORM_VERSION>();
+        if (platver.find("OpenCL 3.") != std::string::npos) {
+            plat = p;
+        }
+    }
+    if (plat() == 0)  {
+    	logger->error("No OpenCL 3 platform found.");
+        return false;
+    }
+    Platform newP = Platform::setDefault(plat);
+    if (newP != plat) {
+    	logger->error("Error setting default platform.");
+        return false;
+    }
+    return true;
+}
 
 #define COMPILE_PROGRAM_ERR "Error compile program"
 
@@ -85,6 +108,29 @@ public:
 #endif // CL_HPP_TARGET_OPENCL_VERSION >= 120
 
 };
+
+#if CL_HPP_TARGET_OPENCL_VERSION >= 120
+
+Program compileProgram(
+		std::shared_ptr<spdlog::logger> logger,
+		std::string s,
+		std::vector<Program> inputHeaders = std::vector<Program>(),
+		std::vector<std::string> inputHeaderNames = std::vector<std::string>()) {
+	ProgramEx p(s);
+	try {
+		logger->debug("Compiling {}", s.substr(0, 60));
+		p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
+	} catch (...) {
+		 cl_int buildErr = CL_SUCCESS;
+		 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+		 for (auto &pair : buildInfo) {
+			 logger->error("Error compile {}", std::string(pair.second));
+		 }
+	}
+	return std::move(p);
+}
+
+#endif // CL_HPP_TARGET_OPENCL_VERSION >= 120
 
 #if CL_HPP_TARGET_OPENCL_VERSION >= 120
 
