@@ -120,12 +120,13 @@ Program compileProgram(
 	try {
 		logger->debug("Compiling {}", s.substr(0, 60));
 		p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
-	} catch (...) {
+	} catch (const Error &ex) {
 		 cl_int buildErr = CL_SUCCESS;
 		 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
 		 for (auto &pair : buildInfo) {
 			 logger->error("Error compile {}", std::string(pair.second));
 		 }
+		 throw ex;
 	}
 	return std::move(p);
 }

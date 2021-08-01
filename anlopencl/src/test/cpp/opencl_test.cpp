@@ -73,12 +73,13 @@ protected:
 		std::stringstream ss;
 		ss << readFile("src/main/cpp/opencl_utils.h");
 		ss << readFile("src/main/cpp/utility.h");
-		ss << readFile("src/main/cpp/hashsing.h");
-		ss << readFile("src/main/cpp/hashsing.c");
+		ss << readFile("src/main/cpp/hashing.h");
+		ss << readFile("src/main/cpp/hashing.c");
 		ss << readFile("src/main/cpp/noise_gen.h");
 		ss << readFile("src/main/cpp/noise_gen.c");
 		Program p = compileProgram(logger, ss.str());
 		logger->debug("Successfully compiled sources.");
+		logger->debug(ss.str());
 		try {
 			library = linkProgram(p, "-create-library");
 			logger->debug("Successfully linked sources");
@@ -99,18 +100,19 @@ protected:
 		logger->flush_on(spdlog::level::err);
 		EXPECT_TRUE(loadPlatform(logger)) << "Unable to load platform";
 		createPrograms();
+
 		auto t = GetParam();
 		Program kernel = compileProgram(logger, t.source);
 		Program pfinal;
 		try {
 			pfinal = linkProgram(library, kernel);
-	    } catch (const cl::Error &ex) {
-	    	logger->error("Link kernel error {}: {}", ex.err(), ex.what());
-	    	throw ex;
-	    }
+		} catch (const cl::Error &ex) {
+			logger->error("Link kernel error {}: {}", ex.err(), ex.what());
+			throw ex;
+		}
 
 		int numElements = 64;
-	    std::vector<int> output(numElements, 0xdeadbeef);
+	    std::vector<float> output(numElements, 0.0f);
 	    cl::Buffer outputBuffer(begin(output), end(output), false);
 
 	    cl::DeviceCommandQueue defaultDeviceQueue;
@@ -187,9 +189,9 @@ std::vector<cl_mem> value_noise2D_buffers(cl_context context) {
 
 INSTANTIATE_TEST_SUITE_P(opencl, OpenCL_Context_Fixture,
 		Values(OpenCL_Context {"value_noise2D_test", R"EOT(
-kernel void updateGlobal(global int *output) {
+kernel void updateGlobal(global float *output) {
 	int id = get_global_id(0);
-	output[id] = 22;
+	output[id] = value_noise2D(10.0, 10.0, 200, linearInterp);
 }
 )EOT", &value_noise2D_buffers})
 		);
