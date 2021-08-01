@@ -13,6 +13,7 @@
 #include <fstream>
 #include <streambuf>
 #include <algorithm>
+#include <memory>
 
 #ifdef __APPLE__
 #include <OpenCL/opencl.h>
@@ -21,34 +22,33 @@
 #endif
 
 #define CL_HPP_ENABLE_EXCEPTIONS
-#include <CL/cl2.hpp>
+#include <CL/opencl.hpp>
 
 #include "program_ex.hpp"
+
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 using namespace cl;
 using ::testing::TestWithParam;
 using ::testing::Values;
+using ::spdlog::info;
+using ::spdlog::error;
 
-typedef std::vector<cl_mem> (*createBuffer)(cl_context);
+typedef std::vector<cl_mem> (*OpenCL_Context_createBuffer)(cl_context);
 
 struct OpenCL_Context {
-	string kernel;
-	string source;
-	createBuffer createBuffer;
+	std::string kernel;
+	std::string source;
+	OpenCL_Context_createBuffer createBuffer;
 };
 
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<OpenCL_Context> {
 public:
-	std::vector<string> input_headers;
-	std::vector<string> input_header_names;
+	std::shared_ptr<spdlog::logger> logger;
+	std::vector<Program> libraries;
 protected:
 	OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
-		input_headers.push_back(readFile("src/main/cpp/use_opencl.h"));
-		input_header_names.push_back("use_opencl.h");
-		input_headers.push_back(readFile("src/main/cpp/opencl_utils.h"));
-		input_header_names.push_back("opencl_utils.h");
-		input_headers.push_back(readFile("src/main/cpp/utility.h"));
-		input_header_names.push_back("utility.h");
 	};
 
 	static std::string readFile(std::string fileName) {
@@ -91,34 +91,99 @@ protected:
 	    return true;
 	}
 
-	virtual void SetUp() {
-		EXPECT_TRUE(loadPlatform()) << "Unable to load platform";
-		vector<Program> programs;
-		vector<Program> input_headers_p;
-		for (auto s : input_headers) {
-			Program p(s);
-			try {
-				std::cerr << s << std::endl << std::endl;
-				p.compile();
-			} catch (...) {
-				 cl_int buildErr = CL_SUCCESS;
-				 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
-				 for (auto &pair : buildInfo) {
-				 	std::cerr << pair.second << std::endl << std::endl;
-				 }
-			}
-			input_headers_p.push_back(p);
+	void createPrograms() {
+		std::vector<Program> programs;
+		auto opencl_utils_h = compileProgram(readFile("src/main/cpp/opencl_utils.h"));
+		programs.push_back(opencl_utils_h);
+		auto utility_h = compileProgram(readFile("src/main/cpp/utility.h"),
+				{opencl_utils_h}, { "opencl_utils.h" });
+		programs.push_back(utility_h);
+		auto hashing_h = compileProgram(readFile("src/main/cpp/hashing.h"),
+				{ opencl_utils_h }, { "opencl_utils.h" });
+		programs.push_back(hashing_h);
+		auto hashing_c = compileProgram(readFile("src/main/cpp/hashing.c"),
+				{ opencl_utils_h, hashing_h }, { "opencl_utils.h", "hashing.h" });
+		programs.push_back(hashing_c);
+
+		Program hashing_lib;
+		try {
+			hashing_lib = linkProgram(programs, "-create-library");
+			logger->debug("Successfully linked {}", "hashing_lib");
+			libraries.push_back(hashing_lib);
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "hashing_lib", ex.err(), ex.what());
+	    	throw ex;
+	    }
+
+		Program hashing_lib_lib;
+		try {
+			hashing_lib_lib = linkProgram(hashing_lib, "-create-library");
+			logger->debug("Successfully linked {}", "hashing_lib_lib");
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "hashing_lib_lib", ex.err(), ex.what());
+	    	throw ex;
+	    }
+
+	    programs.clear();
+		auto noise_gen_h = compileProgram(readFile("src/main/cpp/noise_gen.h"),
+				{ opencl_utils_h }, { "opencl_utils.h" });
+		programs.push_back(noise_gen_h);
+		auto noise_gen_c = compileProgram(readFile("src/main/cpp/noise_gen.c"),
+				{ noise_gen_h, opencl_utils_h, hashing_h, utility_h },
+				{ "noise_gen.h", "opencl_utils.h", "hashing.h", "utility.h", });
+		programs.push_back(noise_gen_c);
+		logger->debug("Successfully compiled {}", "noise_gen.c");
+		try {
+			Program noise_gen_lib = linkProgram(hashing_lib_lib, noise_gen_c);
+			logger->debug("Successfully linked {}", "noise_gen_lib");
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "noise_gen_lib", ex.err(), ex.what());
+			 cl_int buildErr = CL_SUCCESS;
+			 auto buildInfo = hashing_lib.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+			 for (auto &pair : buildInfo) {
+				 logger->error("Error link {} {}", "noise_gen_lib", std::string(pair.second));
+			 }
+	    	throw ex;
+	    }
+	}
+
+	Program compileProgram(
+			std::string s,
+			std::vector<Program> inputHeaders = std::vector<Program>(),
+			std::vector<std::string> inputHeaderNames = std::vector<std::string>()) {
+		ProgramEx p(s);
+		try {
+			logger->debug("Compiling {}", s.substr(0, 60));
+			p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
+		} catch (...) {
+			 cl_int buildErr = CL_SUCCESS;
+			 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+			 for (auto &pair : buildInfo) {
+				 logger->error("Error compile {}", std::string(pair.second));
+			 }
 		}
+		return std::move(p);
+	}
+
+	virtual void SetUp() {
+		logger = spdlog::stderr_color_mt("a", spdlog::color_mode::automatic);
+		logger->set_level(spdlog::level::debug);
+		logger->flush_on(spdlog::level::err);
+		EXPECT_TRUE(loadPlatform()) << "Unable to load platform";
+		createPrograms();
 		auto t = GetParam();
-		ProgramEx psource(t.source);
-		psource.compile(input_headers_p, input_header_names);
-		programs.push_back(psource);
-		Program pfinal = linkProgram(programs);
+		Program kernel = compileProgram(t.source);
+		Program pfinal;
+//		try {
+//			pfinal = linkProgram(library, kernel);
+//	    } catch (const cl::Error &ex) {
+//	    	logger->error("Link program error {}: {}", ex.err(), ex.what());
+//	    	throw ex;
+//	    }
 
 		int numElements = 64;
 	    std::vector<int> output(numElements, 0xdeadbeef);
 	    cl::Buffer outputBuffer(begin(output), end(output), false);
-	    cl::Pipe aPipe(sizeof(cl_int), numElements / 2);
 
 	    cl::DeviceCommandQueue defaultDeviceQueue;
         defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -126,21 +191,24 @@ protected:
 
 	    auto vectorAddKernel =
 	        cl::KernelFunctor<
-	            cl::Buffer,
-	            cl::DeviceCommandQueue
+	            cl::Buffer
 	        >(pfinal, "updateGlobal");
 
-	    cl_int error;
-    	vectorAddKernel(
-            cl::EnqueueArgs(
-                cl::NDRange(numElements/2),
-                cl::NDRange(numElements/2)),
-            outputBuffer,
-            defaultDeviceQueue,
-    		error
-        );
+	    try {
+			cl_int error;
+			vectorAddKernel(
+				cl::EnqueueArgs(
+					cl::NDRange(numElements)),
+				outputBuffer,
+				error
+			);
+			logger->info("Created kernel error={}", error);
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Created kernel error {}: {}", ex.err(), ex.what());
+	    	throw ex;
+	    }
 
-    	 cl::copy(outputBuffer, begin(output), end(output));
+    	cl::copy(outputBuffer, begin(output), end(output));
 
 		cl::Device d = cl::Device::getDefault();
 		std::cout << "Max pipe args: " << d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>() << "\n";
@@ -192,9 +260,9 @@ std::vector<cl_mem> value_noise2D_buffers(cl_context context) {
 INSTANTIATE_TEST_SUITE_P(opencl, OpenCL_Context_Fixture,
 		Values(OpenCL_Context {"value_noise2D_test", R"EOT(
 #define USE_OPENCL
-global int globalA;
-kernel void updateGlobal() {
-	globalA = 75;
+kernel void updateGlobal(global int *output) {
+	int id = get_global_id(0);
+	output[id] = 22;
 }
 )EOT", &value_noise2D_buffers})
 		);

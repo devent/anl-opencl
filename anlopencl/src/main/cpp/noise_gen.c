@@ -50,9 +50,9 @@
  *      Author: Erwin Müller
  */
 
-#include "noise_gen.h"
-#include "hashing.h"
-#include "utility.h"
+#include <noise_gen.h>
+#include <hashing.h>
+#include <utility.h>
 
 REAL noInterp(REAL t) {
 	return 0;

@@ -86,4 +86,44 @@ public:
 
 };
 
+#if CL_HPP_TARGET_OPENCL_VERSION >= 120
+
+#define LINK_PROGRAM_ERR "Link program error"
+
+inline Program linkProgram(
+    Program input,
+    const char* options = NULL,
+    void (CL_CALLBACK * notifyFptr)(cl_program, void *) = NULL,
+    void* data = NULL,
+    cl_int* err = NULL)
+{
+    cl_int error_local = CL_SUCCESS;
+
+    cl_program programs[1] = { input() };
+
+    Context ctx = input.getInfo<CL_PROGRAM_CONTEXT>(&error_local);
+    if(error_local!=CL_SUCCESS) {
+        detail::errHandler(error_local, LINK_PROGRAM_ERR);
+    }
+
+    cl_program prog = ::clLinkProgram(
+        ctx(),
+        0,
+        NULL,
+        options,
+        1,
+        programs,
+        notifyFptr,
+        data,
+        &error_local);
+
+    detail::errHandler(error_local,COMPILE_PROGRAM_ERR);
+    if (err != NULL) {
+        *err = error_local;
+    }
+
+    return Program(prog);
+}
+#endif // CL_HPP_TARGET_OPENCL_VERSION >= 120
+
 #endif /* PROGRAM_EX_HPP_ */
