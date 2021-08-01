@@ -46,7 +46,7 @@ struct OpenCL_Context {
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<OpenCL_Context> {
 public:
 	std::shared_ptr<spdlog::logger> logger;
-	Program library;
+	Program kernel;
 protected:
 	OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
 	};
@@ -77,11 +77,13 @@ protected:
 		ss << readFile("src/main/cpp/hashing.c");
 		ss << readFile("src/main/cpp/noise_gen.h");
 		ss << readFile("src/main/cpp/noise_gen.c");
+		auto t = GetParam();
+		ss << t.source;
 		Program p = compileProgram(logger, ss.str());
 		logger->debug("Successfully compiled sources.");
 		logger->debug(ss.str());
 		try {
-			library = linkProgram(p, "-create-library");
+			kernel = linkProgram(p);
 			logger->debug("Successfully linked sources");
 	    } catch (const cl::Error &ex) {
 	    	logger->error("Link library error {}: {}", ex.err(), ex.what());
@@ -101,16 +103,6 @@ protected:
 		EXPECT_TRUE(loadPlatform(logger)) << "Unable to load platform";
 		createPrograms();
 
-		auto t = GetParam();
-		Program kernel = compileProgram(logger, t.source);
-		Program pfinal;
-		try {
-			pfinal = linkProgram(library, kernel);
-		} catch (const cl::Error &ex) {
-			logger->error("Link kernel error {}: {}", ex.err(), ex.what());
-			throw ex;
-		}
-
 		int numElements = 64;
 	    std::vector<float> output(numElements, 0.0f);
 	    cl::Buffer outputBuffer(begin(output), end(output), false);
@@ -122,7 +114,7 @@ protected:
 	    auto vectorAddKernel =
 	        cl::KernelFunctor<
 	            cl::Buffer
-	        >(pfinal, "updateGlobal");
+	        >(kernel, "updateGlobal");
 
 	    try {
 			cl_int error;
@@ -150,12 +142,12 @@ protected:
 		std::cout << "\tCL_DEVICE_SVM_FINE_GRAIN_SYSTEM = " << CL_DEVICE_SVM_FINE_GRAIN_SYSTEM << "\n";
 		std::cout << "\tCL_DEVICE_SVM_ATOMICS = " << CL_DEVICE_SVM_ATOMICS << "\n";
 
-		auto v = pfinal.getInfo<CL_PROGRAM_BINARIES>();
-		auto v2 = pfinal.getInfo<CL_PROGRAM_BINARY_SIZES>();
+		auto v = kernel.getInfo<CL_PROGRAM_BINARIES>();
+		auto v2 = kernel.getInfo<CL_PROGRAM_BINARY_SIZES>();
 		std::vector<std::vector<unsigned char>> v3;
 		std::vector<size_t> v4;
-		pfinal.getInfo(CL_PROGRAM_BINARIES, &v3);
-		pfinal.getInfo(CL_PROGRAM_BINARY_SIZES, &v4);
+		kernel.getInfo(CL_PROGRAM_BINARIES, &v3);
+		kernel.getInfo(CL_PROGRAM_BINARY_SIZES, &v4);
 
 		std::cout << "Binaries: " << v.size() << "\n";
 		std::cout << "Binary sizes: " << v2.size() << "\n";
@@ -191,7 +183,7 @@ INSTANTIATE_TEST_SUITE_P(opencl, OpenCL_Context_Fixture,
 		Values(OpenCL_Context {"value_noise2D_test", R"EOT(
 kernel void updateGlobal(global float *output) {
 	int id = get_global_id(0);
-	output[id] = value_noise2D(10.0, 10.0, 200, linearInterp);
+	output[id] = value_noise2D(10, 10, 200, linearInterp);
 }
 )EOT", &value_noise2D_buffers})
 		);
