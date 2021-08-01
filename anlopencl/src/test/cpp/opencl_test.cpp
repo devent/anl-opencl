@@ -115,6 +115,15 @@ protected:
 	    	throw ex;
 	    }
 
+		Program hashing_lib_lib;
+		try {
+			hashing_lib_lib = linkProgram(hashing_lib, "-create-library");
+			logger->debug("Successfully linked {}", "hashing_lib_lib");
+	    } catch (const cl::Error &ex) {
+	    	logger->error("Link library {} error {}: {}", "hashing_lib_lib", ex.err(), ex.what());
+	    	throw ex;
+	    }
+
 	    programs.clear();
 		auto noise_gen_h = compileProgram(readFile("src/main/cpp/noise_gen.h"),
 				{ opencl_utils_h }, { "opencl_utils.h" });
@@ -123,13 +132,14 @@ protected:
 				{ noise_gen_h, opencl_utils_h, hashing_h, utility_h },
 				{ "noise_gen.h", "opencl_utils.h", "hashing.h", "utility.h", });
 		programs.push_back(noise_gen_c);
+		logger->debug("Successfully compiled {}", "noise_gen.c");
 		try {
-			Program noise_gen_lib = linkProgram(hashing_lib, noise_gen_c, "-create-library");
+			Program noise_gen_lib = linkProgram(hashing_lib_lib, noise_gen_c);
 			logger->debug("Successfully linked {}", "noise_gen_lib");
 	    } catch (const cl::Error &ex) {
 	    	logger->error("Link library {} error {}: {}", "noise_gen_lib", ex.err(), ex.what());
 			 cl_int buildErr = CL_SUCCESS;
-			 auto buildInfo = noise_gen_c.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+			 auto buildInfo = hashing_lib.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
 			 for (auto &pair : buildInfo) {
 				 logger->error("Error link {} {}", "noise_gen_lib", std::string(pair.second));
 			 }
