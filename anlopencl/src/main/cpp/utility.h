@@ -10,9 +10,13 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
+
+#ifndef USE_OPENCL
 
 #include <opencl_utils.h>
+
+#endif // USE_OPENCL
 
 #ifndef USE_OPENCL
 REAL clamp(REAL v, REAL l, REAL h) {
@@ -23,7 +27,7 @@ REAL clamp(REAL v, REAL l, REAL h) {
 
 	return v;
 }
-#endif
+#endif // USE_OPENCL
 
 REAL lerp(REAL t, REAL a, REAL b) {
 	return a + t * (b - a);
@@ -72,6 +76,6 @@ REAL gain(REAL g, REAL t) {
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
 #endif /* UTILITY_H_ */

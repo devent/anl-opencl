@@ -154,6 +154,7 @@
 								<option id="llvm.c_cpp.compiler.option.debugging.level.1269713868" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="llvm.c_cpp.compiler.option.include.paths.1493279733" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/anl-opencl/anlopencl/src/main/cpp}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/include/opencv4"/>
 									<listOptionValue builtIn="false" value="/home/devent/Projects/dwarf-hustle/spdlog/include"/>
 									<listOptionValue builtIn="false" value="/home/devent/Projects/dwarf-hustle/OpenCL-CLHPP/include"/>
 									<listOptionValue builtIn="false" value="/home/devent/Projects/dwarf-hustle/OpenCL-Headers"/>
@@ -173,6 +174,7 @@
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="llvm.c.link.option.libs.2128873558" name="Libraries (-l)" superClass="llvm.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="pthread"/>
+									<listOptionValue builtIn="false" value="opencv_core"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" value="spdlog"/>
 									<listOptionValue builtIn="false" value="gtest"/>
