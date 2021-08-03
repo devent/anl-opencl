@@ -19,6 +19,7 @@
 struct KernelContext {
 	std::string kernel;
 	std::string source;
+	std::shared_ptr<std::vector<float>> output;
 };
 
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
@@ -30,7 +31,7 @@ protected:
 	OpenCL_Context_Fixture();
 	virtual void SetUp();
 	virtual void TearDown();
-	virtual size_t runKernel(cl::Program kernel) = 0;
+	virtual size_t runKernel(cl::Program & kernel) = 0;
 };
 
 #endif /* OPENCLTESTFIXTURE_H_ */

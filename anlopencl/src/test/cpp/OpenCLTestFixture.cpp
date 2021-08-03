@@ -212,7 +212,7 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 
 OpenCL_Context_Fixture::OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
 	logger = spdlog::stderr_color_mt("opencl_test", spdlog::color_mode::automatic);
-	logger->set_level(spdlog::level::debug);
+	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::err);
 };
 
@@ -227,35 +227,22 @@ void OpenCL_Context_Fixture::SetUp() {
 		logger->error("Created kernel error {}: {}", ex.err(), ex.what());
 		throw ex;
 	}
-	cl::copy((*outputBuffer), std::begin((*output)), std::end((*output)));
+	cl::copy(*outputBuffer, std::begin(*output), std::end(*output));
 
 	Device d = Device::getDefault();
-	std::cout << "Max pipe args: " << d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>() << "\n";
-	std::cout << "Max pipe active reservations: " << d.getInfo<CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS>() << "\n";
-	std::cout << "Max pipe packet size: " << d.getInfo<CL_DEVICE_PIPE_MAX_PACKET_SIZE>() << "\n";
-	std::cout << "Device SVM capabilities: " << d.getInfo<CL_DEVICE_SVM_CAPABILITIES>() << "\n";
-	std::cout << "\tCL_DEVICE_SVM_COARSE_GRAIN_BUFFER = " << CL_DEVICE_SVM_COARSE_GRAIN_BUFFER << "\n";
-	std::cout << "\tCL_DEVICE_SVM_FINE_GRAIN_BUFFER = " << CL_DEVICE_SVM_FINE_GRAIN_BUFFER << "\n";
-	std::cout << "\tCL_DEVICE_SVM_FINE_GRAIN_SYSTEM = " << CL_DEVICE_SVM_FINE_GRAIN_SYSTEM << "\n";
-	std::cout << "\tCL_DEVICE_SVM_ATOMICS = " << CL_DEVICE_SVM_ATOMICS << "\n";
+	logger->debug("Max compute units: {}", d.getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>());
+	logger->debug("Max dimensions: {}", d.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>());
+	//std::cout << "Max work item sizes: " << d.getInfo<CL_DEVICE_MAX_WORK_ITEM_SIZES>() << "\n";
+	logger->debug("Max work group sizes: {}", d.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>());
+	logger->debug("Max pipe args: {}", d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>());
+	logger->debug("Max pipe active reservations: {}", d.getInfo<CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS>());
+	logger->debug("Max pipe packet size: {}", d.getInfo<CL_DEVICE_PIPE_MAX_PACKET_SIZE>());
+	logger->debug("Device SVM capabilities: {}", d.getInfo<CL_DEVICE_SVM_CAPABILITIES>());
 
-	auto v = kernel.getInfo<CL_PROGRAM_BINARIES>();
-	auto v2 = kernel.getInfo<CL_PROGRAM_BINARY_SIZES>();
-	std::vector<std::vector<unsigned char>> v3;
-	std::vector<size_t> v4;
-	kernel.getInfo(CL_PROGRAM_BINARIES, &v3);
-	kernel.getInfo(CL_PROGRAM_BINARY_SIZES, &v4);
-
-	std::cout << "Binaries: " << v.size() << "\n";
-	std::cout << "Binary sizes: " << v2.size() << "\n";
-	for (size_t s : v2) {
-		std::cout << "\t" << s << "\n";
-	}
-
-	std::cout << "Output:\n";
-	for (int i = 1; i < numElements; ++i) {
-		std::cout << "\t" << (*output)[i] << "\n";
-	}
+//	std::cout << "Output:\n";
+//	for (int i = 0; i < numElements; ++i) {
+//		std::cout << "\t" << (*output)[i] << "\n";
+//	}
 }
 
 void OpenCL_Context_Fixture::TearDown() {
