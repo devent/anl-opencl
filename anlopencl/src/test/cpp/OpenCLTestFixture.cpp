@@ -1,17 +1,21 @@
 /*
- * program_ex.hpp
+ * OpenCLTestFixture.cpp
  *
- *  Created on: Jul 29, 2021
+ *  Created on: Aug 3, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef PROGRAM_EX_HPP_
-#define PROGRAM_EX_HPP_
-
-#include <CL/cl2.hpp>
-#include <spdlog/spdlog.h>
+#include <fstream>
+#include <algorithm>
+#include <stdlib.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include "OpenCLTestFixture.h"
 
 using namespace cl;
+using ::testing::TestWithParam;
+using ::testing::Values;
+using ::spdlog::info;
+using ::spdlog::error;
 
 bool loadPlatform(std::shared_ptr<spdlog::logger> logger) {
     std::vector<Platform> platforms;
@@ -173,4 +177,87 @@ inline Program linkProgram(
 }
 #endif // CL_HPP_TARGET_OPENCL_VERSION >= 120
 
-#endif /* PROGRAM_EX_HPP_ */
+std::string readFile(std::string fileName) {
+	std::ifstream f(fileName);
+	std::string s((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
+	return s;
+}
+
+Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelContext& t) {
+	std::stringstream ss;
+	ss << readFile("src/main/cpp/opencl_utils.h");
+	ss << readFile("src/main/cpp/utility.h");
+	ss << readFile("src/main/cpp/hashing.h");
+	ss << readFile("src/main/cpp/hashing.c");
+	ss << readFile("src/main/cpp/noise_gen.h");
+	ss << readFile("src/main/cpp/noise_gen.c");
+	ss << t.source;
+	Program p = compileProgram(logger, ss.str());
+	logger->debug("Successfully compiled sources.");
+	//logger->debug(ss.str());
+	try {
+		auto kernel = linkProgram(p);
+		logger->debug("Successfully linked sources");
+		return kernel;
+    } catch (const Error &ex) {
+    	logger->error("Link library error {}: {}", ex.err(), ex.what());
+		 cl_int buildErr = CL_SUCCESS;
+		 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+		 for (auto &pair : buildInfo) {
+			 logger->error("Error link {}", std::string(pair.second));
+		 }
+    	throw ex;
+    }
+}
+
+OpenCL_Context_Fixture::OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
+	logger = spdlog::stderr_color_mt("opencl_test", spdlog::color_mode::automatic);
+	logger->set_level(spdlog::level::debug);
+	logger->flush_on(spdlog::level::err);
+};
+
+void OpenCL_Context_Fixture::SetUp() {
+	EXPECT_TRUE(loadPlatform(logger)) << "Unable to load platform";
+	auto t = GetParam();
+	auto kernel = createPrograms(logger, GetParam());
+	size_t numElements;
+	try {
+		numElements = runKernel(kernel);
+	} catch (const cl::Error &ex) {
+		logger->error("Created kernel error {}: {}", ex.err(), ex.what());
+		throw ex;
+	}
+	cl::copy((*outputBuffer), std::begin((*output)), std::end((*output)));
+
+	Device d = Device::getDefault();
+	std::cout << "Max pipe args: " << d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>() << "\n";
+	std::cout << "Max pipe active reservations: " << d.getInfo<CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS>() << "\n";
+	std::cout << "Max pipe packet size: " << d.getInfo<CL_DEVICE_PIPE_MAX_PACKET_SIZE>() << "\n";
+	std::cout << "Device SVM capabilities: " << d.getInfo<CL_DEVICE_SVM_CAPABILITIES>() << "\n";
+	std::cout << "\tCL_DEVICE_SVM_COARSE_GRAIN_BUFFER = " << CL_DEVICE_SVM_COARSE_GRAIN_BUFFER << "\n";
+	std::cout << "\tCL_DEVICE_SVM_FINE_GRAIN_BUFFER = " << CL_DEVICE_SVM_FINE_GRAIN_BUFFER << "\n";
+	std::cout << "\tCL_DEVICE_SVM_FINE_GRAIN_SYSTEM = " << CL_DEVICE_SVM_FINE_GRAIN_SYSTEM << "\n";
+	std::cout << "\tCL_DEVICE_SVM_ATOMICS = " << CL_DEVICE_SVM_ATOMICS << "\n";
+
+	auto v = kernel.getInfo<CL_PROGRAM_BINARIES>();
+	auto v2 = kernel.getInfo<CL_PROGRAM_BINARY_SIZES>();
+	std::vector<std::vector<unsigned char>> v3;
+	std::vector<size_t> v4;
+	kernel.getInfo(CL_PROGRAM_BINARIES, &v3);
+	kernel.getInfo(CL_PROGRAM_BINARY_SIZES, &v4);
+
+	std::cout << "Binaries: " << v.size() << "\n";
+	std::cout << "Binary sizes: " << v2.size() << "\n";
+	for (size_t s : v2) {
+		std::cout << "\t" << s << "\n";
+	}
+
+	std::cout << "Output:\n";
+	for (int i = 1; i < numElements; ++i) {
+		std::cout << "\t" << (*output)[i] << "\n";
+	}
+}
+
+void OpenCL_Context_Fixture::TearDown() {
+}
+

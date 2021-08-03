@@ -13,9 +13,7 @@ extern "C" {
 #endif
 
 #ifndef USE_OPENCL
-
 #include <opencl_utils.h>
-
 #endif // USE_OPENCL
 
 #define FNV_32_PRIME ((uint)0x01000193)

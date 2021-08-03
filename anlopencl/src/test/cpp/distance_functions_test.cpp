@@ -44,75 +44,48 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * noise_gen.h
+ * interpolation_functions_test.cpp
  *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef NOISE_GEN_H_
-#define NOISE_GEN_H_
+#include <gtest/gtest.h>
+#include "noise_gen.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+using ::testing::TestWithParam;
+using ::testing::Values;
 
-#ifndef USE_OPENCL
+struct Func2 {
+	vector2 a;
+	vector2 b;
+	REAL y;
+};
 
-#include <opencl_utils.h>
+class distEuclid2_params: public ::testing::TestWithParam<Func2> {
+};
 
-#endif // USE_OPENCL
-
-typedef REAL (*interp_func)(REAL);
-typedef REAL (*noise_func2)(REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func3)(REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func4)(REAL, REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func6)(REAL, REAL, REAL, REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*dist_func2)(REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func3)(REAL, REAL, REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func4)(REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func6)(REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL);
-
-// Interpolation functions
-REAL noInterp(REAL t);
-REAL linearInterp(REAL t);
-REAL hermiteInterp(REAL t);
-REAL quinticInterp(REAL t);
-
-// Distance functions
-REAL distEuclid2(vector2 a, vector2 b);
-REAL distEuclid3(vector3 a, vector3 b);
-REAL distEuclid4(vector4 a, vector4 b);
-REAL distEuclid8(vector8 a, vector8 b);
-REAL distEuclid16(vector16 a, vector16 b);
-
-REAL distManhattan2(vector2 a, vector2 b);
-REAL distManhattan3(vector3 a, vector3 b);
-REAL distManhattan4(vector4 a, vector4 b);
-REAL distManhattan8(vector8 a, vector8 b);
-REAL distManhattan16(vector16 a, vector16 b);
-
-REAL distGreatestAxis2(vector2 a, vector2 b);
-REAL distGreatestAxis3(vector3 a, vector3 b);
-REAL distGreatestAxis4(vector4 a, vector4 b);
-REAL distGreatestAxis8(vector8 a, vector8 b);
-REAL distGreatestAxis16(vector16 a, vector16 b);
-
-REAL distLeastAxis2(vector2 a, vector2 b);
-REAL distLeastAxis3(vector3 a, vector3 b);
-REAL distLeastAxis4(vector4 a, vector4 b);
-REAL distLeastAxis8(vector8 a, vector8 b);
-REAL distLeastAxis16(vector16 a, vector16 b);
-
-// Noise generators
-REAL value_noise2D(vector2 v, uint seed, interp_func interp);
-REAL value_noise3D(vector3 v, uint seed, interp_func interp);
-REAL value_noise4D(vector4 v, uint seed, interp_func interp);
-REAL value_noise8D(vector8 v, uint seed, interp_func interp);
-REAL value_noise16D(vector16 v, uint seed, interp_func interp);
-
-#ifdef __cplusplus
+TEST_P(distEuclid2_params, distEuclid2) {
+	auto t = GetParam();
+	EXPECT_NEAR(distEuclid2(t.a, t.b), t.y, 0.0001);
 }
-#endif
 
-#endif /* NOISE_GEN_H_ */
+INSTANTIATE_TEST_SUITE_P(noise, distEuclid2_params,
+		Values(
+				Func2{vector2{0.000, 0.000}, vector2{0.000, 0.000}, 0.000},
+				Func2{vector2{0.000, 0.000}, vector2{5.000, 5.000}, 7.071}
+		));
+
+class distManhattan2_params: public ::testing::TestWithParam<Func2> {
+};
+
+TEST_P(distManhattan2_params, distManhattan2) {
+	auto t = GetParam();
+	EXPECT_NEAR(distManhattan2(t.a, t.b), t.y, 0.0001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise, distManhattan2_params,
+		Values(
+				Func2{vector2{0.000, 0.000}, vector2{0.000, 0.000}, 0.000},
+				Func2{vector2{0.000, 0.000}, vector2{5.000, 5.000}, 10.000}
+		));
