@@ -73,31 +73,93 @@ protected:
 
 TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
 	auto t = GetParam();
-	int i = 0;
-	EXPECT_NEAR((*output)[i++], 0.152941, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.0588236, 0.000001);
-	EXPECT_NEAR((*output)[i++], -0.0352941, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.403922, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.0627452, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.105882, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.14902, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.1, 0.000001);
-	EXPECT_NEAR((*output)[i++], -0.0274509, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.152941, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.333333, 0.000001);
-	EXPECT_NEAR((*output)[i++], -0.203922, 0.000001);
-	EXPECT_NEAR((*output)[i++], 0.180392, 0.000001);
-	EXPECT_NEAR((*output)[i++], -0.0372549, 0.000001);
-	EXPECT_NEAR((*output)[i++], -0.254902, 0.000001);
+	for (int i = 0; i < t.expected.size(); ++i) {
+		EXPECT_NEAR((*output)[i], t.expected[i], 0.00001);
+	}
 }
 
 INSTANTIATE_TEST_SUITE_P(opencl, value_noise2D_fixture,
-		Values(KernelContext {"value_noise2D_with_linearInterp_test", R"EOT(
+		Values(
+				KernelContext { "value_noise2D_with_linearInterp_test",
+						R"EOT(
 kernel void value_noise2D_with_linearInterp_test(
 global float2 *input,
 global float *output) {
 	int id = get_global_id(0);
-	output[id] = value_noise2D(input[id], 200, linearInterp);
+	output[id] = value_noise2D(input[id], 200, noInterp);
 }
-)EOT"})
-		);
+)EOT",
+						{
+								0.152941, //
+								0.152941, //
+								-0.0352941, //
+								-0.0352941, //
+								0.152941, //
+								0.152941, //
+								-0.0352941, //
+								-0.0352941, //
+								-0.0274509, //
+								-0.0274509, //
+								0.333333, //
+								0.333333, //
+								-0.0274509, //
+								-0.0274509, //
+								0.333333, //
+								0.333333 //
+						} }, //
+				KernelContext { "value_noise2D_with_linearInterp_test",
+						R"EOT(
+		kernel void value_noise2D_with_linearInterp_test(
+		global float2 *input,
+		global float *output) {
+			int id = get_global_id(0);
+			output[id] = value_noise2D(input[id], 200, linearInterp);
+		}
+		)EOT",
+						{
+								0.152941, //
+								0.0588236, //
+								-0.0352941, //
+								0.403922, //
+								0.0627452, //
+								0.105882, //
+								0.14902, //
+								0.1, //
+								-0.0274509, //
+								0.152941, //
+								0.333333, //
+								-0.203922, //
+								0.180392, //
+								-0.0372549, //
+								-0.254902, //
+								-0.37451 //
+						} }, //
+				KernelContext { "value_noise2D_with_noInterp_test",
+						R"EOT(
+				kernel void value_noise2D_with_noInterp_test(
+				global float2 *input,
+				global float *output) {
+					int id = get_global_id(0);
+					output[id] = gradient_noise2D(input[id], 200, noInterp);
+				}
+				)EOT",
+						{
+								0, //
+								-0.395285, //
+								0, //
+								-0.395285, //
+								-0.158114, //
+								-0.553399, //
+								-0.158114, //
+								-0.553399, //
+								0, //
+								0.158114, //
+								0, //
+								0.395285, //
+								0.395285, //
+								0.553399, //
+								-0.158114, //
+								0.237171, //
+						} }
+//
+				));

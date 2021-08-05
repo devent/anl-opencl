@@ -58,20 +58,22 @@ extern "C" {
 #endif
 
 #ifndef USE_OPENCL
-
 #include <opencl_utils.h>
-
 #endif // USE_OPENCL
 
 typedef REAL (*interp_func)(REAL);
-typedef REAL (*noise_func2)(REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func3)(REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func4)(REAL, REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*noise_func6)(REAL, REAL, REAL, REAL, REAL, REAL, uint, interp_func);
-typedef REAL (*dist_func2)(REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func3)(REAL, REAL, REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func4)(REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL);
-typedef REAL (*dist_func6)(REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL, REAL);
+
+typedef REAL (*noise_func2)(vector2, uint, interp_func);
+typedef REAL (*noise_func3)(vector3, uint, interp_func);
+typedef REAL (*noise_func4)(vector4, uint, interp_func);
+typedef REAL (*noise_func8)(vector8, uint, interp_func);
+typedef REAL (*noise_func16)(vector16, uint, interp_func);
+
+typedef REAL (*dist_func2)(vector2, vector2);
+typedef REAL (*dist_func3)(vector3, vector3);
+typedef REAL (*dist_func4)(vector4, vector4);
+typedef REAL (*dist_func8)(vector8, vector8);
+typedef REAL (*dist_func16)(vector16, vector16);
 
 // Interpolation functions
 REAL noInterp(REAL t);
@@ -110,6 +112,30 @@ REAL value_noise3D(vector3 v, uint seed, interp_func interp);
 REAL value_noise4D(vector4 v, uint seed, interp_func interp);
 REAL value_noise8D(vector8 v, uint seed, interp_func interp);
 REAL value_noise16D(vector16 v, uint seed, interp_func interp);
+
+REAL gradient_noise2D(vector2 v, uint seed, interp_func interp);
+REAL gradient_noise3D(vector3 v, uint seed, interp_func interp);
+REAL gradient_noise4D(vector4 v, uint seed, interp_func interp);
+REAL gradient_noise8D(vector8 v, uint seed, interp_func interp);
+REAL gradient_noise16D(vector16 v, uint seed, interp_func interp);
+
+REAL gradval_noise2D(vector2 v, uint seed, interp_func interp);
+REAL gradval_noise3D(vector3 v, uint seed, interp_func interp);
+REAL gradval_noise4D(vector4 v, uint seed, interp_func interp);
+REAL gradval_noise8D(vector8 v, uint seed, interp_func interp);
+REAL gradval_noise16D(vector16 v, uint seed, interp_func interp);
+
+REAL white_noise2D(vector2 v, uint seed, interp_func interp);
+REAL white_noise3D(vector3 v, uint seed, interp_func interp);
+REAL white_noise4D(vector4 v, uint seed, interp_func interp);
+REAL white_noise8D(vector8 v, uint seed, interp_func interp);
+REAL white_noise16D(vector16 v, uint seed, interp_func interp);
+
+REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
+REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);
+REAL simplex_noise4D(vector4 v, uint seed, interp_func interp);
+REAL simplex_noise8D(vector8 v, uint seed, interp_func interp);
+REAL simplex_noise16D(vector16 v, uint seed, interp_func interp);
 
 #ifdef __cplusplus
 }

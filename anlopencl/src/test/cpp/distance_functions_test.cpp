@@ -89,3 +89,33 @@ INSTANTIATE_TEST_SUITE_P(noise, distManhattan2_params,
 				Func2{vector2{0.000, 0.000}, vector2{0.000, 0.000}, 0.000},
 				Func2{vector2{0.000, 0.000}, vector2{5.000, 5.000}, 10.000}
 		));
+
+class distGreatestAxis2_params: public ::testing::TestWithParam<Func2> {
+};
+
+TEST_P(distGreatestAxis2_params, distGreatestAxis2) {
+	auto t = GetParam();
+	EXPECT_NEAR(distGreatestAxis2(t.a, t.b), t.y, 0.0001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise, distGreatestAxis2_params,
+		Values(
+				Func2{vector2{0.000, 0.000}, vector2{0.000, 0.000}, 0.000},
+				Func2{vector2{0.000, 0.000}, vector2{5.000, 0.000}, 5.000},
+				Func2{vector2{0.000, 0.000}, vector2{5.000, 5.000}, 5.000}
+		));
+
+class distLeastAxis2_params: public ::testing::TestWithParam<Func2> {
+};
+
+TEST_P(distLeastAxis2_params, distLeastAxis2) {
+	auto t = GetParam();
+	EXPECT_NEAR(distLeastAxis2(t.a, t.b), t.y, 0.0001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise, distLeastAxis2_params,
+		Values(
+				Func2{vector2{0.000, 0.000}, vector2{0.000, 0.000}, 0.000},
+				Func2{vector2{0.000, 0.000}, vector2{0.000, 5.000}, 0.000},
+				Func2{vector2{0.000, 0.000}, vector2{5.000, 5.000}, 5.000}
+		));
