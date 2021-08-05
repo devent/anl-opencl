@@ -50,6 +50,22 @@ int fast_floor(REAL t) {
 	return (t > 0 ? (int) t : (int) t - 1);
 }
 
+int2 fast_floor2(vector2 v) {
+#if USE_OPENCL
+	return convert_int2(floor(v));
+#else
+	return (int2){ floor(v.x), floor(v.y) };
+#endif
+}
+
+int3 fast_floor3(vector3 v) {
+#if USE_OPENCL
+	return convert_int3(floor(v));
+#else
+	return (int3){ floor(v.x), floor(v.y), floor(v.z) };
+#endif
+}
+
 REAL array_dot(REAL *arr, REAL a, REAL b) {
 	return a * arr[0] + b * arr[1];
 }

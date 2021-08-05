@@ -19,16 +19,23 @@
 struct KernelContext {
 	std::string kernel;
 	std::string source;
-	std::shared_ptr<std::vector<float>> output;
+	size_t imageWidth = 1024;
+	size_t imageHeight;
+	size_t imageSize;
+	KernelContext(std::string kernel, std::string source, size_t imageWidth) :
+			kernel(kernel), source(source), imageWidth(imageWidth) {
+		imageHeight = imageWidth;
+		imageSize = imageWidth * imageHeight;
+	}
 };
 
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
-	std::shared_ptr<spdlog::logger> logger;
+	static std::shared_ptr<spdlog::logger> logger;
 	std::shared_ptr<std::vector<float>> output;
 	std::shared_ptr<cl::Buffer> outputBuffer;
 protected:
-	OpenCL_Context_Fixture();
+	static void SetUpTestSuite();
 	virtual void SetUp();
 	virtual void TearDown();
 	virtual size_t runKernel(cl::Program & kernel) = 0;

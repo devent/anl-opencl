@@ -183,12 +183,21 @@ std::string readFile(std::string fileName) {
 	return s;
 }
 
+std::shared_ptr<spdlog::logger> OpenCL_Context_Fixture::logger = []() -> std::shared_ptr<spdlog::logger> {
+	logger = spdlog::stderr_color_mt("OpenCL_Context_Fixture", spdlog::color_mode::automatic);
+	logger->set_level(spdlog::level::trace);
+	logger->flush_on(spdlog::level::err);
+	return logger;
+}();
+
 Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelContext& t) {
 	std::stringstream ss;
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/utility.h");
 	ss << readFile("src/main/cpp/hashing.h");
 	ss << readFile("src/main/cpp/hashing.c");
+	ss << readFile("src/main/cpp/noise_lut.h");
+	ss << readFile("src/main/cpp/noise_lut.c");
 	ss << readFile("src/main/cpp/noise_gen.h");
 	ss << readFile("src/main/cpp/noise_gen.c");
 	ss << t.source;
@@ -210,11 +219,17 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
     }
 }
 
-OpenCL_Context_Fixture::OpenCL_Context_Fixture() { // @suppress("Class members should be properly initialized")
-	logger = spdlog::stderr_color_mt("opencl_test", spdlog::color_mode::automatic);
-	logger->set_level(spdlog::level::trace);
-	logger->flush_on(spdlog::level::err);
-};
+void OpenCL_Context_Fixture::SetUpTestSuite() {
+	Device d = Device::getDefault();
+	logger->debug("Max compute units: {}", d.getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>());
+	logger->debug("Max dimensions: {}", d.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>());
+	//std::cout << "Max work item sizes: " << d.getInfo<CL_DEVICE_MAX_WORK_ITEM_SIZES>() << "\n";
+	logger->debug("Max work group sizes: {}", d.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>());
+	logger->debug("Max pipe args: {}", d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>());
+	logger->debug("Max pipe active reservations: {}", d.getInfo<CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS>());
+	logger->debug("Max pipe packet size: {}", d.getInfo<CL_DEVICE_PIPE_MAX_PACKET_SIZE>());
+	logger->debug("Device SVM capabilities: {}", d.getInfo<CL_DEVICE_SVM_CAPABILITIES>());
+}
 
 void OpenCL_Context_Fixture::SetUp() {
 	EXPECT_TRUE(loadPlatform(logger)) << "Unable to load platform";
@@ -228,16 +243,6 @@ void OpenCL_Context_Fixture::SetUp() {
 		throw ex;
 	}
 	cl::copy(*outputBuffer, std::begin(*output), std::end(*output));
-
-	Device d = Device::getDefault();
-	logger->debug("Max compute units: {}", d.getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>());
-	logger->debug("Max dimensions: {}", d.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>());
-	//std::cout << "Max work item sizes: " << d.getInfo<CL_DEVICE_MAX_WORK_ITEM_SIZES>() << "\n";
-	logger->debug("Max work group sizes: {}", d.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>());
-	logger->debug("Max pipe args: {}", d.getInfo<CL_DEVICE_MAX_PIPE_ARGS>());
-	logger->debug("Max pipe active reservations: {}", d.getInfo<CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS>());
-	logger->debug("Max pipe packet size: {}", d.getInfo<CL_DEVICE_PIPE_MAX_PACKET_SIZE>());
-	logger->debug("Device SVM capabilities: {}", d.getInfo<CL_DEVICE_SVM_CAPABILITIES>());
 
 //	std::cout << "Output:\n";
 //	for (int i = 0; i < numElements; ++i) {
