@@ -21,7 +21,6 @@ struct SMappingRanges create_range_default() {
 
 void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL nx, ny, nz;
 	vector3* v = ((vector3*) (out));
 	v[index].x = ranges.mapx0 + p * (ranges.mapx1 - ranges.mapx0);
 	v[index].y = ranges.mapy0 + q * (ranges.mapy1 - ranges.mapy0);
@@ -30,7 +29,7 @@ void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 
 void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, nx, ny, nz, nw;
+	REAL dx, dy;
 	vector4* v = ((vector4*) (out));
 	dx = ranges.loopx1 - ranges.loopx0;
 	dy = ranges.mapy1 - ranges.mapy0;
@@ -43,7 +42,7 @@ void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,
 
 void calc_seamless_y(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, nx, ny, nz, nw;
+	REAL dx, dy;
 	vector4* v = ((vector4*) (out));
 	dx = ranges.mapx1 - ranges.mapx0;
 	dy = ranges.loopy1 - ranges.loopy0;
@@ -56,7 +55,7 @@ void calc_seamless_y(void *out, int index, size_t x, size_t y, REAL p,
 
 void calc_seamless_z(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, nx, ny, nz, nw, zval;
+	REAL dx, dy, dz, r, zval;
 	vector4* v = ((vector4*) (out));
 	dx = ranges.mapx1 - ranges.mapx0;
 	dy = ranges.mapy1 - ranges.mapy0;
@@ -71,7 +70,7 @@ void calc_seamless_z(void *out, int index, size_t x, size_t y, REAL p,
 
 void calc_seamless_xy(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, nx, ny, nz, nw, nu;
+	REAL dx, dy;
 	vector8* v = ((vector8*) (out));
 	dx = ranges.loopx1 - ranges.loopx0;
 	dy = ranges.loopy1 - ranges.loopy0;
@@ -81,12 +80,12 @@ void calc_seamless_xy(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].y = ranges.loopx0 + sin(p * M_PI_2) * dx / M_PI_2;
 	v[index].z = ranges.loopy0 + cos(q * M_PI_2) * dy / M_PI_2;
 	v[index].w = ranges.loopy0 + sin(q * M_PI_2) * dy / M_PI_2;
-	v[index].u = chunk.z;
+	v[index].s4 = chunk.z;
 }
 
 void calc_seamless_xz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, nx, ny, nz, nw, nu, zval;
+	REAL dx, dy, dz, r, zval;
 	vector8* v = ((vector8*) (out));
 	dx = ranges.loopx1 - ranges.loopx0;
 	dy = ranges.mapy1 - ranges.mapy0;
@@ -98,12 +97,12 @@ void calc_seamless_xz(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].y = ranges.loopx0 + sin(p * M_PI_2) * dx / M_PI_2;
 	v[index].z = ranges.mapy0 + q * dy;
 	v[index].w = ranges.loopz0 + cos(zval * M_PI_2) * dz / M_PI_2;
-	v[index].u = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
+	v[index].s4 = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
 }
 
 void calc_seamless_yz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, nx, ny, nz, nw, nu, zval;
+	REAL dx, dy, dz, r, zval;
 	vector8* v = ((vector8*) (out));
 	dx = ranges.mapx1 - ranges.mapx0;
 	dy = ranges.loopy1 - ranges.loopy0;
@@ -115,12 +114,12 @@ void calc_seamless_yz(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].y = ranges.loopy0 + cos(q * M_PI_2) * dy / M_PI_2;
 	v[index].z = ranges.loopy0 + sin(q * M_PI_2) * dy / M_PI_2;
 	v[index].w = ranges.loopz0 + cos(zval * M_PI_2) * dz / M_PI_2;
-	v[index].u = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
+	v[index].s4 = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
 }
 
 void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, zval, nx, ny, nz, nw, nu, nv;
+	REAL dx, dy, dz, r, zval;
 	vector8* v = ((vector8*) (out));
 	dx = ranges.loopx1 - ranges.loopx0;
 	dy = ranges.loopy1 - ranges.loopy0;
@@ -133,8 +132,8 @@ void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].y = ranges.loopx0 + sin(p * M_PI_2) * dx / M_PI_2;
 	v[index].z = ranges.loopy0 + cos(q * M_PI_2) * dy / M_PI_2;
 	v[index].w = ranges.loopy0 + sin(q * M_PI_2) * dy / M_PI_2;
-	v[index].u = ranges.loopz0 + cos(zval * M_PI_2) * dz / M_PI_2;
-	v[index].v = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
+	v[index].s4 = ranges.loopz0 + cos(zval * M_PI_2) * dz / M_PI_2;
+	v[index].s5 = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
 }
 
 void map2DChunk(struct SChunk chunk) {

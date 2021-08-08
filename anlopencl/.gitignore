@@ -1,1 +1,4 @@
 /Debug-LLVM/
+/Debug/
+/Debug-OpenCL/
+.cproject

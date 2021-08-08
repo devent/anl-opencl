@@ -64,7 +64,7 @@ struct map2D_data {
 	REAL z;
 };
 
-class map2D_params: public ::testing::TestWithParam<map2D_data> {
+class map2D_3_params: public ::testing::TestWithParam<map2D_data> {
 protected:
 
 	std::vector<vector3> out;
@@ -78,7 +78,7 @@ protected:
 	}
 };
 
-TEST_P(map2D_params, seamless_none) {
+TEST_P(map2D_3_params, seamless_none) {
 	auto t = GetParam();
 	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
 	for (int i = 0; i < out.size(); ++i) {
@@ -86,6 +86,69 @@ TEST_P(map2D_params, seamless_none) {
 	}
 }
 
-INSTANTIATE_TEST_SUITE_P(map2D, map2D_params,
-		Values(map2D_data { calc_seamless_none, create_range_default(), 4, 4, 0 }));
+INSTANTIATE_TEST_SUITE_P(map2D, map2D_3_params,
+		Values(
+				map2D_data { calc_seamless_none, create_range_default(), 2, 2, 99 } //
+				));
 
+class map2D_4_params: public ::testing::TestWithParam<map2D_data> {
+protected:
+
+	std::vector<vector4> out;
+
+	virtual void SetUp() {
+		auto t = GetParam();
+		out = std::vector<vector4>(t.width * t.height);
+	}
+
+	virtual void TearDown() {
+	}
+};
+
+TEST_P(map2D_4_params, seamless_none) {
+	auto t = GetParam();
+	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
+	for (int i = 0; i < out.size(); ++i) {
+		printf("%f/%f/%f/%f\n", out[i].x, out[i].y, out[i].z, out[i].w);
+	}
+}
+
+INSTANTIATE_TEST_SUITE_P(map2D, map2D_4_params, Values(map2D_data {
+		calc_seamless_x, create_range_default(), 2, 2, 99 }, //
+		//
+		map2D_data { calc_seamless_y, create_range_default(), 2, 2, 99 }, //
+		//
+		map2D_data { calc_seamless_z, create_range_default(), 2, 2, 99 } //
+		));
+
+class map2D_8_params: public ::testing::TestWithParam<map2D_data> {
+protected:
+
+	std::vector<vector8> out;
+
+	virtual void SetUp() {
+		auto t = GetParam();
+		out = std::vector<vector8>(t.width * t.height);
+	}
+
+	virtual void TearDown() {
+	}
+};
+
+TEST_P(map2D_8_params, seamless_none) {
+	auto t = GetParam();
+	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
+	for (int i = 0; i < out.size(); ++i) {
+		printf("%f/%f/%f/%f/%f/%f\n", out[i].x, out[i].y, out[i].z, out[i].w, out[i].s4, out[i].s5);
+	}
+}
+
+INSTANTIATE_TEST_SUITE_P(map2D, map2D_8_params, Values(map2D_data {
+		calc_seamless_xy, create_range_default(), 2, 2, 99 }, //
+		//
+		map2D_data { calc_seamless_xz, create_range_default(), 2, 2, 99 }, //
+		//
+		map2D_data { calc_seamless_yz, create_range_default(), 2, 2, 99 }, //
+		//
+		map2D_data { calc_seamless_xyz, create_range_default(), 2, 2, 99 } //
+		));
