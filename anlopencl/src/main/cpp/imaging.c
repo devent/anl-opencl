@@ -191,7 +191,6 @@ void* map2DChunk(void *vargp) {
 		for (int y = 0; y < chunk.chunkheight; ++y) {
 			int realy = y + chunk.chunkyoffset;
 			int index = chunk.chunkyoffset * chunk.height + y * chunk.width + x;
-			//printf("[%d] off=%d %d/%d %d\n", pthread_self(), chunk.chunkyoffset, x, y, index);
 			REAL p = (REAL) x / (REAL) (chunk.width);
 			REAL q = (REAL) realy / (REAL) (chunk.height);
 			chunk.calc_seamless(chunk.out, index, x, y, p, q, chunk, ranges);
@@ -243,27 +242,28 @@ void* map2D(void *out, calc_seamless calc_seamless,
 		threadcount = 1;
 	}
 	pthread_t threads[threadcount];
+	struct SChunk* chunks[threadcount];
 	for (int thread = 0; thread < threadcount; ++thread) {
-		struct SChunk chunk;
-		chunk.calc_seamless = calc_seamless;
-		chunk.out = out;
-		chunk.width = width;
-		chunk.height = height;
+		chunks[thread] = malloc(sizeof(struct SChunk));
+		chunks[thread]->calc_seamless = calc_seamless;
+		chunks[thread]->out = out;
+		chunks[thread]->width = width;
+		chunks[thread]->height = height;
 		int offsety = thread * chunksize;
 		if (thread == threadcount - 1) {
-			chunk.chunkheight = height - (chunksize * (threadcount - 1));
+			chunks[thread]->chunkheight = height - (chunksize * (threadcount - 1));
 		} else {
-			chunk.chunkheight = chunksize;
+			chunks[thread]->chunkheight = chunksize;
 		}
-		chunk.chunkyoffset = offsety;
-		chunk.ranges = ranges;
-		chunk.z = z;
-		pthread_create(&threads[thread], NULL, map2DChunk, &chunk);
-		pthread_join(threads[thread], NULL);
+		chunks[thread]->chunkyoffset = offsety;
+		chunks[thread]->ranges = ranges;
+		chunks[thread]->z = z;
+		pthread_create(&threads[thread], NULL, map2DChunk, chunks[thread]);
 	}
-//	for (int c = 0; c < threadcount; ++c) {
-//		pthread_join(threads[c], NULL);
-//	}
+	for (int c = 0; c < threadcount; ++c) {
+		pthread_join(threads[c], NULL);
+		free(chunks[c]);
+	}
 #endif // USE_THREAD
 	return out;
 }

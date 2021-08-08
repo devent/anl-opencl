@@ -68,7 +68,13 @@ static void map2D_seamless_none_bench(benchmark::State &state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(map2D_seamless_none_bench)->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
+BENCHMARK(map2D_seamless_none_bench)->
+#ifdef USE_THREAD
+		Name("map2D_seamless_none-THREAD")
+#else
+		Name("map2D_seamless_none-NO-THREAD")
+#endif // USE_THREAD
+		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
 TEST(map2D_bench, seamless_none) {
 	int argc = 0;
