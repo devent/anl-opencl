@@ -59,7 +59,7 @@ static void map2D_seamless_none_bench(benchmark::State &state) {
 		state.PauseTiming();
 		auto width = state.range(0);
 		auto out = std::vector<vector3>(width * width);
-		auto ranges = create_range_default();
+		auto ranges = create_ranges_default();
 		double z = 99;
 		state.ResumeTiming();
 		map2D(out.data(), calc_seamless_none, ranges, width, width, z);

@@ -60,7 +60,7 @@
 #include "imaging.h"
 #endif // USE_OPENCL
 
-struct SMappingRanges create_range_default() {
+struct SMappingRanges create_ranges_default() {
 	struct SMappingRanges r;
 	r.mapx0 = r.mapy0 = r.mapz0 = r.loopx0 = r.loopy0 = r.loopz0 = -1;
 	r.mapx1 = r.mapy1 = r.mapz1 = r.loopx1 = r.loopy1 = r.loopz1 = 1;

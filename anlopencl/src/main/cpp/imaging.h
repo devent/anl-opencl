@@ -77,7 +77,7 @@ struct SMappingRanges {
 	REAL loopx0, loopy0, loopz0, loopx1, loopy1, loopz1;
 };
 
-struct SMappingRanges create_range_default();
+struct SMappingRanges create_ranges_default();
 
 struct SChunk;
 

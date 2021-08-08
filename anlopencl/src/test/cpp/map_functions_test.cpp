@@ -88,7 +88,7 @@ TEST_P(map2D_3_params, seamless_none) {
 
 INSTANTIATE_TEST_SUITE_P(map2D, map2D_3_params,
 		Values(
-				map2D_data { calc_seamless_none, create_range_default(), 2, 2, 99 } //
+				map2D_data { calc_seamless_none, create_ranges_default(), 2, 2, 99 } //
 				));
 
 class map2D_4_params: public ::testing::TestWithParam<map2D_data> {
@@ -114,11 +114,11 @@ TEST_P(map2D_4_params, seamless_none) {
 }
 
 INSTANTIATE_TEST_SUITE_P(map2D, map2D_4_params, Values(map2D_data {
-		calc_seamless_x, create_range_default(), 2, 2, 99 }, //
+		calc_seamless_x, create_ranges_default(), 2, 2, 99 }, //
 		//
-		map2D_data { calc_seamless_y, create_range_default(), 2, 2, 99 }, //
+		map2D_data { calc_seamless_y, create_ranges_default(), 2, 2, 99 }, //
 		//
-		map2D_data { calc_seamless_z, create_range_default(), 2, 2, 99 } //
+		map2D_data { calc_seamless_z, create_ranges_default(), 2, 2, 99 } //
 		));
 
 class map2D_8_params: public ::testing::TestWithParam<map2D_data> {
@@ -144,11 +144,11 @@ TEST_P(map2D_8_params, seamless_none) {
 }
 
 INSTANTIATE_TEST_SUITE_P(map2D, map2D_8_params, Values(map2D_data {
-		calc_seamless_xy, create_range_default(), 2, 2, 99 }, //
+		calc_seamless_xy, create_ranges_default(), 2, 2, 99 }, //
 		//
-		map2D_data { calc_seamless_xz, create_range_default(), 2, 2, 99 }, //
+		map2D_data { calc_seamless_xz, create_ranges_default(), 2, 2, 99 }, //
 		//
-		map2D_data { calc_seamless_yz, create_range_default(), 2, 2, 99 }, //
+		map2D_data { calc_seamless_yz, create_ranges_default(), 2, 2, 99 }, //
 		//
-		map2D_data { calc_seamless_xyz, create_range_default(), 2, 2, 99 } //
+		map2D_data { calc_seamless_xyz, create_ranges_default(), 2, 2, 99 } //
 		));
