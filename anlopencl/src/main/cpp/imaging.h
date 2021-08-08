@@ -40,7 +40,7 @@ typedef void (*calc_seamless)(void*, int, size_t x, size_t y, REAL p, REAL q,
 		struct SChunk chunk, struct SMappingRanges ranges);
 
 struct SChunk {
-	calc_seamless calc_coord;
+	calc_seamless calc_seamless;
 	vector3 *a;
 	int awidth, aheight;
 	int chunkheight, chunkyoffset;

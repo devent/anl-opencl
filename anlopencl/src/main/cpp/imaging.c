@@ -7,8 +7,11 @@
 
 #ifndef USE_OPENCL
 #ifdef USE_THREAD
-#include <thread>
-#endif
+#include <pthread.h>
+#ifdef _GNU_SOURCE
+#include <sys/sysinfo.h>
+#endif // _GNU_SOURCE
+#endif // USE_THREAD
 #include "imaging.h"
 #endif // USE_OPENCL
 
@@ -136,24 +139,49 @@ void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].s5 = ranges.loopz0 + sin(zval * M_PI_2) * dz / M_PI_2;
 }
 
-void map2DChunk(struct SChunk chunk) {
+void* map2DChunk(void *vargp) {
+	struct SChunk chunk = *(struct SChunk*)(vargp);
 	struct SMappingRanges ranges = chunk.ranges;
 	for (int x = 0; x < chunk.awidth; ++x) {
 		for (int y = 0; y < chunk.chunkheight; ++y) {
 			int realy = y + chunk.chunkyoffset;
-			int index = y * chunk.awidth + x;
+			int index = chunk.chunkyoffset * chunk.aheight + y * chunk.awidth + x;
+			//printf("[%d] off=%d %d/%d %d\n", pthread_self(), chunk.chunkyoffset, x, y, index);
 			REAL p = (REAL) x / (REAL) (chunk.awidth);
 			REAL q = (REAL) realy / (REAL) (chunk.aheight);
-			chunk.calc_coord(chunk.a, index, x, y, p, q, chunk, ranges);
+			chunk.calc_seamless(chunk.a, index, x, y, p, q, chunk, ranges);
 		}
 	}
+	return NULL;
 }
+
+#ifdef USE_THREAD
+/**
+ * From https://stackoverflow.com/questions/7341046/posix-equivalent-of-boostthreadhardware-concurrency
+ */
+int hardware_concurrency() {
+#if defined(PTW32_VERSION) || defined(__hpux)
+    return pthread_num_processors_np();
+#elif defined(__APPLE__) || defined(__FreeBSD__)
+    int count;
+    size_t size=sizeof(count);
+    return sysctlbyname("hw.ncpu",&count,&size,NULL,0)?0:count;
+#elif defined(BOOST_HAS_UNISTD_H) && defined(_SC_NPROCESSORS_ONLN)
+    int const count=sysconf(_SC_NPROCESSORS_ONLN);
+    return (count>0)?count:0;
+#elif defined(_GNU_SOURCE)
+    return get_nprocs();
+#else
+	return 0;
+#endif
+}
+#endif // USE_THREAD
 
 void* map2D(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height, REAL z) {
 #ifndef USE_THREAD
 	struct SChunk chunk;
-	chunk.calc_coord = calc_seamless;
+	chunk.calc_seamless = calc_seamless;
 	chunk.a = out;
 	chunk.awidth = width;
 	chunk.aheight = height;
@@ -161,34 +189,36 @@ void* map2D(void *out, calc_seamless calc_seamless,
 	chunk.chunkyoffset = 0;
 	chunk.ranges = ranges;
 	chunk.z = z;
-    map2DChunk(chunk);
+    map2DChunk(&chunk);
 #else
-    unsigned threadcount=std::thread::hardware_concurrency();
-    int chunksize=std::floor(a.height() / threadcount);
-    std::vector<std::thread> threads;
-
-    for(unsigned int thread=0; thread<threadcount; ++thread)
-    {
-        SChunk chunk(at);
-        chunk.seamlessmode=seamlessmode;
-        REAL *arr=a.getData();
-        int offsety=thread*chunksize;
-        chunk.a=&arr[offsety*a.width()];
-        chunk.awidth=a.width();
-        chunk.aheight=a.height();
-        if(thread==threadcount-1) chunk.chunkheight=a.height()-(chunksize*(threadcount-1));
-        else chunk.chunkheight=chunksize;
-        chunk.chunkyoffset=offsety;
-        chunk.kernel=k;
-        chunk.ranges=ranges;
-        chunk.z=z;
-        threads.push_back(std::thread(map2DChunk, chunk));
-    }
-
-    for(unsigned int c=0; c<threads.size(); ++c)
-    {
-        threads[c].join();
-    }
+	int threadcount = hardware_concurrency();
+	int chunksize = floor(height / threadcount);
+	if (chunksize == 0) {
+		chunksize = height;
+		threadcount = 1;
+	}
+	pthread_t threads[threadcount];
+	for (int thread = 0; thread < threadcount; ++thread) {
+		struct SChunk chunk;
+		chunk.calc_seamless = calc_seamless;
+		chunk.a = out;
+		chunk.awidth = width;
+		chunk.aheight = height;
+		int offsety = thread * chunksize;
+		if (thread == threadcount - 1) {
+			chunk.chunkheight = height - (chunksize * (threadcount - 1));
+		} else {
+			chunk.chunkheight = chunksize;
+		}
+		chunk.chunkyoffset = offsety;
+		chunk.ranges = ranges;
+		chunk.z = z;
+		pthread_create(&threads[thread], NULL, map2DChunk, &chunk);
+		pthread_join(threads[thread], NULL);
+	}
+//	for (int c = 0; c < threadcount; ++c) {
+//		pthread_join(threads[c], NULL);
+//	}
 #endif // USE_THREAD
-    return out;
+	return out;
 }
