@@ -86,8 +86,8 @@ typedef void (*calc_seamless)(void*, int, size_t x, size_t y, REAL p, REAL q,
 
 struct SChunk {
 	calc_seamless calc_seamless;
-	vector3 *a;
-	int awidth, aheight;
+	void *out;
+	int width, height;
 	int chunkheight, chunkyoffset;
 	struct SMappingRanges ranges;
 	REAL z;

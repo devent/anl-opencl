@@ -187,14 +187,14 @@ void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 void* map2DChunk(void *vargp) {
 	struct SChunk chunk = *(struct SChunk*)(vargp);
 	struct SMappingRanges ranges = chunk.ranges;
-	for (int x = 0; x < chunk.awidth; ++x) {
+	for (int x = 0; x < chunk.width; ++x) {
 		for (int y = 0; y < chunk.chunkheight; ++y) {
 			int realy = y + chunk.chunkyoffset;
-			int index = chunk.chunkyoffset * chunk.aheight + y * chunk.awidth + x;
+			int index = chunk.chunkyoffset * chunk.height + y * chunk.width + x;
 			//printf("[%d] off=%d %d/%d %d\n", pthread_self(), chunk.chunkyoffset, x, y, index);
-			REAL p = (REAL) x / (REAL) (chunk.awidth);
-			REAL q = (REAL) realy / (REAL) (chunk.aheight);
-			chunk.calc_seamless(chunk.a, index, x, y, p, q, chunk, ranges);
+			REAL p = (REAL) x / (REAL) (chunk.width);
+			REAL q = (REAL) realy / (REAL) (chunk.height);
+			chunk.calc_seamless(chunk.out, index, x, y, p, q, chunk, ranges);
 		}
 	}
 	return NULL;
@@ -227,9 +227,9 @@ void* map2D(void *out, calc_seamless calc_seamless,
 #ifndef USE_THREAD
 	struct SChunk chunk;
 	chunk.calc_seamless = calc_seamless;
-	chunk.a = out;
-	chunk.awidth = width;
-	chunk.aheight = height;
+	chunk.out = out;
+	chunk.width = width;
+	chunk.height = height;
 	chunk.chunkheight = height;
 	chunk.chunkyoffset = 0;
 	chunk.ranges = ranges;
@@ -246,9 +246,9 @@ void* map2D(void *out, calc_seamless calc_seamless,
 	for (int thread = 0; thread < threadcount; ++thread) {
 		struct SChunk chunk;
 		chunk.calc_seamless = calc_seamless;
-		chunk.a = out;
-		chunk.awidth = width;
-		chunk.aheight = height;
+		chunk.out = out;
+		chunk.width = width;
+		chunk.height = height;
 		int offsety = thread * chunksize;
 		if (thread == threadcount - 1) {
 			chunk.chunkheight = height - (chunksize * (threadcount - 1));
