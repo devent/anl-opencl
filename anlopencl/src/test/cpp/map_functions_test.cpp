@@ -44,7 +44,7 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * interpolation_functions_test.cpp
+ * map_functions_test.cpp
  *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
