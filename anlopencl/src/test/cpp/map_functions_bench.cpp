@@ -44,7 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * map_functions_test.cpp
+ * map_functions_bench.cpp
+ *
+ * Flag to run only this tests:
+ * --gtest_filter="*bench*"
  *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller

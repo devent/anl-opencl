@@ -46,6 +46,9 @@
 /*
  * map_functions_test.cpp
  *
+ * Flag to run only this tests:
+ * --gtest_filter="*map2D_*-*bench*"
+ *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
  */

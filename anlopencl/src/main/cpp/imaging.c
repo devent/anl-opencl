@@ -73,6 +73,7 @@ void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].x = ranges.mapx0 + p * (ranges.mapx1 - ranges.mapx0);
 	v[index].y = ranges.mapy0 + q * (ranges.mapy1 - ranges.mapy0);
 	v[index].z = chunk.z;
+	printf("%d/%d # %d %f/%f\n", x, y, index, v[index].x, v[index].y);
 }
 
 void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,

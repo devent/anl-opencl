@@ -46,16 +46,18 @@
 /*
  * opencl_test.cpp
  *
+ * Flag to run only this tests:
+ * --gtest_filter="*opencl_value_noise2D*"
+ *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
  */
 
 #include <memory>
+#include <strings.h>
 
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
-
-#include "OpenCLTestFixture.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -64,7 +66,8 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core/mat.hpp>
 
-#include <strings.h>
+#include "OpenCLTestFixture.h"
+#include "imaging.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;
@@ -74,22 +77,18 @@ using ::spdlog::error;
 class value_noise2D_fixture: public OpenCL_Context_Fixture {
 protected:
 
-	void fill2dSpace(cv::Mat & v, size_t imageWidth) {
-		float increment = 2.0 / imageWidth;
-		float vx = -1.0;
-		float vy = -1.0;
+	void fill2dSpace(cv::Mat & v, size_t width) {
+		std::vector<vector3> v3(width * width);
+		map2D(v3.data(), calc_seamless_none, create_ranges_default(), width, width, 0);
 		size_t i = 0;
-		for (size_t y = 0; y < imageWidth; ++y) {
-			for (size_t x = 0; x < imageWidth; ++x) {
-				v.at<float>(i, 0) = vx;
-				v.at<float>(i, 1) = vy;
+		for (size_t x = 0; x < width; ++x) {
+			for (size_t y = 0; y < width; ++y) {
+				v.at<float>(i, 0) = v3[i].x;
+				v.at<float>(i, 1) = v3[i].y;
 				++i;
-				vx += increment;
 			}
-			vx = -1.0;
-			vy += increment;
 		}
-		//std::cout << "M = " << std::endl << " " << cv::Formatter::get(cv::Formatter::FMT_PYTHON)->format(v) << std::endl << std::endl;
+		std::cout << "M = " << std::endl << " " << v << std::endl << std::endl;
 	}
 
 	virtual size_t runKernel(cl::Program & kernel) {
@@ -120,6 +119,7 @@ TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     std::memcpy(m.data, output->data(), output->size() * sizeof(float));
+	std::cout << "M = " << std::endl << " " << m << std::endl << std::endl;
     std::string w = "Grey Image Vec Copy";
     cv::namedWindow(w, cv::WINDOW_NORMAL);
     cv::resizeWindow(w, 1024, 1024);
@@ -128,7 +128,7 @@ TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
     cv::destroyAllWindows();
 }
 
-const size_t size = pow(2, 12);
+const size_t size = pow(2, 2);
 
 INSTANTIATE_TEST_SUITE_P(opencl, value_noise2D_fixture,
 		Values(
