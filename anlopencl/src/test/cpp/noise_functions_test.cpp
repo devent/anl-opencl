@@ -112,7 +112,21 @@ TEST_P(noise_func3_params, value_noise3D) {
 
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, -0.82745 }, //
+		Func3D { (vector3){ -1.0, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.56078 }, //
+		Func3D { (vector3){ -1.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.56078 }, //
+		Func3D { (vector3){ -1.0, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.92157 }, //
+		Func3D { (vector3){ -0.5, -1.0, 0.0 }, 200, value_noise3D, noInterp, 0.25490 }, //
+		Func3D { (vector3){ -0.5, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
+		Func3D { (vector3){ -0.5, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
+		Func3D { (vector3){ -0.5, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.98431 }, //
+		Func3D { (vector3){ 0.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, 0.25490 }, //
+		Func3D { (vector3){ 0.0, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
+		Func3D { (vector3){ 0.0, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.98431 }, //
+		Func3D { (vector3){ 0.5, -1.0, 0.0 }, 200, value_noise3D, noInterp, 0.80392 }, //
+		Func3D { (vector3){ 0.5, -0.5, 0.0 }, 200, value_noise3D, noInterp, -0.40392 }, //
+		Func3D { (vector3){ 0.5, 0.0, 0.0 }, 200, value_noise3D, noInterp, -0.40392 }, //
+		Func3D { (vector3){ 0.5, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.82745 }, //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, linearInterp, -0.47451 }, //
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, linearInterp, 0.28627 }, //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, hermiteInterp, -0.47451 }, //

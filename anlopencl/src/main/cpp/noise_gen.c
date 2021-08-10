@@ -161,6 +161,16 @@ REAL grad_noise_2(vector2 v, int ix, int iy, unsigned int seed) {
 	return (dx * vec[0] + dy * vec[1]);
 }
 
+REAL grad_noise_3(vector3 v, int ix, int iy, int iz, uint seed) {
+	uint hash = hash_coords_3(ix, iy, iz, seed) % 12;
+	REAL *vec = &gradient3D_lut[hash][0];
+
+	REAL dx = v.x - (REAL) ix;
+	REAL dy = v.y - (REAL) iy;
+	REAL dz = v.z - (REAL) iz;
+	return (dx * vec[0] + dy * vec[1] + dz * vec[2]);
+}
+
 // Worker noise functions
 
 typedef REAL (*worker_noise_2)(vector2, int, int, uint);
@@ -238,6 +248,18 @@ REAL gradient_noise2D(vector2 v, uint seed, interp_func interp) {
 	REAL ys = interp((v.y - (REAL) v0.y));
 
 	return interp_XY_2(v, xs, ys, v0.x, v1.x, v0.y, v1.y, seed, grad_noise_2);
+}
+
+REAL gradient_noise3D(vector3 v, uint seed, interp_func interp) {
+	int3 v0 = fast_floor3(v);
+	int3 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+
+	return interp_XYZ_3(v, xs, ys, zs, v0.x, v1.x, v0.y, v1.y, v0.z, v1.z, seed,
+			grad_noise_3);
 }
 
 REAL gradval_noise2D(vector2 v, uint seed, interp_func interp) {

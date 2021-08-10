@@ -75,29 +75,41 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_noise2D_fixture: public OpenCL_Context_Fixture {
+class value_noise3D_fixture: public OpenCL_Context_Fixture {
 protected:
 
-	void fill2dSpace(cv::Mat & v, size_t width) {
-		std::vector<vector3> v3(width * width);
-		map2D(v3.data(), calc_seamless_none, create_ranges_default(), width, width, 0);
-		size_t i = 0;
-		for (size_t x = 0; x < width; ++x) {
-			for (size_t y = 0; y < width; ++y) {
-				v.at<float>(i, 0) = v3[i].x;
-				v.at<float>(i, 1) = v3[i].y;
-				++i;
-			}
+	/**
+	 * float3 have 4 floats.
+	 */
+	const size_t dim = 4;
+
+	std::string mat_to_s(cv::Mat & m) {
+	    std::string ms;
+	    ms << m;
+	    return ms;
+	}
+
+	void fill2dSpace(std::vector<float> & v, size_t width) {
+		std::vector<vector3> vv(width * width);
+		map2D(vv.data(), calc_seamless_none, create_ranges_default(), width, width, 0);
+		size_t j = 0;
+		for (size_t i = 0; i < width * width * dim; i += dim) {
+			v[i] = vv[j].x;
+			v[i + 1] = vv[j].y;
+			v[i + 2] = vv[j].z;
+			++j;
 		}
-		//std::cout << "M = " << std::endl << " " << v << std::endl << std::endl;
 	}
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		cv::Mat input = cv::Mat::zeros(t.imageSize, 2, CV_32F);
+		auto input = std::vector<float>(t.imageSize * dim, 0.0f);
     	fill2dSpace(input, t.imageWidth);
-    	cl::Buffer inputBuffer(input.begin<float>(), input.end<float>(), false);
+//		for (int i = 0; i < input.size(); i += dim) {
+//			printf("%.5f/%.5f/%.5f\n", input[i], input[i+1], input[i+2], input[i+3]);
+//		}
+    	cl::Buffer inputBuffer(std::begin(input), std::end(input), false);
 		auto output = std::make_shared<std::vector<float>>(t.imageSize, 0.0f);
 	    cl::Buffer outputBuffer(std::begin(*output), std::end(*output), false);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
@@ -115,24 +127,19 @@ protected:
 		return t.imageSize;
 	}
 
-	std::string mat_to_s(cv::Mat & m) {
-	    std::string ms;
-	    ms << m;
-	    return ms;
-	}
 };
 
-TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
+TEST_P(value_noise3D_fixture, opencl_value_noise3D) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     float min = *std::min_element(output->begin(), output->end());
     float max = *std::max_element(output->begin(), output->end());
     scaleToRange(output->data(), output->size(), min, max, 0, 1);
     std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-    //logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
+//    logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
     std::string w = "Grey Image Vec Copy";
     cv::namedWindow(w, cv::WINDOW_NORMAL);
-    cv::resizeWindow(w, 1024, 1024);
+    cv::resizeWindow(w, 512, 512);
     cv::imshow(w, m);
     cv::waitKey(0);
     cv::destroyAllWindows();
@@ -140,36 +147,36 @@ TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_value_noise2D, value_noise2D_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_value_noise3D, value_noise3D_fixture,
 		Values(
-				KernelContext("value_noise2D_with_linearInterp_test",
+				KernelContext("value_noise3D_with_linearInterp_test",
 						R"EOT(
-kernel void value_noise2D_with_linearInterp_test(
-global float2 *input,
+kernel void value_noise3D_with_linearInterp_test(
+global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	output[id] = value_noise2D(input[id], 200, noInterp);
+	output[id] = value_noise3D(input[id], 200, noInterp);
 }
 )EOT",
 						size), //
-				KernelContext("value_noise2D_with_linearInterp_test",
+				KernelContext("value_noise3D_with_linearInterp_test",
 						R"EOT(
-		kernel void value_noise2D_with_linearInterp_test(
-		global float2 *input,
-		global float *output) {
-			int id = get_global_id(0);
-			output[id] = value_noise2D(input[id], 200, linearInterp);
-		}
-		)EOT",
+kernel void value_noise3D_with_linearInterp_test(
+global float3 *input,
+global float *output) {
+	int id = get_global_id(0);
+	output[id] = value_noise3D(input[id], 200, linearInterp);
+}
+)EOT",
 						size), //
-				KernelContext("value_noise2D_with_noInterp_test",
+				KernelContext("gradient_noise3D_with_noInterp_test",
 						R"EOT(
-				kernel void value_noise2D_with_noInterp_test(
-				global float2 *input,
-				global float *output) {
-					int id = get_global_id(0);
-					output[id] = gradient_noise2D(input[id], 200, noInterp);
-				}
-				)EOT",
+kernel void gradient_noise3D_with_noInterp_test(
+global float3 *input,
+global float *output) {
+	int id = get_global_id(0);
+	output[id] = gradient_noise3D(input[id], 200, noInterp);
+}
+)EOT",
 						size) //
 						));
