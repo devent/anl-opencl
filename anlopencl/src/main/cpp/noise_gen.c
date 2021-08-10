@@ -145,6 +145,12 @@ REAL value_noise_2(vector2 v, int ix, int iy, uint seed) {
 	return noise * 2.0 - 1.0;
 }
 
+REAL value_noise_3(vector3 v, int ix, int iy, int iz, uint seed) {
+	uint n = (hash_coords_3(ix, iy, iz, seed)) % 256;
+	REAL noise = (REAL) n / (255.0);
+	return noise * 2.0 - 1.0;
+}
+
 REAL grad_noise_2(vector2 v, int ix, int iy, unsigned int seed) {
 	uint hash = hash_coords_2(ix, iy, seed) % 8;
 	REAL *vec = &gradient2D_lut[hash][0];
@@ -179,6 +185,27 @@ REAL interp_XY_2(vector2 v, REAL xs, REAL ys, int x0, int x1, int y0,
 	return lerp(ys, v1, v2);
 }
 
+REAL interp_X_3(vector3 v, REAL xs, int x0, int x1, int iy, int iz,
+		uint seed, worker_noise_3 noisefunc) {
+	REAL v1 = noisefunc(v, x0, iy, iz, seed);
+	REAL v2 = noisefunc(v, x1, iy, iz, seed);
+	return lerp(xs, v1, v2);
+}
+
+REAL interp_XY_3(vector3 v, REAL xs, REAL ys, int x0, int x1,
+		int y0, int y1, int iz, uint seed, worker_noise_3 noisefunc) {
+	REAL v1 = interp_X_3(v, xs, x0, x1, y0, iz, seed, noisefunc);
+	REAL v2 = interp_X_3(v, xs, x0, x1, y1, iz, seed, noisefunc);
+	return lerp(ys, v1, v2);
+}
+
+REAL interp_XYZ_3(vector3 v, REAL xs, REAL ys, REAL zs, int x0, int x1, int y0,
+		int y1, int z0, int z1, uint seed, worker_noise_3 noisefunc) {
+	REAL v1 = interp_XY_3(v, xs, ys, x0, x1, y0, y1, z0, seed, noisefunc);
+	REAL v2 = interp_XY_3(v, xs, ys, x0, x1, y0, y1, z1, seed, noisefunc);
+	return lerp(zs, v1, v2);
+}
+
 // The usable noise functions
 
 REAL value_noise2D(vector2 v, uint seed, interp_func interp) {
@@ -189,6 +216,18 @@ REAL value_noise2D(vector2 v, uint seed, interp_func interp) {
 	REAL ys = interp((v.y - (REAL) v0.y));
 
 	return interp_XY_2(v, xs, ys, v0.x, v1.x, v0.y, v1.y, seed, value_noise_2);
+}
+
+REAL value_noise3D(vector3 v, uint seed, interp_func interp) {
+	int3 v0 = fast_floor3(v);
+	int3 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+
+	return interp_XYZ_3(v, xs, ys, zs, v0.x, v1.x, v0.y, v1.y, v0.z, v1.z, seed,
+			value_noise_3);
 }
 
 REAL gradient_noise2D(vector2 v, uint seed, interp_func interp) {

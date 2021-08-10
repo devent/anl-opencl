@@ -47,7 +47,7 @@
  * opencl_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="*opencl_value_noise2D*"
+ * --gtest_filter="opencl_value_noise2D*"
  *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
@@ -55,6 +55,7 @@
 
 #include <memory>
 #include <strings.h>
+#include <bits/stdc++.h>
 
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
@@ -88,7 +89,7 @@ protected:
 				++i;
 			}
 		}
-		std::cout << "M = " << std::endl << " " << v << std::endl << std::endl;
+		//std::cout << "M = " << std::endl << " " << v << std::endl << std::endl;
 	}
 
 	virtual size_t runKernel(cl::Program & kernel) {
@@ -113,13 +114,22 @@ protected:
 		logger->info("Created kernel error={}", error);
 		return t.imageSize;
 	}
+
+	std::string mat_to_s(cv::Mat & m) {
+	    std::string ms;
+	    ms << m;
+	    return ms;
+	}
 };
 
 TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
+    float min = *std::min_element(output->begin(), output->end());
+    float max = *std::max_element(output->begin(), output->end());
+    scaleToRange(output->data(), output->size(), min, max, 0, 1);
     std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-	std::cout << "M = " << std::endl << " " << m << std::endl << std::endl;
+    //logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
     std::string w = "Grey Image Vec Copy";
     cv::namedWindow(w, cv::WINDOW_NORMAL);
     cv::resizeWindow(w, 1024, 1024);
@@ -128,9 +138,9 @@ TEST_P(value_noise2D_fixture, opencl_value_noise2D) {
     cv::destroyAllWindows();
 }
 
-const size_t size = pow(2, 2);
+const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl, value_noise2D_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_value_noise2D, value_noise2D_fixture,
 		Values(
 				KernelContext("value_noise2D_with_linearInterp_test",
 						R"EOT(

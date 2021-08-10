@@ -46,13 +46,14 @@
 /*
  * noise_functions_test.cpp
  *
+ * Flag to run only this tests:
+ * --gtest_filter="noise_gen_noise*D_test*"
+ *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
  */
 
 #include <gtest/gtest.h>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
 #include "noise_gen.h"
 
 using ::testing::TestWithParam;
@@ -61,44 +62,61 @@ using ::testing::Values;
 struct Func2D {
 	vector2 v;
 	uint seed;
-	std::string noise_desc;
 	noise_func2 noise_func;
 	interp_func interp;
 	REAL y;
 };
 
 class noise_func2_params: public ::testing::TestWithParam<Func2D> {
-protected:
-	static std::shared_ptr<spdlog::logger> logger;
 };
-
-std::shared_ptr<spdlog::logger> noise_func2_params::logger = []() -> std::shared_ptr<spdlog::logger> {
-	logger = spdlog::stderr_color_mt("noise_func2_params", spdlog::color_mode::automatic);
-	logger->set_level(spdlog::level::trace);
-	return logger;
-}();
 
 TEST_P(noise_func2_params, value_noise2D) {
 	auto t = GetParam();
-	logger->info("Test noise_func:={}", t.noise_desc);
 	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
 }
 
-INSTANTIATE_TEST_SUITE_P(noise, noise_func2_params, Values( //
-		Func2D { vector2 { 0.000, 0.000 }, 100, "value_noise2D-noInterp", value_noise2D, noInterp, -0.36470 }, //
-		Func2D { vector2 { 0.100, 0.150 }, 100, "value_noise2D-noInterp", value_noise2D, noInterp, -0.36470 }, //
-		Func2D { vector2 { 0.000, 0.000 }, 100, "value_noise2D-linearInterp", value_noise2D, linearInterp, -0.36470 }, //
-		Func2D { vector2 { 0.100, 0.150 }, 100, "value_noise2D-linearInterp", value_noise2D, linearInterp, -0.38227 }, //
-		Func2D { vector2 { 0.000, 0.000 }, 100, "value_noise2D-hermiteInterp", value_noise2D, hermiteInterp, -0.36470 }, //
-		Func2D { vector2 { 0.100, 0.150 }, 100, "value_noise2D-hermiteInterp", value_noise2D, hermiteInterp, -0.37877 }, //
-		Func2D { vector2 { 0.000, 0.000 }, 100, "value_noise2D-quinticInterp", value_noise2D, quinticInterp, -0.36470 }, //
-		Func2D { vector2 { 0.100, 0.150 }, 100, "value_noise2D-quinticInterp", value_noise2D, quinticInterp, -0.37333 }, //
+INSTANTIATE_TEST_SUITE_P(noise_gen_noise2D_test, noise_func2_params, Values( //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, noInterp, -0.27843 }, //
+		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, noInterp, 0.15294 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, linearInterp, 0.15294 }, //
+		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, linearInterp, 0.33333 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, hermiteInterp, 0.15294 }, //
+		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, hermiteInterp, 0.33333 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, quinticInterp, 0.15294 }, //
+		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, quinticInterp, 0.33333 }, //
 		//
-		Func2D { vector2 { 0.100, 0.150 }, 100, "gradient_noise2D-noInterp", gradient_noise2D, noInterp, 0.126491 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, gradient_noise2D, noInterp, 1.10679 }, //
 		//
-		Func2D { vector2 { 0.100, 0.150 }, 100, "gradval_noise2D-noInterp", gradval_noise2D, noInterp, -0.238214 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, gradval_noise2D, noInterp, 0.82836 }, //
 		//
-		Func2D { vector2 { 0.100, 0.150 }, 100, "white_noise2D-noInterp", white_noise2D, noInterp, -0.396824 }, //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, white_noise2D, noInterp, 1.00000 }, //
 		//
-		Func2D { vector2 { 0.100, 0.150 }, 100, "simplex_noise2D-noInterp", simplex_noise2D, noInterp, 0.242163 } //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, simplex_noise2D, noInterp, 0.29398 } //
+));
+
+struct Func3D {
+	vector3 v;
+	uint seed;
+	noise_func3 noise_func;
+	interp_func interp;
+	REAL y;
+};
+
+class noise_func3_params: public ::testing::TestWithParam<Func3D> {
+};
+
+TEST_P(noise_func3_params, value_noise3D) {
+	auto t = GetParam();
+	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, -0.82745 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, linearInterp, -0.47451 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, linearInterp, 0.28627 }, //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, hermiteInterp, -0.47451 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, hermiteInterp, 0.28627 }, //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, quinticInterp, -0.47451 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, quinticInterp, 0.28627 } //
 ));

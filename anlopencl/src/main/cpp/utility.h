@@ -96,19 +96,11 @@ int fast_floor(REAL t) {
 }
 
 int2 fast_floor2(vector2 v) {
-#if USE_OPENCL
-	return convert_int2(floor(v));
-#else
-	return (int2){ floor(v.x), floor(v.y) };
-#endif
+	return (int2){ fast_floor(v.x), fast_floor(v.y) };
 }
 
 int3 fast_floor3(vector3 v) {
-#if USE_OPENCL
-	return convert_int3(floor(v));
-#else
-	return (int3){ floor(v.x), floor(v.y), floor(v.z) };
-#endif
+	return (int3){ fast_floor(v.x), fast_floor(v.y), fast_floor(v.z) };
 }
 
 REAL array_dot(REAL *arr, REAL a, REAL b) {

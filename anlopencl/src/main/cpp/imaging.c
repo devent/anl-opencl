@@ -73,7 +73,7 @@ void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].x = ranges.mapx0 + p * (ranges.mapx1 - ranges.mapx0);
 	v[index].y = ranges.mapy0 + q * (ranges.mapy1 - ranges.mapy0);
 	v[index].z = chunk.z;
-	printf("%d/%d # %d %f/%f\n", x, y, index, v[index].x, v[index].y);
+	//printf("%d/%d # %d %f/%f\n", x, y, index, v[index].x, v[index].y);
 }
 
 void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,
@@ -268,3 +268,16 @@ void* map2D(void *out, calc_seamless calc_seamless,
 #endif // USE_THREAD
 	return out;
 }
+
+REAL* scaleToRange(REAL *data, size_t count, REAL min, REAL max, REAL low, REAL high) {
+	for (int i = 0; i < count; ++i) {
+		REAL temp = data[i];
+		temp = temp - min;
+		REAL ftemp = temp / (max - min);
+		REAL val = ftemp * (high - low);
+		val = val + low;
+		data[i] = val;
+	}
+	return data;
+}
+

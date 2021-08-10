@@ -113,6 +113,20 @@ void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 void* map2D(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height, REAL z);
 
+/**
+ * Scales the values in data to the range between low and high.
+ * The data is modified by this function.
+ *
+ * @param data the REAL type data that contains `count` elements.
+ * @param count the count of the elements in the data.
+ * @param min the minimum value of the data in all dimensions.
+ * @param max the minimum value of the data in all dimensions.
+ * @param low the low value of the range.
+ * @param high the high value of the range.
+ * @return the scaled data.
+ */
+REAL* scaleToRange(REAL *data, size_t count, REAL min, REAL max, REAL low, REAL high);
+
 #ifdef __cplusplus
 }
 #endif

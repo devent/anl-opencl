@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * map_functions_test.cpp
+ * imaging_scaleToRange_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="*map2D_*-*bench*"
+ * --gtest_filter="imaging_scaleToRange_test*"
  *
  *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
@@ -55,103 +55,61 @@
 
 #include <gtest/gtest.h>
 #include "imaging.h"
+#include "noise_gen.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;
 
-struct map2D_data {
-	calc_seamless calc_seamless;
-	struct SMappingRanges ranges;
-	size_t width;
-	size_t height;
-	REAL z;
+struct imaging_scaleToRange_data {
+	size_t count;
+	REAL low;
+	REAL high;
 };
 
-class map2D_3_params: public ::testing::TestWithParam<map2D_data> {
+class imaging_scaleToRange_param: public ::testing::TestWithParam<imaging_scaleToRange_data> {
 protected:
-
-	std::vector<vector3> out;
+	std::vector<REAL> data;
+	REAL min;
+	REAL max;
 
 	virtual void SetUp() {
 		auto t = GetParam();
-		out = std::vector<vector3>(t.width * t.height);
+		data = std::vector<REAL>(t.count);
+		std::vector<vector3> out(t.count);
+		map2D(out.data(), calc_seamless_none, create_ranges_default(), t.count / 2, t.count / 2, 0);
+		printf("Before data:\n");
+		for (int i = 0; i < t.count; ++i) {
+			REAL v = value_noise3D(out[i], 0, noInterp);
+			data[i] = v;
+			printf("%f\n", v);
+			if (min > v) {
+				min = v;
+			}
+			if (max < v) {
+				max = v;
+			}
+		}
+		printf("##\n");
 	}
 
 	virtual void TearDown() {
 	}
 };
 
-TEST_P(map2D_3_params, seamless_none) {
+TEST_P(imaging_scaleToRange_param, scaleToRange3) {
 	auto t = GetParam();
-	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
-	for (int i = 0; i < out.size(); ++i) {
-		printf("%f/%f/%f\n", out[i].x, out[i].y, out[i].z);
+	scaleToRange(data.data(), t.count, min, max, t.low, t.high);
+	ASSERT_NEAR(data[0], 0.00000, 0.00001);
+	ASSERT_NEAR(data[1], 0.11111, 0.00001);
+	ASSERT_NEAR(data[2], 0.42995, 0.00001);
+	ASSERT_NEAR(data[3], 1.00000, 0.00001);
+	for (int i = 0; i < data.size(); ++i) {
+		printf("%f\n", data[i]);
 	}
 }
 
-INSTANTIATE_TEST_SUITE_P(map2D, map2D_3_params,
+INSTANTIATE_TEST_SUITE_P(imaging_scaleToRange_test, imaging_scaleToRange_param,
 		Values(
-				map2D_data { calc_seamless_none, create_ranges_default(), 2, 2, 99 } //
+				imaging_scaleToRange_data { 4, 0, 1 } //
 				));
 
-class map2D_4_params: public ::testing::TestWithParam<map2D_data> {
-protected:
-
-	std::vector<vector4> out;
-
-	virtual void SetUp() {
-		auto t = GetParam();
-		out = std::vector<vector4>(t.width * t.height);
-	}
-
-	virtual void TearDown() {
-	}
-};
-
-TEST_P(map2D_4_params, seamless_none) {
-	auto t = GetParam();
-	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
-	for (int i = 0; i < out.size(); ++i) {
-		printf("%f/%f/%f/%f\n", out[i].x, out[i].y, out[i].z, out[i].w);
-	}
-}
-
-INSTANTIATE_TEST_SUITE_P(map2D, map2D_4_params, Values(map2D_data {
-		calc_seamless_x, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_y, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_z, create_ranges_default(), 2, 2, 99 } //
-		));
-
-class map2D_8_params: public ::testing::TestWithParam<map2D_data> {
-protected:
-
-	std::vector<vector8> out;
-
-	virtual void SetUp() {
-		auto t = GetParam();
-		out = std::vector<vector8>(t.width * t.height);
-	}
-
-	virtual void TearDown() {
-	}
-};
-
-TEST_P(map2D_8_params, seamless_none) {
-	auto t = GetParam();
-	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
-	for (int i = 0; i < out.size(); ++i) {
-		printf("%f/%f/%f/%f/%f/%f\n", out[i].x, out[i].y, out[i].z, out[i].w, out[i].s4, out[i].s5);
-	}
-}
-
-INSTANTIATE_TEST_SUITE_P(map2D, map2D_8_params, Values(map2D_data {
-		calc_seamless_xy, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_xz, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_yz, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_xyz, create_ranges_default(), 2, 2, 99 } //
-		));
