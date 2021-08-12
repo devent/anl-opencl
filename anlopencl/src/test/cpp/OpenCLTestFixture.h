@@ -74,6 +74,8 @@ struct KernelContext {
 	}
 };
 
+std::string readFile(std::string fileName);
+
 class OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
 	static std::shared_ptr<spdlog::logger> logger;

@@ -73,7 +73,6 @@ void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 	v[index].x = ranges.mapx0 + p * (ranges.mapx1 - ranges.mapx0);
 	v[index].y = ranges.mapy0 + q * (ranges.mapy1 - ranges.mapy0);
 	v[index].z = chunk.z;
-	//printf("%d/%d # %d %f/%f\n", x, y, index, v[index].x, v[index].y);
 }
 
 void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,
@@ -194,12 +193,13 @@ void* map2DChunk(void *vargp) {
 			int index = chunk.chunkyoffset * chunk.height + y * chunk.width + x;
 			REAL p = (REAL) x / (REAL) (chunk.width);
 			REAL q = (REAL) realy / (REAL) (chunk.height);
-			chunk.calc_seamless(chunk.out, index, x, y, p, q, chunk, ranges);
+			chunk.calc_seamless(chunk.out, index, 3, y, p, q, chunk, ranges);
 		}
 	}
 	return NULL;
 }
 
+#ifndef USE_OPENCL
 #ifdef USE_THREAD
 /**
  * From https://stackoverflow.com/questions/7341046/posix-equivalent-of-boostthreadhardware-concurrency
@@ -221,10 +221,11 @@ int hardware_concurrency() {
 #endif
 }
 #endif // USE_THREAD
+#endif // USE_OPENCL
 
 void* map2D(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height, REAL z) {
-#ifndef USE_THREAD
+#if !defined(USE_THREAD) && !defined(USE_THREAD)
 	struct SChunk chunk;
 	chunk.calc_seamless = calc_seamless;
 	chunk.out = out;
@@ -265,7 +266,7 @@ void* map2D(void *out, calc_seamless calc_seamless,
 		pthread_join(threads[c], NULL);
 		free(chunks[c]);
 	}
-#endif // USE_THREAD
+#endif // USE_THREAD && USE_THREAD
 	return out;
 }
 

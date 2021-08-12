@@ -245,6 +245,8 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 	ss << readFile("src/main/cpp/noise_lut.c");
 	ss << readFile("src/main/cpp/noise_gen.h");
 	ss << readFile("src/main/cpp/noise_gen.c");
+	ss << readFile("src/main/cpp/imaging.h");
+	ss << readFile("src/main/cpp/imaging.c");
 	ss << t.source;
 	Program p = compileProgram(logger, ss.str());
 	logger->debug("Successfully compiled sources.");
@@ -284,10 +286,15 @@ void OpenCL_Context_Fixture::SetUp() {
 	try {
 		numElements = runKernel(kernel);
 	} catch (const cl::Error &ex) {
-		logger->error("Created kernel error {}: {}", ex.err(), ex.what());
+		logger->error("Run kernel error {}: {}", ex.err(), ex.what());
 		throw ex;
 	}
-	cl::copy(*outputBuffer, std::begin(*output), std::end(*output));
+	try {
+		cl::copy(*outputBuffer, std::begin(*output), std::end(*output));
+	} catch (const cl::Error &ex) {
+		logger->error("Output buffer error {}: {}", ex.err(), ex.what());
+		throw ex;
+	}
 
 //	std::cout << "Output:\n";
 //	for (int i = 0; i < numElements; ++i) {

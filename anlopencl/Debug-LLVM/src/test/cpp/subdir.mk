@@ -12,7 +12,9 @@ CPP_SRCS += \
 ../src/test/cpp/interpolation_functions_test.cpp \
 ../src/test/cpp/map_functions_bench.cpp \
 ../src/test/cpp/noise_functions_test.cpp \
-../src/test/cpp/opencl_test.cpp 
+../src/test/cpp/opencl_color_noise3D_test.cpp \
+../src/test/cpp/opencl_map2D_test.cpp \
+../src/test/cpp/opencl_noise3D_test.cpp 
 
 BCS += \
 ./src/test/cpp/OpenCLTestFixture.bc \
@@ -23,7 +25,9 @@ BCS += \
 ./src/test/cpp/interpolation_functions_test.bc \
 ./src/test/cpp/map_functions_bench.bc \
 ./src/test/cpp/noise_functions_test.bc \
-./src/test/cpp/opencl_test.bc 
+./src/test/cpp/opencl_color_noise3D_test.bc \
+./src/test/cpp/opencl_map2D_test.bc \
+./src/test/cpp/opencl_noise3D_test.bc 
 
 CPP_DEPS += \
 ./src/test/cpp/OpenCLTestFixture.d \
@@ -34,7 +38,9 @@ CPP_DEPS += \
 ./src/test/cpp/interpolation_functions_test.d \
 ./src/test/cpp/map_functions_bench.d \
 ./src/test/cpp/noise_functions_test.d \
-./src/test/cpp/opencl_test.d 
+./src/test/cpp/opencl_color_noise3D_test.d \
+./src/test/cpp/opencl_map2D_test.d \
+./src/test/cpp/opencl_noise3D_test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

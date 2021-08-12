@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_test.cpp
+ * opencl_noise3D_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_value_noise2D*"
+ * --gtest_filter="opencl_noise3D_test*"
  *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
@@ -129,7 +129,7 @@ protected:
 
 };
 
-TEST_P(value_noise3D_fixture, opencl_value_noise3D) {
+TEST_P(value_noise3D_fixture, show_image) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     float min = *std::min_element(output->begin(), output->end());
@@ -147,7 +147,7 @@ TEST_P(value_noise3D_fixture, opencl_value_noise3D) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_value_noise3D, value_noise3D_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_noise3D_test, value_noise3D_fixture,
 		Values(
 				KernelContext("value_noise3D_with_linearInterp_test",
 						R"EOT(
