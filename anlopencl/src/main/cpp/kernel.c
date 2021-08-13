@@ -93,6 +93,13 @@ vector3* rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
 	return src;
 }
 
+vector3* scaleDomain3(vector3 * src, size_t index, REAL scale) {
+	src[index].x = src[index].x * scale;
+	src[index].y = src[index].y * scale;
+	src[index].z = src[index].z * scale;
+	return src;
+}
+
 //void simpleFractalLayer(uint basistype, CInstructionIndex interpindex,
 //		REAL layerscale, REAL layerfreq, uint s, bool rot, REAL angle,
 //		REAL ax, REAL ay, REAL az) {

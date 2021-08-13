@@ -64,6 +64,8 @@ extern "C" {
 vector3* rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
 		REAL az);
 
+vector3* scaleDomain3(vector3 * src, size_t index, REAL scale);
+
 REAL x2(vector2 *coord);
 REAL y2(vector2 *coord);
 
