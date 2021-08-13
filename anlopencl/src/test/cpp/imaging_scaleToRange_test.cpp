@@ -44,91 +44,72 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * utility.h
+ * imaging_scaleToRange_test.cpp
  *
- *  Created on: Jul 27, 2021
+ * Flag to run only this tests:
+ * --gtest_filter="imaging_scaleToRange_test*"
+ *
+ *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef UTILITY_H_
-#define UTILITY_H_
+#include <gtest/gtest.h>
+#include "imaging.h"
+#include "noise_gen.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
+using ::testing::TestWithParam;
+using ::testing::Values;
 
-#ifndef USE_OPENCL
+struct imaging_scaleToRange_data {
+	size_t count;
+	REAL low;
+	REAL high;
+};
 
-#include <opencl_utils.h>
+class imaging_scaleToRange_param: public ::testing::TestWithParam<imaging_scaleToRange_data> {
+protected:
+	std::vector<REAL> data;
+	REAL min;
+	REAL max;
 
-#endif // USE_OPENCL
+	virtual void SetUp() {
+		auto t = GetParam();
+		data = std::vector<REAL>(t.count);
+		std::vector<vector3> out(t.count);
+		map2D(out.data(), calc_seamless_none, create_ranges_default(), t.count / 2, t.count / 2, 0);
+		printf("Before data:\n");
+		for (int i = 0; i < t.count; ++i) {
+			REAL v = value_noise3D(out[i], 0, noInterp);
+			data[i] = v;
+			printf("%f\n", v);
+			if (min > v) {
+				min = v;
+			}
+			if (max < v) {
+				max = v;
+			}
+		}
+		printf("##\n");
+	}
 
-#ifndef USE_OPENCL
-REAL clamp(REAL v, REAL l, REAL h) {
-	if (v < l)
-		v = l;
-	if (v > h)
-		v = h;
+	virtual void TearDown() {
+	}
+};
 
-	return v;
-}
-#endif // USE_OPENCL
-
-REAL lerp(REAL t, REAL a, REAL b) {
-	return a + t * (b - a);
-}
-
-bool isPowerOf2(unsigned int n) {
-	// from https://dzone.com/articles/ispowerof2-c
-	return n == 1 || (n & (n - 1)) == 0;
-}
-
-REAL hermite_blend(REAL t) {
-	return (t * t * (3 - 2 * t));
-}
-
-REAL quintic_blend(REAL t) {
-	return t * t * t * (t * (t * 6 - 15) + 10);
-}
-
-int fast_floor(REAL t) {
-	return (t > 0 ? (int) t : (int) t - 1);
-}
-
-int2 fast_floor2(vector2 v) {
-	return (int2){ fast_floor(v.x), fast_floor(v.y) };
-}
-
-int3 fast_floor3(vector3 v) {
-	return (int3){ fast_floor(v.x), fast_floor(v.y), fast_floor(v.z) };
-}
-
-REAL array_dot(REAL *arr, REAL a, REAL b) {
-	return a * arr[0] + b * arr[1];
-}
-
-REAL array_dot2(REAL *arr, REAL a, REAL b) {
-	return a * arr[0] + b * arr[1];
-}
-
-REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c) {
-	return a * arr[0] + b * arr[1] + c * arr[2];
-}
-
-REAL bias(REAL b, REAL t) {
-	return pow(t, log(b) / log((REAL)0.5));
-}
-
-REAL gain(REAL g, REAL t) {
-	if (t < 0.5) {
-		return bias(1.0 - g, 2.0 * t) / 2.0;
-	} else {
-		return 1.0 - bias(1.0 - g, 2.0 - 2.0 * t) / 2.0;
+TEST_P(imaging_scaleToRange_param, scaleToRange3) {
+	auto t = GetParam();
+	scaleToRange(data.data(), t.count, min, max, t.low, t.high);
+	ASSERT_NEAR(data[0], 0.00000, 0.00001);
+	ASSERT_NEAR(data[1], 0.11111, 0.00001);
+	ASSERT_NEAR(data[2], 0.42995, 0.00001);
+	ASSERT_NEAR(data[3], 1.00000, 0.00001);
+	for (int i = 0; i < data.size(); ++i) {
+		printf("%f\n", data[i]);
 	}
 }
 
-#ifdef __cplusplus
-}
-#endif // __cplusplus
+INSTANTIATE_TEST_SUITE_P(imaging_scaleToRange_test, imaging_scaleToRange_param,
+		Values(
+				imaging_scaleToRange_data { 4, 0, 1 } //
+				));
 
-#endif /* UTILITY_H_ */
