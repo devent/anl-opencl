@@ -44,61 +44,53 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * utility.h
+ * kernel.h
  *
- *  Created on: Jul 27, 2021
+ *  Created on: Aug 13, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef UTILITY_H_
-#define UTILITY_H_
+#ifndef KERNEL_H_
+#define KERNEL_H_
 
 #ifdef __cplusplus
 extern "C" {
-#endif // __cplusplus
+#endif
 
 #ifndef USE_OPENCL
 #include <opencl_utils.h>
 #endif // USE_OPENCL
 
-#ifndef USE_OPENCL
-REAL degrees(REAL radians);
-#endif // USE_OPENCL
+vector3* rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
+		REAL az);
 
-#ifndef USE_OPENCL
-REAL radians(REAL degrees);
-#endif // USE_OPENCL
+REAL x2(vector2 *coord);
+REAL y2(vector2 *coord);
 
-#ifndef USE_OPENCL
-REAL clamp(REAL v, REAL l, REAL h);
-#endif // USE_OPENCL
+REAL x3(vector3 *coord);
+REAL y3(vector3 *coord);
+REAL z3(vector3 *coord);
 
-REAL lerp(REAL t, REAL a, REAL b);
+REAL x4(vector4 *coord);
+REAL y4(vector4 *coord);
+REAL z4(vector4 *coord);
+REAL w4(vector4 *coord);
 
-bool isPowerOf2(unsigned int n);
+REAL x8(vector8 *coord);
+REAL y8(vector8 *coord);
+REAL z8(vector8 *coord);
+REAL w8(vector8 *coord);
+REAL u8(vector8 *coord);
 
-REAL hermite_blend(REAL t);
-
-REAL quintic_blend(REAL t);
-
-int fast_floor(REAL t);
-
-int2 fast_floor2(vector2 v);
-
-int3 fast_floor3(vector3 v);
-
-REAL array_dot(REAL *arr, REAL a, REAL b);
-
-REAL array_dot2(REAL *arr, REAL a, REAL b);
-
-REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c);
-
-REAL bias(REAL b, REAL t);
-
-REAL gain(REAL g, REAL t);
+REAL x8(vector8 *coord);
+REAL y8(vector8 *coord);
+REAL z8(vector8 *coord);
+REAL w8(vector8 *coord);
+REAL u8(vector8 *coord);
+REAL v8(vector8 *coord);
 
 #ifdef __cplusplus
 }
-#endif // __cplusplus
+#endif
 
-#endif /* UTILITY_H_ */
+#endif /* KERNEL_H_ */

@@ -10,6 +10,7 @@ CPP_SRCS += \
 ../src/test/cpp/imaging_map_test.cpp \
 ../src/test/cpp/imaging_scaleToRange_test.cpp \
 ../src/test/cpp/interpolation_functions_test.cpp \
+../src/test/cpp/kernel_rotateDomain_test.cpp \
 ../src/test/cpp/map_functions_bench.cpp \
 ../src/test/cpp/noise_functions_test.cpp \
 ../src/test/cpp/opencl_color_noise3D_test.cpp \
@@ -23,6 +24,7 @@ BCS += \
 ./src/test/cpp/imaging_map_test.bc \
 ./src/test/cpp/imaging_scaleToRange_test.bc \
 ./src/test/cpp/interpolation_functions_test.bc \
+./src/test/cpp/kernel_rotateDomain_test.bc \
 ./src/test/cpp/map_functions_bench.bc \
 ./src/test/cpp/noise_functions_test.bc \
 ./src/test/cpp/opencl_color_noise3D_test.bc \
@@ -36,6 +38,7 @@ CPP_DEPS += \
 ./src/test/cpp/imaging_map_test.d \
 ./src/test/cpp/imaging_scaleToRange_test.d \
 ./src/test/cpp/interpolation_functions_test.d \
+./src/test/cpp/kernel_rotateDomain_test.d \
 ./src/test/cpp/map_functions_bench.d \
 ./src/test/cpp/noise_functions_test.d \
 ./src/test/cpp/opencl_color_noise3D_test.d \
@@ -47,7 +50,7 @@ CPP_DEPS += \
 src/test/cpp/%.bc: ../src/test/cpp/%.cpp src/test/cpp/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: LLVM Clang++'
-	clang++ -DUSE_THREAD -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -I/usr/include/opencv4 -I/home/devent/Projects/dwarf-hustle/spdlog/include -I/home/devent/Projects/dwarf-hustle/accidental-noise-library -I/home/devent/Projects/dwarf-hustle/benchmark/include -I/home/devent/Projects/dwarf-hustle/OpenCL-CLHPP/include -I/home/devent/Projects/dwarf-hustle/OpenCL-Headers -I/home/devent/Projects/dwarf-hustle/googletest/googletest/include -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -std=c++0x -MMD -MP -o "$@" "$<"
+	clang++ -DUSE_THREAD -D_GNU_SOURCE -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -I/usr/include/opencv4 -I/home/devent/Projects/dwarf-hustle/spdlog/include -I/home/devent/Projects/dwarf-hustle/OpenCL-CLHPP/include -I/home/devent/Projects/dwarf-hustle/OpenCL-Headers -I/home/devent/Projects/dwarf-hustle/googletest/googletest/include -I/home/devent/Projects/dwarf-hustle/benchmark/include -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -std=c++0x -MMD -MP -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
