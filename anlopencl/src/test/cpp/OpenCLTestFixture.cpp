@@ -239,6 +239,7 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 	std::stringstream ss;
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/utility.h");
+	ss << readFile("src/main/cpp/utility.c");
 	ss << readFile("src/main/cpp/hashing.h");
 	ss << readFile("src/main/cpp/hashing.c");
 	ss << readFile("src/main/cpp/noise_lut.h");

@@ -78,10 +78,13 @@ TEST_P(noise_func2_params, value_noise2D) {
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise2D_test, noise_func2_params, Values( //
 		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, noInterp, -0.27843 }, //
 		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, noInterp, 0.15294 }, //
+		//
 		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, linearInterp, 0.15294 }, //
 		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, linearInterp, 0.33333 }, //
+		//
 		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, hermiteInterp, 0.15294 }, //
 		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, hermiteInterp, 0.33333 }, //
+		//
 		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, quinticInterp, 0.15294 }, //
 		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, quinticInterp, 0.33333 }, //
 		//
@@ -91,7 +94,8 @@ INSTANTIATE_TEST_SUITE_P(noise_gen_noise2D_test, noise_func2_params, Values( //
 		//
 		Func2D { (vector2){ -1.0, -1.0 }, 200, white_noise2D, noInterp, 1.00000 }, //
 		//
-		Func2D { (vector2){ -1.0, -1.0 }, 200, simplex_noise2D, noInterp, 0.29398 } //
+		Func2D { (vector2){ -1.0, -1.0 }, 200, simplex_noise2D, noInterp, 0.29398 }, //
+		Func2D { (vector2){ 0.0, 0.0 }, 200, simplex_noise2D, noInterp, -0.00000 } //
 ));
 
 struct Func3D {
@@ -111,7 +115,7 @@ TEST_P(noise_func3_params, value_noise3D) {
 }
 
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
-		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, -0.82745 }, //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, -0.82745 }, // 0
 		Func3D { (vector3){ -1.0, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.56078 }, //
 		Func3D { (vector3){ -1.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.56078 }, //
 		Func3D { (vector3){ -1.0, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.92157 }, //
@@ -121,16 +125,20 @@ INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
 		Func3D { (vector3){ -0.5, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.98431 }, //
 		Func3D { (vector3){ 0.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, 0.25490 }, //
 		Func3D { (vector3){ 0.0, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
-		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, noInterp, 0.88235 }, // 10
 		Func3D { (vector3){ 0.0, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.98431 }, //
 		Func3D { (vector3){ 0.5, -1.0, 0.0 }, 200, value_noise3D, noInterp, 0.80392 }, //
 		Func3D { (vector3){ 0.5, -0.5, 0.0 }, 200, value_noise3D, noInterp, -0.40392 }, //
 		Func3D { (vector3){ 0.5, 0.0, 0.0 }, 200, value_noise3D, noInterp, -0.40392 }, //
-		Func3D { (vector3){ 0.5, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.82745 }, //
+		Func3D { (vector3){ 0.5, 0.5, 0.0 }, 200, value_noise3D, noInterp, 0.82745 }, // 15
+		//
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, linearInterp, -0.47451 }, //
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, linearInterp, 0.28627 }, //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, hermiteInterp, -0.47451 }, //
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, hermiteInterp, 0.28627 }, //
-		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, quinticInterp, -0.47451 }, //
-		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, quinticInterp, 0.28627 } //
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, quinticInterp, -0.47451 }, // 20
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, quinticInterp, 0.28627 }, //
+		//
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, simplex_noise3D, noInterp, -3.94705 }, //
+		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, simplex_noise3D, noInterp, 0.00032 } //
 ));

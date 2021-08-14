@@ -321,7 +321,6 @@ const REAL G2 = 0.21132486540518711774542560974902;
 const REAL F3 = 1.0 / 3.0;
 const REAL G3 = 1.0 / 6.0;
 
-
 REAL simplex_noise2D(vector2 v, uint seed, interp_func interp) {
 	REAL s = (v.x + v.y) * F2;
 	int i = fast_floor(v.x + s);
@@ -385,4 +384,131 @@ REAL simplex_noise2D(vector2 v, uint seed, interp_func interp) {
 
 	// Add contributions together
 	return (40.0 * (n0 + n1 + n2));
+}
+
+REAL simplex_noise3D(vector3 v, uint seed, interp_func interp) {
+	//static REAL F3 = 1.0/3.0;
+	//static REAL G3 = 1.0/6.0;
+	REAL n0, n1, n2, n3;
+
+	REAL s = (v.x + v.y + v.z) * F3;
+	int i = fast_floor(v.x + s);
+	int j = fast_floor(v.y + s);
+	int k = fast_floor(v.z + s);
+
+	REAL t = (i + j + k) * G3;
+	REAL X0 = i - t;
+	REAL Y0 = j - t;
+	REAL Z0 = k - t;
+
+	REAL x0 = v.x - X0;
+	REAL y0 = v.y - Y0;
+	REAL z0 = v.z - Z0;
+
+	int i1, j1, k1;
+	int i2, j2, k2;
+
+	if (x0 >= y0) {
+		if (y0 >= z0) {
+			i1 = 1;
+			j1 = 0;
+			k1 = 0;
+			i2 = 1;
+			j2 = 1;
+			k2 = 0;
+		} else if (x0 >= z0) {
+			i1 = 1;
+			j1 = 0;
+			k1 = 0;
+			i2 = 1;
+			j2 = 0;
+			k2 = 1;
+		} else {
+			i1 = 0;
+			j1 = 0;
+			k1 = 1;
+			i2 = 1;
+			j2 = 0;
+			k2 = 1;
+		}
+	} else {
+		if (y0 < z0) {
+			i1 = 0;
+			j1 = 0;
+			k1 = 1;
+			i2 = 0;
+			j2 = 1;
+			k2 = 1;
+		} else if (x0 < z0) {
+			i1 = 0;
+			j1 = 1;
+			k1 = 0;
+			i2 = 0;
+			j2 = 1;
+			k2 = 1;
+		} else {
+			i1 = 0;
+			j1 = 1;
+			k1 = 0;
+			i2 = 1;
+			j2 = 1;
+			k2 = 0;
+		}
+	}
+
+	REAL x1 = x0 - i1 + G3;
+	REAL y1 = y0 - j1 + G3;
+	REAL z1 = z0 - k1 + G3;
+	REAL x2 = x0 - i2 + 2.0 * G3;
+	REAL y2 = y0 - j2 + 2.0 * G3;
+	REAL z2 = z0 - k2 + 2.0 * G3;
+	REAL x3 = x0 - 1.0 + 3.0 * G3;
+	REAL y3 = y0 - 1.0 + 3.0 * G3;
+	REAL z3 = z0 - 1.0 + 3.0 * G3;
+
+	uint h0, h1, h2, h3;
+
+	h0 = hash_coords_3(i, j, k, seed) % 24;
+	h1 = hash_coords_3(i + i1, j + j1, k + k1, seed) % 24;
+	h2 = hash_coords_3(i + i2, j + j2, k + k2, seed) % 24;
+	h3 = hash_coords_3(i + 1, j + 1, k + 1, seed) % 24;
+
+	REAL *g0 = &gradient3D_lut[h0][0];
+	REAL *g1 = &gradient3D_lut[h1][0];
+	REAL *g2 = &gradient3D_lut[h2][0];
+	REAL *g3 = &gradient3D_lut[h3][0];
+
+	REAL t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
+	if (t0 < 0.0)
+		n0 = 0.0;
+	else {
+		t0 *= t0;
+		n0 = t0 * t0 * array_dot3(g0, x0, y0, z0);
+	}
+
+	REAL t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1;
+	if (t1 < 0.0)
+		n1 = 0.0;
+	else {
+		t1 *= t1;
+		n1 = t1 * t1 * array_dot3(g1, x1, y1, z1);
+	}
+
+	REAL t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2;
+	if (t2 < 0)
+		n2 = 0.0;
+	else {
+		t2 *= t2;
+		n2 = t2 * t2 * array_dot3(g2, x2, y2, z2);
+	}
+
+	REAL t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3;
+	if (t3 < 0)
+		n3 = 0.0;
+	else {
+		t3 *= t3;
+		n3 = t3 * t3 * array_dot3(g3, x3, y3, z3);
+	}
+
+	return (32.0 * (n0 + n1 + n2 + n3)) * 1.25086885 + 0.0003194984;
 }

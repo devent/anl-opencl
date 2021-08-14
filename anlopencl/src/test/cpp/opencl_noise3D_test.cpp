@@ -91,7 +91,7 @@ protected:
 
 	void fill2dSpace(std::vector<float> & v, size_t width) {
 		std::vector<vector3> vv(width * width);
-		map2D(vv.data(), calc_seamless_none, create_ranges_default(), width, width, 0);
+		map2D(vv.data(), calc_seamless_none, create_ranges_map2D(-4, 4, -4, 4), width, width, 0);
 		size_t j = 0;
 		for (size_t i = 0; i < width * width * dim; i += dim) {
 			v[i] = vv[j].x;
@@ -176,6 +176,16 @@ global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	output[id] = gradient_noise3D(input[id], 200, noInterp);
+}
+)EOT",
+						size), //
+				KernelContext("simplex_noise3D_with_noInterp_test",
+						R"EOT(
+kernel void simplex_noise3D_with_noInterp_test(
+global float3 *input,
+global float *output) {
+	int id = get_global_id(0);
+	output[id] = simplex_noise3D(input[id], 200, noInterp);
 }
 )EOT",
 						size) //

@@ -77,7 +77,21 @@ struct SMappingRanges {
 	REAL loopx0, loopy0, loopz0, loopx1, loopy1, loopz1;
 };
 
+/**
+ * Creates ranges from [-1..1] in all 3 dimensions.
+ */
 struct SMappingRanges create_ranges_default();
+
+/**
+ * Creates ranges for the x-y dimensions and z=[0..1].
+ */
+struct SMappingRanges create_ranges_map2D(REAL x0, REAL x1, REAL y0, REAL y1);
+
+/**
+ * Creates ranges for the 3 dimensions.
+ */
+struct SMappingRanges create_ranges_map3D(REAL x0, REAL x1, REAL y0, REAL y1,
+		REAL z0, REAL z1);
 
 struct SChunk;
 

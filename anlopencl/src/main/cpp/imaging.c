@@ -67,6 +67,43 @@ struct SMappingRanges create_ranges_default() {
 	return r;
 }
 
+struct SMappingRanges create_ranges_map2D(REAL x0, REAL x1, REAL y0, REAL y1) {
+	struct SMappingRanges r;
+	r.mapx0 = x0;
+	r.mapx1 = x1;
+	r.mapy0 = y0;
+	r.mapy1 = y1;
+	r.mapz0 = 0;
+	r.mapz1 = 0;
+
+	r.loopx0 = x0;
+	r.loopx1 = x1;
+	r.loopy0 = y0;
+	r.loopy1 = y1;
+	r.loopz0 = 1;
+	r.loopz1 = 1;
+	return r;
+}
+
+struct SMappingRanges create_ranges_map3D(REAL x0, REAL x1, REAL y0, REAL y1,
+		REAL z0, REAL z1) {
+	struct SMappingRanges r;
+	r.mapx0 = x0;
+	r.mapx1 = x1;
+	r.mapy0 = y0;
+	r.mapy1 = y1;
+	r.mapz0 = z0;
+	r.mapz1 = z1;
+
+	r.loopx0 = x0;
+	r.loopx1 = x1;
+	r.loopy0 = y0;
+	r.loopy1 = y1;
+	r.loopz0 = z0;
+	r.loopz1 = z1;
+	return r;
+}
+
 void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
 	vector3* v = ((vector3*) (out));
