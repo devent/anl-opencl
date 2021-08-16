@@ -237,8 +237,10 @@ std::shared_ptr<spdlog::logger> OpenCL_Context_Fixture::logger = []() -> std::sh
 
 Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelContext& t) {
 	std::stringstream ss;
+	ss << readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/utility.h");
+	ss << readFile("src/main/cpp/utility.c");
 	ss << readFile("src/main/cpp/hashing.h");
 	ss << readFile("src/main/cpp/hashing.c");
 	ss << readFile("src/main/cpp/noise_lut.h");
@@ -247,6 +249,10 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 	ss << readFile("src/main/cpp/noise_gen.c");
 	ss << readFile("src/main/cpp/imaging.h");
 	ss << readFile("src/main/cpp/imaging.c");
+	ss << readFile("src/main/cpp/random.h");
+	ss << readFile("src/main/cpp/random.c");
+	ss << readFile("src/main/cpp/kernel.h");
+	ss << readFile("src/main/cpp/kernel.c");
 	ss << t.source;
 	Program p = compileProgram(logger, ss.str());
 	logger->debug("Successfully compiled sources.");

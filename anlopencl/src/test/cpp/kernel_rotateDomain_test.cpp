@@ -95,36 +95,37 @@ protected:
 
 TEST_P(kernel_rotateDomain3_param, rotateDomain3) {
 	auto t = GetParam();
+	auto after = std::vector<vector3>(t.count);
 	for (int i = 0; i < t.count; ++i) {
-		rotateDomain3(data.data(), i, t.angle, t.ax, t.ay, t.az);
+		after.push_back(rotateDomain3(data.data()[i], t.angle, t.ax, t.ay, t.az));
 	}
 	printf("After data:\n");
-	for (int i = 0; i < data.size(); ++i) {
-		printf("%f/%f/%f\n", data[i].x, data[i].y, data[i].z);
+	for (int i = 0; i < after.size(); ++i) {
+		printf("%f/%f/%f\n", after[i].x, after[i].y, after[i].z);
 	}
 	printf("##\n");
-	for (int i = 0; i < data.size(); ++i) {
-		ASSERT_NEAR(data[i].x, t.expected[i].x, 0.00001);
-		ASSERT_NEAR(data[i].y, t.expected[i].y, 0.00001);
-		ASSERT_NEAR(data[i].z, t.expected[i].z, 0.00001);
+	for (int i = 0; i < after.size(); ++i) {
+		ASSERT_NEAR(after[i].x, t.expected[i].x, 0.00001);
+		ASSERT_NEAR(after[i].y, t.expected[i].y, 0.00001);
+		ASSERT_NEAR(after[i].z, t.expected[i].z, 0.00001);
 	}
 }
 
 INSTANTIATE_TEST_SUITE_P(kernel_rotateDomain3_test, kernel_rotateDomain3_param,
 		Values(
-				kernel_rotateDomain3_data { 4, radians(0), 1, 0, 0,
-	// -1.000000/-1.000000/0.000000
-	// 0.000000/-1.000000/0.000000
-	// -1.000000/0.000000/0.000000
-	// 0.000000/0.000000/0.000000
-	{ (vector3){ -1, -1, 0 }, (vector3){ 0, -1, 0 }, (vector3){ -1, 0, 0 }, (vector3){ 0, 0, 0 } }
-}, //
-				kernel_rotateDomain3_data { 4, radians(90), 1, 0, 0,
-	// -1.000000/0.000000/-1.000000
-	// 0.000000/0.000000/-1.000000
-	// -1.000000/-0.000000/0.000000
-	// 0.000000/0.000000/0.000000
-	{ (vector3){ -1, 0, -1 }, (vector3){ 0, 0, -1 }, (vector3){ -1, -0, 0 }, (vector3){ 0, 0, 0 } }
-} //
-				));
+				kernel_rotateDomain3_data { 4, 0, 1, 0, 0, {
+						(vector3){ -1, -1, 0 },
+						(vector3){ 0, -1, 0 },
+						(vector3){ -1, 0, 0 },
+						(vector3){ 0, 0, 0 }
+					} //
+				}, //
+				kernel_rotateDomain3_data { 4, 1.57, 1, 0, 0, {
+						(vector3){ -1, -0.000796, -1 },
+						(vector3){ 0.000000, -0.000796, -1.000000 },
+						(vector3){ -1.000000, 0.000000, 0.000000 },
+						(vector3){ 0, 0, 0 }
+					}
+				} //
+));
 

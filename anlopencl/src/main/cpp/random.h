@@ -44,14 +44,14 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * kernel.h
+ * random.h
  *
- *  Created on: Aug 13, 2021
+ *  Created on: Aug 16, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef KERNEL_H_
-#define KERNEL_H_
+#ifndef RANDOM_H_
+#define RANDOM_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,52 +59,19 @@ extern "C" {
 
 #ifndef USE_OPENCL
 #include "opencl_utils.h"
-#include "noise_gen.h"
-#include "random.h"
 #endif // USE_OPENCL
 
-vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az);
+typedef REAL (*random_func)(void*);
 
-vector3 scaleDomain3(vector3 src, REAL scale);
-
-REAL simpleFractalLayer(vector3 v, noise_func3 basistype,
-		uint seed, interp_func interp,
-		REAL layerscale, REAL layerfreq, bool rot,
-		REAL angle, REAL ax, REAL ay, REAL az);
-
-REAL simplefBm(
-		vector3 v,
-		noise_func3 basistype, uint seed, interp_func interp,
-		random_func rnd, void *srnd,
-		uint numoctaves, REAL frequency, bool rot);
-
-REAL x2(vector2 *coord);
-REAL y2(vector2 *coord);
-
-REAL x3(vector3 *coord);
-REAL y3(vector3 *coord);
-REAL z3(vector3 *coord);
-
-REAL x4(vector4 *coord);
-REAL y4(vector4 *coord);
-REAL z4(vector4 *coord);
-REAL w4(vector4 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-REAL v8(vector8 *coord);
+#ifndef USE_OPENCL
+void *create_kiss09();
+void delete_kiss09(void *state);
+void seed_kiss09(void *state, ulong seed);
+#endif // USE_OPENCL
+REAL random_kiss09(void *state);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* KERNEL_H_ */
+#endif /* RANDOM_H_ */
