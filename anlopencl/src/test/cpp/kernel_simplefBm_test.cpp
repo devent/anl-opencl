@@ -44,34 +44,78 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * random.h
+ * kernel_simplefBm_test.cpp
  *
- *  Created on: Aug 16, 2021
+ * Flag to run only this tests:
+ * --gtest_filter="kernel_simplefBm_test*"
+ *
+ *  Created on: Auf 16, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef RANDOM_H_
-#define RANDOM_H_
+#include <gtest/gtest.h>
+#include "utility.h"
+#include "imaging.h"
+#include "kernel.h"
+#include "random.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+using ::testing::TestWithParam;
+using ::testing::Values;
 
-#ifndef USE_OPENCL
-#include "opencl_utils.h"
-#endif // USE_OPENCL
+struct kernel_simplefBm_data {
+	size_t count;
+	noise_func3 basistype;
+	uint seed;
+	interp_func interp;
+	random_func rnd;
+	uint numoctaves;
+	REAL frequency;
+	bool rot;
+	std::vector<float> expected;
+};
 
-typedef REAL (*random_func)(void*);
+class kernel_simplefBm_param: public ::testing::TestWithParam<kernel_simplefBm_data> {
+protected:
+	std::vector<vector3> data;
+	void *state;
 
-#ifndef USE_OPENCL
-void *create_kiss09();
-void delete_kiss09(void *state);
-void seed_kiss09(void *state, ulong seed);
-#endif // USE_OPENCL
-REAL random_kiss09(void *state);
+	virtual void SetUp() {
+		auto t = GetParam();
+		state = create_kiss09();
+		seed_kiss09(state, t.seed);
+		data = std::vector<vector3>(t.count);
+		// -1.000000/-1.000000/0.000000
+		// 0.000000/-1.000000/0.000000
+		// -1.000000/0.000000/0.000000
+		// 0.000000/0.000000/0.000000
+		map2D(data.data(), calc_seamless_none, create_ranges_default(), t.count / 2, t.count / 2, 0);
+	}
 
-#ifdef __cplusplus
+	virtual void TearDown() {
+		delete_kiss09(state);
+	}
+};
+
+TEST_P(kernel_simplefBm_param, simplefBm) {
+	auto t = GetParam();
+	auto values = std::vector<float>(t.count);
+	for (int i = 0; i < t.count; ++i) {
+		values[i] = simplefBm(data.data()[i], t.basistype, t.seed, t.interp,
+				t.rnd, state, t.numoctaves, t.frequency, t.rot);
+	}
+	printf("## Values:\n");
+	for (int i = 0; i < values.size(); ++i) {
+		printf("%f/%f/%f := %f\n", data[i].x, data[i].y, data[i].z, values[i]);
+	}
+	printf("##\n");
+	for (int i = 0; i < values.size(); ++i) {
+		ASSERT_NEAR(values[i], t.expected[i], 0.00001);
+	}
 }
-#endif
 
-#endif /* RANDOM_H_ */
+INSTANTIATE_TEST_SUITE_P(kernel_simplefBm_test, kernel_simplefBm_param,
+		Values(kernel_simplefBm_data { //
+				4, value_noise3D, 200, noInterp, random_kiss09, 2, 1.0, false, {
+						0.384314, -1.749020, 0.949020, 0.086275 } } //
+				));
+

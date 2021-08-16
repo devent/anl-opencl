@@ -63,18 +63,17 @@ extern "C" {
 #include "random.h"
 #endif // USE_OPENCL
 
-vector3 *rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
-		REAL az);
+vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az);
 
-vector3 *scaleDomain3(vector3 *src, size_t index, REAL scale);
+vector3 scaleDomain3(vector3 src, REAL scale);
 
-vector3 *simpleFractalLayer(vector3 *v, size_t index, noise_func3 basistype,
+REAL simpleFractalLayer(vector3 v, noise_func3 basistype,
 		uint seed, interp_func interp,
 		REAL layerscale, REAL layerfreq, bool rot,
 		REAL angle, REAL ax, REAL ay, REAL az);
 
-void simplefBm(
-		vector3 *v, size_t index,
+REAL simplefBm(
+		vector3 v,
 		noise_func3 basistype, uint seed, interp_func interp,
 		random_func rnd, void *srnd,
 		uint numoctaves, REAL frequency, bool rot);

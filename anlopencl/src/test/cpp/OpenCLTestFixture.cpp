@@ -249,6 +249,10 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 	ss << readFile("src/main/cpp/noise_gen.c");
 	ss << readFile("src/main/cpp/imaging.h");
 	ss << readFile("src/main/cpp/imaging.c");
+	ss << readFile("src/main/cpp/random.h");
+	ss << readFile("src/main/cpp/random.c");
+	ss << readFile("src/main/cpp/kernel.h");
+	ss << readFile("src/main/cpp/kernel.c");
 	ss << t.source;
 	Program p = compileProgram(logger, ss.str());
 	logger->debug("Successfully compiled sources.");

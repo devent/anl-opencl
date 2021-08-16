@@ -11,11 +11,14 @@ CPP_SRCS += \
 ../src/test/cpp/imaging_scaleToRange_test.cpp \
 ../src/test/cpp/interpolation_functions_test.cpp \
 ../src/test/cpp/kernel_rotateDomain_test.cpp \
+../src/test/cpp/kernel_simplefBm_test.cpp \
 ../src/test/cpp/map_functions_bench.cpp \
 ../src/test/cpp/noise_functions_test.cpp \
 ../src/test/cpp/opencl_color_noise3D_test.cpp \
 ../src/test/cpp/opencl_map2D_test.cpp \
 ../src/test/cpp/opencl_noise3D_test.cpp \
+../src/test/cpp/opencl_simpleFractalLayer_test.cpp \
+../src/test/cpp/opencl_simplefBm_test.cpp \
 ../src/test/cpp/random_test.cpp 
 
 BCS += \
@@ -26,11 +29,14 @@ BCS += \
 ./src/test/cpp/imaging_scaleToRange_test.bc \
 ./src/test/cpp/interpolation_functions_test.bc \
 ./src/test/cpp/kernel_rotateDomain_test.bc \
+./src/test/cpp/kernel_simplefBm_test.bc \
 ./src/test/cpp/map_functions_bench.bc \
 ./src/test/cpp/noise_functions_test.bc \
 ./src/test/cpp/opencl_color_noise3D_test.bc \
 ./src/test/cpp/opencl_map2D_test.bc \
 ./src/test/cpp/opencl_noise3D_test.bc \
+./src/test/cpp/opencl_simpleFractalLayer_test.bc \
+./src/test/cpp/opencl_simplefBm_test.bc \
 ./src/test/cpp/random_test.bc 
 
 CPP_DEPS += \
@@ -41,11 +47,14 @@ CPP_DEPS += \
 ./src/test/cpp/imaging_scaleToRange_test.d \
 ./src/test/cpp/interpolation_functions_test.d \
 ./src/test/cpp/kernel_rotateDomain_test.d \
+./src/test/cpp/kernel_simplefBm_test.d \
 ./src/test/cpp/map_functions_bench.d \
 ./src/test/cpp/noise_functions_test.d \
 ./src/test/cpp/opencl_color_noise3D_test.d \
 ./src/test/cpp/opencl_map2D_test.d \
 ./src/test/cpp/opencl_noise3D_test.d \
+./src/test/cpp/opencl_simpleFractalLayer_test.d \
+./src/test/cpp/opencl_simplefBm_test.d \
 ./src/test/cpp/random_test.d 
 
 

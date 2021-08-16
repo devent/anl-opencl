@@ -56,8 +56,6 @@
 #include <gtest/gtest.h>
 #include "random.h"
 
-struct kiss09_state;
-
 using ::testing::TestWithParam;
 using ::testing::Values;
 
