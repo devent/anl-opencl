@@ -9,6 +9,7 @@ C_SRCS += \
 ../src/main/cpp/kernel.c \
 ../src/main/cpp/noise_gen.c \
 ../src/main/cpp/noise_lut.c \
+../src/main/cpp/random.c \
 ../src/main/cpp/utility.c 
 
 BCS += \
@@ -17,6 +18,7 @@ BCS += \
 ./src/main/cpp/kernel.bc \
 ./src/main/cpp/noise_gen.bc \
 ./src/main/cpp/noise_lut.bc \
+./src/main/cpp/random.bc \
 ./src/main/cpp/utility.bc 
 
 C_DEPS += \
@@ -25,6 +27,7 @@ C_DEPS += \
 ./src/main/cpp/kernel.d \
 ./src/main/cpp/noise_gen.d \
 ./src/main/cpp/noise_lut.d \
+./src/main/cpp/random.d \
 ./src/main/cpp/utility.d 
 
 

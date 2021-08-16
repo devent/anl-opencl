@@ -52,10 +52,9 @@
 
 #ifndef USE_OPENCL
 #include "kernel.h"
-#include "noise_gen.h"
 #endif // USE_OPENCL
 
-vector3* rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
+vector3 *rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
 		REAL az) {
 	REAL len = sqrt(ax * ax + ay * ay + az * az);
 	ax /= len;
@@ -93,67 +92,48 @@ vector3* rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
 	return src;
 }
 
-vector3* scaleDomain3(vector3 * src, size_t index, REAL scale) {
+vector3 *scaleDomain3(vector3 *src, size_t index, REAL scale) {
 	src[index].x = src[index].x * scale;
 	src[index].y = src[index].y * scale;
 	src[index].z = src[index].z * scale;
 	return src;
 }
 
-//void simpleFractalLayer(uint basistype, CInstructionIndex interpindex,
-//		REAL layerscale, REAL layerfreq, uint s, bool rot, REAL angle,
-//		REAL ax, REAL ay, REAL az) {
-//	CInstructionIndex myseed=seed(s);
-//    CInstructionIndex base=nextIndex();
-//    switch(basistype)
-//    {
-//    case anl::OP_ValueBasis:
-//        valueBasis(interpindex, myseed);
-//        break;
-//    case anl::OP_GradientBasis:
-//        gradientBasis(interpindex, myseed);
-//        break;
-//    case anl::OP_SimplexBasis:
-//        simplexBasis(myseed);
-//        break;
-//    default:
-//        gradientBasis(interpindex, myseed);
-//        break;
-//    }
-//    constant(layerscale);
-//    multiply(base,base+1);
-//    constant(layerfreq);
-//    CInstructionIndex sd=scaleDomain(base+2, lastIndex());
-//    if(rot)
-//    {
-//        REAL len=std::sqrt(ax*ax+ay*ay+az*az);
-//        constant(angle);
-//        constant(ax/len);
-//        constant(ay/len);
-//        constant(az/len);
-//        rotateDomain(sd, sd+1, sd+2, sd+3, sd+4);
-//    }
-//    return lastIndex();
-//}
-//
-//void simplefBm(uint basistype, uint interptype, uint numoctaves,
-//		REAL frequency, uint seed, bool rot) {
-//    if(numoctaves<1) return 0;
-//
-//    CInstructionIndex interpindex=constant(interptype);
-//    KISS rnd;
-//    rnd.setSeed(seed);
-//    simpleFractalLayer(basistype, interpindex, 1.0, 1.0*frequency, seed+10,rot,
-//                       rnd.get01()*3.14159265, rnd.get01(), rnd.get01(), rnd.get01());
-//    CInstructionIndex lastlayer=lastIndex();
-//
-//    for(uint c=0; c<numoctaves-1; ++c)
-//    {
+vector3 *simpleFractalLayer(vector3 *v, size_t index, noise_func3 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	REAL value = basistype(v[index], seed, interp);
+	value *= layerscale;
+	scaleDomain3(v, index, layerfreq);
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		rotateDomain3(v, index, angle, ax, ay, az);
+	}
+	return v;
+}
+
+void simplefBm(
+		vector3 *v, size_t index,
+		noise_func3 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+    if(numoctaves<1) return;
+
+    simpleFractalLayer(v, index,
+    		basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+            rnd(srnd)*3.14159265, rnd(srnd), rnd(srnd), rnd(srnd));
+
+    for(uint c=0; c<numoctaves-1; ++c)
+    {
 //        CInstructionIndex nextlayer=simpleFractalLayer(basistype, interpindex, 1.0/std::pow(2.0, (REAL)(c)), std::pow(2.0, (REAL)(c))*frequency, seed+10+c*1000,rot,
 //                                    rnd.get01()*3.14159265, rnd.get01(), rnd.get01(), rnd.get01());
 //        lastlayer=add(lastlayer,nextlayer);
-//    }
-//    return lastIndex();
-//}
-//
+    }
+}
+
 

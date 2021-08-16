@@ -237,6 +237,7 @@ std::shared_ptr<spdlog::logger> OpenCL_Context_Fixture::logger = []() -> std::sh
 
 Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelContext& t) {
 	std::stringstream ss;
+	ss << readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/utility.h");
 	ss << readFile("src/main/cpp/utility.c");

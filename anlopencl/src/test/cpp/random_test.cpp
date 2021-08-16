@@ -44,68 +44,54 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * kernel.h
+ * random_test.cpp
  *
- *  Created on: Aug 13, 2021
+ * Flag to run only this tests:
+ * --gtest_filter="random_test*"
+ *
+ *  Created on: Auf 16, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef KERNEL_H_
-#define KERNEL_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef USE_OPENCL
-#include "opencl_utils.h"
-#include "noise_gen.h"
+#include <gtest/gtest.h>
 #include "random.h"
-#endif // USE_OPENCL
 
-vector3 *rotateDomain3(vector3 *src, size_t index, REAL angle, REAL ax, REAL ay,
-		REAL az);
+struct kiss09_state;
 
-vector3 *scaleDomain3(vector3 *src, size_t index, REAL scale);
+using ::testing::TestWithParam;
+using ::testing::Values;
 
-vector3 *simpleFractalLayer(vector3 *v, size_t index, noise_func3 basistype,
-		uint seed, interp_func interp,
-		REAL layerscale, REAL layerfreq, bool rot,
-		REAL angle, REAL ax, REAL ay, REAL az);
+struct random_test_data {
+	ulong seed;
+	random_func rnd;
+	std::vector<float> expected;
+};
 
-void simplefBm(
-		vector3 *v, size_t index,
-		noise_func3 basistype, uint seed, interp_func interp,
-		random_func rnd, void *srnd,
-		uint numoctaves, REAL frequency, bool rot);
+class random_kiss09_param: public ::testing::TestWithParam<random_test_data> {
+protected:
+	void *state;
 
-REAL x2(vector2 *coord);
-REAL y2(vector2 *coord);
+	virtual void SetUp() {
+		auto t = GetParam();
+		state = create_kiss09();
+		seed_kiss09(state, t.seed);
+	}
 
-REAL x3(vector3 *coord);
-REAL y3(vector3 *coord);
-REAL z3(vector3 *coord);
+	virtual void TearDown() {
+		delete_kiss09(state);
+	}
+};
 
-REAL x4(vector4 *coord);
-REAL y4(vector4 *coord);
-REAL z4(vector4 *coord);
-REAL w4(vector4 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-REAL v8(vector8 *coord);
-
-#ifdef __cplusplus
+TEST_P(random_kiss09_param, kiss09) {
+	auto t = GetParam();
+	for (int i = 0; i < t.expected.size(); ++i) {
+		auto v = t.rnd(state);
+		EXPECT_NEAR(v, t.expected[i], 0.00001);
+	}
 }
-#endif
 
-#endif /* KERNEL_H_ */
+INSTANTIATE_TEST_SUITE_P(random_test, random_kiss09_param,
+		Values(
+				random_test_data { 100, random_kiss09, { 0.43175, 0.84003 } } //
+				));
+
