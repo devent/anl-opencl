@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_simpleFractalLayer_test.cpp
+ * opencl_simpleFractalLayer3_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_simpleFractalLayer_test*"
+ * --gtest_filter="opencl_simpleFractalLayer3_test*"
  *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simpleFractalLayer_fixture: public OpenCL_Context_Fixture {
+class value_simpleFractalLayer3_fixture: public OpenCL_Context_Fixture {
 protected:
 
 	/**
@@ -124,7 +124,7 @@ protected:
 
 };
 
-TEST_P(value_simpleFractalLayer_fixture, show_image) {
+TEST_P(value_simpleFractalLayer3_fixture, show_image) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     float min = *std::min_element(output->begin(), output->end());
@@ -142,27 +142,27 @@ TEST_P(value_simpleFractalLayer_fixture, show_image) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_simpleFractalLayer_test, value_simpleFractalLayer_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_simpleFractalLayer3_test, value_simpleFractalLayer3_fixture,
 		Values(
-				KernelContext("simpleFractalLayer_with_value_noise3D_noInterp_norot_test",
+				KernelContext("simpleFractalLayer3_with_value_noise3D_noInterp_norot_test",
 						R"EOT(
-kernel void simpleFractalLayer_with_value_noise3D_noInterp_norot_test(
+kernel void simpleFractalLayer3_with_value_noise3D_noInterp_norot_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	output[id] = simpleFractalLayer(input[id],
+	output[id] = simpleFractalLayer3(input[id],
 		value_noise3D, 200, noInterp,
 		1, 0.125, false, 0.0, 0.0, 0.0, 0.0);
 }
 )EOT",
 						size), //
-				KernelContext("simpleFractalLayer_with_value_noise3D_noInterp_rot_test",
+				KernelContext("simpleFractalLayer3_with_value_noise3D_noInterp_rot_test",
 						R"EOT(
-kernel void simpleFractalLayer_with_value_noise3D_noInterp_rot_test(
+kernel void simpleFractalLayer3_with_value_noise3D_noInterp_rot_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	output[id] = simpleFractalLayer(input[id],
+	output[id] = simpleFractalLayer3(input[id],
 		value_noise3D, 200, noInterp,
 		1, 0.125, true, 1.57, 1.0, 0.0, 0.0);
 }

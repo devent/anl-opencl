@@ -100,7 +100,7 @@ TEST_P(kernel_simplefBm_param, simplefBm) {
 	auto t = GetParam();
 	auto values = std::vector<float>(t.count);
 	for (int i = 0; i < t.count; ++i) {
-		values[i] = simplefBm(data.data()[i], t.basistype, t.seed, t.interp,
+		values[i] = simplefBm3(data.data()[i], t.basistype, t.seed, t.interp,
 				t.rnd, state, t.numoctaves, t.frequency, t.rot);
 	}
 	printf("## Values:\n");

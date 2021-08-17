@@ -44,12 +44,12 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_simplefBm3_test.cpp
+ * opencl_simpleBillow3_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_simplefBm3_test*"
+ * --gtest_filter="opencl_simpleBillow3_test*"
  *
- *  Created on: Jul 27, 2021
+ *  Created on: Aug 17, 2021
  *      Author: Erwin Müller
  */
 
@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simplefBm3_fixture: public OpenCL_Context_Fixture {
+class value_simpleBillow3_fixture: public OpenCL_Context_Fixture {
 protected:
 
 	/**
@@ -124,7 +124,7 @@ protected:
 
 };
 
-TEST_P(value_simplefBm3_fixture, show_image) {
+TEST_P(value_simpleBillow3_fixture, show_image) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     float min = *std::min_element(output->begin(), output->end());
@@ -142,110 +142,110 @@ TEST_P(value_simplefBm3_fixture, show_image) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_simplefBm3_test, value_simplefBm3_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_simpleBillow3_test, value_simpleBillow3_fixture,
 		Values(
-				KernelContext("simplefBm3_with_value_noise3D_noInterp_test",
+				KernelContext("simpleBillow3_with_value_noise3D_noInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_value_noise3D_noInterp_test(
+kernel void simpleBillow3_with_value_noise3D_noInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		value_noise3D, 200, noInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-				KernelContext("simplefBm3_with_value_noise3D_linearInterp_test",
+				KernelContext("simpleBillow3_with_value_noise3D_linearInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_value_noise3D_linearInterp_test(
+kernel void simpleBillow3_with_value_noise3D_linearInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		value_noise3D, 200, linearInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-				KernelContext("simplefBm3_with_value_noise3D_hermiteInterp_test",
+				KernelContext("simpleBillow3_with_value_noise3D_hermiteInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_value_noise3D_hermiteInterp_test(
+kernel void simpleBillow3_with_value_noise3D_hermiteInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		value_noise3D, 200, hermiteInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-				KernelContext("simplefBm3_with_value_noise3D_quinticInterp_test",
+				KernelContext("simpleBillow3_with_value_noise3D_quinticInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_value_noise3D_quinticInterp_test(
+kernel void simpleBillow3_with_value_noise3D_quinticInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		value_noise3D, 200, quinticInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-				KernelContext("simplefBm3_with_gradient_noise3D_noInterp_test",
+				KernelContext("simpleBillow3_with_gradient_noise3D_noInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_gradient_noise3D_noInterp_test(
+kernel void simpleBillow3_with_gradient_noise3D_noInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		gradient_noise3D, 200, noInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-				KernelContext("simplefBm3_with_gradient_noise3D_linearInterp_test",
+				KernelContext("simpleBillow3_with_gradient_noise3D_linearInterp_test",
 						R"EOT(
-kernel void simplefBm3_with_gradient_noise3D_linearInterp_test(
+kernel void simpleBillow3_with_gradient_noise3D_linearInterp_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		gradient_noise3D, 200, linearInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 						size), //
-					KernelContext("simplefBm3_with_simplex_noise3D_test",
+					KernelContext("simpleBillow3_with_simplex_noise3D_test",
 							R"EOT(
-kernel void simplefBm3_with_simplex_noise3D_test(
+kernel void simpleBillow3_with_simplex_noise3D_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
+	output[id] = simpleBillow3(input[id],
 		simplex_noise3D, 200, noInterp,
 		random_kiss09, &srnd,
-		6, 0.125, true);
+		3, 0.125, true);
 }
 )EOT",
 							size) //
