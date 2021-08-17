@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_simpleRidgedMultifractal3_test.cpp
+ * opencl_simpleBillowLayer3_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_simpleRidgedMultifractal3_test*"
+ * --gtest_filter="opencl_simpleBillowLayer3_test*"
  *
  *  Created on: Aug 17, 2021
  *      Author: Erwin Müller
@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simpleRidgedMultifractal3_fixture: public OpenCL_Context_Fixture {
+class value_simpleBillowLayer3_fixture: public OpenCL_Context_Fixture {
 protected:
 
 	/**
@@ -124,7 +124,7 @@ protected:
 
 };
 
-TEST_P(value_simpleRidgedMultifractal3_fixture, show_image) {
+TEST_P(value_simpleBillowLayer3_fixture, show_image) {
 	auto t = GetParam();
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
     float min = *std::min_element(output->begin(), output->end());
@@ -142,50 +142,41 @@ TEST_P(value_simpleRidgedMultifractal3_fixture, show_image) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_simpleRidgedMultifractal3_test, value_simpleRidgedMultifractal3_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_simpleBillowLayer3_test, value_simpleBillowLayer3_fixture,
 		Values(
-				KernelContext("simpleRidgedMultifractal3_with_value_noise3D_noInterp_norot_test",
+				KernelContext("simpleBillowLayer3_with_value_noise3D_noInterp_norot_test",
 						R"EOT(
-kernel void simpleRidgedMultifractal3_with_value_noise3D_noInterp_norot_test(
+kernel void simpleBillowLayer3_with_value_noise3D_noInterp_norot_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simpleRidgedMultifractal3(input[id],
+	output[id] = simpleBillowLayer3(input[id],
 		value_noise3D, 200, noInterp,
-		random_kiss09, &srnd,
-		3, 0.125, false);
+		3, 0.125, false, 0.0, 0.0, 0.0, 0.0);
 }
 )EOT",
 						size), //
-				KernelContext("simpleRidgedMultifractal3_with_value_noise3D_noInterp_rot_test",
+				KernelContext("simpleBillowLayer3_with_value_noise3D_noInterp_rot_test",
 						R"EOT(
-kernel void simpleRidgedMultifractal3_with_value_noise3D_noInterp_rot_test(
+kernel void simpleBillowLayer3_with_value_noise3D_noInterp_rot_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simpleRidgedMultifractal3(input[id],
+	output[id] = simpleBillowLayer3(input[id],
 		value_noise3D, 200, noInterp,
-		random_kiss09, &srnd,
-		3, 0.125, true);
+		3, 0.125, true, 1.57, 1.0, 0.0, 0.0);
 }
 )EOT",
 						size), //
-				KernelContext("simpleRidgedMultifractal3_with_value_noise3D_linearInterp_rot_test",
+				KernelContext("simpleBillowLayer3_with_value_noise3D_linearInterp_rot_test",
 						R"EOT(
-kernel void simpleRidgedMultifractal3_with_value_noise3D_linearInterp_rot_test(
+kernel void simpleBillowLayer3_with_value_noise3D_linearInterp_rot_test(
 global float3 *input,
 global float *output) {
 	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simpleRidgedMultifractal3(input[id],
+	output[id] = simpleBillowLayer3(input[id],
 		value_noise3D, 200, linearInterp,
-		random_kiss09, &srnd,
-		3, 0.125, true);
+		3, 0.125, true, 1.57, 1.0, 0.0, 0.0);
 }
 )EOT",
 						size) //

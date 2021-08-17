@@ -124,7 +124,27 @@ REAL simpleRidgedLayer3(vector3 v, noise_func3 basistype,
 	v = scaleDomain3(v, layerfreq);
 	REAL value = basistype(v, seed, interp);
 	value = fabs(value);
-	value = 1 - value;
+	value -= 1;
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleBillowLayer3(vector3 v, noise_func3 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain3(v, angle, ax, ay, az);
+	}
+	v = scaleDomain3(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value = fabs(value);
+	value *= 2;
+	value -= 1;
 	value *= layerscale;
 	return value;
 }
@@ -161,6 +181,26 @@ REAL simpleRidgedMultifractal3(
 			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
 	for (uint c = 0; c < numoctaves - 1; ++c) {
 		REAL octave = simpleRidgedLayer3(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+
+REAL simpleBillow3(
+		vector3 v,
+		noise_func3 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleBillowLayer3(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleBillowLayer3(v, basistype,
 				seed + 10 + c * 1000, interp,
 				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
 				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
