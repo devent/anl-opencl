@@ -18,6 +18,8 @@ CPP_SRCS += \
 ../src/test/cpp/opencl_map2D_test.cpp \
 ../src/test/cpp/opencl_noise3D_test.cpp \
 ../src/test/cpp/opencl_simpleFractalLayer_test.cpp \
+../src/test/cpp/opencl_simpleRidgedLayer_test.cpp \
+../src/test/cpp/opencl_simpleRidgedMultifractal_test.cpp \
 ../src/test/cpp/opencl_simplefBm_test.cpp \
 ../src/test/cpp/random_test.cpp 
 
@@ -36,6 +38,8 @@ BCS += \
 ./src/test/cpp/opencl_map2D_test.bc \
 ./src/test/cpp/opencl_noise3D_test.bc \
 ./src/test/cpp/opencl_simpleFractalLayer_test.bc \
+./src/test/cpp/opencl_simpleRidgedLayer_test.bc \
+./src/test/cpp/opencl_simpleRidgedMultifractal_test.bc \
 ./src/test/cpp/opencl_simplefBm_test.bc \
 ./src/test/cpp/random_test.bc 
 
@@ -54,6 +58,8 @@ CPP_DEPS += \
 ./src/test/cpp/opencl_map2D_test.d \
 ./src/test/cpp/opencl_noise3D_test.d \
 ./src/test/cpp/opencl_simpleFractalLayer_test.d \
+./src/test/cpp/opencl_simpleRidgedLayer_test.d \
+./src/test/cpp/opencl_simpleRidgedMultifractal_test.d \
 ./src/test/cpp/opencl_simplefBm_test.d \
 ./src/test/cpp/random_test.d 
 

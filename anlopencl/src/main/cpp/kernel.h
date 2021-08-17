@@ -67,12 +67,23 @@ vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az);
 
 vector3 scaleDomain3(vector3 src, REAL scale);
 
-REAL simpleFractalLayer(vector3 v, noise_func3 basistype,
+REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
 		uint seed, interp_func interp,
 		REAL layerscale, REAL layerfreq, bool rot,
 		REAL angle, REAL ax, REAL ay, REAL az);
 
-REAL simplefBm(
+REAL simpleRidgedLayer3(vector3 v, noise_func3 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+
+REAL simplefBm3(
+		vector3 v,
+		noise_func3 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
+
+REAL simpleRidgedMultifractal3(
 		vector3 v,
 		noise_func3 basistype, uint seed, interp_func interp,
 		random_func rnd, void *srnd,
