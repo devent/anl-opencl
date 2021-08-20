@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simpleBillow3_fixture: public OpenCL_Context_Fixture {
+class value_simpleBillow3_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	/**
@@ -108,7 +108,7 @@ protected:
     	fill2dSpace(input, t.imageWidth);
     	cl::Buffer inputBuffer(std::begin(input), std::end(input), false);
     	this->output = std::make_shared<std::vector<float>>(t.imageSize, 0.0f);
-		this->outputBuffer = std::make_shared<cl::Buffer>(std::begin(*output), std::end(*output), false);
+		this->outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);

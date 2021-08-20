@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_color_noise3D_fixture: public OpenCL_Context_Fixture {
+class value_color_noise3D_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	/**

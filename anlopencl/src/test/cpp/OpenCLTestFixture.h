@@ -57,6 +57,7 @@
 #include <gtest/gtest.h>
 #include <memory>
 #include <string>
+#include <opencv2/core.hpp>
 
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
@@ -76,16 +77,102 @@ struct KernelContext {
 
 std::string readFile(std::string fileName);
 
-class OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
+template <typename T>
+std::shared_ptr<std::vector<T>> createVector(size_t count) {
+	return std::make_shared<std::vector<T>>(count, 0);
+}
+
+template <typename T>
+std::shared_ptr<cl::Buffer> createBufferPtr(
+		std::shared_ptr<std::vector<T>> vector,
+		cl_mem_flags flags = CL_MEM_READ_WRITE) {
+	typedef typename std::vector<T>::value_type DataType;
+	return std::make_shared<cl::Buffer>(
+			flags | CL_MEM_USE_HOST_PTR,
+			sizeof(DataType) * vector->size(),
+			vector->data());
+}
+
+std::string mat_to_s(cv::Mat & m);
+
+/**
+ * Blocking copy operation between iterators and a buffer.
+ * Device to Host.
+ * Uses specified queue.
+ */
+template<typename T>
+cl_int copy(const cl::CommandQueue &queue, const cl::Buffer &buffer,
+		std::vector<T> &target) {
+	typedef typename std::vector<T>::value_type DataType;
+	const size_t byteLength = target.size() * sizeof(DataType);
+
+	cl_int error;
+	DataType *pointer = static_cast<DataType*>(queue.enqueueMapBuffer(buffer,
+			CL_TRUE, CL_MAP_READ, 0, byteLength, 0, 0, &error));
+	// if exceptions enabled, enqueueMapBuffer will throw
+	if (error != CL_SUCCESS) {
+		return error;
+	}
+	std::memcpy(target.data(), pointer, byteLength);
+	cl::Event endEvent;
+	error = queue.enqueueUnmapMemObject(buffer, pointer, 0, &endEvent);
+	// if exceptions enabled, enqueueUnmapMemObject will throw
+	if (error != CL_SUCCESS) {
+		return error;
+	}
+	endEvent.wait();
+	return CL_SUCCESS;
+}
+
+/**
+ * Blocking copy operation between iterators and a buffer.
+ * Device to Host.
+ * Uses default command queue.
+ */
+template<typename T>
+inline cl_int copy(const cl::Buffer &buffer, std::vector<T> &target) {
+	cl_int error;
+	cl::CommandQueue queue = cl::CommandQueue::getDefault(&error);
+	if (error != CL_SUCCESS)
+		return error;
+
+	return copy(queue, buffer, target);
+}
+
+/**
+ * float3 have 4 floats.
+ */
+const size_t dim_float3 = sizeof(cl_float3) / sizeof(cl_float);
+
+class Abstract_OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
 	static std::shared_ptr<spdlog::logger> logger;
-	std::shared_ptr<std::vector<float>> output;
-	std::shared_ptr<cl::Buffer> outputBuffer;
 protected:
 	static void SetUpTestSuite();
 	virtual void SetUp();
-	virtual void TearDown();
 	virtual size_t runKernel(cl::Program & kernel) = 0;
+	virtual void copyBuffers() = 0;
+	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output);
+	void showImage(std::shared_ptr<std::vector<float>> output);
+};
+
+class OpenCL_Context_Buffer_Fixture: public Abstract_OpenCL_Context_Fixture {
+public:
+	std::shared_ptr<std::vector<float>> output;
+	std::shared_ptr<cl::Buffer> outputBuffer;
+protected:
+	virtual void copyBuffers();
+};
+
+template < class T >
+using coarse_float_svm_vector = std::vector<T, cl::SVMAllocator<float, cl::SVMTraitCoarse<>>>;
+
+class OpenCL_Context_SVM_Fixture: public Abstract_OpenCL_Context_Fixture {
+public:
+	cl::SVMAllocator<float, cl::SVMTraitCoarse<>> outputAlloc;
+	std::shared_ptr<coarse_float_svm_vector<float>> output;
+protected:
+	virtual void copyBuffers();
 };
 
 #endif /* OPENCLTESTFIXTURE_H_ */
