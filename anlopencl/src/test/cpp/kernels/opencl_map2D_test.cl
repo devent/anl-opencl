@@ -1,23 +1,25 @@
 kernel void opencl_map2D_default_test(
 global float *output,
-const float sizeWidth,
-const float sizeHeight,
+const int sizeWidth,
+const int sizeHeight,
 const float z,
-global float3 *coord
+const float sx0,
+const float sx1,
+const float sy0,
+const float sy1,
+local float3 *coord
 ) {
 	int id0 = get_global_id(0);
-	if (id0 == 0) {
-		map2D(coord, calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), sizeWidth, sizeHeight, z);
-	}
+	float fid0 = id0;
+	int s0 = get_global_size(0);
+	float x0, x1, y0, y1, s;
+	s = (sx1 - sx0) / (float)(sizeWidth);
+	x0 = sx0 + (id0 % sizeWidth) * s;
+	x1 = sx0 + ((id0 % sizeWidth) + 1) * s;
+	y0 = sy0 + floor(fid0 / (s0 / sizeWidth)) * s;
+	y1 = sy0 + floor(fid0 / (s0 / sizeWidth) + 1) * s;
+	printf("g=%d s=%f %f/%f/%f/%f\n", id0, s,x0,x1,y0,y1);
 	barrier(CLK_LOCAL_MEM_FENCE);
-	int i, j, k;
-	i = id0 * 3 + 0;
-	j = id0 * 3 + 1;
-	k = id0 * 3 + 2;
-	output[i] = value_noise3D(coord[id0], 200, linearInterp);
-	output[j] = value_noise3D(coord[id0], 1000, linearInterp);
-	output[k] = value_noise3D(coord[id0], 2000, linearInterp);
-	printf("%d %f/%f/%f %f/%f/%f\n", id0,coord[id0].x, coord[id0].y, coord[id0].z, output[i],output[j],output[k]);
 }
 
 kernel void opencl_map2D_range_test(

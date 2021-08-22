@@ -85,10 +85,14 @@ protected:
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<
 				cl::Buffer,
-				float,
-				float,
-				float,
-				cl::Buffer
+				int, // sizeWith
+				int, // sizeHeight
+				float, // z
+				float, // sx0
+				float, // sx1
+				float, // sy0
+				float, // sy1
+				cl::LocalSpaceArg
 				>(kernel, t.kernel);
 		output = createVector<float>(t.imageSize * channels);
 	    outputBuffer = createBufferPtr(output);
@@ -99,12 +103,16 @@ protected:
 		logger->trace("Start kernel with size {}", t.imageSize);
 		cl_int error;
 		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
+				cl::EnqueueArgs(cl::NDRange(t.imageSize), cl::NDRange(4)),
 				*outputBuffer,
 				t.imageWidth,
 				t.imageHeight,
 				0,
-				*coordBuffer,
+				-10,
+				10,
+				-10,
+				10,
+				cl::Local(sizeof(float) * 3 * 4),
 				error);
 		logger->info("Created kernel error={}", error);
 		return t.imageSize;
@@ -117,7 +125,7 @@ TEST_P(value_map2D_default_fixture, show_image) {
 	showImage(output);
 }
 
-const size_t size = pow(2, 5);
+const size_t size = pow(2, 3);
 
 INSTANTIATE_TEST_SUITE_P(opencl_map2D_test, value_map2D_default_fixture,
 		Values(
