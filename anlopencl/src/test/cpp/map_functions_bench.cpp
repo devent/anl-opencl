@@ -79,7 +79,73 @@ BENCHMARK(map2D_seamless_none_bench)->
 #endif // USE_THREAD
 		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
-TEST(map2D_bench, seamless_none) {
+static void map2D_seamless_x_bench(benchmark::State &state) {
+	for (auto _ : state) {
+		state.PauseTiming();
+		auto width = state.range(0);
+		auto out = std::vector<vector4>(width * width);
+		auto ranges = create_ranges_default();
+		double z = 99;
+		state.ResumeTiming();
+		map2D(out.data(), calc_seamless_x, ranges, width, width, z);
+		benchmark::DoNotOptimize(out.data());
+	}
+}
+
+// Register the function as a benchmark
+BENCHMARK(map2D_seamless_x_bench)->
+#ifdef USE_THREAD
+		Name("map2D_seamless_x-THREAD")
+#else
+		Name("map2D_seamless_x-NO-THREAD")
+#endif // USE_THREAD
+		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
+
+static void map2D_seamless_xy_bench(benchmark::State &state) {
+	for (auto _ : state) {
+		state.PauseTiming();
+		auto width = state.range(0);
+		auto out = std::vector<vector4>(width * width);
+		auto ranges = create_ranges_default();
+		double z = 99;
+		state.ResumeTiming();
+		map2D(out.data(), calc_seamless_xy, ranges, width, width, z);
+		benchmark::DoNotOptimize(out.data());
+	}
+}
+
+// Register the function as a benchmark
+BENCHMARK(map2D_seamless_xy_bench)->
+#ifdef USE_THREAD
+		Name("map2D_seamless_xy-THREAD")
+#else
+		Name("map2D_seamless_xy-NO-THREAD")
+#endif // USE_THREAD
+		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
+
+static void map2D_seamless_xyz_bench(benchmark::State &state) {
+	for (auto _ : state) {
+		state.PauseTiming();
+		auto width = state.range(0);
+		auto out = std::vector<vector4>(width * width);
+		auto ranges = create_ranges_default();
+		double z = 99;
+		state.ResumeTiming();
+		map2D(out.data(), calc_seamless_xyz, ranges, width, width, z);
+		benchmark::DoNotOptimize(out.data());
+	}
+}
+
+// Register the function as a benchmark
+BENCHMARK(map2D_seamless_xyz_bench)->
+#ifdef USE_THREAD
+		Name("map2D_seamless_xyz-THREAD")
+#else
+		Name("map2D_seamless_xyz-NO-THREAD")
+#endif // USE_THREAD
+		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
+
+TEST(map2D_bench, seamless) {
 	int argc = 0;
 	char** argv = NULL;
     ::benchmark::Initialize(&argc, argv);
