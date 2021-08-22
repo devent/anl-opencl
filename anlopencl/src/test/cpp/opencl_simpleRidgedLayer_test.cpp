@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simpleRidgedLayer3_fixture: public OpenCL_Context_Fixture {
+class value_simpleRidgedLayer3_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	/**

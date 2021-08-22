@@ -50,11 +50,15 @@
  *      Author: Erwin Müller
  */
 
+#include "OpenCLTestFixture.h"
 #include <fstream>
 #include <algorithm>
 #include <stdlib.h>
+#include <cstring>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include "OpenCLTestFixture.h"
+#include <opencv2/highgui.hpp>
+#include <opencv2/core/mat.hpp>
+#include "imaging.h"
 
 using namespace cl;
 using ::testing::TestWithParam;
@@ -228,12 +232,11 @@ std::string readFile(std::string fileName) {
 	return s;
 }
 
-std::shared_ptr<spdlog::logger> OpenCL_Context_Fixture::logger = []() -> std::shared_ptr<spdlog::logger> {
-	logger = spdlog::stderr_color_mt("OpenCL_Context_Fixture", spdlog::color_mode::automatic);
-	logger->set_level(spdlog::level::trace);
-	logger->flush_on(spdlog::level::err);
-	return logger;
-}();
+std::string mat_to_s(cv::Mat & m) {
+    std::string ms;
+    ms << m;
+    return ms;
+}
 
 Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelContext& t) {
 	std::stringstream ss;
@@ -272,7 +275,15 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
     }
 }
 
-void OpenCL_Context_Fixture::SetUpTestSuite() {
+std::shared_ptr<spdlog::logger> Abstract_OpenCL_Context_Fixture::logger = []() -> std::shared_ptr<spdlog::logger> {
+	logger = spdlog::stderr_color_mt("OpenCL_Context_Fixture", spdlog::color_mode::automatic);
+	logger->set_level(spdlog::level::trace);
+	logger->flush_on(spdlog::level::debug);
+	logger->flush_on(spdlog::level::err);
+	return logger;
+}();
+
+void Abstract_OpenCL_Context_Fixture::SetUpTestSuite() {
 	Device d = Device::getDefault();
 	logger->debug("Max compute units: {}", d.getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>());
 	logger->debug("Max dimensions: {}", d.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>());
@@ -284,7 +295,7 @@ void OpenCL_Context_Fixture::SetUpTestSuite() {
 	logger->debug("Device SVM capabilities: {}", d.getInfo<CL_DEVICE_SVM_CAPABILITIES>());
 }
 
-void OpenCL_Context_Fixture::SetUp() {
+void Abstract_OpenCL_Context_Fixture::SetUp() {
 	EXPECT_TRUE(loadPlatform(logger)) << "Unable to load platform";
 	auto t = GetParam();
 	auto kernel = createPrograms(logger, GetParam());
@@ -296,18 +307,43 @@ void OpenCL_Context_Fixture::SetUp() {
 		throw ex;
 	}
 	try {
-		cl::copy(*outputBuffer, std::begin(*output), std::end(*output));
+		logger->debug("Copy output buffer size {}", t.imageSize);
+		copyBuffers();
 	} catch (const cl::Error &ex) {
 		logger->error("Output buffer error {}: {}", ex.err(), ex.what());
 		throw ex;
 	}
-
-//	std::cout << "Output:\n";
-//	for (int i = 0; i < numElements; ++i) {
-//		std::cout << "\t" << (*output)[i] << "\n";
-//	}
 }
 
-void OpenCL_Context_Fixture::TearDown() {
+void Abstract_OpenCL_Context_Fixture::showImageScaleToRange(
+		std::shared_ptr<std::vector<float>> output) {
+    float min = *std::min_element(output->begin(), output->end());
+    float max = *std::max_element(output->begin(), output->end());
+    scaleToRange(output->data(), output->size(), min, max, 0, 1);
+    logger->trace("Scale to range min={}, max={}", min, max);
+	showImage(output);
+}
+
+void Abstract_OpenCL_Context_Fixture::showImage(
+		std::shared_ptr<std::vector<float>> output) {
+	auto t = GetParam();
+	logger->debug("Preparing showing image size {}x{}", t.imageWidth, t.imageHeight);
+	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32FC3);
+    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
+    logger->trace("Showing m={}", mat_to_s(m));
+    std::string w = "Grey Image Vec Copy";
+    cv::namedWindow(w, cv::WINDOW_NORMAL);
+    cv::resizeWindow(w, 512, 512);
+    cv::imshow(w, m);
+    cv::waitKey(0);
+    cv::destroyAllWindows();
+}
+
+void OpenCL_Context_Buffer_Fixture::copyBuffers() {
+	copy(*outputBuffer, *output);
+}
+
+void OpenCL_Context_SVM_Fixture::copyBuffers() {
+	cl::mapSVM(*output);
 }
 

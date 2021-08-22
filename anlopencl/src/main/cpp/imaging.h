@@ -107,23 +107,84 @@ struct SChunk {
 	REAL z;
 };
 
+/**
+ * Use with map2D to have no seamless mapping ranges.
+ *
+ * @param out a pointer to an array of vector3.
+ */
 void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the X-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector4.
+ */
 void calc_seamless_x(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the Y-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector4.
+ */
 void calc_seamless_y(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the Z-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector4.
+ */
 void calc_seamless_z(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the X-Y-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector8.
+ */
 void calc_seamless_xy(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the X-Z-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector8.
+ */
 void calc_seamless_xz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the Y-Z-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector8.
+ */
 void calc_seamless_yz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
+
+/**
+ * Use with map2D to have seamless along the X-Y-Z-axis mapping ranges.
+ *
+ * @param out a pointer to an array of vector8.
+ */
 void calc_seamless_xyz(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges);
 
+/**
+ * Creates the mapping ranges for the width and height. Different seamless functions are supported.
+ * @param out a pointer to an array of vectors with the correct dimension.
+ * <ul>
+ * <li>calc_seamless_none: vector3
+ * <li>calc_seamless_x: vector4
+ * <li>calc_seamless_y: vector4
+ * <li>calc_seamless_z: vector4
+ * <li>calc_seamless_xy: vector8
+ * <li>calc_seamless_xz: vector8
+ * <li>calc_seamless_yz: vector8
+ * <li>calc_seamless_xyz: vector8
+ * <ul>
+ */
 void* map2D(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height, REAL z);
 

@@ -63,54 +63,56 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core/mat.hpp>
-
 #include "OpenCLTestFixture.h"
 #include "opencl_utils.h"
+#include "imaging.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_map2D_fixture: public OpenCL_Context_Fixture {
+class value_map2D_default_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	/**
-	 * float3 have 4 floats.
-	 */
-	const size_t dim = 4;
+	const size_t channels = 3;
 
-	std::string mat_to_s(cv::Mat & m) {
-	    std::string ms;
-	    ms << m;
-	    return ms;
-	}
+	std::shared_ptr<std::vector<float>> coord;
+
+	std::shared_ptr<cl::Buffer> coordBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<
 				cl::Buffer,
-				float,
-				float,
-				float,
+				int, // sizeWith
+				int, // sizeHeight
+				float, // z
+				float, // sx0
+				float, // sx1
+				float, // sy0
+				float, // sy1
 				cl::LocalSpaceArg
 				>(kernel, t.kernel);
-	    this->output = std::make_shared<std::vector<float>>(t.imageSize * 4, 0.0f);
-	    this->outputBuffer = std::make_shared<cl::Buffer>(std::begin(*output), std::end(*output), false);
+		output = createVector<float>(t.imageSize * channels);
+	    outputBuffer = createBufferPtr(output);
+	    coord = createVector<float>(t.imageSize * dim_float3);
+	    coordBuffer = createBufferPtr(coord);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);
 		cl_int error;
 		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
+				cl::EnqueueArgs(cl::NDRange(t.imageSize), cl::NDRange(4)),
 				*outputBuffer,
 				t.imageWidth,
 				t.imageHeight,
 				0,
-				cl::Local(sizeof(cl_float3) * t.imageSize),
+				-10,
+				10,
+				-10,
+				10,
+				cl::Local(sizeof(float) * 3 * 4),
 				error);
 		logger->info("Created kernel error={}", error);
 		return t.imageSize;
@@ -118,25 +120,14 @@ protected:
 
 };
 
-TEST_P(value_map2D_fixture, show_image) {
+TEST_P(value_map2D_default_fixture, show_image) {
 	auto t = GetParam();
-	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32FC4);
-    float min = *std::min_element(output->begin(), output->end());
-    float max = *std::max_element(output->begin(), output->end());
-    //scaleToRange(output->data(), output->size(), min, max, 0, 1);
-    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-//    logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
-    std::string w = "Grey Image Vec Copy";
-    cv::namedWindow(w, cv::WINDOW_NORMAL);
-    cv::resizeWindow(w, 512, 512);
-    cv::imshow(w, m);
-    cv::waitKey(0);
-    cv::destroyAllWindows();
+	showImage(output);
 }
 
-const size_t size = pow(2, 1);
+const size_t size = pow(2, 3);
 
-INSTANTIATE_TEST_SUITE_P(opencl_map2D_test, value_map2D_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_map2D_test, value_map2D_default_fixture,
 		Values(
-				KernelContext("opencl_map2D_test", readFile("src/test/cpp/kernels/opencl_map2D_test.cl"), size) //
+				KernelContext("opencl_map2D_default_test", readFile("src/test/cpp/kernels/opencl_map2D_test.cl"), size) //
 						));
