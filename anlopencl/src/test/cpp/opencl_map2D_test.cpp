@@ -122,7 +122,7 @@ protected:
 
 TEST_P(value_map2D_default_fixture, show_image) {
 	auto t = GetParam();
-	showImage(output);
+	showImage(output, CV_32FC3);
 }
 
 const size_t size = pow(2, 3);

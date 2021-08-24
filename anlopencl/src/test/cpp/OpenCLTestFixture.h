@@ -144,6 +144,11 @@ inline cl_int copy(const cl::Buffer &buffer, std::vector<T> &target) {
  */
 const size_t dim_float3 = sizeof(cl_float3) / sizeof(cl_float);
 
+/**
+ * float4 have 4 floats.
+ */
+const size_t dim_float4 = sizeof(cl_float4) / sizeof(cl_float);
+
 class Abstract_OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
 	static std::shared_ptr<spdlog::logger> logger;
@@ -152,8 +157,8 @@ protected:
 	virtual void SetUp();
 	virtual size_t runKernel(cl::Program & kernel) = 0;
 	virtual void copyBuffers() = 0;
-	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output);
-	void showImage(std::shared_ptr<std::vector<float>> output);
+	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output, int type);
+	void showImage(std::shared_ptr<std::vector<float>> output, int type);
 };
 
 class OpenCL_Context_Buffer_Fixture: public Abstract_OpenCL_Context_Fixture {

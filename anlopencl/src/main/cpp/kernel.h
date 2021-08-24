@@ -74,6 +74,11 @@ vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az);
 vector3 scaleDomain3(vector3 src, REAL scale);
 
 /**
+ * Combines the RGBA values.
+ */
+vector4 combineRGBA(float r, float g, float b, float a);
+
+/**
  * Returns simple fractal layer value for the coordinate.
  * @param v the vector3 (x,y,z) coordinate.
  * @param basistype the noise_func3 basis noise generation function.

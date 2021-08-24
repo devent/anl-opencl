@@ -316,21 +316,21 @@ void Abstract_OpenCL_Context_Fixture::SetUp() {
 }
 
 void Abstract_OpenCL_Context_Fixture::showImageScaleToRange(
-		std::shared_ptr<std::vector<float>> output) {
+		std::shared_ptr<std::vector<float>> output, int type) {
     float min = *std::min_element(output->begin(), output->end());
     float max = *std::max_element(output->begin(), output->end());
     scaleToRange(output->data(), output->size(), min, max, 0, 1);
     logger->trace("Scale to range min={}, max={}", min, max);
-	showImage(output);
+	showImage(output, type);
 }
 
 void Abstract_OpenCL_Context_Fixture::showImage(
-		std::shared_ptr<std::vector<float>> output) {
+		std::shared_ptr<std::vector<float>> output, int type) {
 	auto t = GetParam();
 	logger->debug("Preparing showing image size {}x{}", t.imageWidth, t.imageHeight);
-	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32FC3);
+	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), type);
     std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-    logger->trace("Showing m={}", mat_to_s(m));
+    //logger->trace("Showing m={}", mat_to_s(m));
     std::string w = "Grey Image Vec Copy";
     cv::namedWindow(w, cv::WINDOW_NORMAL);
     cv::resizeWindow(w, 512, 512);

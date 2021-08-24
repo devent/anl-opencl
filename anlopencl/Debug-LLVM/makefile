@@ -65,7 +65,7 @@ main-build: anlopencl-core secondary-outputs
 anlopencl-core: $(BCS) $(USER_OBJS) makefile objects.mk $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: LLVM Clang C++ linker'
-	clang++ -L/home/devent/Projects/dwarf-hustle/googletest/lib -L/home/devent/Projects/dwarf-hustle/benchmark/build/src -L/home/devent/Projects/dwarf-hustle/spdlog/build -o "anlopencl-core" $(BCS) $(USER_OBJS) $(LIBS)
+	clang++ -L/home/devent/Projects/dwarf-hustle/googletest/lib -L/home/devent/Projects/dwarf-hustle/benchmark/build/src -L/home/devent/Projects/dwarf-hustle/spdlog/build -fuse-ld=lld -o "anlopencl-core" $(BCS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

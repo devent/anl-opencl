@@ -192,6 +192,7 @@
 									<listOptionValue builtIn="false" value="gtest"/>
 									<listOptionValue builtIn="false" value="OpenCL"/>
 								</option>
+								<option id="llvm.c.link.base.option.ldflags.1624677718" superClass="llvm.c.link.base.option.ldflags" useByScannerDiscovery="false" value="-fuse-ld=lld" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1751762428" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
