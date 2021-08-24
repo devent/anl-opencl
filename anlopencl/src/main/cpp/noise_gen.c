@@ -88,6 +88,24 @@ REAL distEuclid3(vector3 a, vector3 b) {
 	return sqrt(dx * dx + dy * dy + dz * dz);
 }
 
+REAL distEuclid4(vector4 a, vector4 b) {
+	REAL dx = b.x - a.x;
+	REAL dy = b.y - a.y;
+	REAL dz = b.z - a.z;
+	REAL dw = b.z - a.z;
+	return sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
+}
+
+REAL distEuclid6(vector8 a, vector8 b) {
+	REAL dx = b.x - a.x;
+	REAL dy = b.y - a.y;
+	REAL dz = b.z - a.z;
+	REAL dw = b.z - a.z;
+	REAL du = b.s4 - a.s4;
+	REAL dv = b.s5 - a.s5;
+	return sqrt(dx * dx + dy * dy + dz * dz + dw * dw + du * du + dv * dv);
+}
+
 REAL distManhattan2(vector2 a, vector2 b) {
 	REAL dx = fabs(b.x - a.x);
 	REAL dy = fabs(b.y - a.y);
@@ -101,6 +119,24 @@ REAL distManhattan3(vector3 a, vector3 b) {
 	return dx + dy + dz;
 }
 
+REAL distManhattan4(vector4 a, vector4 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	return dx + dy + dz + dw;
+}
+
+REAL distManhattan6(vector8 a, vector8 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	REAL du = fabs(b.s4 - a.s4);
+	REAL dv = fabs(b.s5 - a.s5);
+	return dx + dy + dz + dw + du + dv;
+}
+
 REAL distGreatestAxis2(vector2 a, vector2 b) {
 	REAL dx = fabs(b.x - a.x);
 	REAL dy = fabs(b.y - a.y);
@@ -111,7 +147,25 @@ REAL distGreatestAxis3(vector3 a, vector3 b) {
 	REAL dx = fabs(b.x - a.x);
 	REAL dy = fabs(b.y - a.y);
 	REAL dz = fabs(b.z - a.z);
-	return fmax(dz,fmax(dx,dy));
+	return fmax(dz, fmax(dx, dy));
+}
+
+REAL distGreatestAxis4(vector4 a, vector4 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	return fmax(dw, fmax(dz, fmax(dx, dy)));
+}
+
+REAL distGreatestAxis6(vector8 a, vector8 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	REAL du = fabs(b.s4 - a.s4);
+	REAL dv = fabs(b.s5 - a.s5);
+	return fmax(du, fmax(dv, fmax(dw, fmax(dz, fmax(dx, dy)))));
 }
 
 REAL distLeastAxis2(vector2 a, vector2 b) {
@@ -124,20 +178,79 @@ REAL distLeastAxis3(vector3 a, vector3 b) {
 	REAL dx = fabs(b.x - a.x);
 	REAL dy = fabs(b.y - a.y);
 	REAL dz = fabs(b.z - a.z);
-	return fmin(dz,fmin(dx,dy));
+	return fmin(dz, fmin(dx, dy));
 }
 
-uint compute_hash_double_2(vector2 v, unsigned int seed) {
-	//double d[3]={x,y,(double)seed};
-	//unsigned int s=sizeof(d) / sizeof(unsigned int);
-	//return xor_fold_hash(fnv_32_a_buf(d, s));
+REAL distLeastAxis4(vector4 a, vector4 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	return fmin(dw, fmin(dz, fmin(dx, dy)));
+}
 
+REAL distLeastAxis6(vector8 a, vector8 b) {
+	REAL dx = fabs(b.x - a.x);
+	REAL dy = fabs(b.y - a.y);
+	REAL dz = fabs(b.z - a.z);
+	REAL dw = fabs(b.w - a.w);
+	REAL du = fabs(b.s4 - a.s4);
+	REAL dv = fabs(b.s5 - a.s5);
+	return fmin(du, fmin(dv, fmin(dw, fmin(dz, fmin(dx, dy)))));
+}
+
+uint compute_hash2(vector2 v, uint seed) {
+	//REAL d[3]={x,y,(REAL)seed};
+	//uint s=sizeof(d) / sizeof(uint);
+	//return xor_fold_hash(fnv_32_a_buf(d, s));
 	uint hash = FNV_32_INIT;
 	hash = fnv_32_a_combine(hash, (uint) (v.x * (REAL) 1000000));
 	hash = fnv_32_a_combine(hash, (uint) (v.y * (REAL) 1000000));
 	hash = fnv_32_a_combine(hash, seed);
 	return xor_fold_hash(hash);
 }
+
+uint compute_hash3(vector3 v, uint seed) {
+	//REAL d[4]={x,y,z,(REAL)seed};
+	//uint s=sizeof(d) / sizeof(uint);
+	//return xor_fold_hash(fnv_32_a_buf(d, s));
+	uint hash = FNV_32_INIT;
+	hash = fnv_32_a_combine(hash, (uint) (v.x * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.y * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.z * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, seed);
+	return xor_fold_hash(hash);
+}
+
+uint compute_hash4(vector4 v, uint seed) {
+	//REAL d[5]={x,y,z,w,(REAL)seed};
+	//uint s=sizeof(d) / sizeof(uint);
+	//return xor_fold_hash(fnv_32_a_buf(d, s));
+	uint hash = FNV_32_INIT;
+	hash = fnv_32_a_combine(hash, (uint) (v.x * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.y * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.z * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.w * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, seed);
+	return xor_fold_hash(hash);
+}
+
+uint compute_hash6(vector8 v, uint seed) {
+	//REAL d[7]={x,y,z,w,u,v,(REAL)seed};
+	//uint s=sizeof(d) / sizeof(uint);
+	//return xor_fold_hash(fnv_32_a_buf(d, s));
+	uint hash = FNV_32_INIT;
+	hash = fnv_32_a_combine(hash, (uint) (v.x * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.y * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.z * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.w * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.s4 * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, (uint) (v.s5 * (REAL) 1000000));
+	hash = fnv_32_a_combine(hash, seed);
+	return xor_fold_hash(hash);
+}
+
+// Worker noise functions
 
 REAL value_noise_2(vector2 v, int ix, int iy, uint seed) {
 	uint n = (hash_coords_2(ix, iy, seed)) % 256;
@@ -151,7 +264,19 @@ REAL value_noise_3(vector3 v, int ix, int iy, int iz, uint seed) {
 	return noise * 2.0 - 1.0;
 }
 
-REAL grad_noise_2(vector2 v, int ix, int iy, unsigned int seed) {
+REAL value_noise_4(vector4 v, int ix, int iy, int iz, int iw, uint seed) {
+	uint n = (hash_coords_4(ix, iy, iz, iw, seed)) % 256;
+	REAL noise = (REAL) n / (255.0);
+	return noise * 2.0 - 1.0;
+}
+
+REAL value_noise_6(vector8 v, int ix, int iy, int iz, int iw, int iu, int iv, uint seed) {
+	uint n = (hash_coords_6(ix, iy, iz, iw, iu, iv, seed)) % 256;
+	REAL noise = (REAL) n / (255.0);
+	return noise * 2.0 - 1.0;
+}
+
+REAL grad_noise_2(vector2 v, int ix, int iy, uint seed) {
 	uint hash = hash_coords_2(ix, iy, seed) % 8;
 	REAL *vec = &gradient2D_lut[hash][0];
 
@@ -268,7 +393,7 @@ REAL gradval_noise2D(vector2 v, uint seed, interp_func interp) {
 }
 
 REAL white_noise2D(vector2 v, uint seed, interp_func interp) {
-	unsigned char hash = compute_hash_double_2(v, seed);
+	unsigned char hash = compute_hash2(v, seed);
 	return whitenoise_lut[hash];
 }
 
@@ -347,9 +472,9 @@ REAL simplex_noise2D(vector2 v, uint seed, interp_func interp) {
 	REAL y2 = y0 - 1.0 + 2.0 * G2;
 
 	// Hash the triangle coordinates to index the gradient table
-	unsigned int h0 = hash_coords_2(i, j, seed) % 8;
-	unsigned int h1 = hash_coords_2(i + i1, j + j1, seed) % 8;
-	unsigned int h2 = hash_coords_2(i + 1, j + 1, seed) % 8;
+	uint h0 = hash_coords_2(i, j, seed) % 8;
+	uint h1 = hash_coords_2(i + i1, j + j1, seed) % 8;
+	uint h2 = hash_coords_2(i + 1, j + 1, seed) % 8;
 
 	// Now, index the tables
 	REAL *g0 = &gradient2D_lut[h0][0];
