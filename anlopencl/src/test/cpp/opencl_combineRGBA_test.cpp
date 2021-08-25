@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_color_noise3D_test.cpp
+ * opencl_combineRGBA_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_color_noise3D_test*"
+ * --gtest_filter="opencl_combineRGBA_test*"
  *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
@@ -75,53 +75,29 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_color_noise3D_fixture: public OpenCL_Context_Buffer_Fixture {
+class opencl_combineRGBA_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	/**
-	 * float3 have 4 floats.
-	 */
-	const size_t dim = 4;
+	std::shared_ptr<std::vector<float>> input;
 
-	std::string mat_to_s(cv::Mat & m) {
-	    std::string ms;
-	    ms << m;
-	    return ms;
-	}
-
-	void fill2dSpace(std::vector<float> & v, size_t width) {
-		std::vector<vector3> vv(width * width);
-		map2D(vv.data(), calc_seamless_none, create_ranges_map2D(-4, 4, -4, 4), width, width, 0);
-		size_t j = 0;
-		for (size_t i = 0; i < width * width * dim; i += dim) {
-			v[i] = vv[j].x;
-			v[i + 1] = vv[j].y;
-			v[i + 2] = vv[j].z;
-			++j;
-		}
-	}
+	std::shared_ptr<cl::Buffer> inputBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		auto input = std::vector<float>(t.imageSize * dim, 0.0f);
-    	fill2dSpace(input, t.imageWidth);
-//		for (int i = 0; i < input.size(); i += dim) {
-//			printf("%.5f/%.5f/%.5f\n", input[i], input[i+1], input[i+2], input[i+3]);
-//		}
-    	cl::Buffer inputBuffer(std::begin(input), std::end(input), false);
-		auto output = std::make_shared<std::vector<float>>(t.imageSize, 0.0f);
-	    cl::Buffer outputBuffer(std::begin(*output), std::end(*output), false);
+		input = createVector<float>(t.imageSize * dim_float3);
+		map2D(input->data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+		output = createVector<float>(t.imageSize * dim_float4);
+		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
-	    this->output = output;
-	    this->outputBuffer = std::make_shared<cl::Buffer>(outputBuffer);
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);
 		cl_int error;
 		kernelf(
 				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				inputBuffer,
-				outputBuffer,
+				*inputBuffer,
+				*outputBuffer,
 				error);
 		logger->info("Created kernel error={}", error);
 		return t.imageSize;
@@ -129,34 +105,14 @@ protected:
 
 };
 
-TEST_P(value_color_noise3D_fixture, show_image) {
+TEST_P(opencl_combineRGBA_fixture, show_image) {
 	auto t = GetParam();
-	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
-    float min = *std::min_element(output->begin(), output->end());
-    float max = *std::max_element(output->begin(), output->end());
-    scaleToRange(output->data(), output->size(), min, max, 0, 1);
-    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-//    logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
-    std::string w = "Grey Image Vec Copy";
-    cv::namedWindow(w, cv::WINDOW_NORMAL);
-    cv::resizeWindow(w, 512, 512);
-    cv::imshow(w, m);
-    cv::waitKey(0);
-    cv::destroyAllWindows();
+	showImage(output, CV_32FC4);
 }
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_color_noise3D_test, value_color_noise3D_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_combineRGBA_test, opencl_combineRGBA_fixture,
 		Values(
-				KernelContext("value_noise3D_with_noInterp_test",
-						R"EOT(
-kernel void value_noise3D_with_noInterp_test(
-global float3 *input,
-global float4 *output) {
-	int id = get_global_id(0);
-	output[id] = value_noise3D(input[id], 200, noInterp);
-}
-)EOT",
-						size) //
+				KernelContext("main", readFile("src/test/cpp/kernels/combineRGBA_simpleBillow_test.cl"), size) //
 						));

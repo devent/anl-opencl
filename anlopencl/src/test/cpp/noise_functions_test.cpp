@@ -139,6 +139,52 @@ INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, quinticInterp, -0.47451 }, // 20
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, value_noise3D, quinticInterp, 0.28627 }, //
 		//
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, gradient_noise3D, noInterp, -3.00000 }, //
+		//
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, gradval_noise3D, noInterp, 0.82836 }, //
+		//
+		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, white_noise3D, noInterp, 1.00000 }, //
+		//
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, simplex_noise3D, noInterp, -3.94705 }, //
 		Func3D { (vector3){ 0.0, 0.0, 0.0 }, 200, simplex_noise3D, noInterp, 0.00032 } //
+));
+
+struct Func4D {
+	vector4 v;
+	uint seed;
+	noise_func4 noise_func;
+	interp_func interp;
+	REAL y;
+};
+
+class noise_func4_params: public ::testing::TestWithParam<Func4D> {
+};
+
+TEST_P(noise_func4_params, value_noise4D) {
+	auto t = GetParam();
+	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise_gen_noise4D_test, noise_func4_params, Values( //
+		Func4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, value_noise4D, noInterp, 0.76471 } // 0
+));
+
+struct Func6D {
+	vector8 v;
+	uint seed;
+	noise_func6 noise_func;
+	interp_func interp;
+	REAL y;
+};
+
+class noise_func6_params: public ::testing::TestWithParam<Func6D> {
+};
+
+TEST_P(noise_func6_params, value_noise6D) {
+	auto t = GetParam();
+	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
+}
+
+INSTANTIATE_TEST_SUITE_P(noise_gen_noise6D_test, noise_func6_params, Values( //
+		Func6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, value_noise6D, noInterp, 0.81961 } // 0
 ));

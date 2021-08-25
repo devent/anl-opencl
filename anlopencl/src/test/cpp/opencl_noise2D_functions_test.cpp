@@ -44,12 +44,12 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_map2D_test.cpp
+ * opencl_noise2D_functions_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_map2D_test*"
+ * --gtest_filter="opencl_noise2D_functions_test*"
  *
- *  Created on: Jul 27, 2021
+ *  Created on: Auf 24, 2021
  *      Author: Erwin Müller
  */
 
@@ -63,8 +63,11 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/core/mat.hpp>
+
 #include "OpenCLTestFixture.h"
-#include "opencl_utils.h"
 #include "imaging.h"
 
 using ::testing::TestWithParam;
@@ -72,47 +75,29 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_map2D_default_fixture: public OpenCL_Context_Buffer_Fixture {
+class opencl_noise2D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	const size_t channels = 3;
+	std::shared_ptr<std::vector<float>> input;
 
-	std::shared_ptr<std::vector<float>> coord;
-
-	std::shared_ptr<cl::Buffer> coordBuffer;
+	std::shared_ptr<cl::Buffer> inputBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<
-				cl::Buffer,
-				int, // sizeWith
-				int, // sizeHeight
-				float, // z
-				float, // sx0
-				float, // sx1
-				float, // sy0
-				float, // sy1
-				cl::LocalSpaceArg
-				>(kernel, t.kernel);
-		output = createVector<float>(t.imageSize * channels);
-	    outputBuffer = createBufferPtr(output);
-	    coord = createVector<float>(t.imageSize * dim_float3);
-	    coordBuffer = createBufferPtr(coord);
+		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
+		input = createVector<float>(t.imageSize * dim_float2);
+		map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight);
+		inputBuffer = createBufferPtr(input);
+		output = createVector<float>(t.imageSize);
+		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);
 		cl_int error;
 		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize), cl::NDRange(4)),
+				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
+				*inputBuffer,
 				*outputBuffer,
-				t.imageWidth,
-				t.imageHeight,
-				0,
-				-10,
-				10,
-				-10,
-				10,
-				cl::Local(sizeof(float) * 3 * 4),
 				error);
 		logger->info("Created kernel error={}", error);
 		return t.imageSize;
@@ -120,14 +105,21 @@ protected:
 
 };
 
-TEST_P(value_map2D_default_fixture, show_image) {
+TEST_P(opencl_noise2D_functions_fixture, show_image) {
 	auto t = GetParam();
-	showImage(output, CV_32FC3);
+	showImageScaleToRange(output, CV_32F);
 }
 
-const size_t size = pow(2, 3);
+const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_map2D_test, value_map2D_default_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_noise2D_functions_test, opencl_noise2D_functions_fixture,
 		Values(
-				KernelContext("opencl_map2D_default_test", readFile("src/test/cpp/kernels/opencl_map2D_test.cl"), size) //
-						));
+			KernelContext("value_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size) //
+));

@@ -93,6 +93,10 @@ vector3 scaleDomain3(vector3 src, REAL scale) {
 	return src * scale;
 }
 
+vector4 combineRGBA(float r, float g, float b, float a) {
+	return (vector4)(r, g, b, a);
+}
+
 REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
 		uint seed, interp_func interp,
 		REAL layerscale, REAL layerfreq, bool rot,

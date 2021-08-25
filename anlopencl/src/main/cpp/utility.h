@@ -82,15 +82,13 @@ REAL hermite_blend(REAL t);
 REAL quintic_blend(REAL t);
 
 int fast_floor(REAL t);
-
 int2 fast_floor2(vector2 v);
-
 int3 fast_floor3(vector3 v);
+int4 fast_floor4(vector4 v);
+int8 fast_floor8(vector8 v);
 
 REAL array_dot(REAL *arr, REAL a, REAL b);
-
 REAL array_dot2(REAL *arr, REAL a, REAL b);
-
 REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c);
 
 REAL bias(REAL b, REAL t);
