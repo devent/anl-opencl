@@ -80,7 +80,7 @@ CPP_DEPS += \
 src/test/cpp/%.bc: ../src/test/cpp/%.cpp src/test/cpp/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: LLVM Clang++'
-	clang++ -D_GNU_SOURCE -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -I/usr/include/opencv4 -I/home/devent/Projects/dwarf-hustle/spdlog/include -I/home/devent/Projects/dwarf-hustle/OpenCL-CLHPP/include -I/home/devent/Projects/dwarf-hustle/OpenCL-Headers -I/home/devent/Projects/dwarf-hustle/googletest/googletest/include -I/home/devent/Projects/dwarf-hustle/benchmark/include -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -std=c++0x -MMD -MP -o "$@" "$<"
+	clang++ -D_GNU_SOURCE -DUSE_THREAD -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -I/usr/include/opencv4 -I/home/devent/Projects/dwarf-hustle/spdlog/include -I/home/devent/Projects/dwarf-hustle/OpenCL-CLHPP/include -I/home/devent/Projects/dwarf-hustle/OpenCL-Headers -I/home/devent/Projects/dwarf-hustle/googletest/googletest/include -I/home/devent/Projects/dwarf-hustle/benchmark/include -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -std=c++0x -MMD -MP -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

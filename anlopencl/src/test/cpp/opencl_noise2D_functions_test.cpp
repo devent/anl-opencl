@@ -86,9 +86,9 @@ protected:
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
 		input = createVector<float>(t.imageSize * dim_float2);
-		map2D(input->data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
+		map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight);
 		inputBuffer = createBufferPtr(input);
-		output = createVector<float>(t.imageSize * dim_float2);
+		output = createVector<float>(t.imageSize);
 		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -107,12 +107,19 @@ protected:
 
 TEST_P(opencl_noise2D_functions_fixture, show_image) {
 	auto t = GetParam();
-	showImage(output, CV_32FC4);
+	showImageScaleToRange(output, CV_32F);
 }
 
 const size_t size = pow(2, 10);
 
 INSTANTIATE_TEST_SUITE_P(opencl_noise2D_functions_test, opencl_noise2D_functions_fixture,
 		Values(
-				KernelContext("main", readFile("src/test/cpp/kernels/combineRGBA_simpleBillow_test.cl"), size) //
-						));
+			KernelContext("value_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("value_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradient_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size) //
+));

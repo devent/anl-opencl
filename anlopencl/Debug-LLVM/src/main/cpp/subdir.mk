@@ -35,7 +35,7 @@ C_DEPS += \
 src/main/cpp/%.bc: ../src/main/cpp/%.c src/main/cpp/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: LLVM Clang'
-	clang -D_GNU_SOURCE -I/home/devent/Projects/dwarf-hustle/llvm-project -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -MMD -MP -o "$@" "$<"
+	clang -D_GNU_SOURCE -DUSE_THREAD -I/home/devent/Projects/dwarf-hustle/llvm-project -I"/home/devent/Projects/dwarf-hustle/anl-opencl/anlopencl/src/main/cpp" -O0 -emit-llvm -g3 -Wall -c -fmessage-length=0 -MMD -MP -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
