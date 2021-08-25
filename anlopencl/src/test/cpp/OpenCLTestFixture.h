@@ -164,6 +164,8 @@ protected:
 	virtual void copyBuffers() = 0;
 	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output, int type);
 	void showImage(std::shared_ptr<std::vector<float>> output, int type);
+	void saveImageScaleToRange(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
+	void saveImage(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
 };
 
 class OpenCL_Context_Buffer_Fixture: public Abstract_OpenCL_Context_Fixture {

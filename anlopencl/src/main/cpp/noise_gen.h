@@ -116,10 +116,37 @@ REAL gradval_noise3D(vector3 v, uint seed, interp_func interp);
 REAL gradval_noise4D(vector4 v, uint seed, interp_func interp);
 REAL gradval_noise6D(vector8 v, uint seed, interp_func interp);
 
+/**
+ * White noise functions.
+ * <cite>
+ * In signal processing, white noise is a random signal having equal
+ * intensity at different frequencies, giving it a constant power spectral density.
+ * https://en.wikipedia.org/wiki/White_noise
+ * </cite>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
+
 REAL white_noise2D(vector2 v, uint seed, interp_func interp);
 REAL white_noise3D(vector3 v, uint seed, interp_func interp);
 REAL white_noise4D(vector4 v, uint seed, interp_func interp);
 REAL white_noise6D(vector8 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <cite>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </cite>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 
 REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
 REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);

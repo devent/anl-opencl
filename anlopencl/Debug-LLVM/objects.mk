@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lpthread -lbenchmark -lopencv_highgui -lopencv_core -lstdc++ -lspdlog -lgtest -lOpenCL
+LIBS := -lpthread -lopencv_imgcodecs -lbenchmark -lopencv_highgui -lopencv_core -lstdc++ -lspdlog -lgtest -lOpenCL
 

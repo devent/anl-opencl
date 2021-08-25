@@ -60,13 +60,6 @@
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core/mat.hpp>
-
 #include "OpenCLTestFixture.h"
 #include "imaging.h"
 
@@ -110,6 +103,13 @@ TEST_P(opencl_noise2D_functions_fixture, show_image) {
 	showImageScaleToRange(output, CV_32F);
 }
 
+TEST_P(opencl_noise2D_functions_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	ss << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, CV_32F);
+}
+
 const size_t size = pow(2, 10);
 
 INSTANTIATE_TEST_SUITE_P(opencl_noise2D_functions_test, opencl_noise2D_functions_fixture,
@@ -118,8 +118,18 @@ INSTANTIATE_TEST_SUITE_P(opencl_noise2D_functions_test, opencl_noise2D_functions
 			KernelContext("value_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
 			KernelContext("value_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
 			KernelContext("value_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			//
 			KernelContext("gradient_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
 			KernelContext("gradient_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
 			KernelContext("gradient_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
-			KernelContext("gradient_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size) //
+			KernelContext("gradient_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			//
+			KernelContext("gradval_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradval_noise2D_linearInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradval_noise2D_hermiteInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			KernelContext("gradval_noise2D_quinticInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			//
+			KernelContext("white_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size), //
+			//
+			KernelContext("simplex_noise2D_noInterp", readFile("src/test/cpp/kernels/noise2D_functions.cl"), size) //
 ));

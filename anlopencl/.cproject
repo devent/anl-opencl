@@ -184,6 +184,7 @@
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="llvm.c.link.option.libs.2128873558" name="Libraries (-l)" superClass="llvm.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="pthread"/>
+									<listOptionValue builtIn="false" value="opencv_imgcodecs"/>
 									<listOptionValue builtIn="false" value="benchmark"/>
 									<listOptionValue builtIn="false" value="opencv_highgui"/>
 									<listOptionValue builtIn="false" value="opencv_core"/>

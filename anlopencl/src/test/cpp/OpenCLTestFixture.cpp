@@ -58,6 +58,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core/mat.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include "imaging.h"
 
 using namespace cl;
@@ -337,6 +338,25 @@ void Abstract_OpenCL_Context_Fixture::showImage(
     cv::imshow(w, m);
     cv::waitKey(0);
     cv::destroyAllWindows();
+}
+
+void Abstract_OpenCL_Context_Fixture::saveImageScaleToRange(
+		std::string fileName, std::shared_ptr<std::vector<float>> output, int type) {
+    float min = *std::min_element(output->begin(), output->end());
+    float max = *std::max_element(output->begin(), output->end());
+    scaleToRange(output->data(), output->size(), min, max, 0, 1);
+    logger->trace("Scale to range min={}, max={}", min, max);
+	saveImage(fileName, output, type);
+}
+
+void Abstract_OpenCL_Context_Fixture::saveImage(
+		std::string fileName, std::shared_ptr<std::vector<float>> output, int type) {
+	auto t = GetParam();
+	logger->debug("Preparing saving image size {}x{}", t.imageWidth, t.imageHeight);
+	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), type);
+    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
+    m.convertTo(m, CV_8UC3, 255.0);
+    cv::imwrite(fileName, m);
 }
 
 void OpenCL_Context_Buffer_Fixture::copyBuffers() {
