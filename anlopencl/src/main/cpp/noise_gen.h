@@ -66,14 +66,12 @@ typedef REAL (*interp_func)(REAL);
 typedef REAL (*noise_func2)(vector2, uint, interp_func);
 typedef REAL (*noise_func3)(vector3, uint, interp_func);
 typedef REAL (*noise_func4)(vector4, uint, interp_func);
-typedef REAL (*noise_func8)(vector8, uint, interp_func);
-typedef REAL (*noise_func16)(vector16, uint, interp_func);
+typedef REAL (*noise_func6)(vector8, uint, interp_func);
 
 typedef REAL (*dist_func2)(vector2, vector2);
 typedef REAL (*dist_func3)(vector3, vector3);
 typedef REAL (*dist_func4)(vector4, vector4);
-typedef REAL (*dist_func8)(vector8, vector8);
-typedef REAL (*dist_func16)(vector16, vector16);
+typedef REAL (*dist_func6)(vector8, vector8);
 
 // Interpolation functions
 REAL noInterp(REAL t);

@@ -67,17 +67,71 @@ struct map2D_data {
 	REAL z;
 };
 
-class map2D_3_params: public ::testing::TestWithParam<map2D_data> {
+struct map2D_2_data {
+	calc_seamless calc_seamless;
+	struct SMappingRanges ranges;
+	size_t width;
+	size_t height;
+	REAL z;
+	std::vector<vector2> expected;
+};
+
+/*
+ * ###
+ * imaging_map_no_z_test-map2D_2_no_z_params
+ * ###
+ */
+
+class map2D_2_no_z_params: public ::testing::TestWithParam<map2D_2_data> {
 protected:
+	std::vector<vector2> out;
+	virtual void SetUp() {
+		auto t = GetParam();
+		out = std::vector<vector2>(t.width * t.height);
+	}
+};
 
+TEST_P(map2D_2_no_z_params, no_z_seamless_none) {
+	auto t = GetParam();
+	map2DNoZ(out.data(), t.calc_seamless, t.ranges, t.width, t.height);
+	for (int i = 0; i < out.size(); ++i) {
+		printf("%f/%f\n", out[i].x, out[i].y);
+		EXPECT_NEAR(out[i].x, t.expected[i].x, 0.00001);
+		EXPECT_NEAR(out[i].y, t.expected[i].y, 0.00001);
+	}
+}
+
+INSTANTIATE_TEST_SUITE_P(imaging_map_no_z_test, map2D_2_no_z_params,
+		Values(
+				map2D_2_data { calc_seamless_no_z_none, create_ranges_default(), 2, 2, 0, {
+						(vector2){-1.000000,-1.000000},
+						(vector2){0.000000,-1.000000},
+						(vector2){-1.000000,0.000000},
+						(vector2){0.000000,0.000000}
+				} } //
+				));
+
+struct map2D_3_data {
+	calc_seamless calc_seamless;
+	struct SMappingRanges ranges;
+	size_t width;
+	size_t height;
+	REAL z;
+	std::vector<vector3> expected;
+};
+
+/*
+ * ###
+ * imaging_map_test-map2D_3_params
+ * ###
+ */
+
+class map2D_3_params: public ::testing::TestWithParam<map2D_3_data> {
+protected:
 	std::vector<vector3> out;
-
 	virtual void SetUp() {
 		auto t = GetParam();
 		out = std::vector<vector3>(t.width * t.height);
-	}
-
-	virtual void TearDown() {
 	}
 };
 
@@ -85,26 +139,67 @@ TEST_P(map2D_3_params, seamless_none) {
 	auto t = GetParam();
 	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
 	for (int i = 0; i < out.size(); ++i) {
+		EXPECT_NEAR(out[i].x, t.expected[i].x, 0.00001);
+		EXPECT_NEAR(out[i].y, t.expected[i].y, 0.00001);
+		EXPECT_NEAR(out[i].z, t.expected[i].z, 0.00001);
 		printf("%f/%f/%f\n", out[i].x, out[i].y, out[i].z);
 	}
 }
 
 INSTANTIATE_TEST_SUITE_P(imaging_map_test, map2D_3_params,
 		Values(
-				map2D_data { calc_seamless_none, create_ranges_default(), 2, 2, 99 } //
+				map2D_3_data { calc_seamless_none, create_ranges_default(), 2, 2, 99, {
+						(vector3){-1.000000,-1.000000,99.00000},
+						(vector3){0.000000,-1.000000,99.00000},
+						(vector3){-1.000000,0.000000,99.00000},
+						(vector3){0.000000,0.000000,99.00000}
+				} } //
 				));
+
+/*
+ * ###
+ * imaging_map_no_z_test-map2D_no_z_3_params
+ * ###
+ */
+
+class map2D_no_z_3_params: public ::testing::TestWithParam<map2D_3_data> {
+protected:
+	std::vector<vector3> out;
+	virtual void SetUp() {
+		auto t = GetParam();
+		out = std::vector<vector3>(t.width * t.height);
+	}
+};
+
+TEST_P(map2D_no_z_3_params, calc_seamless_no_z) {
+	auto t = GetParam();
+	map2DNoZ(out.data(), t.calc_seamless, t.ranges, t.width, t.height);
+	for (int i = 0; i < out.size(); ++i) {
+		printf("%f/%f/%f\n", out[i].x, out[i].y, out[i].z);
+	}
+	for (int i = 0; i < out.size(); ++i) {
+		EXPECT_NEAR(out[i].x, t.expected[i].x, 0.00001);
+		EXPECT_NEAR(out[i].y, t.expected[i].y, 0.00001);
+		EXPECT_NEAR(out[i].z, t.expected[i].z, 0.00001);
+	}
+}
+
+INSTANTIATE_TEST_SUITE_P(imaging_map_no_z_test, map2D_no_z_3_params,
+		Values(
+				map2D_3_data { calc_seamless_no_z_x, create_ranges_default(), 2, 2, 99, {
+						(vector3){-0.681690,-1.000000,-1.000000},
+						(vector3){-1.318310,-1.000000,-1.000000},
+						(vector3){-0.681690,-1.000000,0.000000},
+						(vector3){-1.318310,-1.000000,0.000000}
+				} } //
+));
 
 class map2D_4_params: public ::testing::TestWithParam<map2D_data> {
 protected:
-
 	std::vector<vector4> out;
-
 	virtual void SetUp() {
 		auto t = GetParam();
 		out = std::vector<vector4>(t.width * t.height);
-	}
-
-	virtual void TearDown() {
 	}
 };
 
@@ -126,15 +221,10 @@ INSTANTIATE_TEST_SUITE_P(imaging_map_test, map2D_4_params, Values(map2D_data {
 
 class map2D_8_params: public ::testing::TestWithParam<map2D_data> {
 protected:
-
 	std::vector<vector8> out;
-
 	virtual void SetUp() {
 		auto t = GetParam();
 		out = std::vector<vector8>(t.width * t.height);
-	}
-
-	virtual void TearDown() {
 	}
 };
 

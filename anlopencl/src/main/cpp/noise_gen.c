@@ -296,39 +296,65 @@ REAL grad_noise_3(vector3 v, int ix, int iy, int iz, uint seed) {
 	return (dx * vec[0] + dy * vec[1] + dz * vec[2]);
 }
 
+REAL grad_noise_4(vector4 v, int ix, int iy, int iz, int iw, uint seed) {
+	uint hash = hash_coords_4(ix, iy, iz, iw, seed) % 64;
+	REAL *vec = &gradient4D_lut[hash][0];
+
+	REAL dx = v.x - (REAL) ix;
+	REAL dy = v.y - (REAL) iy;
+	REAL dz = v.z - (REAL) iz;
+	REAL dw = v.w - (REAL) iw;
+
+	return (dx * vec[0] + dy * vec[1] + dz * vec[2] + dw * vec[3]);
+}
+
+REAL grad_noise_6(vector8 v, int ix, int iy, int iz, int iw, int iu, int iv, uint seed) {
+	uint hash = hash_coords_6(ix, iy, iz, iw, iu, iv, seed) % 192;
+	REAL *vec = &gradient6D_lut[hash][0];
+
+	REAL dx = v.x - (REAL) ix;
+	REAL dy = v.y - (REAL) iy;
+	REAL dz = v.z - (REAL) iz;
+	REAL dw = v.w - (REAL) iw;
+	REAL du = v.s4 - (REAL) iu;
+	REAL dv = v.s5 - (REAL) iv;
+
+	return (dx * vec[0] + dy * vec[1] + dz * vec[2] + dw * vec[3] + du * vec[4]
+			+ dv * vec[5]);
+}
+
 // Worker noise functions
 
 typedef REAL (*worker_noise_2)(vector2, int, int, uint);
 typedef REAL (*worker_noise_3)(vector3, int, int, int, uint);
 typedef REAL (*worker_noise_4)(vector4, int, int, int, int, uint);
-typedef REAL (*worker_noise_8)(vector8, int, int, int, int, int, int, int, int, uint);
-typedef REAL (*worker_noise_16)(vector16, int, int, int, int, int, int, int, int, uint);
+typedef REAL (*worker_noise_6)(vector8, int, int, int, int, int, int, uint);
 
 // Edge/Face/Cube/Hypercube interpolation
 
-REAL interp_X_2(vector2 v, REAL xs, int x0, int x1, int iy,
-		uint seed, worker_noise_2 noisefunc) {
+REAL interp_X_2(vector2 v, REAL xs, int x0, int x1, int iy, uint seed,
+		worker_noise_2 noisefunc) {
 	REAL v1 = noisefunc(v, x0, iy, seed);
 	REAL v2 = noisefunc(v, x1, iy, seed);
 	return lerp(xs, v1, v2);
 }
 
-REAL interp_XY_2(vector2 v, REAL xs, REAL ys, int x0, int x1, int y0,
-		int y1, uint seed, worker_noise_2 noisefunc) {
+REAL interp_XY_2(vector2 v, REAL xs, REAL ys, int x0, int x1, int y0, int y1,
+		uint seed, worker_noise_2 noisefunc) {
 	REAL v1 = interp_X_2(v, xs, x0, x1, y0, seed, noisefunc);
 	REAL v2 = interp_X_2(v, xs, x0, x1, y1, seed, noisefunc);
 	return lerp(ys, v1, v2);
 }
 
-REAL interp_X_3(vector3 v, REAL xs, int x0, int x1, int iy, int iz,
-		uint seed, worker_noise_3 noisefunc) {
+REAL interp_X_3(vector3 v, REAL xs, int x0, int x1, int iy, int iz, uint seed,
+		worker_noise_3 noisefunc) {
 	REAL v1 = noisefunc(v, x0, iy, iz, seed);
 	REAL v2 = noisefunc(v, x1, iy, iz, seed);
 	return lerp(xs, v1, v2);
 }
 
-REAL interp_XY_3(vector3 v, REAL xs, REAL ys, int x0, int x1,
-		int y0, int y1, int iz, uint seed, worker_noise_3 noisefunc) {
+REAL interp_XY_3(vector3 v, REAL xs, REAL ys, int x0, int x1, int y0, int y1,
+		int iz, uint seed, worker_noise_3 noisefunc) {
 	REAL v1 = interp_X_3(v, xs, x0, x1, y0, iz, seed, noisefunc);
 	REAL v2 = interp_X_3(v, xs, x0, x1, y1, iz, seed, noisefunc);
 	return lerp(ys, v1, v2);
@@ -339,6 +365,91 @@ REAL interp_XYZ_3(vector3 v, REAL xs, REAL ys, REAL zs, int x0, int x1, int y0,
 	REAL v1 = interp_XY_3(v, xs, ys, x0, x1, y0, y1, z0, seed, noisefunc);
 	REAL v2 = interp_XY_3(v, xs, ys, x0, x1, y0, y1, z1, seed, noisefunc);
 	return lerp(zs, v1, v2);
+}
+
+REAL interp_X_4(vector4 v, REAL xs, int x0, int x1, int iy, int iz, int iw,
+		uint seed, worker_noise_4 noisefunc) {
+	REAL v1 = noisefunc(v, x0, iy, iz, iw, seed);
+	REAL v2 = noisefunc(v, x1, iy, iz, iw, seed);
+	return lerp(xs, v1, v2);
+}
+
+REAL interp_XY_4(vector4 v, REAL xs, REAL ys, int x0, int x1, int y0, int y1,
+		int iz, int iw, uint seed, worker_noise_4 noisefunc) {
+	REAL v1 = interp_X_4(v, xs, x0, x1, y0, iz, iw, seed, noisefunc);
+	REAL v2 = interp_X_4(v, xs, x0, x1, y1, iz, iw, seed, noisefunc);
+	return lerp(ys, v1, v2);
+}
+
+REAL interp_XYZ_4(vector4 v, REAL xs, REAL ys, REAL zs, int x0, int x1, int y0,
+		int y1, int z0, int z1, int iw, uint seed, worker_noise_4 noisefunc) {
+	REAL v1 = interp_XY_4(v, xs, ys, x0, x1, y0, y1, z0, iw, seed, noisefunc);
+	REAL v2 = interp_XY_4(v, xs, ys, x0, x1, y0, y1, z1, iw, seed, noisefunc);
+	return lerp(zs, v1, v2);
+}
+
+REAL interp_XYZW_4(vector4 v, REAL xs, REAL ys, REAL zs, REAL ws, int x0,
+		int x1, int y0, int y1, int z0, int z1, int w0, int w1, uint seed,
+		worker_noise_4 noisefunc) {
+	REAL v1 = interp_XYZ_4(v, xs, ys, zs, x0, x1, y0, y1, z0, z1, w0, seed,
+			noisefunc);
+	REAL v2 = interp_XYZ_4(v, xs, ys, zs, x0, x1, y0, y1, z0, z1, w1, seed,
+			noisefunc);
+	return lerp(ws, v1, v2);
+}
+
+REAL interp_X_6(vector8 v, REAL xs, int x0, int x1, int iy, int iz, int iw,
+		int iu, int iv, uint seed, worker_noise_6 noisefunc) {
+	REAL v1 = noisefunc(v, x0, iy, iz, iw, iu, iv, seed);
+	REAL v2 = noisefunc(v, x1, iy, iz, iw, iu, iv, seed);
+	return lerp(xs, v1, v2);
+}
+
+REAL interp_XY_6(vector8 v, REAL xs, REAL ys, int x0, int x1, int y0, int y1,
+		int iz, int iw, int iu, int iv, uint seed, worker_noise_6 noisefunc) {
+	REAL v1 = interp_X_6(v, xs, x0, x1, y0, iz, iw, iu, iv, seed, noisefunc);
+	REAL v2 = interp_X_6(v, xs, x0, x1, y1, iz, iw, iu, iv, seed, noisefunc);
+	return lerp(ys, v1, v2);
+}
+
+REAL interp_XYZ_6(vector8 v, REAL xs, REAL ys, REAL zs, int x0, int x1, int y0,
+		int y1, int z0, int z1, int iw, int iu, int iv, uint seed,
+		worker_noise_6 noisefunc) {
+	REAL v1 = interp_XY_6(v, xs, ys, x0, x1, y0, y1, z0, iw, iu, iv, seed,
+			noisefunc);
+	REAL v2 = interp_XY_6(v, xs, ys, x0, x1, y0, y1, z1, iw, iu, iv, seed,
+			noisefunc);
+	return lerp(zs, v1, v2);
+}
+
+REAL interp_XYZW_6(vector8 v, REAL xs, REAL ys, REAL zs, REAL ws, int x0,
+		int x1, int y0, int y1, int z0, int z1, int w0, int w1, int iu, int iv,
+		uint seed, worker_noise_6 noisefunc) {
+	REAL v1 = interp_XYZ_6(v, xs, ys, zs, x0, x1, y0, y1, z0, z1, w0, iu, iv,
+			seed, noisefunc);
+	REAL v2 = interp_XYZ_6(v, xs, ys, zs, x0, x1, y0, y1, z0, z1, w1, iu, iv,
+			seed, noisefunc);
+	return lerp(ws, v1, v2);
+}
+
+REAL interp_XYZWU_6(vector8 v, REAL xs, REAL ys, REAL zs, REAL ws, REAL us,
+		int x0, int x1, int y0, int y1, int z0, int z1, int w0, int w1, int u0,
+		int u1, int iv, uint seed, worker_noise_6 noisefunc) {
+	REAL v1 = interp_XYZW_6(v, xs, ys, zs, ws, x0, x1, y0, y1, z0, z1, w0, w1,
+			u0, iv, seed, noisefunc);
+	REAL v2 = interp_XYZW_6(v, xs, ys, zs, ws, x0, x1, y0, y1, z0, z1, w0, w1,
+			u1, iv, seed, noisefunc);
+	return lerp(us, v1, v2);
+}
+
+REAL interp_XYZWUV_6(vector8 v, REAL xs, REAL ys, REAL zs, REAL ws, REAL us,
+		REAL vs, int x0, int x1, int y0, int y1, int z0, int z1, int w0, int w1,
+		int u0, int u1, int v0, int v1, uint seed, worker_noise_6 noisefunc) {
+	REAL val1 = interp_XYZWU_6(v, xs, ys, zs, ws, us, x0, x1, y0, y1, z0, z1,
+			w0, w1, u0, u1, v0, seed, noisefunc);
+	REAL val2 = interp_XYZWU_6(v, xs, ys, zs, ws, us, x0, x1, y0, y1, z0, z1,
+			w0, w1, u0, u1, v1, seed, noisefunc);
+	return lerp(vs, val1, val2);
 }
 
 // The usable noise functions
@@ -365,6 +476,35 @@ REAL value_noise3D(vector3 v, uint seed, interp_func interp) {
 			value_noise_3);
 }
 
+REAL value_noise4D(vector4 v, uint seed, interp_func interp) {
+	int4 v0 = fast_floor4(v);
+	int4 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+	REAL ws = interp((v.w - (REAL) v0.w));
+
+	return interp_XYZW_4(v, xs, ys, zs, ws, v0.x, v1.x, v0.y, v1.y, v0.z, v1.z,
+			v0.w, v1.w, seed, value_noise_4);
+}
+
+REAL value_noise6D(vector8 v, uint seed, interp_func interp) {
+	int8 v0 = fast_floor8(v);
+	int8 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+	REAL ws = interp((v.w - (REAL) v0.w));
+	REAL us = interp((v.s4 - (REAL) v0.s4));
+	REAL vs = interp((v.s5 - (REAL) v0.s5));
+
+	return interp_XYZWUV_6(v, xs, ys, zs, ws, us, vs, v0.x, v1.x, v0.y, v1.y,
+			v0.z, v1.z, v0.w, v1.w, v0.s4, v1.s4, v0.s5, v1.s5, seed,
+			value_noise_6);
+}
+
 REAL gradient_noise2D(vector2 v, uint seed, interp_func interp) {
 	int2 v0 = fast_floor2(v);
 	int2 v1 = v0 + 1;
@@ -387,15 +527,76 @@ REAL gradient_noise3D(vector3 v, uint seed, interp_func interp) {
 			grad_noise_3);
 }
 
+REAL gradient_noise4D(vector4 v, uint seed, interp_func interp) {
+	int4 v0 = fast_floor4(v);
+	int4 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+	REAL ws = interp((v.w - (REAL) v0.w));
+
+	return interp_XYZW_4(v, xs, ys, zs, ws, v0.x, v1.x, v0.y, v1.y, v0.z, v1.z,
+			v0.w, v1.w, seed, grad_noise_4);
+}
+
+REAL gradient_noise6D(vector8 v, uint seed, interp_func interp) {
+	int8 v0 = fast_floor8(v);
+	int8 v1 = v0 + 1;
+
+	REAL xs = interp((v.x - (REAL) v0.x));
+	REAL ys = interp((v.y - (REAL) v0.y));
+	REAL zs = interp((v.z - (REAL) v0.z));
+	REAL ws = interp((v.w - (REAL) v0.w));
+	REAL us = interp((v.s4 - (REAL) v0.s4));
+	REAL vs = interp((v.s5 - (REAL) v0.s5));
+
+	return interp_XYZWUV_6(v, xs, ys, zs, ws, us, vs, v0.x, v1.x, v0.y, v1.y,
+			v0.z, v1.z, v0.w, v1.w, v0.s4, v1.s4, v0.s5, v1.s5, seed,
+			grad_noise_6);
+}
+
 REAL gradval_noise2D(vector2 v, uint seed, interp_func interp) {
 	return value_noise2D(v, seed, interp)
 			+ gradient_noise2D(v, seed, interp);
+}
+
+REAL gradval_noise3D(vector3 v, uint seed, interp_func interp) {
+	return value_noise3D(v, seed, interp)
+			+ gradient_noise3D(v, seed, interp);
+}
+
+REAL gradval_noise4D(vector4 v, uint seed, interp_func interp) {
+	return value_noise4D(v, seed, interp)
+			+ gradient_noise4D(v, seed, interp);
+}
+
+REAL gradval_noise6D(vector8 v, uint seed, interp_func interp) {
+	return value_noise6D(v, seed, interp)
+			+ gradient_noise6D(v, seed, interp);
 }
 
 REAL white_noise2D(vector2 v, uint seed, interp_func interp) {
 	unsigned char hash = compute_hash2(v, seed);
 	return whitenoise_lut[hash];
 }
+
+REAL white_noise3D(vector3 v, uint seed, interp_func interp) {
+	unsigned char hash = compute_hash3(v, seed);
+	return whitenoise_lut[hash];
+}
+
+REAL white_noise4D(vector4 v, uint seed, interp_func interp) {
+	unsigned char hash = compute_hash4(v, seed);
+	return whitenoise_lut[hash];
+}
+
+REAL white_noise6D(vector8 v, uint seed, interp_func interp) {
+	unsigned char hash = compute_hash6(v, seed);
+	return whitenoise_lut[hash];
+}
+
+// Cellular functions. Compute distance (for cellular modules) and displacement (for voronoi modules)
 
 void add_dist(REAL *f, REAL *disp, REAL testdist, REAL testdisp) {
 	int index;
@@ -413,8 +614,6 @@ void add_dist(REAL *f, REAL *disp, REAL testdist, REAL testdisp) {
 	}
 }
 
-// Cellular functions. Compute distance (for cellular modules) and displacement (for voronoi modules)
-
 void cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp,
 		dist_func2 distance) {
 //	int xint = fast_floor(x);
@@ -426,17 +625,15 @@ void cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp,
 		disp[c] = 0.0;
 	}
 
-	{
-		vector2 vpos;
-		for (int ycur = vint.y - 3; ycur <= vint.y + 3; ++ycur) {
-			for (int xcur = vint.x - 3; xcur <= vint.x + 3; ++xcur) {
-				vpos = (vector2)((REAL)xcur + value_noise_2(v, xcur, ycur, seed),
-						(REAL)ycur + value_noise_2(v, xcur, ycur, seed + 1));
-				REAL dist = distance(vpos, v);
-				int2 vval = fast_floor2(vpos);
-				REAL dsp = value_noise_2(v, vval.x, vval.y, seed + 3);
-				add_dist(f, disp, dist, dsp);
-			}
+	vector2 vpos;
+	for (int ycur = vint.y - 3; ycur <= vint.y + 3; ++ycur) {
+		for (int xcur = vint.x - 3; xcur <= vint.x + 3; ++xcur) {
+			vpos = (vector2) ((REAL) xcur + value_noise_2(v, xcur, ycur, seed),
+					(REAL) ycur	+ value_noise_2(v, xcur, ycur, seed + 1));
+			REAL dist = distance(vpos, v);
+			int2 vval = fast_floor2(vpos);
+			REAL dsp = value_noise_2(v, vval.x, vval.y, seed + 3);
+			add_dist(f, disp, dist, dsp);
 		}
 	}
 }

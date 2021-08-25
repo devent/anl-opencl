@@ -140,6 +140,11 @@ inline cl_int copy(const cl::Buffer &buffer, std::vector<T> &target) {
 }
 
 /**
+ * float2 have 2 floats.
+ */
+const size_t dim_float2 = sizeof(cl_float2) / sizeof(cl_float);
+
+/**
  * float3 have 4 floats.
  */
 const size_t dim_float3 = sizeof(cl_float3) / sizeof(cl_float);

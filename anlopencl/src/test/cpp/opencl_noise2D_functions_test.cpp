@@ -44,59 +44,75 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * utility.h
+ * opencl_noise2D_functions_test.cpp
  *
- *  Created on: Jul 27, 2021
+ * Flag to run only this tests:
+ * --gtest_filter="opencl_noise2D_functions_test*"
+ *
+ *  Created on: Auf 24, 2021
  *      Author: Erwin Müller
  */
 
-#ifndef UTILITY_H_
-#define UTILITY_H_
+#include <memory>
+#include <strings.h>
+#include <bits/stdc++.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
+#define CL_HPP_ENABLE_EXCEPTIONS
+#include <CL/opencl.hpp>
 
-#ifndef USE_OPENCL
-#include <opencl_utils.h>
-#endif // USE_OPENCL
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
-#ifndef USE_OPENCL
-REAL degrees(REAL radians);
-#endif // USE_OPENCL
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/core/mat.hpp>
 
-#ifndef USE_OPENCL
-REAL radians(REAL degrees);
-#endif // USE_OPENCL
+#include "OpenCLTestFixture.h"
+#include "imaging.h"
 
-#ifndef USE_OPENCL
-REAL clamp(REAL v, REAL l, REAL h);
-#endif // USE_OPENCL
+using ::testing::TestWithParam;
+using ::testing::Values;
+using ::spdlog::info;
+using ::spdlog::error;
 
-REAL lerp(REAL t, REAL a, REAL b);
+class opencl_noise2D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
+protected:
 
-bool isPowerOf2(unsigned int n);
+	std::shared_ptr<std::vector<float>> input;
 
-REAL hermite_blend(REAL t);
+	std::shared_ptr<cl::Buffer> inputBuffer;
 
-REAL quintic_blend(REAL t);
+	virtual size_t runKernel(cl::Program & kernel) {
+		auto t = GetParam();
+		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
+		input = createVector<float>(t.imageSize * dim_float2);
+		map2D(input->data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+		output = createVector<float>(t.imageSize * dim_float2);
+		outputBuffer = createBufferPtr(output);
+	    cl::DeviceCommandQueue defaultDeviceQueue;
+	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
+		logger->trace("Start kernel with size {}", t.imageSize);
+		cl_int error;
+		kernelf(
+				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
+				*inputBuffer,
+				*outputBuffer,
+				error);
+		logger->info("Created kernel error={}", error);
+		return t.imageSize;
+	}
 
-int fast_floor(REAL t);
-int2 fast_floor2(vector2 v);
-int3 fast_floor3(vector3 v);
-int4 fast_floor4(vector4 v);
-int8 fast_floor8(vector8 v);
+};
 
-REAL array_dot(REAL *arr, REAL a, REAL b);
-REAL array_dot2(REAL *arr, REAL a, REAL b);
-REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c);
-
-REAL bias(REAL b, REAL t);
-
-REAL gain(REAL g, REAL t);
-
-#ifdef __cplusplus
+TEST_P(opencl_noise2D_functions_fixture, show_image) {
+	auto t = GetParam();
+	showImage(output, CV_32FC4);
 }
-#endif // __cplusplus
 
-#endif /* UTILITY_H_ */
+const size_t size = pow(2, 10);
+
+INSTANTIATE_TEST_SUITE_P(opencl_noise2D_functions_test, opencl_noise2D_functions_fixture,
+		Values(
+				KernelContext("main", readFile("src/test/cpp/kernels/combineRGBA_simpleBillow_test.cl"), size) //
+						));

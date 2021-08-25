@@ -1,0 +1,19 @@
+OBJS     := ./dep/dep.a
+OBJ     := ./dep
+MKDIR   := mkdir -p
+RMDIR   := rm -rf
+LIB_INCLUDE := -L../../googletest/lib -L -L
+LIBS := ../../googletest/lib/pthread -l../../benchmark/build/src/benchmark -opencv_highgui -lopencv_core -lstdc++ ../../spdlog/build/spdlog -lgtest -lOpenCL
+
+.PHONY: all clean
+
+all: $(OBJS)
+
+$(OBJ)/dep.a: $(OBJ)
+	ar crsT $@ 
+
+$(OBJ):
+	$(MKDIR) $@
+
+clean:
+	$(RMDIR) $(OBJ)

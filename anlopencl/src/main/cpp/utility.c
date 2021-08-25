@@ -61,6 +61,16 @@ int3 fast_floor3(vector3 v) {
 	return (int3){ fast_floor(v.x), fast_floor(v.y), fast_floor(v.z) };
 }
 
+int4 fast_floor4(vector4 v) {
+	return (int4){ fast_floor(v.x), fast_floor(v.y), fast_floor(v.z), fast_floor(v.w) };
+}
+
+int8 fast_floor8(vector8 v) {
+	return (int8){ fast_floor(v.x), fast_floor(v.y), fast_floor(v.z)
+		, fast_floor(v.w), fast_floor(v.s4), fast_floor(v.s5)
+		, fast_floor(v.s6), fast_floor(v.s7)};
+}
+
 REAL array_dot(REAL *arr, REAL a, REAL b) {
 	return a * arr[0] + b * arr[1];
 }
