@@ -44,10 +44,10 @@
  *   3. This notice may not be removed or altered from any source distribution.
  */
 /*
- * opencl_combineRGBA_test.cpp
+ * opencl_combineColor_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_combineRGBA_test*"
+ * --gtest_filter="opencl_combineColor_test*"
  *
  *  Created on: Jul 27, 2021
  *      Author: Erwin Müller
@@ -75,7 +75,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class opencl_combineRGBA_fixture: public OpenCL_Context_Buffer_Fixture {
+class opencl_combineColor_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	std::shared_ptr<std::vector<float>> input;
@@ -105,14 +105,15 @@ protected:
 
 };
 
-TEST_P(opencl_combineRGBA_fixture, show_image) {
+TEST_P(opencl_combineColor_fixture, show_image) {
 	auto t = GetParam();
 	showImage(output, CV_32FC4);
 }
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_combineRGBA_test, opencl_combineRGBA_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_combineColor_test, opencl_combineColor_fixture,
 		Values(
-				KernelContext("main", readFile("src/test/cpp/kernels/combineRGBA_simpleBillow_test.cl"), size) //
+				KernelContext("combineRGBA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size), //
+				KernelContext("combineHSVA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size) //
 						));

@@ -93,8 +93,36 @@ vector3 scaleDomain3(vector3 src, REAL scale) {
 	return src * scale;
 }
 
-vector4 combineRGBA(float r, float g, float b, float a) {
+vector4 combineRGBA(REAL r, REAL g, REAL b, REAL a) {
 	return (vector4)(r, g, b, a);
+}
+
+vector4 combineHSVA(REAL h, REAL s, REAL v, REAL a) {
+	double P, Q, T, fract;
+	if (h >= 360.0)
+		h = 0.0;
+	else
+		h = h / 60.0;
+	fract = h - floor(h);
+
+	P = v * (1.0 - s);
+	Q = v * (1.0 - s * fract);
+	T = v * (1.0 - s * (1.0 - fract));
+
+	if (h >= 0 && h < 1)
+		return (vector4) (v, T, P, 1);
+	else if (h >= 1 && h < 2)
+		return (vector4) (Q, v, P, a);
+	else if (h >= 2 && h < 3)
+		return (vector4) (P, v, T, a);
+	else if (h >= 3 && h < 4)
+		return (vector4) (P, Q, v, a);
+	else if (h >= 4 && h < 5)
+		return (vector4) (T, P, v, a);
+	else if (h >= 5 && h < 6)
+		return (vector4) (v, P, Q, a);
+	else
+		return (vector4) (0, 0, 0, a);
 }
 
 REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,

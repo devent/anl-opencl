@@ -76,7 +76,12 @@ vector3 scaleDomain3(vector3 src, REAL scale);
 /**
  * Combines the RGBA values.
  */
-vector4 combineRGBA(float r, float g, float b, float a);
+vector4 combineRGBA(REAL r, REAL g, REAL b, REAL a);
+
+/**
+ * Combines the HSVA values.
+ */
+vector4 combineHSVA(REAL h, REAL s, REAL v, REAL a);
 
 /**
  * Returns simple fractal layer value for the coordinate.
