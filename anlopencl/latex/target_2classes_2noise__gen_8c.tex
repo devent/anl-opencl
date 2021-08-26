@@ -1,0 +1,392 @@
+\hypertarget{target_2classes_2noise__gen_8c}{}\doxysection{target/classes/noise\+\_\+gen.c File Reference}
+\label{target_2classes_2noise__gen_8c}\index{target/classes/noise\_gen.c@{target/classes/noise\_gen.c}}
+{\ttfamily \#include $<$noise\+\_\+gen.\+h$>$}\newline
+{\ttfamily \#include $<$hashing.\+h$>$}\newline
+{\ttfamily \#include $<$utility.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}noise\+\_\+lut.\+h\char`\"{}}\newline
+Include dependency graph for noise\+\_\+gen.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{target_2classes_2noise__gen_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}{worker\+\_\+noise\+\_\+2}}) (vector2, int, int, uint)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}}) (vector3, int, int, int, uint)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{target_2classes_2noise__gen_8c_a7b715b0a9bfec4683665bf331238688a}{worker\+\_\+noise\+\_\+4}}) (vector4, int, int, int, int, uint)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{target_2classes_2noise__gen_8c_a26ff97512d6bc5257f9d6752d2943a5a}{worker\+\_\+noise\+\_\+8}}) (vector8, int, int, int, int, int, int, int, int, uint)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{target_2classes_2noise__gen_8c_a37048f0a4d54302f1bd84fd693e49fd3}{worker\+\_\+noise\+\_\+16}}) (vector16, int, int, int, int, int, int, int, int, uint)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a90e207a22f91430a6459c13684b64342}{hermite\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a2db335ae978be4c1d69ea188d9d1da33}{quintic\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a7a984556fcefb5cc3b36a74441480c0b}{dist\+Euclid2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_af3ff81622f97ac62bd9feccce5f34af5}{dist\+Euclid3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a4e171ef0a8931d0ca4554553a3535c7e}{dist\+Manhattan2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}{dist\+Manhattan3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a0e144707658ef5ee26304e320c82960b}{dist\+Greatest\+Axis2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a3b13e3a789fa95006164fa3ec1eacdbe}{dist\+Greatest\+Axis3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a7e7ca978e25594e6c652405f6da7e392}{dist\+Least\+Axis2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a4530b3e17b43660a39cb94c286aa3260}{dist\+Least\+Axis3}} (vector3 a, vector3 b)
+\item 
+uint \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa51d62aa8cd8f0c6e8b3fd0fdb56221c}{compute\+\_\+hash\+\_\+double\+\_\+2}} (vector2 v, unsigned int seed)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a6f3f5c36336ddf744011b649a3457adb}{value\+\_\+noise\+\_\+2}} (vector2 v, int ix, int iy, uint seed)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a9fd84c24f2951a2962313bac20fcf51b}{value\+\_\+noise\+\_\+3}} (vector3 v, int ix, int iy, int iz, uint seed)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a5ac3f68425c69980988fd94bf78480fb}{grad\+\_\+noise\+\_\+2}} (vector2 v, int ix, int iy, unsigned int seed)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa2eb72a19cf17c241106bdaf200566b2}{grad\+\_\+noise\+\_\+3}} (vector3 v, int ix, int iy, int iz, uint seed)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a1713582128bc6f6e9c33df4ac01e50e2}{interp\+\_\+\+X\+\_\+2}} (vector2 v, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} xs, int x0, int x1, int iy, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}{worker\+\_\+noise\+\_\+2}} noisefunc)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a52bf03989c9baed7e929cb372c8564f0}{interp\+\_\+\+X\+Y\+\_\+2}} (vector2 v, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} xs, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ys, int x0, int x1, int y0, int y1, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}{worker\+\_\+noise\+\_\+2}} noisefunc)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a0331e7b4679cac26d9cd782a33c2472f}{interp\+\_\+\+X\+\_\+3}} (vector3 v, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} xs, int x0, int x1, int iy, int iz, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}} noisefunc)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_ac4f263eae91ba871bf98ad5c1597ef3f}{interp\+\_\+\+X\+Y\+\_\+3}} (vector3 v, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} xs, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ys, int x0, int x1, int y0, int y1, int iz, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}} noisefunc)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa74995f49628eb8e2fabc8f6a89e9b00}{interp\+\_\+\+X\+Y\+Z\+\_\+3}} (vector3 v, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} xs, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ys, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} zs, int x0, int x1, int y0, int y1, int z0, int z1, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}} noisefunc)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a4f0fabd7f7236d8e43549b820d72b136}{value\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}} (vector3 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a27d82cb0e0eab6eed363c1577630c680}{gradient\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}} (vector3 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a357824a9e11c3b802a24a65f13c7c231}{gradval\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a8a101e4f59c63b09f8994108fbed4598}{white\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+void \mbox{\hyperlink{target_2classes_2noise__gen_8c_a7829b0ef06992a0eef054d3b69b37851}{add\+\_\+dist}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} testdist, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} testdisp)
+\item 
+void \mbox{\hyperlink{target_2classes_2noise__gen_8c_a26a5fc859adbf70ae4294a3571099799}{cellular\+\_\+function2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{target_2classes_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}{dist\+\_\+func2}} distance)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a617aa1e7db88ba18d89376d779fc23df}{simplex\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a232e6050a32049eac795ccfa519374b6}{F2}} = 0.\+36602540378443864676372317075294
+\item 
+const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a807fb037bf2cad582d80791be7b11092}{G2}} = 0.\+21132486540518711774542560974902
+\item 
+const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_abec4074532d2e2e2f457b11323448fe9}{F3}} = 1.\+0 / 3.\+0
+\item 
+const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2noise__gen_8c_a16b7871a3a26b1cee8cb158156499092}{G3}} = 1.\+0 / 6.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a37048f0a4d54302f1bd84fd693e49fd3}\label{target_2classes_2noise__gen_8c_a37048f0a4d54302f1bd84fd693e49fd3}} 
+\index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_16@{worker\_noise\_16}}
+\index{worker\_noise\_16@{worker\_noise\_16}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{worker\_noise\_16}{worker\_noise\_16}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ worker\+\_\+noise\+\_\+16) (vector16, int, int, int, int, int, int, int, int, uint)}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}\label{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}} 
+\index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_2@{worker\_noise\_2}}
+\index{worker\_noise\_2@{worker\_noise\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{worker\_noise\_2}{worker\_noise\_2}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ worker\+\_\+noise\+\_\+2) (vector2, int, int, uint)}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}\label{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}} 
+\index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_3@{worker\_noise\_3}}
+\index{worker\_noise\_3@{worker\_noise\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{worker\_noise\_3}{worker\_noise\_3}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ worker\+\_\+noise\+\_\+3) (vector3, int, int, int, uint)}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a7b715b0a9bfec4683665bf331238688a}\label{target_2classes_2noise__gen_8c_a7b715b0a9bfec4683665bf331238688a}} 
+\index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_4@{worker\_noise\_4}}
+\index{worker\_noise\_4@{worker\_noise\_4}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{worker\_noise\_4}{worker\_noise\_4}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ worker\+\_\+noise\+\_\+4) (vector4, int, int, int, int, uint)}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a26ff97512d6bc5257f9d6752d2943a5a}\label{target_2classes_2noise__gen_8c_a26ff97512d6bc5257f9d6752d2943a5a}} 
+\index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_8@{worker\_noise\_8}}
+\index{worker\_noise\_8@{worker\_noise\_8}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{worker\_noise\_8}{worker\_noise\_8}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ worker\+\_\+noise\+\_\+8) (vector8, int, int, int, int, int, int, int, int, uint)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a7829b0ef06992a0eef054d3b69b37851}\label{target_2classes_2noise__gen_8c_a7829b0ef06992a0eef054d3b69b37851}} 
+\index{noise\_gen.c@{noise\_gen.c}!add\_dist@{add\_dist}}
+\index{add\_dist@{add\_dist}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{add\_dist()}{add\_dist()}}
+{\footnotesize\ttfamily void add\+\_\+dist (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{testdist,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{testdisp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a26a5fc859adbf70ae4294a3571099799}\label{target_2classes_2noise__gen_8c_a26a5fc859adbf70ae4294a3571099799}} 
+\index{noise\_gen.c@{noise\_gen.c}!cellular\_function2D@{cellular\_function2D}}
+\index{cellular\_function2D@{cellular\_function2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{cellular\_function2D()}{cellular\_function2D()}}
+{\footnotesize\ttfamily void cellular\+\_\+function2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}{dist\+\_\+func2}}}]{distance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_aa51d62aa8cd8f0c6e8b3fd0fdb56221c}\label{target_2classes_2noise__gen_8c_aa51d62aa8cd8f0c6e8b3fd0fdb56221c}} 
+\index{noise\_gen.c@{noise\_gen.c}!compute\_hash\_double\_2@{compute\_hash\_double\_2}}
+\index{compute\_hash\_double\_2@{compute\_hash\_double\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{compute\_hash\_double\_2()}{compute\_hash\_double\_2()}}
+{\footnotesize\ttfamily uint compute\+\_\+hash\+\_\+double\+\_\+2 (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{unsigned int}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a7a984556fcefb5cc3b36a74441480c0b}\label{target_2classes_2noise__gen_8c_a7a984556fcefb5cc3b36a74441480c0b}} 
+\index{noise\_gen.c@{noise\_gen.c}!distEuclid2@{distEuclid2}}
+\index{distEuclid2@{distEuclid2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distEuclid2()}{distEuclid2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_af3ff81622f97ac62bd9feccce5f34af5}\label{target_2classes_2noise__gen_8c_af3ff81622f97ac62bd9feccce5f34af5}} 
+\index{noise\_gen.c@{noise\_gen.c}!distEuclid3@{distEuclid3}}
+\index{distEuclid3@{distEuclid3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distEuclid3()}{distEuclid3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a0e144707658ef5ee26304e320c82960b}\label{target_2classes_2noise__gen_8c_a0e144707658ef5ee26304e320c82960b}} 
+\index{noise\_gen.c@{noise\_gen.c}!distGreatestAxis2@{distGreatestAxis2}}
+\index{distGreatestAxis2@{distGreatestAxis2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis2()}{distGreatestAxis2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a3b13e3a789fa95006164fa3ec1eacdbe}\label{target_2classes_2noise__gen_8c_a3b13e3a789fa95006164fa3ec1eacdbe}} 
+\index{noise\_gen.c@{noise\_gen.c}!distGreatestAxis3@{distGreatestAxis3}}
+\index{distGreatestAxis3@{distGreatestAxis3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis3()}{distGreatestAxis3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a7e7ca978e25594e6c652405f6da7e392}\label{target_2classes_2noise__gen_8c_a7e7ca978e25594e6c652405f6da7e392}} 
+\index{noise\_gen.c@{noise\_gen.c}!distLeastAxis2@{distLeastAxis2}}
+\index{distLeastAxis2@{distLeastAxis2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis2()}{distLeastAxis2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a4530b3e17b43660a39cb94c286aa3260}\label{target_2classes_2noise__gen_8c_a4530b3e17b43660a39cb94c286aa3260}} 
+\index{noise\_gen.c@{noise\_gen.c}!distLeastAxis3@{distLeastAxis3}}
+\index{distLeastAxis3@{distLeastAxis3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis3()}{distLeastAxis3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a4e171ef0a8931d0ca4554553a3535c7e}\label{target_2classes_2noise__gen_8c_a4e171ef0a8931d0ca4554553a3535c7e}} 
+\index{noise\_gen.c@{noise\_gen.c}!distManhattan2@{distManhattan2}}
+\index{distManhattan2@{distManhattan2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distManhattan2()}{distManhattan2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}\label{target_2classes_2noise__gen_8c_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}} 
+\index{noise\_gen.c@{noise\_gen.c}!distManhattan3@{distManhattan3}}
+\index{distManhattan3@{distManhattan3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{distManhattan3()}{distManhattan3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a5ac3f68425c69980988fd94bf78480fb}\label{target_2classes_2noise__gen_8c_a5ac3f68425c69980988fd94bf78480fb}} 
+\index{noise\_gen.c@{noise\_gen.c}!grad\_noise\_2@{grad\_noise\_2}}
+\index{grad\_noise\_2@{grad\_noise\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{grad\_noise\_2()}{grad\_noise\_2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} grad\+\_\+noise\+\_\+2 (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{int}]{ix,  }\item[{int}]{iy,  }\item[{unsigned int}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_aa2eb72a19cf17c241106bdaf200566b2}\label{target_2classes_2noise__gen_8c_aa2eb72a19cf17c241106bdaf200566b2}} 
+\index{noise\_gen.c@{noise\_gen.c}!grad\_noise\_3@{grad\_noise\_3}}
+\index{grad\_noise\_3@{grad\_noise\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{grad\_noise\_3()}{grad\_noise\_3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} grad\+\_\+noise\+\_\+3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{int}]{ix,  }\item[{int}]{iy,  }\item[{int}]{iz,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a27d82cb0e0eab6eed363c1577630c680}\label{target_2classes_2noise__gen_8c_a27d82cb0e0eab6eed363c1577630c680}} 
+\index{noise\_gen.c@{noise\_gen.c}!gradient\_noise2D@{gradient\_noise2D}}
+\index{gradient\_noise2D@{gradient\_noise2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise2D()}{gradient\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a41c498f8ee9881d9dadd4a601013fd96}\label{target_2classes_2noise__gen_8c_a41c498f8ee9881d9dadd4a601013fd96}} 
+\index{noise\_gen.c@{noise\_gen.c}!gradient\_noise3D@{gradient\_noise3D}}
+\index{gradient\_noise3D@{gradient\_noise3D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise3D()}{gradient\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a357824a9e11c3b802a24a65f13c7c231}\label{target_2classes_2noise__gen_8c_a357824a9e11c3b802a24a65f13c7c231}} 
+\index{noise\_gen.c@{noise\_gen.c}!gradval\_noise2D@{gradval\_noise2D}}
+\index{gradval\_noise2D@{gradval\_noise2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{gradval\_noise2D()}{gradval\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a90e207a22f91430a6459c13684b64342}\label{target_2classes_2noise__gen_8c_a90e207a22f91430a6459c13684b64342}} 
+\index{noise\_gen.c@{noise\_gen.c}!hermiteInterp@{hermiteInterp}}
+\index{hermiteInterp@{hermiteInterp}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{hermiteInterp()}{hermiteInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} hermite\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a1713582128bc6f6e9c33df4ac01e50e2}\label{target_2classes_2noise__gen_8c_a1713582128bc6f6e9c33df4ac01e50e2}} 
+\index{noise\_gen.c@{noise\_gen.c}!interp\_X\_2@{interp\_X\_2}}
+\index{interp\_X\_2@{interp\_X\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{interp\_X\_2()}{interp\_X\_2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} interp\+\_\+\+X\+\_\+2 (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{xs,  }\item[{int}]{x0,  }\item[{int}]{x1,  }\item[{int}]{iy,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}{worker\+\_\+noise\+\_\+2}}}]{noisefunc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a0331e7b4679cac26d9cd782a33c2472f}\label{target_2classes_2noise__gen_8c_a0331e7b4679cac26d9cd782a33c2472f}} 
+\index{noise\_gen.c@{noise\_gen.c}!interp\_X\_3@{interp\_X\_3}}
+\index{interp\_X\_3@{interp\_X\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{interp\_X\_3()}{interp\_X\_3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} interp\+\_\+\+X\+\_\+3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{xs,  }\item[{int}]{x0,  }\item[{int}]{x1,  }\item[{int}]{iy,  }\item[{int}]{iz,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}}}]{noisefunc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a52bf03989c9baed7e929cb372c8564f0}\label{target_2classes_2noise__gen_8c_a52bf03989c9baed7e929cb372c8564f0}} 
+\index{noise\_gen.c@{noise\_gen.c}!interp\_XY\_2@{interp\_XY\_2}}
+\index{interp\_XY\_2@{interp\_XY\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{interp\_XY\_2()}{interp\_XY\_2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} interp\+\_\+\+X\+Y\+\_\+2 (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{xs,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ys,  }\item[{int}]{x0,  }\item[{int}]{x1,  }\item[{int}]{y0,  }\item[{int}]{y1,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}{worker\+\_\+noise\+\_\+2}}}]{noisefunc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_ac4f263eae91ba871bf98ad5c1597ef3f}\label{target_2classes_2noise__gen_8c_ac4f263eae91ba871bf98ad5c1597ef3f}} 
+\index{noise\_gen.c@{noise\_gen.c}!interp\_XY\_3@{interp\_XY\_3}}
+\index{interp\_XY\_3@{interp\_XY\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{interp\_XY\_3()}{interp\_XY\_3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} interp\+\_\+\+X\+Y\+\_\+3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{xs,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ys,  }\item[{int}]{x0,  }\item[{int}]{x1,  }\item[{int}]{y0,  }\item[{int}]{y1,  }\item[{int}]{iz,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}}}]{noisefunc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_aa74995f49628eb8e2fabc8f6a89e9b00}\label{target_2classes_2noise__gen_8c_aa74995f49628eb8e2fabc8f6a89e9b00}} 
+\index{noise\_gen.c@{noise\_gen.c}!interp\_XYZ\_3@{interp\_XYZ\_3}}
+\index{interp\_XYZ\_3@{interp\_XYZ\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{interp\_XYZ\_3()}{interp\_XYZ\_3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} interp\+\_\+\+X\+Y\+Z\+\_\+3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{xs,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ys,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{zs,  }\item[{int}]{x0,  }\item[{int}]{x1,  }\item[{int}]{y0,  }\item[{int}]{y1,  }\item[{int}]{z0,  }\item[{int}]{z1,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8c_aa273c7b5276bf8636e14a14c0ab83731}{worker\+\_\+noise\+\_\+3}}}]{noisefunc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_af7751d6bf317b367835b605c3584abd0}\label{target_2classes_2noise__gen_8c_af7751d6bf317b367835b605c3584abd0}} 
+\index{noise\_gen.c@{noise\_gen.c}!linearInterp@{linearInterp}}
+\index{linearInterp@{linearInterp}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{linearInterp()}{linearInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} linear\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a03160b7e757d3bd0cd071c27b07307c1}\label{target_2classes_2noise__gen_8c_a03160b7e757d3bd0cd071c27b07307c1}} 
+\index{noise\_gen.c@{noise\_gen.c}!noInterp@{noInterp}}
+\index{noInterp@{noInterp}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{noInterp()}{noInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} no\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a2db335ae978be4c1d69ea188d9d1da33}\label{target_2classes_2noise__gen_8c_a2db335ae978be4c1d69ea188d9d1da33}} 
+\index{noise\_gen.c@{noise\_gen.c}!quinticInterp@{quinticInterp}}
+\index{quinticInterp@{quinticInterp}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{quinticInterp()}{quinticInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} quintic\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a617aa1e7db88ba18d89376d779fc23df}\label{target_2classes_2noise__gen_8c_a617aa1e7db88ba18d89376d779fc23df}} 
+\index{noise\_gen.c@{noise\_gen.c}!simplex\_noise2D@{simplex\_noise2D}}
+\index{simplex\_noise2D@{simplex\_noise2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise2D()}{simplex\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8c_a4f0fabd7f7236d8e43549b820d72b136}\label{target_2classes_2noise__gen_8c_a4f0fabd7f7236d8e43549b820d72b136}} 
+\index{noise\_gen.c@{noise\_gen.c}!value\_noise2D@{value\_noise2D}}
+\index{value\_noise2D@{value\_noise2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{value\_noise2D()}{value\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}\label{target_2classes_2noise__gen_8c_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}} 
+\index{noise\_gen.c@{noise\_gen.c}!value\_noise3D@{value\_noise3D}}
+\index{value\_noise3D@{value\_noise3D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{value\_noise3D()}{value\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a6f3f5c36336ddf744011b649a3457adb}\label{target_2classes_2noise__gen_8c_a6f3f5c36336ddf744011b649a3457adb}} 
+\index{noise\_gen.c@{noise\_gen.c}!value\_noise\_2@{value\_noise\_2}}
+\index{value\_noise\_2@{value\_noise\_2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{value\_noise\_2()}{value\_noise\_2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise\+\_\+2 (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{int}]{ix,  }\item[{int}]{iy,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a9fd84c24f2951a2962313bac20fcf51b}\label{target_2classes_2noise__gen_8c_a9fd84c24f2951a2962313bac20fcf51b}} 
+\index{noise\_gen.c@{noise\_gen.c}!value\_noise\_3@{value\_noise\_3}}
+\index{value\_noise\_3@{value\_noise\_3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{value\_noise\_3()}{value\_noise\_3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise\+\_\+3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{int}]{ix,  }\item[{int}]{iy,  }\item[{int}]{iz,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a8a101e4f59c63b09f8994108fbed4598}\label{target_2classes_2noise__gen_8c_a8a101e4f59c63b09f8994108fbed4598}} 
+\index{noise\_gen.c@{noise\_gen.c}!white\_noise2D@{white\_noise2D}}
+\index{white\_noise2D@{white\_noise2D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{white\_noise2D()}{white\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+White noise functions. \begin{quote}
+In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a232e6050a32049eac795ccfa519374b6}\label{target_2classes_2noise__gen_8c_a232e6050a32049eac795ccfa519374b6}} 
+\index{noise\_gen.c@{noise\_gen.c}!F2@{F2}}
+\index{F2@{F2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{F2}{F2}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} F2 = 0.\+36602540378443864676372317075294}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_abec4074532d2e2e2f457b11323448fe9}\label{target_2classes_2noise__gen_8c_abec4074532d2e2e2f457b11323448fe9}} 
+\index{noise\_gen.c@{noise\_gen.c}!F3@{F3}}
+\index{F3@{F3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{F3}{F3}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} F3 = 1.\+0 / 3.\+0}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a807fb037bf2cad582d80791be7b11092}\label{target_2classes_2noise__gen_8c_a807fb037bf2cad582d80791be7b11092}} 
+\index{noise\_gen.c@{noise\_gen.c}!G2@{G2}}
+\index{G2@{G2}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{G2}{G2}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} G2 = 0.\+21132486540518711774542560974902}
+
+\mbox{\Hypertarget{target_2classes_2noise__gen_8c_a16b7871a3a26b1cee8cb158156499092}\label{target_2classes_2noise__gen_8c_a16b7871a3a26b1cee8cb158156499092}} 
+\index{noise\_gen.c@{noise\_gen.c}!G3@{G3}}
+\index{G3@{G3}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{G3}{G3}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} G3 = 1.\+0 / 6.\+0}
+

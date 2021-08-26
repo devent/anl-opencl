@@ -1,0 +1,135 @@
+\hypertarget{src_2main_2cpp_2noise__lut_8c}{}\doxysection{src/main/cpp/noise\+\_\+lut.c File Reference}
+\label{src_2main_2cpp_2noise__lut_8c}\index{src/main/cpp/noise\_lut.c@{src/main/cpp/noise\_lut.c}}
+{\ttfamily \#include \char`\"{}noise\+\_\+lut.\+h\char`\"{}}\newline
+Include dependency graph for noise\+\_\+lut.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{src_2main_2cpp_2noise__lut_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c_a892b4a5c3b3559fb6f797401ec210d20}{gradient2\+D\+\_\+lut}} \mbox{[}8\mbox{]}\mbox{[}2\mbox{]}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c_adb5d4f8f0cf12656ca2f59f4df659263}{gradient3\+D\+\_\+lut}} \mbox{[}24\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c_ac7e446415aa4031a1a9a5594e2fde553}{gradient4\+D\+\_\+lut}} \mbox{[}64\mbox{]}\mbox{[}4\mbox{]}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c_a8b15be48470a7b50bfdf31c4999c61a3}{gradient6\+D\+\_\+lut}} \mbox{[}192\mbox{]}\mbox{[}6\mbox{]}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c_abda44dbe995b0243226e112c463159be}{whitenoise\+\_\+lut}} \mbox{[}256\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__lut_8c_a892b4a5c3b3559fb6f797401ec210d20}\label{src_2main_2cpp_2noise__lut_8c_a892b4a5c3b3559fb6f797401ec210d20}} 
+\index{noise\_lut.c@{noise\_lut.c}!gradient2D\_lut@{gradient2D\_lut}}
+\index{gradient2D\_lut@{gradient2D\_lut}!noise\_lut.c@{noise\_lut.c}}
+\doxysubsubsection{\texorpdfstring{gradient2D\_lut}{gradient2D\_lut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient2\+D\+\_\+lut\mbox{[}8\mbox{]}\mbox{[}2\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \{-\/0.79056941504209483299972338610818,0.31622776601683793319988935444327\},}
+\DoxyCodeLine{    \{0.79056941504209483299972338610818,0.31622776601683793319988935444327\},}
+\DoxyCodeLine{    \{0.79056941504209483299972338610818,-\/0.31622776601683793319988935444327\},}
+\DoxyCodeLine{    \{-\/0.79056941504209483299972338610818,-\/0.31622776601683793319988935444327\},}
+\DoxyCodeLine{    \{0.31622776601683793319988935444327,0.79056941504209483299972338610818\},}
+\DoxyCodeLine{    \{-\/0.31622776601683793319988935444327,0.79056941504209483299972338610818\},}
+\DoxyCodeLine{    \{0.31622776601683793319988935444327,-\/0.79056941504209483299972338610818\},}
+\DoxyCodeLine{    \{-\/0.31622776601683793319988935444327,-\/0.79056941504209483299972338610818\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{src_2main_2cpp_2noise__lut_8c_adb5d4f8f0cf12656ca2f59f4df659263}\label{src_2main_2cpp_2noise__lut_8c_adb5d4f8f0cf12656ca2f59f4df659263}} 
+\index{noise\_lut.c@{noise\_lut.c}!gradient3D\_lut@{gradient3D\_lut}}
+\index{gradient3D\_lut@{gradient3D\_lut}!noise\_lut.c@{noise\_lut.c}}
+\doxysubsubsection{\texorpdfstring{gradient3D\_lut}{gradient3D\_lut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient3\+D\+\_\+lut\mbox{[}24\mbox{]}\mbox{[}3\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \{-\/11,4,4\},}
+\DoxyCodeLine{    \{-\/4,11,4\},}
+\DoxyCodeLine{    \{-\/4,4,11\},}
+\DoxyCodeLine{    \{11,4,4\},}
+\DoxyCodeLine{    \{4,11,4\},}
+\DoxyCodeLine{    \{4,4,11\},}
+\DoxyCodeLine{    \{-\/11,-\/4,4\},}
+\DoxyCodeLine{    \{4,-\/11,4\},}
+\DoxyCodeLine{    \{-\/4,-\/4,11\},}
+\DoxyCodeLine{    \{11,-\/4,4\},}
+\DoxyCodeLine{    \{4,-\/11,4\},}
+\DoxyCodeLine{    \{4,-\/4,11\},}
+\DoxyCodeLine{    \{-\/11,4,-\/4\},}
+\DoxyCodeLine{    \{-\/4,11,-\/4\},}
+\DoxyCodeLine{    \{-\/4,4,-\/11\},}
+\DoxyCodeLine{    \{11,4,-\/4\},}
+\DoxyCodeLine{    \{4,11,-\/4\},}
+\DoxyCodeLine{    \{4,4,-\/11\},}
+\DoxyCodeLine{    \{-\/11,-\/4,-\/4\},}
+\DoxyCodeLine{    \{-\/4,-\/11,-\/4\},}
+\DoxyCodeLine{    \{-\/4,-\/4,-\/11\},}
+\DoxyCodeLine{    \{11,-\/4,-\/4\},}
+\DoxyCodeLine{    \{4,-\/11,-\/4\},}
+\DoxyCodeLine{    \{4,-\/4,-\/11\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__lut_8c_ac7e446415aa4031a1a9a5594e2fde553}\label{src_2main_2cpp_2noise__lut_8c_ac7e446415aa4031a1a9a5594e2fde553}} 
+\index{noise\_lut.c@{noise\_lut.c}!gradient4D\_lut@{gradient4D\_lut}}
+\index{gradient4D\_lut@{gradient4D\_lut}!noise\_lut.c@{noise\_lut.c}}
+\doxysubsubsection{\texorpdfstring{gradient4D\_lut}{gradient4D\_lut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient4\+D\+\_\+lut\mbox{[}64\mbox{]}\mbox{[}4\mbox{]}}
+
+\mbox{\Hypertarget{src_2main_2cpp_2noise__lut_8c_a8b15be48470a7b50bfdf31c4999c61a3}\label{src_2main_2cpp_2noise__lut_8c_a8b15be48470a7b50bfdf31c4999c61a3}} 
+\index{noise\_lut.c@{noise\_lut.c}!gradient6D\_lut@{gradient6D\_lut}}
+\index{gradient6D\_lut@{gradient6D\_lut}!noise\_lut.c@{noise\_lut.c}}
+\doxysubsubsection{\texorpdfstring{gradient6D\_lut}{gradient6D\_lut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient6\+D\+\_\+lut\mbox{[}192\mbox{]}\mbox{[}6\mbox{]}}
+
+\mbox{\Hypertarget{src_2main_2cpp_2noise__lut_8c_abda44dbe995b0243226e112c463159be}\label{src_2main_2cpp_2noise__lut_8c_abda44dbe995b0243226e112c463159be}} 
+\index{noise\_lut.c@{noise\_lut.c}!whitenoise\_lut@{whitenoise\_lut}}
+\index{whitenoise\_lut@{whitenoise\_lut}!noise\_lut.c@{noise\_lut.c}}
+\doxysubsubsection{\texorpdfstring{whitenoise\_lut}{whitenoise\_lut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} whitenoise\+\_\+lut\mbox{[}256\mbox{]}}
+

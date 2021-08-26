@@ -93,7 +93,7 @@
     </developers>
 
     <properties>
-        <license.custom.license.template>LICENSE.txt</license.custom.license.template>
+        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
         <project.custom.globalpom.version>4.6.0-SNAPSHOT</project.custom.globalpom.version>
         <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
         <project.custom.current.year>2021</project.custom.current.year>
@@ -151,6 +151,34 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <header>${license.custom.license.template}</header>
+                    <properties>
+                        <owner>${license.custom.license.owner}</owner>
+                        <email>${license.custom.license.email}</email>
+                    </properties>
+                    <excludes>
+                        <exclude>**/README</exclude>
+                        <exclude>**/LICENSE.txt</exclude>
+                        <exclude>src/test/resources/**</exclude>
+                        <exclude>src/main/resources/**</exclude>
+                    </excludes>
+                    <mapping>
+                        <h>DOUBLESLASH_STYLE</h>
+                        <c>DOUBLESLASH_STYLE</c>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>

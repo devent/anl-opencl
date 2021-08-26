@@ -1,0 +1,63 @@
+\hypertarget{target_2classes_2OpenCLTestFixture_8cpp}{}\doxysection{target/classes/\+Open\+C\+L\+Test\+Fixture.cpp File Reference}
+\label{target_2classes_2OpenCLTestFixture_8cpp}\index{target/classes/OpenCLTestFixture.cpp@{target/classes/OpenCLTestFixture.cpp}}
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/sinks/stdout\+\_\+color\+\_\+sinks.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Test\+Fixture.\+h\char`\"{}}\newline
+Include dependency graph for Open\+C\+L\+Test\+Fixture.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{target_2classes_2OpenCLTestFixture_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classProgramEx}{Program\+Ex}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}{C\+O\+M\+P\+I\+L\+E\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+E\+RR}}~\char`\"{}Error compile program\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}{load\+Platform}} (std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ logger)
+\item 
+std\+::string \mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}{read\+File}} (std\+::string file\+Name)
+\item 
+Program \mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}{create\+Programs}} (std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ logger, const \mbox{\hyperlink{structKernelContext}{Kernel\+Context}} \&t)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{target_2classes_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}\label{target_2classes_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}} 
+\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!COMPILE\_PROGRAM\_ERR@{COMPILE\_PROGRAM\_ERR}}
+\index{COMPILE\_PROGRAM\_ERR@{COMPILE\_PROGRAM\_ERR}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
+\doxysubsubsection{\texorpdfstring{COMPILE\_PROGRAM\_ERR}{COMPILE\_PROGRAM\_ERR}}
+{\footnotesize\ttfamily \#define C\+O\+M\+P\+I\+L\+E\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+E\+RR~\char`\"{}Error compile program\char`\"{}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{target_2classes_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}\label{target_2classes_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}} 
+\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!createPrograms@{createPrograms}}
+\index{createPrograms@{createPrograms}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
+\doxysubsubsection{\texorpdfstring{createPrograms()}{createPrograms()}}
+{\footnotesize\ttfamily Program create\+Programs (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$}]{logger,  }\item[{const \mbox{\hyperlink{structKernelContext}{Kernel\+Context}} \&}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}\label{target_2classes_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}} 
+\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!loadPlatform@{loadPlatform}}
+\index{loadPlatform@{loadPlatform}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
+\doxysubsubsection{\texorpdfstring{loadPlatform()}{loadPlatform()}}
+{\footnotesize\ttfamily bool load\+Platform (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$}]{logger }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}\label{target_2classes_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}} 
+\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!readFile@{readFile}}
+\index{readFile@{readFile}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily std\+::string read\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+

@@ -1,0 +1,101 @@
+\hypertarget{src_2main_2cpp_2hashing_8h}{}\doxysection{src/main/cpp/hashing.h File Reference}
+\label{src_2main_2cpp_2hashing_8h}\index{src/main/cpp/hashing.h@{src/main/cpp/hashing.h}}
+{\ttfamily \#include $<$opencl\+\_\+utils.\+h$>$}\newline
+Include dependency graph for hashing.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{src_2main_2cpp_2hashing_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{src_2main_2cpp_2hashing_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_ae13a6565bea334e9b6fb19033a392857}{F\+N\+V\+\_\+32\+\_\+\+P\+R\+I\+ME}}~((uint)0x01000193)
+\item 
+\#define \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_a7489fa90eb57a2d7e70485d85490c0cf}{F\+N\+V\+\_\+32\+\_\+\+I\+N\+IT}}~((uint )2166136261)
+\item 
+\#define \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_ab3ee621200e3e2a4936208389ca98cc6}{F\+N\+V\+\_\+\+M\+A\+S\+K\+\_\+8}}~(((uint)1$<$$<$8)-\/1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_af9f8f05c5c134b1646c1f2c3ce474dc3}{hash\+\_\+coords\+\_\+2}} (uint x, uint y, uint seed)
+\item 
+uint \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_aeb5f69259d6a0733a3cd1cccc09e7530}{hash\+\_\+coords\+\_\+3}} (uint x, uint y, uint z, uint seed)
+\item 
+uint \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_ad8e3d380282260bc87d6457587d6b748}{hash\+\_\+coords\+\_\+4}} (uint x, uint y, uint z, uint w, uint seed)
+\item 
+uint \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_a3e2b42eb9595bba86e80aeae80b94c3b}{hash\+\_\+coords\+\_\+6}} (uint x, uint y, uint z, uint w, uint u, uint v, uint seed)
+\item 
+uint \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_a2fd43785810df3127aebd1d0e0d7b5b7}{fnv\+\_\+32\+\_\+a\+\_\+combine}} (uint hash, uint val)
+\item 
+unsigned char \mbox{\hyperlink{src_2main_2cpp_2hashing_8h_ac0869f5242f7de62756dbb26be843a98}{xor\+\_\+fold\+\_\+hash}} (uint hash)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_a7489fa90eb57a2d7e70485d85490c0cf}\label{src_2main_2cpp_2hashing_8h_a7489fa90eb57a2d7e70485d85490c0cf}} 
+\index{hashing.h@{hashing.h}!FNV\_32\_INIT@{FNV\_32\_INIT}}
+\index{FNV\_32\_INIT@{FNV\_32\_INIT}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{FNV\_32\_INIT}{FNV\_32\_INIT}}
+{\footnotesize\ttfamily \#define F\+N\+V\+\_\+32\+\_\+\+I\+N\+IT~((uint )2166136261)}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_ae13a6565bea334e9b6fb19033a392857}\label{src_2main_2cpp_2hashing_8h_ae13a6565bea334e9b6fb19033a392857}} 
+\index{hashing.h@{hashing.h}!FNV\_32\_PRIME@{FNV\_32\_PRIME}}
+\index{FNV\_32\_PRIME@{FNV\_32\_PRIME}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{FNV\_32\_PRIME}{FNV\_32\_PRIME}}
+{\footnotesize\ttfamily \#define F\+N\+V\+\_\+32\+\_\+\+P\+R\+I\+ME~((uint)0x01000193)}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_ab3ee621200e3e2a4936208389ca98cc6}\label{src_2main_2cpp_2hashing_8h_ab3ee621200e3e2a4936208389ca98cc6}} 
+\index{hashing.h@{hashing.h}!FNV\_MASK\_8@{FNV\_MASK\_8}}
+\index{FNV\_MASK\_8@{FNV\_MASK\_8}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{FNV\_MASK\_8}{FNV\_MASK\_8}}
+{\footnotesize\ttfamily \#define F\+N\+V\+\_\+\+M\+A\+S\+K\+\_\+8~(((uint)1$<$$<$8)-\/1)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_a2fd43785810df3127aebd1d0e0d7b5b7}\label{src_2main_2cpp_2hashing_8h_a2fd43785810df3127aebd1d0e0d7b5b7}} 
+\index{hashing.h@{hashing.h}!fnv\_32\_a\_combine@{fnv\_32\_a\_combine}}
+\index{fnv\_32\_a\_combine@{fnv\_32\_a\_combine}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{fnv\_32\_a\_combine()}{fnv\_32\_a\_combine()}}
+{\footnotesize\ttfamily uint fnv\+\_\+32\+\_\+a\+\_\+combine (\begin{DoxyParamCaption}\item[{uint}]{hash,  }\item[{uint}]{val }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_af9f8f05c5c134b1646c1f2c3ce474dc3}\label{src_2main_2cpp_2hashing_8h_af9f8f05c5c134b1646c1f2c3ce474dc3}} 
+\index{hashing.h@{hashing.h}!hash\_coords\_2@{hash\_coords\_2}}
+\index{hash\_coords\_2@{hash\_coords\_2}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{hash\_coords\_2()}{hash\_coords\_2()}}
+{\footnotesize\ttfamily uint hash\+\_\+coords\+\_\+2 (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_aeb5f69259d6a0733a3cd1cccc09e7530}\label{src_2main_2cpp_2hashing_8h_aeb5f69259d6a0733a3cd1cccc09e7530}} 
+\index{hashing.h@{hashing.h}!hash\_coords\_3@{hash\_coords\_3}}
+\index{hash\_coords\_3@{hash\_coords\_3}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{hash\_coords\_3()}{hash\_coords\_3()}}
+{\footnotesize\ttfamily uint hash\+\_\+coords\+\_\+3 (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y,  }\item[{uint}]{z,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_ad8e3d380282260bc87d6457587d6b748}\label{src_2main_2cpp_2hashing_8h_ad8e3d380282260bc87d6457587d6b748}} 
+\index{hashing.h@{hashing.h}!hash\_coords\_4@{hash\_coords\_4}}
+\index{hash\_coords\_4@{hash\_coords\_4}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{hash\_coords\_4()}{hash\_coords\_4()}}
+{\footnotesize\ttfamily uint hash\+\_\+coords\+\_\+4 (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y,  }\item[{uint}]{z,  }\item[{uint}]{w,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_a3e2b42eb9595bba86e80aeae80b94c3b}\label{src_2main_2cpp_2hashing_8h_a3e2b42eb9595bba86e80aeae80b94c3b}} 
+\index{hashing.h@{hashing.h}!hash\_coords\_6@{hash\_coords\_6}}
+\index{hash\_coords\_6@{hash\_coords\_6}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{hash\_coords\_6()}{hash\_coords\_6()}}
+{\footnotesize\ttfamily uint hash\+\_\+coords\+\_\+6 (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y,  }\item[{uint}]{z,  }\item[{uint}]{w,  }\item[{uint}]{u,  }\item[{uint}]{v,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2hashing_8h_ac0869f5242f7de62756dbb26be843a98}\label{src_2main_2cpp_2hashing_8h_ac0869f5242f7de62756dbb26be843a98}} 
+\index{hashing.h@{hashing.h}!xor\_fold\_hash@{xor\_fold\_hash}}
+\index{xor\_fold\_hash@{xor\_fold\_hash}!hashing.h@{hashing.h}}
+\doxysubsubsection{\texorpdfstring{xor\_fold\_hash()}{xor\_fold\_hash()}}
+{\footnotesize\ttfamily unsigned char xor\+\_\+fold\+\_\+hash (\begin{DoxyParamCaption}\item[{uint}]{hash }\end{DoxyParamCaption})}
+

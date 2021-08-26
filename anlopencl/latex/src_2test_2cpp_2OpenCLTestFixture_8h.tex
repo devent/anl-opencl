@@ -1,0 +1,184 @@
+\hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Test\+Fixture.h File Reference}
+\label{src_2test_2cpp_2OpenCLTestFixture_8h}\index{src/test/cpp/OpenCLTestFixture.h@{src/test/cpp/OpenCLTestFixture.h}}
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$opencv2/core.\+hpp$>$}\newline
+{\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
+Include dependency graph for Open\+C\+L\+Test\+Fixture.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2test_2cpp_2OpenCLTestFixture_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2test_2cpp_2OpenCLTestFixture_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}
+\item 
+class \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture}{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture}}
+\item 
+class \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}
+\item 
+class \mbox{\hyperlink{classOpenCL__Context__SVM__Fixture}{Open\+C\+L\+\_\+\+Context\+\_\+\+S\+V\+M\+\_\+\+Fixture}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} = std\+::vector$<$ T, cl\+::\+S\+V\+M\+Allocator$<$ float, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a7816b64e410893cd106df04c54d71b58}{read\+File}} (std\+::string file\+Name)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_ac0df36eca6a5d5521d62dedf40064145}{create\+Vector}} (size\+\_\+t count)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a3de11bc10253b51dcadf1f68f6075944}{create\+Buffer\+Ptr}} (std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$$>$ vector, cl\+\_\+mem\+\_\+flags flags=C\+L\+\_\+\+M\+E\+M\+\_\+\+R\+E\+A\+D\+\_\+\+W\+R\+I\+TE)
+\item 
+std\+::string \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}{mat\+\_\+to\+\_\+s}} (cv\+::\+Mat \&m)
+\item 
+{\footnotesize template$<$typename T $>$ }\\cl\+\_\+int \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}{copy}} (const cl\+::\+Command\+Queue \&queue, const cl\+::\+Buffer \&buffer, std\+::vector$<$ T $>$ \&target)
+\item 
+{\footnotesize template$<$typename T $>$ }\\cl\+\_\+int \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}{copy}} (const cl\+::\+Buffer \&buffer, std\+::vector$<$ T $>$ \&target)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}{dim\+\_\+float2}} = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)
+\item 
+const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}{dim\+\_\+float3}} = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)
+\item 
+const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}{dim\+\_\+float4}} = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}\label{src_2test_2cpp_2OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+\index{CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}}
+\index{coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{coarse\_float\_svm\_vector}{coarse\_float\_svm\_vector}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} =  std\+::vector$<$T, cl\+::\+S\+V\+M\+Allocator$<$float, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!copy@{copy}}
+\index{copy@{copy}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+cl\+\_\+int copy (\begin{DoxyParamCaption}\item[{const cl\+::\+Buffer \&}]{buffer,  }\item[{std\+::vector$<$ T $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Blocking copy operation between iterators and a buffer. Device to Host. Uses default command queue. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!copy@{copy}}
+\index{copy@{copy}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+cl\+\_\+int copy (\begin{DoxyParamCaption}\item[{const cl\+::\+Command\+Queue \&}]{queue,  }\item[{const cl\+::\+Buffer \&}]{buffer,  }\item[{std\+::vector$<$ T $>$ \&}]{target }\end{DoxyParamCaption})}
+
+Blocking copy operation between iterators and a buffer. Device to Host. Uses specified queue. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a3de11bc10253b51dcadf1f68f6075944}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a3de11bc10253b51dcadf1f68f6075944}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!createBufferPtr@{createBufferPtr}}
+\index{createBufferPtr@{createBufferPtr}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{createBufferPtr()}{createBufferPtr()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ create\+Buffer\+Ptr (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$$>$}]{vector,  }\item[{cl\+\_\+mem\+\_\+flags}]{flags = {\ttfamily CL\+\_\+MEM\+\_\+READ\+\_\+WRITE} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_ac0df36eca6a5d5521d62dedf40064145}\label{src_2test_2cpp_2OpenCLTestFixture_8h_ac0df36eca6a5d5521d62dedf40064145}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!createVector@{createVector}}
+\index{createVector@{createVector}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{createVector()}{createVector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$std\+::vector$<$T$>$ $>$ create\+Vector (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}\label{src_2test_2cpp_2OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!mat\_to\_s@{mat\_to\_s}}
+\index{mat\_to\_s@{mat\_to\_s}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{mat\_to\_s()}{mat\_to\_s()}}
+{\footnotesize\ttfamily std\+::string mat\+\_\+to\+\_\+s (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{m }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a7816b64e410893cd106df04c54d71b58}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a7816b64e410893cd106df04c54d71b58}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!readFile@{readFile}}
+\index{readFile@{readFile}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily std\+::string read\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float2@{dim\_float2}}
+\index{dim\_float2@{dim\_float2}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{dim\_float2}{dim\_float2}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float2 = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)}
+
+float2 have 2 floats. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}\label{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float3@{dim\_float3}}
+\index{dim\_float3@{dim\_float3}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{dim\_float3}{dim\_float3}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float3 = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)}
+
+float3 have 4 floats. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float4@{dim\_float4}}
+\index{dim\_float4@{dim\_float4}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{dim\_float4}{dim\_float4}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float4 = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)}
+
+float4 have 4 floats. 

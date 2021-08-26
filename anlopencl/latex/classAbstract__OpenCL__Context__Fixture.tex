@@ -1,0 +1,136 @@
+\hypertarget{classAbstract__OpenCL__Context__Fixture}{}\doxysection{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture Class Reference}
+\label{classAbstract__OpenCL__Context__Fixture}\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+
+
+{\ttfamily \#include $<$Open\+C\+L\+Test\+Fixture.\+h$>$}
+
+
+
+Inheritance diagram for Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAbstract__OpenCL__Context__Fixture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classAbstract__OpenCL__Context__Fixture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_aaed0657c8f4be23cffaf4caa9858ab06}{Set\+Up}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}{run\+Kernel}} (cl\+::\+Program \&kernel)=0
+\item 
+virtual void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a60cad2bb9657cc43c3d03a32ba00a0e7}{copy\+Buffers}} ()=0
+\item 
+void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a82d4dd13053636270bbf2b93aad29e13}{show\+Image\+Scale\+To\+Range}} (std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$ output, int type)
+\item 
+void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ac7d610c6365df2a0487f8348e4f259c5}{show\+Image}} (std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$ output, int type)
+\item 
+void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a0d373c1988357fa38696661aa4cf7944}{save\+Image\+Scale\+To\+Range}} (std\+::string file\+Name, std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$ output, int type)
+\item 
+void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ad03fcbc21273d9b58799722f0fb21207}{save\+Image}} (std\+::string file\+Name, std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$ output, int type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_aa2552fa0d701152ff99072a6c0e7be43}{Set\+Up\+Test\+Suite}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_a60cad2bb9657cc43c3d03a32ba00a0e7}\label{classAbstract__OpenCL__Context__Fixture_a60cad2bb9657cc43c3d03a32ba00a0e7}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!copyBuffers@{copyBuffers}}
+\index{copyBuffers@{copyBuffers}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{copyBuffers()}{copyBuffers()}}
+{\footnotesize\ttfamily virtual void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::copy\+Buffers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classOpenCL__Context__SVM__Fixture_ada837c9777ac7981bd71f69154661686}{Open\+C\+L\+\_\+\+Context\+\_\+\+S\+V\+M\+\_\+\+Fixture}}, and \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_ae131198f57ce210da1348428708e7e66}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}\label{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!runKernel@{runKernel}}
+\index{runKernel@{runKernel}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{runKernel()}{runKernel()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::run\+Kernel (\begin{DoxyParamCaption}\item[{cl\+::\+Program \&}]{kernel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classvalue__noise3D__fixture_aa880c7f5a549e01018fa165eddc446e6}{value\+\_\+noise3\+D\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simpleBillow3__fixture_a97c2c0418d39257b072f52ce1472ad19}{value\+\_\+simple\+Billow3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simpleBillowLayer3__fixture_ac79b0197e5f04e23bd1692507a8fc3d7}{value\+\_\+simple\+Billow\+Layer3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simplefBm3__fixture_a6939942d238daa7d8740c09d460630bd}{value\+\_\+simplef\+Bm3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simpleFractalLayer3__fixture_abd970610d9233ec3886ef366b2defba5}{value\+\_\+simple\+Fractal\+Layer3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simpleRidgedLayer3__fixture_aa9d4c749c39e3bceebbe13aefc0d28ba}{value\+\_\+simple\+Ridged\+Layer3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__simpleRidgedMultifractal3__fixture_a7f75aee7abf9102cd60f0254227f1c69}{value\+\_\+simple\+Ridged\+Multifractal3\+\_\+fixture}}, \mbox{\hyperlink{classvalue__noise3D__fixture_aa880c7f5a549e01018fa165eddc446e6}{value\+\_\+noise3\+D\+\_\+fixture}}, \mbox{\hyperlink{classopencl__combineColor__fixture_a84df23e4e7723ed3d44fc62c1b12729a}{opencl\+\_\+combine\+Color\+\_\+fixture}}, \mbox{\hyperlink{classvalue__map2D__default__fixture_aece23cfb4c772052349551c4c30631b3}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}, and \mbox{\hyperlink{classopencl__noise2D__functions__fixture_afe3602c98042929449765c4b9c6ba384}{opencl\+\_\+noise2\+D\+\_\+functions\+\_\+fixture}}.
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_ad03fcbc21273d9b58799722f0fb21207}\label{classAbstract__OpenCL__Context__Fixture_ad03fcbc21273d9b58799722f0fb21207}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!saveImage@{saveImage}}
+\index{saveImage@{saveImage}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{saveImage()}{saveImage()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::save\+Image (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name,  }\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$}]{output,  }\item[{int}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_a0d373c1988357fa38696661aa4cf7944}\label{classAbstract__OpenCL__Context__Fixture_a0d373c1988357fa38696661aa4cf7944}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!saveImageScaleToRange@{saveImageScaleToRange}}
+\index{saveImageScaleToRange@{saveImageScaleToRange}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{saveImageScaleToRange()}{saveImageScaleToRange()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::save\+Image\+Scale\+To\+Range (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name,  }\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$}]{output,  }\item[{int}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_aaed0657c8f4be23cffaf4caa9858ab06}\label{classAbstract__OpenCL__Context__Fixture_aaed0657c8f4be23cffaf4caa9858ab06}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!SetUp@{SetUp}}
+\index{SetUp@{SetUp}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{SetUp()}{SetUp()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::\+Set\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_aa2552fa0d701152ff99072a6c0e7be43}\label{classAbstract__OpenCL__Context__Fixture_aa2552fa0d701152ff99072a6c0e7be43}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!SetUpTestSuite@{SetUpTestSuite}}
+\index{SetUpTestSuite@{SetUpTestSuite}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{SetUpTestSuite()}{SetUpTestSuite()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::\+Set\+Up\+Test\+Suite (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_ac7d610c6365df2a0487f8348e4f259c5}\label{classAbstract__OpenCL__Context__Fixture_ac7d610c6365df2a0487f8348e4f259c5}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!showImage@{showImage}}
+\index{showImage@{showImage}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{showImage()}{showImage()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::show\+Image (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$}]{output,  }\item[{int}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_a82d4dd13053636270bbf2b93aad29e13}\label{classAbstract__OpenCL__Context__Fixture_a82d4dd13053636270bbf2b93aad29e13}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!showImageScaleToRange@{showImageScaleToRange}}
+\index{showImageScaleToRange@{showImageScaleToRange}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{showImageScaleToRange()}{showImageScaleToRange()}}
+{\footnotesize\ttfamily void Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::show\+Image\+Scale\+To\+Range (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$$>$}]{output,  }\item[{int}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}\label{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}} 
+\index{Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}!logger@{logger}}
+\index{logger@{logger}!Abstract\_OpenCL\_Context\_Fixture@{Abstract\_OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::logger\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= []() -\/> std::shared\_ptr<spdlog::logger> \{}
+\DoxyCodeLine{    \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}} = spdlog::stderr\_color\_mt(\textcolor{stringliteral}{"OpenCL\_Context\_Fixture"}, spdlog::color\_mode::automatic);}
+\DoxyCodeLine{    \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}}-\/>set\_level(spdlog::level::trace);}
+\DoxyCodeLine{    \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}}-\/>flush\_on(spdlog::level::debug);}
+\DoxyCodeLine{    \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}}-\/>flush\_on(spdlog::level::err);}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_a5f0faf1570e18a72bf8c91b489869462}{logger}};}
+\DoxyCodeLine{\}()}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}}\item 
+src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp}{Open\+C\+L\+Test\+Fixture.\+cpp}}\end{DoxyCompactItemize}

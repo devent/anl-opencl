@@ -62,6 +62,10 @@
     <description>Implements the Accidental Noise Library OpenCL rework.</description>
     <inceptionYear>2021</inceptionYear>
 
+    <properties>
+        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.anrisoftware.globalpom</groupId>

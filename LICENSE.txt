@@ -1,11 +1,11 @@
-Copyright (C) ${project.inceptionYear} Erwin Müller <erwin@muellerpublic.de>
+Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
 Released as open-source under the Apache License, Version 2.0.
 
 ****************************************************************************
-${project.name}
+anl-opencl
 ****************************************************************************
 
-Copyright (C) ${project.inceptionYear} Erwin Müller <erwin@muellerpublic.de>
+Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
