@@ -200,6 +200,11 @@ const size_t dim_float3 = sizeof(cl_float3) / sizeof(cl_float);
  */
 const size_t dim_float4 = sizeof(cl_float4) / sizeof(cl_float);
 
+/**
+ * float8 have 8 floats.
+ */
+const size_t dim_float8 = sizeof(cl_float8) / sizeof(cl_float);
+
 class Abstract_OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
 	static std::shared_ptr<spdlog::logger> logger;

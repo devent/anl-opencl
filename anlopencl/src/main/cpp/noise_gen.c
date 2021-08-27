@@ -56,6 +56,7 @@
 #include <hashing.h>
 #include <utility.h>
 #include "noise_lut.h"
+#include "qsort.h"
 #endif // USE_OPENCL
 
 REAL noInterp(REAL t) {
@@ -834,4 +835,203 @@ REAL simplex_noise3D(vector3 v, uint seed, interp_func interp) {
 	}
 
 	return (32.0 * (n0 + n1 + n2 + n3)) * 1.25086885 + 0.0003194984;
+}
+
+typedef struct SVectorOrdering {
+	REAL val;
+	int axis;
+} SVectorOrdering;
+
+int vectorOrderingCompare(const void *a, const void *b, void* arg) {
+	SVectorOrdering v1 = *((SVectorOrdering*) a);
+	SVectorOrdering v2 = *((SVectorOrdering*) b);
+	if (v1.val == v2.val)
+		return 0;
+	if (v1.val > v2.val)
+		return 1;
+	return -1;
+}
+
+void sortBy_4(REAL *l1, int *l2) {
+	SVectorOrdering a[4];
+	for (int c = 0; c < 4; ++c) {
+		a[c].val = l1[c];
+		a[c].axis = l2[c];
+	}
+	sort(&a[0], 4, sizeof(SVectorOrdering), vectorOrderingCompare);
+	for (int c = 0; c < 4; ++c)
+		l2[c] = a[c].axis;
+}
+
+void sortBy_6(REAL *l1, int *l2) {
+	SVectorOrdering a[6];
+	for (int c = 0; c < 6; ++c) {
+		a[c].val = l1[c];
+		a[c].axis = l2[c];
+	}
+	sort(&a[0], 6, sizeof(SVectorOrdering), vectorOrderingCompare);
+	for (int c = 0; c < 6; ++c)
+		l2[c] = a[c].axis;
+}
+
+REAL simplex_noise4D(vector4 v, uint seed, interp_func interp) {
+	// f = ((self.d + 1) ** .5 - 1) / self.d
+	REAL F4 = (sqrt(5.0) - 1.0) / 4.0;
+
+	// g=self.f/(1+self.d*self.f)
+	REAL G4 = F4 / (1.0 + 4.0 * F4);
+
+	REAL sideLength = 2.0 / (4.0 * F4 + 1.0);
+	REAL a = sqrt(
+			(sideLength * sideLength)
+					- ((sideLength / 2.0) * (sideLength / 2.0)));
+	REAL cornerToFace = sqrt((a * a + (a / 2.0) * (a / 2.0)));
+	REAL cornerToFaceSquared = cornerToFace * cornerToFace;
+
+	REAL valueScaler = pow(3.0, -0.5);
+	// Rough estimated/expirmentally determined function
+	// for scaling output to be -1 to 1
+	valueScaler *= pow(3.0, -3.5) * 100.0 + 13.0;
+
+	REAL loc[4] = { v.x, v.y, v.z, v.w };
+	REAL s = 0;
+	for (int c = 0; c < 4; ++c)
+		s += loc[c];
+	s *= F4;
+
+	int skewLoc[4] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(v.z + s),
+			fast_floor(v.w + s) };
+	int intLoc[4] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(v.z + s),
+			fast_floor(v.w + s) };
+	REAL unskew = 0.0;
+	for (int c = 0; c < 4; ++c)
+		unskew += skewLoc[c];
+	unskew *= G4;
+	REAL cellDist[4] = { loc[0] - (REAL) skewLoc[0] + unskew, loc[1]
+			- (REAL) skewLoc[1] + unskew, loc[2] - (REAL) skewLoc[2] + unskew,
+			loc[3] - (REAL) skewLoc[3] + unskew };
+	int distOrder[4] = { 0, 1, 2, 3 };
+	sortBy_4(cellDist, distOrder);
+
+	int newDistOrder[5] = { -1, distOrder[0], distOrder[1], distOrder[2],
+			distOrder[3] };
+
+	REAL n = 0.0;
+	REAL skewOffset = 0.0;
+
+	for (int c = 0; c < 5; ++c) {
+		int i = newDistOrder[c];
+		if (i != -1)
+			intLoc[i] += 1;
+
+		REAL u[4];
+		for (int d = 0; d < 4; ++d) {
+			u[d] = cellDist[d] - (intLoc[d] - skewLoc[d]) + skewOffset;
+		}
+
+		REAL t = cornerToFaceSquared;
+
+		for (int d = 0; d < 4; ++d) {
+			t -= u[d] * u[d];
+		}
+
+		if (t > 0.0) {
+			uint h = hash_coords_4(intLoc[0], intLoc[1], intLoc[2], intLoc[3],
+					seed) % 64;
+			REAL *vec = &gradient4D_lut[h][0];
+			REAL gr = 0.0;
+			for (int d = 0; d < 4; ++d) {
+				gr += vec[d] * u[d];
+			}
+
+			n += gr * t * t * t * t;
+		}
+		skewOffset += G4;
+	}
+	n *= valueScaler;
+	return n;
+}
+
+REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
+	// Skew
+	//self.f = ((self.d + 1) ** .5 - 1) / self.d
+
+	REAL F4 = (sqrt(7.0) - 1.0) / 6.0; //(sqrt(5.0)-1.0)/4.0;
+
+	// Unskew
+	// self.g=self.f/(1+self.d*self.f)
+	REAL G4 = F4 / (1.0 + 6.0 * F4);
+
+	REAL sideLength = sqrt(6.0) / (6.0 * F4 + 1.0);
+	REAL a = sqrt(
+			(sideLength * sideLength)
+					- ((sideLength / 2.0) * (sideLength / 2.0)));
+	REAL cornerFace = sqrt(a * a + (a / 2.0) * (a / 2.0));
+
+	REAL cornerFaceSqrd = cornerFace * cornerFace;
+
+	//self.valueScaler=(self.d-1)**-.5
+	REAL valueScaler = pow(5.0, -0.5);
+	valueScaler *= pow(5.0, -3.5) * 100 + 13;
+
+	REAL loc[6] = { v.x, v.y, v.z, v.w, v.s4, v.s5 };
+	REAL s = 0;
+	for (int c = 0; c < 6; ++c)
+		s += loc[c];
+	s *= F4;
+
+	int skewLoc[6] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(
+			v.z + s), fast_floor(v.w + s), fast_floor(v.s4 + s), fast_floor(
+			v.s5 + s) };
+	int intLoc[6] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(
+			v.z + s), fast_floor(v.w + s), fast_floor(v.s4 + s), fast_floor(
+			v.s5 + s) };
+	REAL unskew = 0.0;
+	for (int c = 0; c < 6; ++c)
+		unskew += skewLoc[c];
+	unskew *= G4;
+	REAL cellDist[6] = { loc[0] - (REAL) skewLoc[0] + unskew, loc[1]
+			- (REAL) skewLoc[1] + unskew, loc[2] - (REAL) skewLoc[2] + unskew,
+			loc[3] - (REAL) skewLoc[3] + unskew, loc[4] - (REAL) skewLoc[4]
+					+ unskew, loc[5] - (REAL) skewLoc[5] + unskew };
+	int distOrder[6] = { 0, 1, 2, 3, 4, 5 };
+	sortBy_6(cellDist, distOrder);
+
+	int newDistOrder[7] = { -1, distOrder[0], distOrder[1], distOrder[2],
+			distOrder[3], distOrder[4], distOrder[5] };
+
+	REAL n = 0.0;
+	REAL skewOffset = 0.0;
+
+	for (int c = 0; c < 7; ++c) {
+		int i = newDistOrder[c];
+		if (i != -1)
+			intLoc[i] += 1;
+
+		REAL u[6];
+		for (int d = 0; d < 6; ++d) {
+			u[d] = cellDist[d] - (intLoc[d] - skewLoc[d]) + skewOffset;
+		}
+
+		REAL t = cornerFaceSqrd;
+
+		for (int d = 0; d < 6; ++d) {
+			t -= u[d] * u[d];
+		}
+
+		if (t > 0.0) {
+			uint h = hash_coords_6(intLoc[0], intLoc[1], intLoc[2], intLoc[3],
+					intLoc[4], intLoc[5], seed) % 192;
+			REAL *vec = &gradient6D_lut[h][0];
+			REAL gr = 0.0;
+			for (int d = 0; d < 6; ++d) {
+				gr += vec[d] * u[d];
+			}
+
+			n += gr * t * t * t * t * t;
+		}
+		skewOffset += G4;
+	}
+	n *= valueScaler;
+	return n;
 }

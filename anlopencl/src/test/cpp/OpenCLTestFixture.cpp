@@ -243,6 +243,9 @@ Program createPrograms(std::shared_ptr<spdlog::logger> logger, const KernelConte
 	std::stringstream ss;
 	ss << readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
 	ss << readFile("src/main/cpp/opencl_utils.h");
+	ss << readFile("src/main/cpp/opencl_utils.c");
+	ss << readFile("src/main/cpp/qsort.h");
+	ss << readFile("src/main/cpp/qsort.c");
 	ss << readFile("src/main/cpp/utility.h");
 	ss << readFile("src/main/cpp/utility.c");
 	ss << readFile("src/main/cpp/hashing.h");
