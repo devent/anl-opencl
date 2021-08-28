@@ -49,23 +49,12 @@
  * Flag to run only this tests:
  * --gtest_filter="opencl_simplefBm3_test*"
  *
- *  Created on: Jul 27, 2021
+ *  Created on: Auf 27, 2021
  *      Author: Erwin Müller
  */
 
-#include <memory>
-#include <strings.h>
-#include <bits/stdc++.h>
-
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
-
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core/mat.hpp>
 
 #include "OpenCLTestFixture.h"
 #include "imaging.h"
@@ -75,47 +64,30 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class value_simplefBm3_fixture: public OpenCL_Context_Buffer_Fixture {
+class opencl_simplefBm3_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	/**
-	 * float3 have 4 floats.
-	 */
-	const size_t dim = 4;
+	std::shared_ptr<std::vector<float>> input;
 
-	std::string mat_to_s(cv::Mat & m) {
-	    std::string ms;
-	    ms << m;
-	    return ms;
-	}
-
-	void fill2dSpace(std::vector<float> & v, size_t width) {
-		std::vector<vector3> vv(width * width);
-		map2D(vv.data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), width, width, 0);
-		size_t j = 0;
-		for (size_t i = 0; i < width * width * dim; i += dim) {
-			v[i] = vv[j].x;
-			v[i + 1] = vv[j].y;
-			v[i + 2] = vv[j].z;
-			++j;
-		}
-	}
+	std::shared_ptr<cl::Buffer> inputBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		auto input = std::vector<float>(t.imageSize * dim, 0.0f);
-    	fill2dSpace(input, t.imageWidth);
-    	cl::Buffer inputBuffer(std::begin(input), std::end(input), false);
-    	this->output = std::make_shared<std::vector<float>>(t.imageSize, 0.0f);
-		this->outputBuffer = std::make_shared<cl::Buffer>(std::begin(*output), std::end(*output), false);
+		input = createVector<float>(t.imageSize * dim_float3);
+		map2D(input->data(), calc_seamless_none,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight, 10);
+		inputBuffer = createBufferPtr(input);
+		output = createVector<float>(t.imageSize);
+		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);
 		cl_int error;
 		kernelf(
 				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				inputBuffer,
+				*inputBuffer,
 				*outputBuffer,
 				error);
 		logger->info("Created kernel error={}", error);
@@ -124,129 +96,52 @@ protected:
 
 };
 
-TEST_P(value_simplefBm3_fixture, show_image) {
+TEST_P(opencl_simplefBm3_fixture, show_image) {
 	auto t = GetParam();
-	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), CV_32F);
-    float min = *std::min_element(output->begin(), output->end());
-    float max = *std::max_element(output->begin(), output->end());
-    scaleToRange(output->data(), output->size(), min, max, 0, 1);
-    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
-//    logger->debug("min={}, max={}, m=\n{}", min, max, mat_to_s(m));
-    std::string w = "Grey Image Vec Copy";
-    cv::namedWindow(w, cv::WINDOW_NORMAL);
-    cv::resizeWindow(w, 512, 512);
-    cv::imshow(w, m);
-    cv::waitKey(0);
-    cv::destroyAllWindows();
+	showImageScaleToRange(output, CV_32F);
+}
+
+TEST_P(opencl_simplefBm3_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	ss << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, CV_32F);
 }
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_simplefBm3_test, value_simplefBm3_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_simplefBm3_test, opencl_simplefBm3_fixture,
 		Values(
-				KernelContext("simplefBm3_with_value_noise3D_noInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_value_noise3D_noInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		value_noise3D, 200, noInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-				KernelContext("simplefBm3_with_value_noise3D_linearInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_value_noise3D_linearInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		value_noise3D, 200, linearInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-				KernelContext("simplefBm3_with_value_noise3D_hermiteInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_value_noise3D_hermiteInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		value_noise3D, 200, hermiteInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-				KernelContext("simplefBm3_with_value_noise3D_quinticInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_value_noise3D_quinticInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		value_noise3D, 200, quinticInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-				KernelContext("simplefBm3_with_gradient_noise3D_noInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_gradient_noise3D_noInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		gradient_noise3D, 200, noInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-				KernelContext("simplefBm3_with_gradient_noise3D_linearInterp_test",
-						R"EOT(
-kernel void simplefBm3_with_gradient_noise3D_linearInterp_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		gradient_noise3D, 200, linearInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-						size), //
-					KernelContext("simplefBm3_with_simplex_noise3D_test",
-							R"EOT(
-kernel void simplefBm3_with_simplex_noise3D_test(
-global float3 *input,
-global float *output) {
-	int id = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	output[id] = simplefBm3(input[id],
-		simplex_noise3D, 200, noInterp,
-		random_kiss09, &srnd,
-		6, 0.125, true);
-}
-)EOT",
-							size) //
-						));
+			KernelContext("simplefBm3_value_noise3D_noInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_noInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_linearInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_linearInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_hermiteInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_hermiteInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_quinticInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_value_noise3D_quinticInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			//
+			KernelContext("simplefBm3_gradient_noise3D_noInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_noInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_linearInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_linearInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_hermiteInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_hermiteInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_quinticInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradient_noise3D_quinticInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			//
+			KernelContext("simplefBm3_gradval_noise3D_noInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_noInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_linearInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_linearInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_hermiteInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_hermiteInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_quinticInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_gradval_noise3D_quinticInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			//
+			KernelContext("simplefBm3_white_noise3D_noInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_white_noise3D_noInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			//
+			KernelContext("simplefBm3_simplex_noise3D_noInterp_norot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size), //
+			KernelContext("simplefBm3_simplex_noise3D_noInterp_rot", readFile("src/test/cpp/kernels/simplefBm3_noise_functions.cl"), size) //
+));
