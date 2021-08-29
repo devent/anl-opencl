@@ -173,6 +173,8 @@
                     <mapping>
                         <h>DOUBLESLASH_STYLE</h>
                         <c>DOUBLESLASH_STYLE</c>
+                        <cpp>DOUBLESLASH_STYLE</cpp>
+                        <cl>DOUBLESLASH_STYLE</cl>
                     </mapping>
                 </configuration>
                 <executions>
