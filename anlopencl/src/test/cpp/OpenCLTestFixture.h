@@ -76,13 +76,22 @@ struct KernelContext {
 	}
 };
 
+/**
+ * Reads the file as string.
+ */
 std::string readFile(std::string fileName);
 
+/**
+ * Shortcut function to create a shared_ptr vector.
+ */
 template <typename T>
 std::shared_ptr<std::vector<T>> createVector(size_t count) {
 	return std::make_shared<std::vector<T>>(count, 0);
 }
 
+/**
+ * Shortcut function to create a shared_ptr Buffer from the vector.
+ */
 template <typename T>
 std::shared_ptr<cl::Buffer> createBufferPtr(
 		std::shared_ptr<std::vector<T>> vector,
@@ -94,12 +103,14 @@ std::shared_ptr<cl::Buffer> createBufferPtr(
 			vector->data());
 }
 
-std::string mat_to_s(cv::Mat & m);
+/**
+ * Outputs the matrix as string.
+ */
+std::string mat_to_s(cv::Mat &m);
 
 /**
  * Blocking copy operation between iterators and a buffer.
- * Device to Host.
- * Uses specified queue.
+ * Device to Host. Uses specified queue. Uses memcpy.
  */
 template<typename T>
 cl_int copy(const cl::CommandQueue &queue, const cl::Buffer &buffer,
@@ -127,8 +138,7 @@ cl_int copy(const cl::CommandQueue &queue, const cl::Buffer &buffer,
 
 /**
  * Blocking copy operation between iterators and a buffer.
- * Device to Host.
- * Uses default command queue.
+ * Device to Host. Uses default command queue. Uses memcpy.
  */
 template<typename T>
 inline cl_int copy(const cl::Buffer &buffer, std::vector<T> &target) {
@@ -160,20 +170,61 @@ const size_t dim_float4 = sizeof(cl_float4) / sizeof(cl_float);
  */
 const size_t dim_float8 = sizeof(cl_float8) / sizeof(cl_float);
 
+/**
+ * Setups the OpenCL context.
+ */
 class Abstract_OpenCL_Context_Fixture: public ::testing::TestWithParam<KernelContext> {
 public:
+	/**
+	 * Logger for the test.
+	 */
 	static std::shared_ptr<spdlog::logger> logger;
 protected:
+
+	/**
+	 * Outputs some info about the OpenCL device.
+	 */
 	static void SetUpTestSuite();
+
+	/**
+	 * Loads the OpenCL 3 platform, compiles the program and runs the kernel.
+	 */
 	virtual void SetUp();
+
+	/**
+	 * Runs the kernel.
+	 */
 	virtual size_t runKernel(cl::Program & kernel) = 0;
+
+	/**
+	 * Copies the output buffer from the kernel to user space.
+	 */
 	virtual void copyBuffers() = 0;
+
+	/**
+	 * Scales the values to range between [0..1] and shows the image.
+	 */
 	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output, int type);
+
+	/**
+	 * Shows the image.
+	 */
 	void showImage(std::shared_ptr<std::vector<float>> output, int type);
+
+	/**
+	 * Scales the values to range between [0..1] and saves the image to file.
+	 */
 	void saveImageScaleToRange(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
+
+	/**
+	 * Saves the image to file.
+	 */
 	void saveImage(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
 };
 
+/**
+ * Setups the OpenCL context. Uses a Buffer object for output.
+ */
 class OpenCL_Context_Buffer_Fixture: public Abstract_OpenCL_Context_Fixture {
 public:
 	std::shared_ptr<std::vector<float>> output;
@@ -182,9 +233,15 @@ protected:
 	virtual void copyBuffers();
 };
 
+/**
+ * SVM vector for float elements.
+ */
 template < class T >
 using coarse_float_svm_vector = std::vector<T, cl::SVMAllocator<float, cl::SVMTraitCoarse<>>>;
 
+/**
+ * Setups the OpenCL context. Uses a SVM for output.
+ */
 class OpenCL_Context_SVM_Fixture: public Abstract_OpenCL_Context_Fixture {
 public:
 	cl::SVMAllocator<float, cl::SVMTraitCoarse<>> outputAlloc;

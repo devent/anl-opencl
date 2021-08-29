@@ -203,7 +203,7 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/cpp"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/test/cpp"/>
+						<entry excluding="opencl_simpleRidgedMultifractal_test.cpp|opencl_simpleRidgedLayer_test.cpp|opencl_simpleFractalLayer_test.cpp|opencl_simplefBm_test.cpp|opencl_simpleBillowLayer_test.cpp|opencl_simpleBillow_test.cpp|opencl_noise6D_functions_test.cpp|opencl_noise4D_functions_test.cpp|opencl_noise3D_functions_test.cpp|opencl_noise2D_functions_test.cpp|opencl_map2D_test.cpp|opencl_cpp_test.cpp|opencl_combineColor_test.cpp|noise_functions_test.cpp|map_functions_bench.cpp|kernel_simplefBm_test.cpp|kernel_rotateDomain_test.cpp|interpolation_functions_test.cpp|imaging_scaleToRange_test.cpp|imaging_map_test.cpp|distance_functions_test.cpp" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/test/cpp"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
