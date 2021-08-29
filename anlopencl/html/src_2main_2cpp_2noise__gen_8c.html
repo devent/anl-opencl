@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -77,23 +78,30 @@ $(function() {
 <code>#include &lt;<a class="el" href="src_2main_2cpp_2hashing_8h_source.html">hashing.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="src_2main_2cpp_2utility_8h_source.html">utility.h</a>&gt;</code><br />
 <code>#include &quot;<a class="el" href="src_2main_2cpp_2noise__lut_8h_source.html">noise_lut.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="qsort_8h_source.html">qsort.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for noise_gen.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="src_2main_2cpp_2noise__gen_8c__incl.png" border="0" usemap="#src_2main_2cpp_2noise__gen_8c" alt=""/></div>
 <map name="src_2main_2cpp_2noise__gen_8c" id="src_2main_2cpp_2noise__gen_8c">
-<area shape="rect" title=" " alt="" coords="151,5,295,47"/>
+<area shape="rect" title=" " alt="" coords="203,5,347,47"/>
 <area shape="rect" href="src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="5,95,105,121"/>
 <area shape="rect" href="src_2main_2cpp_2hashing_8h.html" title=" " alt="" coords="130,95,215,121"/>
 <area shape="rect" href="src_2main_2cpp_2utility_8h.html" title=" " alt="" coords="240,95,311,121"/>
 <area shape="rect" href="src_2main_2cpp_2noise__lut_8h.html" title=" " alt="" coords="335,95,429,121"/>
-<area shape="rect" href="src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="167,169,279,196"/>
-<area shape="rect" title=" " alt="" coords="96,244,164,271"/>
-<area shape="rect" title=" " alt="" coords="188,244,259,271"/>
-<area shape="rect" title=" " alt="" coords="283,244,366,271"/>
+<area shape="rect" href="qsort_8h.html" title="Wraps the GNU qsort function depedent on if we are in a OpenCL kernel or not." alt="" coords="394,169,461,196"/>
+<area shape="rect" href="src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="219,169,331,196"/>
+<area shape="rect" title=" " alt="" coords="164,244,232,271"/>
+<area shape="rect" title=" " alt="" coords="369,244,440,271"/>
+<area shape="rect" title=" " alt="" coords="257,244,339,271"/>
 </map>
 </div>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSVectorOrdering.html">SVectorOrdering</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:aad08c7873e886c1797f7fd69869d5fe6"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#aad08c7873e886c1797f7fd69869d5fe6">worker_noise_2</a>) (vector2, int, int, uint)</td></tr>
@@ -104,6 +112,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a7b715b0a9bfec4683665bf331238688a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade114cf5761ac35228c00f466cb5777c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#ade114cf5761ac35228c00f466cb5777c">worker_noise_6</a>) (vector8, int, int, int, int, int, int, uint)</td></tr>
 <tr class="separator:ade114cf5761ac35228c00f466cb5777c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac69cf4211b1f1b5479336d6141edcf8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structSVectorOrdering.html">SVectorOrdering</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#aac69cf4211b1f1b5479336d6141edcf8">SVectorOrdering</a></td></tr>
+<tr class="separator:aac69cf4211b1f1b5479336d6141edcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -241,6 +251,16 @@ Functions</h2></td></tr>
 <tr class="separator:a617aa1e7db88ba18d89376d779fc23df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5502241504ae04803a56284b736dd647"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#a5502241504ae04803a56284b736dd647">simplex_noise3D</a> (vector3 v, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp)</td></tr>
 <tr class="separator:a5502241504ae04803a56284b736dd647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab878984c181c1af1698b782a471b1d48"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#ab878984c181c1af1698b782a471b1d48">vectorOrderingCompare</a> (const void *a, const void *b, void *arg)</td></tr>
+<tr class="separator:ab878984c181c1af1698b782a471b1d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86a7a389f09dfa57d1d565098132dd04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#a86a7a389f09dfa57d1d565098132dd04">sortBy_4</a> (<a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> *l1, int *l2)</td></tr>
+<tr class="separator:a86a7a389f09dfa57d1d565098132dd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2020b978367e9f46d3a11887e2e1a247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#a2020b978367e9f46d3a11887e2e1a247">sortBy_6</a> (<a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> *l1, int *l2)</td></tr>
+<tr class="separator:a2020b978367e9f46d3a11887e2e1a247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac36c0eef802bee29164e91aa5e8d7b0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#ac36c0eef802bee29164e91aa5e8d7b0a">simplex_noise4D</a> (vector4 v, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp)</td></tr>
+<tr class="separator:ac36c0eef802bee29164e91aa5e8d7b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7635d8e6fdc14d5cfc1e5e9b99736213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2noise__gen_8c.html#a7635d8e6fdc14d5cfc1e5e9b99736213">simplex_noise6D</a> (vector8 v, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp)</td></tr>
+<tr class="separator:a7635d8e6fdc14d5cfc1e5e9b99736213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -254,6 +274,20 @@ Variables</h2></td></tr>
 <tr class="separator:a16b7871a3a26b1cee8cb158156499092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="aac69cf4211b1f1b5479336d6141edcf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac69cf4211b1f1b5479336d6141edcf8">&#9670;&nbsp;</a></span>SVectorOrdering</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structSVectorOrdering.html">SVectorOrdering</a> <a class="el" href="structSVectorOrdering.html">SVectorOrdering</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aad08c7873e886c1797f7fd69869d5fe6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad08c7873e886c1797f7fd69869d5fe6">&#9670;&nbsp;</a></span>worker_noise_2</h2>
 
@@ -2955,6 +2989,130 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac36c0eef802bee29164e91aa5e8d7b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36c0eef802bee29164e91aa5e8d7b0a">&#9670;&nbsp;</a></span>simplex_noise4D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> simplex_noise4D </td>
+          <td>(</td>
+          <td class="paramtype">vector4&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a>&#160;</td>
+          <td class="paramname"><em>interp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7635d8e6fdc14d5cfc1e5e9b99736213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7635d8e6fdc14d5cfc1e5e9b99736213">&#9670;&nbsp;</a></span>simplex_noise6D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> simplex_noise6D </td>
+          <td>(</td>
+          <td class="paramtype">vector8&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a>&#160;</td>
+          <td class="paramname"><em>interp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86a7a389f09dfa57d1d565098132dd04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86a7a389f09dfa57d1d565098132dd04">&#9670;&nbsp;</a></span>sortBy_4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sortBy_4 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> *&#160;</td>
+          <td class="paramname"><em>l1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>l2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2020b978367e9f46d3a11887e2e1a247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2020b978367e9f46d3a11887e2e1a247">&#9670;&nbsp;</a></span>sortBy_6()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sortBy_6 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> *&#160;</td>
+          <td class="paramname"><em>l1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>l2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4f0fabd7f7236d8e43549b820d72b136"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f0fabd7f7236d8e43549b820d72b136">&#9670;&nbsp;</a></span>value_noise2D()</h2>
 
@@ -3293,6 +3451,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab878984c181c1af1698b782a471b1d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab878984c181c1af1698b782a471b1d48">&#9670;&nbsp;</a></span>vectorOrderingCompare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vectorOrderingCompare </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8a101e4f59c63b09f8994108fbed4598"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a101e4f59c63b09f8994108fbed4598">&#9670;&nbsp;</a></span>white_noise2D()</h2>
 
@@ -3324,7 +3516,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>White noise functions. </p><blockquote class="doxtable">
+<p>White noise functions.</p>
+<blockquote class="doxtable">
 <p>In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. <a href="https://en.wikipedia.org/wiki/White_noise">https://en.wikipedia.org/wiki/White_noise</a> </p>
 </blockquote>
 <p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>

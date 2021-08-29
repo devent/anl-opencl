@@ -1,6 +1,5 @@
 <map id="value_noise3D_fixture" name="value_noise3D_fixture">
-<area shape="rect" id="node1" title=" " alt="" coords="17,273,184,300"/>
-<area shape="rect" id="node2" href="$classOpenCL__Context__Buffer__Fixture.html" title=" " alt="" coords="13,184,189,225"/>
-<area shape="rect" id="node3" href="$classAbstract__OpenCL__Context__Fixture.html" title=" " alt="" coords="5,95,196,136"/>
-<area shape="rect" id="node4" title=" " alt="" coords="15,5,187,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="13,169,180,196"/>
+<area shape="rect" id="node2" href="$classOpenCL__Context__Fixture.html" title=" " alt="" coords="5,95,188,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="11,5,183,47"/>
 </map>

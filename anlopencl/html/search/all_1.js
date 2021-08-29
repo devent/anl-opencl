@@ -11,6 +11,7 @@ var searchData=
   ['array_5fdot2_9',['array_dot2',['../src_2main_2cpp_2utility_8c.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../src_2main_2cpp_2utility_8h.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../target_2classes_2utility_8c.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../target_2classes_2utility_8h.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c']]],
   ['array_5fdot3_10',['array_dot3',['../src_2main_2cpp_2utility_8c.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c'],['../src_2main_2cpp_2utility_8h.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c'],['../target_2classes_2utility_8c.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c'],['../target_2classes_2utility_8h.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c']]],
   ['ax_11',['ax',['../structkernel__rotateDomain3__data.html#ab8bfc18b9107bc4188b57185c0f10ecd',1,'kernel_rotateDomain3_data']]],
-  ['ay_12',['ay',['../structkernel__rotateDomain3__data.html#a2320765fe078ad2985387ebdebc7f255',1,'kernel_rotateDomain3_data']]],
-  ['az_13',['az',['../structkernel__rotateDomain3__data.html#afaa7b91209e1f4570fb8ba467cc40f3d',1,'kernel_rotateDomain3_data']]]
+  ['axis_12',['axis',['../structSVectorOrdering.html#a4e626e681f4dcdbdec76bd5890f89ec2',1,'SVectorOrdering']]],
+  ['ay_13',['ay',['../structkernel__rotateDomain3__data.html#a2320765fe078ad2985387ebdebc7f255',1,'kernel_rotateDomain3_data']]],
+  ['az_14',['az',['../structkernel__rotateDomain3__data.html#afaa7b91209e1f4570fb8ba467cc40f3d',1,'kernel_rotateDomain3_data']]]
 ];

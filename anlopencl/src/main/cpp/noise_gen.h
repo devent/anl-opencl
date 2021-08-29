@@ -59,7 +59,7 @@ extern "C" {
 #endif
 
 #ifndef USE_OPENCL
-#include <opencl_utils.h>
+#include "opencl_utils.h"
 #endif // USE_OPENCL
 
 typedef REAL (*interp_func)(REAL);

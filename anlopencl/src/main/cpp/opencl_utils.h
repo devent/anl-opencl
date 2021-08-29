@@ -77,6 +77,11 @@ typedef int int4 __attribute__((ext_vector_type(4)));
 typedef int int8 __attribute__((ext_vector_type(8)));
 typedef int int16 __attribute__((ext_vector_type(16)));
 
+/**
+ * Replacement for the OpenCL function convert_float4.
+ */
+vector4 convert_float4(int4 v);
+
 #else
 #define vector2 float2
 #define vector3 float3
