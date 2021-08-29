@@ -1,60 +1,23 @@
-% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-% Released as open-source under the Apache License, Version 2.0.
-%
-% ****************************************************************************
-% ANL-OpenCL :: Core
-% ****************************************************************************
-%
-% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-%
-% Licensed under the Apache License, Version 2.0 (the "License");
-% you may not use this file except in compliance with the License.
-% You may obtain a copy of the License at
-%
-%      http://www.apache.org/licenses/LICENSE-2.0
-%
-% Unless required by applicable law or agreed to in writing, software
-% distributed under the License is distributed on an "AS IS" BASIS,
-% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-% See the License for the specific language governing permissions and
-% limitations under the License.
-%
-% ****************************************************************************
-% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
-% http://accidentalnoise.sourceforge.net/index.html
-% ****************************************************************************
-%
-% Copyright (C) 2011 Joshua Tippetts
-%
-%   This software is provided 'as-is', without any express or implied
-%   warranty.  In no event will the authors be held liable for any damages
-%   arising from the use of this software.
-%
-%   Permission is granted to anyone to use this software for any purpose,
-%   including commercial applications, and to alter it and redistribute it
-%   freely, subject to the following restrictions:
-%
-%   1. The origin of this software must not be misrepresented; you must not
-%      claim that you wrote the original software. If you use this software
-%      in a product, an acknowledgment in the product documentation would be
-%      appreciated but is not required.
-%   2. Altered source versions must be plainly marked as such, and must not be
-%      misrepresented as being the original software.
-%   3. This notice may not be removed or altered from any source distribution.
-
 \hypertarget{src_2main_2cpp_2noise__gen_8c}{}\doxysection{src/main/cpp/noise\+\_\+gen.c File Reference}
 \label{src_2main_2cpp_2noise__gen_8c}\index{src/main/cpp/noise\_gen.c@{src/main/cpp/noise\_gen.c}}
 {\ttfamily \#include $<$noise\+\_\+gen.\+h$>$}\newline
 {\ttfamily \#include $<$hashing.\+h$>$}\newline
 {\ttfamily \#include $<$utility.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}noise\+\_\+lut.\+h\char`\"{}}\newline
-Include dependency graph for noise\+\_\+gen.\+c\+:\nopagebreak
+{\ttfamily \#include \char`\"{}qsort.\+h\char`\"{}}\newline
+Include dependency graph for noise\+\_\+gen.\+c\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{src_2main_2cpp_2noise__gen_8c__incl}
 \end{center}
 \end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSVectorOrdering}{S\+Vector\+Ordering}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -65,6 +28,8 @@ typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad
 typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a7b715b0a9bfec4683665bf331238688a}{worker\+\_\+noise\+\_\+4}}) (vector4, int, int, int, int, uint)
 \item 
 typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_ade114cf5761ac35228c00f466cb5777c}{worker\+\_\+noise\+\_\+6}}) (vector8, int, int, int, int, int, int, uint)
+\item 
+typedef struct \mbox{\hyperlink{structSVectorOrdering}{S\+Vector\+Ordering}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_aac69cf4211b1f1b5479336d6141edcf8}{S\+Vector\+Ordering}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -202,6 +167,16 @@ void \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a26a5fc859adbf70ae4294a35710
 \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a617aa1e7db88ba18d89376d779fc23df}{simplex\+\_\+noise2D}} (vector2 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
 \item 
 \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a5502241504ae04803a56284b736dd647}{simplex\+\_\+noise3D}} (vector3 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+int \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_ab878984c181c1af1698b782a471b1d48}{vector\+Ordering\+Compare}} (const void $\ast$a, const void $\ast$b, void $\ast$arg)
+\item 
+void \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a86a7a389f09dfa57d1d565098132dd04}{sort\+By\+\_\+4}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$l1, int $\ast$l2)
+\item 
+void \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a2020b978367e9f46d3a11887e2e1a247}{sort\+By\+\_\+6}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$l1, int $\ast$l2)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_ac36c0eef802bee29164e91aa5e8d7b0a}{simplex\+\_\+noise4D}} (vector4 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c_a7635d8e6fdc14d5cfc1e5e9b99736213}{simplex\+\_\+noise6D}} (vector8 v, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -217,6 +192,12 @@ const \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a
 
 
 \doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_aac69cf4211b1f1b5479336d6141edcf8}\label{src_2main_2cpp_2noise__gen_8c_aac69cf4211b1f1b5479336d6141edcf8}} 
+\index{noise\_gen.c@{noise\_gen.c}!SVectorOrdering@{SVectorOrdering}}
+\index{SVectorOrdering@{SVectorOrdering}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{SVectorOrdering}{SVectorOrdering}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structSVectorOrdering}{S\+Vector\+Ordering}} \mbox{\hyperlink{structSVectorOrdering}{S\+Vector\+Ordering}}}
+
 \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}\label{src_2main_2cpp_2noise__gen_8c_aad08c7873e886c1797f7fd69869d5fe6}} 
 \index{noise\_gen.c@{noise\_gen.c}!worker\_noise\_2@{worker\_noise\_2}}
 \index{worker\_noise\_2@{worker\_noise\_2}!noise\_gen.c@{noise\_gen.c}}
@@ -578,6 +559,30 @@ The interpolation function parameter is not used. The interpolation function par
 \doxysubsubsection{\texorpdfstring{simplex\_noise3D()}{simplex\_noise3D()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_ac36c0eef802bee29164e91aa5e8d7b0a}\label{src_2main_2cpp_2noise__gen_8c_ac36c0eef802bee29164e91aa5e8d7b0a}} 
+\index{noise\_gen.c@{noise\_gen.c}!simplex\_noise4D@{simplex\_noise4D}}
+\index{simplex\_noise4D@{simplex\_noise4D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise4D()}{simplex\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_a7635d8e6fdc14d5cfc1e5e9b99736213}\label{src_2main_2cpp_2noise__gen_8c_a7635d8e6fdc14d5cfc1e5e9b99736213}} 
+\index{noise\_gen.c@{noise\_gen.c}!simplex\_noise6D@{simplex\_noise6D}}
+\index{simplex\_noise6D@{simplex\_noise6D}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise6D()}{simplex\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_a86a7a389f09dfa57d1d565098132dd04}\label{src_2main_2cpp_2noise__gen_8c_a86a7a389f09dfa57d1d565098132dd04}} 
+\index{noise\_gen.c@{noise\_gen.c}!sortBy\_4@{sortBy\_4}}
+\index{sortBy\_4@{sortBy\_4}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{sortBy\_4()}{sortBy\_4()}}
+{\footnotesize\ttfamily void sort\+By\+\_\+4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{l1,  }\item[{int $\ast$}]{l2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_a2020b978367e9f46d3a11887e2e1a247}\label{src_2main_2cpp_2noise__gen_8c_a2020b978367e9f46d3a11887e2e1a247}} 
+\index{noise\_gen.c@{noise\_gen.c}!sortBy\_6@{sortBy\_6}}
+\index{sortBy\_6@{sortBy\_6}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{sortBy\_6()}{sortBy\_6()}}
+{\footnotesize\ttfamily void sort\+By\+\_\+6 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{l1,  }\item[{int $\ast$}]{l2 }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_a4f0fabd7f7236d8e43549b820d72b136}\label{src_2main_2cpp_2noise__gen_8c_a4f0fabd7f7236d8e43549b820d72b136}} 
 \index{noise\_gen.c@{noise\_gen.c}!value\_noise2D@{value\_noise2D}}
 \index{value\_noise2D@{value\_noise2D}!noise\_gen.c@{noise\_gen.c}}
@@ -626,13 +631,21 @@ The interpolation function parameter is not used. The interpolation function par
 \doxysubsubsection{\texorpdfstring{value\_noise\_6()}{value\_noise\_6()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise\+\_\+6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{int}]{ix,  }\item[{int}]{iy,  }\item[{int}]{iz,  }\item[{int}]{iw,  }\item[{int}]{iu,  }\item[{int}]{iv,  }\item[{uint}]{seed }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_ab878984c181c1af1698b782a471b1d48}\label{src_2main_2cpp_2noise__gen_8c_ab878984c181c1af1698b782a471b1d48}} 
+\index{noise\_gen.c@{noise\_gen.c}!vectorOrderingCompare@{vectorOrderingCompare}}
+\index{vectorOrderingCompare@{vectorOrderingCompare}!noise\_gen.c@{noise\_gen.c}}
+\doxysubsubsection{\texorpdfstring{vectorOrderingCompare()}{vectorOrderingCompare()}}
+{\footnotesize\ttfamily int vector\+Ordering\+Compare (\begin{DoxyParamCaption}\item[{const void $\ast$}]{a,  }\item[{const void $\ast$}]{b,  }\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8c_a8a101e4f59c63b09f8994108fbed4598}\label{src_2main_2cpp_2noise__gen_8c_a8a101e4f59c63b09f8994108fbed4598}} 
 \index{noise\_gen.c@{noise\_gen.c}!white\_noise2D@{white\_noise2D}}
 \index{white\_noise2D@{white\_noise2D}!noise\_gen.c@{noise\_gen.c}}
 \doxysubsubsection{\texorpdfstring{white\_noise2D()}{white\_noise2D()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
 
-White noise functions. \begin{quote}
+White noise functions.
+
+\begin{quote}
 In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
 
 

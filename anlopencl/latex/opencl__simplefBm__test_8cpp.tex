@@ -1,61 +1,10 @@
-% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-% Released as open-source under the Apache License, Version 2.0.
-%
-% ****************************************************************************
-% ANL-OpenCL :: Core
-% ****************************************************************************
-%
-% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-%
-% Licensed under the Apache License, Version 2.0 (the "License");
-% you may not use this file except in compliance with the License.
-% You may obtain a copy of the License at
-%
-%      http://www.apache.org/licenses/LICENSE-2.0
-%
-% Unless required by applicable law or agreed to in writing, software
-% distributed under the License is distributed on an "AS IS" BASIS,
-% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-% See the License for the specific language governing permissions and
-% limitations under the License.
-%
-% ****************************************************************************
-% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
-% http://accidentalnoise.sourceforge.net/index.html
-% ****************************************************************************
-%
-% Copyright (C) 2011 Joshua Tippetts
-%
-%   This software is provided 'as-is', without any express or implied
-%   warranty.  In no event will the authors be held liable for any damages
-%   arising from the use of this software.
-%
-%   Permission is granted to anyone to use this software for any purpose,
-%   including commercial applications, and to alter it and redistribute it
-%   freely, subject to the following restrictions:
-%
-%   1. The origin of this software must not be misrepresented; you must not
-%      claim that you wrote the original software. If you use this software
-%      in a product, an acknowledgment in the product documentation would be
-%      appreciated but is not required.
-%   2. Altered source versions must be plainly marked as such, and must not be
-%      misrepresented as being the original software.
-%   3. This notice may not be removed or altered from any source distribution.
-
 \hypertarget{opencl__simplefBm__test_8cpp}{}\doxysection{src/test/cpp/opencl\+\_\+simplef\+Bm\+\_\+test.cpp File Reference}
 \label{opencl__simplefBm__test_8cpp}\index{src/test/cpp/opencl\_simplefBm\_test.cpp@{src/test/cpp/opencl\_simplefBm\_test.cpp}}
-{\ttfamily \#include $<$memory$>$}\newline
-{\ttfamily \#include $<$strings.\+h$>$}\newline
-{\ttfamily \#include $<$bits/stdc++.\+h$>$}\newline
 {\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
-{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
-{\ttfamily \#include $<$spdlog/sinks/stdout\+\_\+color\+\_\+sinks.\+h$>$}\newline
-{\ttfamily \#include $<$opencv2/core.\+hpp$>$}\newline
-{\ttfamily \#include $<$opencv2/highgui.\+hpp$>$}\newline
-{\ttfamily \#include $<$opencv2/core/mat.\+hpp$>$}\newline
 {\ttfamily \#include \char`\"{}Open\+C\+L\+Test\+Fixture.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
-Include dependency graph for opencl\+\_\+simplef\+Bm\+\_\+test.\+cpp\+:\nopagebreak
+Include dependency graph for opencl\+\_\+simplef\+Bm\+\_\+test.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -65,7 +14,7 @@ Include dependency graph for opencl\+\_\+simplef\+Bm\+\_\+test.\+cpp\+:\nopagebr
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\+\_\+fixture}}
+class \mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -75,93 +24,11 @@ class \mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{opencl__simplefBm__test_8cpp_a5d085ef93e243f2a8f262e699e95ff50}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\+\_\+fixture}}, show\+\_\+image)
+\mbox{\hyperlink{opencl__simplefBm__test_8cpp_a22e4efae9be85efa8e0baac276c12509}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}, show\+\_\+image)
 \item 
-\mbox{\hyperlink{opencl__simplefBm__test_8cpp_af79a092e17785820f12c59a9f4a6ab9a}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+simplef\+Bm3\+\_\+test, \mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a90e207a22f91430a6459c13684b64342}{hermite\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a2db335ae978be4c1d69ea188d9d1da33}{quintic\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+simplex\+\_\+noise3\+D\+\_\+test\char`\"{}, R\char`\"{}E\+OT(
-kernel void simplef\+Bm3\+\_\+with\+\_\+simplex\+\_\+noise3\+D\+\_\+test(
-global float3 $\ast$input,
-global float $\ast$output) \{
-	int id = get\+\_\+global\+\_\+id(0);
-	kiss09\+\_\+state srnd;
-	kiss09\+\_\+seed(\&srnd, 200);
-	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},
-		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}{simplex\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},
-		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,
-		6, 0.\+125, true);
-\}
-)E\+OT\char`\"{}, size)))
+\mbox{\hyperlink{opencl__simplefBm__test_8cpp_ab89c246df064741ed322683611b683c0}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}, save\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__simplefBm__test_8cpp_ad32eae83e7ab261ecdde7959dd438530}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+simplef\+Bm3\+\_\+test, \mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+white\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+white\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+simplex\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+simplex\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size)))
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -177,53 +44,26 @@ const size\+\_\+t \mbox{\hyperlink{opencl__simplefBm__test_8cpp_a685609860d73ccd
 \doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
 {\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
 
-Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
 
-\DoxyHorRuler{0}
- A\+N\+L-\/\+Open\+CL \+:: Core
-
-\DoxyHorRuler{0}
-
-
-Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
-
-Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
-\end{DoxyVerb}
-
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
-\DoxyHorRuler{0}
- A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
-
-\DoxyHorRuler{0}
-
-
-Copyright (C) 2011 Joshua Tippetts
-
-This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
-
-
-\begin{DoxyEnumerate}
-\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
-\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-\item This notice may not be removed or altered from any source distribution. 
-\end{DoxyEnumerate}
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{opencl__simplefBm__test_8cpp_af79a092e17785820f12c59a9f4a6ab9a}\label{opencl__simplefBm__test_8cpp_af79a092e17785820f12c59a9f4a6ab9a}} 
+\mbox{\Hypertarget{opencl__simplefBm__test_8cpp_ad32eae83e7ab261ecdde7959dd438530}\label{opencl__simplefBm__test_8cpp_ad32eae83e7ab261ecdde7959dd438530}} 
 \index{opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
 \index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}}
 \doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}}
-{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+simplef\+Bm3\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a90e207a22f91430a6459c13684b64342}{hermite\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a2db335ae978be4c1d69ea188d9d1da33}{quintic\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+with\+\_\+simplex\+\_\+noise3\+D\+\_\+test\char`\"{}, R\char`\"{}E\+OT(kernel void simplef\+Bm3\+\_\+with\+\_\+simplex\+\_\+noise3\+D\+\_\+test(global float3 $\ast$input,global float $\ast$output) \{	int id = get\+\_\+global\+\_\+id(0);	kiss09\+\_\+state srnd;	kiss09\+\_\+seed(\&srnd, 200);	output\mbox{[}id\mbox{]} = \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}}(input\mbox{[}id\mbox{]},		\mbox{\hyperlink{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}{simplex\+\_\+noise3D}}, 200, \mbox{\hyperlink{target_2classes_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}},		\mbox{\hyperlink{random_8h_af177d4041e5cbaee7569bd617dd5ea83}{random\+\_\+kiss09}}, \&srnd,		6, 0.\+125, true);\})E\+OT\char`\"{}, size))}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+simplef\+Bm3\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+value\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradient\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+linear\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+hermite\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+gradval\+\_\+noise3\+D\+\_\+quintic\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+white\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+white\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+simplex\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+norot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}simplef\+Bm3\+\_\+simplex\+\_\+noise3\+D\+\_\+no\+Interp\+\_\+rot\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/simplef\+Bm3\+\_\+noise\+\_\+functions.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{opencl__simplefBm__test_8cpp_a5d085ef93e243f2a8f262e699e95ff50}\label{opencl__simplefBm__test_8cpp_a5d085ef93e243f2a8f262e699e95ff50}} 
+\mbox{\Hypertarget{opencl__simplefBm__test_8cpp_ab89c246df064741ed322683611b683c0}\label{opencl__simplefBm__test_8cpp_ab89c246df064741ed322683611b683c0}} 
 \index{opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}!TEST\_P@{TEST\_P}}
 \index{TEST\_P@{TEST\_P}!opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}}
-{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classvalue__simplefBm3__fixture}{value\+\_\+simplef\+Bm3\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}}]{,  }\item[{save\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{opencl__simplefBm__test_8cpp_a22e4efae9be85efa8e0baac276c12509}\label{opencl__simplefBm__test_8cpp_a22e4efae9be85efa8e0baac276c12509}} 
+\index{opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_simplefBm\_test.cpp@{opencl\_simplefBm\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
 
 
 

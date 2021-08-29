@@ -1,11 +1,12 @@
 <map id="src/main/cpp/noise_gen.c" name="src/main/cpp/noise_gen.c">
-<area shape="rect" id="node1" title=" " alt="" coords="151,5,295,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="203,5,347,47"/>
 <area shape="rect" id="node2" href="$src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="5,95,105,121"/>
 <area shape="rect" id="node7" href="$src_2main_2cpp_2hashing_8h.html" title=" " alt="" coords="130,95,215,121"/>
 <area shape="rect" id="node8" href="$src_2main_2cpp_2utility_8h.html" title=" " alt="" coords="240,95,311,121"/>
 <area shape="rect" id="node9" href="$src_2main_2cpp_2noise__lut_8h.html" title=" " alt="" coords="335,95,429,121"/>
-<area shape="rect" id="node3" href="$src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="167,169,279,196"/>
-<area shape="rect" id="node4" title=" " alt="" coords="96,244,164,271"/>
-<area shape="rect" id="node5" title=" " alt="" coords="188,244,259,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="283,244,366,271"/>
+<area shape="rect" id="node10" href="$qsort_8h.html" title="Wraps the GNU qsort function depedent on if we are in a OpenCL kernel or not." alt="" coords="394,169,461,196"/>
+<area shape="rect" id="node3" href="$src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="219,169,331,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="164,244,232,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="369,244,440,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="257,244,339,271"/>
 </map>
