@@ -45,53 +45,14 @@
 //
 
 /*
- * random_test.cpp
+ * random.cl
  *
- * Flag to run only this tests:
- * --gtest_filter="random_test*"
- *
- *  Created on: Auf 16, 2021
+ *  Created on: Aug 30, 2021
  *      Author: Erwin Müller
  */
 
-#include <gtest/gtest.h>
-#include "random.h"
-#include "kernel.h"
+#include <opencl_utils.h>
 
-using ::testing::TestWithParam;
-using ::testing::Values;
-
-struct random_test_data {
-	ulong seed;
-	random_func rnd;
-	std::vector<float> expected;
-};
-
-class random_kiss09_param: public ::testing::TestWithParam<random_test_data> {
-protected:
-	void *state;
-
-	virtual void SetUp() {
-		auto t = GetParam();
-		state = create_kiss09();
-		seed_kiss09(state, t.seed);
-	}
-
-	virtual void TearDown() {
-		delete_kiss09(state);
-	}
-};
-
-TEST_P(random_kiss09_param, kiss09) {
-	auto t = GetParam();
-	for (int i = 0; i < t.expected.size(); ++i) {
-		auto v = t.rnd(state);
-		EXPECT_NEAR(v, t.expected[i], 0.00001);
-	}
+REAL random_kiss09(void *state) {
+	return kiss09_float((*(kiss09_state*)state));
 }
-
-INSTANTIATE_TEST_SUITE_P(random_test, random_kiss09_param,
-		Values(
-				random_test_data { 100, random_kiss09, { 0.43175, 0.84003 } } //
-				));
-

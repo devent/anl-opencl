@@ -205,8 +205,10 @@ std::shared_ptr<spdlog::logger> OpenCL_Context::logger = []() -> std::shared_ptr
 
 OpenCL_Context::OpenCL_Context() {
 	this->kiss09cl = readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
+	this->randomc = readFile("src/main/cpp/random.c");
+	this->randomh = readFile("src/main/cpp/random.h");
 	std::stringstream ss;
-	ss << kiss09cl;
+	//ss << kiss09cl;
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/opencl_utils.c");
 	ss << readFile("src/main/cpp/qsort.h");
@@ -221,8 +223,8 @@ OpenCL_Context::OpenCL_Context() {
 	ss << readFile("src/main/cpp/noise_gen.c");
 	ss << readFile("src/main/cpp/imaging.h");
 	ss << readFile("src/main/cpp/imaging.c");
-	ss << readFile("src/main/cpp/random.h");
-	ss << readFile("src/main/cpp/random.c");
+	//ss << readFile("src/main/cpp/random.h");
+	//ss << readFile("src/main/cpp/random.c");
 	ss << readFile("src/main/cpp/kernel.h");
 	ss << readFile("src/main/cpp/kernel.c");
 	sources = ss.str();
@@ -259,7 +261,7 @@ void OpenCL_Context::loadInputHeaders() {
 	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/noise_lut.h")));
 	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/noise_gen.h")));
 	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/imaging.h")));
-	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/random.h")));
+	//inputHeaders.push_back(cl::Program(readFile("src/main/cpp/random.h")));
 	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/kernel.h")));
 	inputHeaderNames = std::vector<std::string>();
 	inputHeaderNames.push_back("opencl_utils.h");
@@ -269,7 +271,7 @@ void OpenCL_Context::loadInputHeaders() {
 	inputHeaderNames.push_back("noise_lut.h");
 	inputHeaderNames.push_back("noise_gen.h");
 	inputHeaderNames.push_back("imaging.h");
-	inputHeaderNames.push_back("random.h");
+	//inputHeaderNames.push_back("random.h");
 	inputHeaderNames.push_back("kernel.h");
 }
 
@@ -294,8 +296,10 @@ cl::Program OpenCL_Context::createLibrary() {
 cl::Program OpenCL_Context::createKernel(cl::Program lib, const std::string kernel) {
 	std::stringstream ss;
 	ss << kiss09cl;
+	ss << randomh;
+	ss << randomc;
 	ss << kernel;
-	//printf("%s\n", ss.str().c_str()); // TODO
+	printf("%s\n", ss.str().c_str()); // TODO
 	ProgramEx p(ss.str());
 	try {
 		logger->debug("Compiling {}", ss.str().substr(0, 60));

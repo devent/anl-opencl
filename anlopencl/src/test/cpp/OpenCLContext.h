@@ -80,6 +80,8 @@ private:
 	std::vector<std::string> inputHeaderNames;
 	std::string sources;
 	std::string kiss09cl;
+	std::string randomc;
+	std::string randomh;
 };
 
 #endif /* OPENCLCONTEXT_H_ */

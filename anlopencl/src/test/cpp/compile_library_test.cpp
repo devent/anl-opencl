@@ -117,7 +117,6 @@ TEST(compile_library_test, pre_compile_lib) {
 	auto library = context.createLibrary();
 	context.loadInputHeaders();
     std::string kernel{R"CLC(
-#include <opencl_utils.h>
 #include <noise_gen.h>
 kernel void main(
 global float2 *input,

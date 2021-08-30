@@ -61,8 +61,9 @@ extern "C" {
 #ifndef USE_OPENCL
 #include "opencl_utils.h"
 #include "noise_gen.h"
-#include "random.h"
 #endif // USE_OPENCL
+
+typedef REAL (*random_func)(void*);
 
 /**
  * Rotates the source coordinates by the angle over the rotation axis.
