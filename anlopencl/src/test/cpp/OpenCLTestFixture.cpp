@@ -78,7 +78,7 @@ std::shared_ptr<spdlog::logger> Abstract_OpenCL_Context_Fixture::logger = []() -
 	return logger;
 }();
 
-void Abstract_OpenCL_Context_Fixture::SetUpTestSuite() {
+void outputDeviceInfo(std::shared_ptr<spdlog::logger> logger) {
 	cl::Device d = cl::Device::getDefault();
 	logger->debug("Max compute units: {}", d.getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>());
 	logger->debug("Max dimensions: {}", d.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>());
@@ -90,11 +90,19 @@ void Abstract_OpenCL_Context_Fixture::SetUpTestSuite() {
 	logger->debug("Device SVM capabilities: {}", d.getInfo<CL_DEVICE_SVM_CAPABILITIES>());
 }
 
-void Abstract_OpenCL_Context_Fixture::SetUp() {
-	OpenCL_Context context;
+OpenCL_Context Abstract_OpenCL_Context_Fixture::context;
+
+cl::Program Abstract_OpenCL_Context_Fixture::lib;
+
+void Abstract_OpenCL_Context_Fixture::SetUpTestSuite() {
+	outputDeviceInfo(logger);
 	EXPECT_TRUE(context.loadPlatform()) << "Unable to load platform";
+	lib = context.createLibrary();
+}
+
+void Abstract_OpenCL_Context_Fixture::SetUp() {
 	auto t = GetParam();
-	auto kernel = context.createPrograms(t.source);
+	auto kernel = context.createKernel(lib, t.source);
 	size_t numElements;
 	try {
 		numElements = runKernel(kernel);

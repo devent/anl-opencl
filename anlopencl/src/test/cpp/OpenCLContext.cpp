@@ -152,15 +152,61 @@ inline cl::Program linkProgram(
 
     return cl::Program(prog);
 }
+
+inline cl::Program linkPrograms(
+	std::vector<cl::Program> programs,
+    const char* options = NULL,
+    void (CL_CALLBACK * notifyFptr)(cl_program, void *) = NULL,
+    void* data = NULL,
+    cl_int* err = NULL)
+{
+	if (programs.size() == 0) {
+		return cl::Program();
+	}
+    cl_int error_local = CL_SUCCESS;
+
+    auto input = programs[0];
+    cl::Context ctx = input.getInfo<CL_PROGRAM_CONTEXT>(&error_local);
+    if(error_local!=CL_SUCCESS) {
+        cl::detail::errHandler(error_local, LINK_PROGRAM_ERR);
+    }
+
+    auto clprograms = std::vector<cl_program>(programs.size());
+    for (int i = 0; i < programs.size(); ++i) {
+    	clprograms[i] = programs[i]();
+	}
+    cl_program prog = ::clLinkProgram(
+        ctx(),
+        0,
+        NULL,
+        options,
+		clprograms.size(),
+        clprograms.data(),
+        notifyFptr,
+        data,
+        &error_local);
+
+    cl::detail::errHandler(error_local,COMPILE_PROGRAM_ERR);
+    if (err != NULL) {
+        *err = error_local;
+    }
+
+    return cl::Program(prog);
+}
 #endif // CL_HPP_TARGET_OPENCL_VERSION >= 120
 
-OpenCL_Context::OpenCL_Context() {
-	this->logger = spdlog::stderr_color_mt("OpenCL_Context", spdlog::color_mode::automatic);
+std::shared_ptr<spdlog::logger> OpenCL_Context::logger = []() -> std::shared_ptr<spdlog::logger> {
+	logger = spdlog::stderr_color_mt("OpenCL_Context", spdlog::color_mode::automatic);
 	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::debug);
 	logger->flush_on(spdlog::level::err);
+	return logger;
+}();
+
+OpenCL_Context::OpenCL_Context() {
+	this->kiss09cl = readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
 	std::stringstream ss;
-	ss << readFile("src/main/cpp/extern/RandomCL/generators/kiss09.cl");
+	ss << kiss09cl;
 	ss << readFile("src/main/cpp/opencl_utils.h");
 	ss << readFile("src/main/cpp/opencl_utils.c");
 	ss << readFile("src/main/cpp/qsort.h");
@@ -179,7 +225,7 @@ OpenCL_Context::OpenCL_Context() {
 	ss << readFile("src/main/cpp/random.c");
 	ss << readFile("src/main/cpp/kernel.h");
 	ss << readFile("src/main/cpp/kernel.c");
-	this->sources = ss.str();
+	sources = ss.str();
 }
 
 bool OpenCL_Context::loadPlatform() {
@@ -204,12 +250,35 @@ bool OpenCL_Context::loadPlatform() {
     return true;
 }
 
+void OpenCL_Context::loadInputHeaders() {
+	inputHeaders = std::vector<cl::Program>();
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/opencl_utils.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/qsort.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/utility.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/hashing.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/noise_lut.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/noise_gen.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/imaging.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/random.h")));
+	inputHeaders.push_back(cl::Program(readFile("src/main/cpp/kernel.h")));
+	inputHeaderNames = std::vector<std::string>();
+	inputHeaderNames.push_back("opencl_utils.h");
+	inputHeaderNames.push_back("qsort.h");
+	inputHeaderNames.push_back("utility.h");
+	inputHeaderNames.push_back("hashing.h");
+	inputHeaderNames.push_back("noise_lut.h");
+	inputHeaderNames.push_back("noise_gen.h");
+	inputHeaderNames.push_back("imaging.h");
+	inputHeaderNames.push_back("random.h");
+	inputHeaderNames.push_back("kernel.h");
+}
+
 cl::Program OpenCL_Context::createLibrary() {
 	cl::Program p = compileProgram(logger, sources.c_str());
 	logger->debug("Successfully compiled sources.");
 	try {
 		auto library = linkProgram(p, "-create-library");
-		logger->debug("Successfully linked sources");
+		logger->debug("Successfully created library.");
 		return library;
 	} catch (const cl::Error &ex) {
 		logger->error("Link library error {}: {}", ex.err(), ex.what());
@@ -217,6 +286,30 @@ cl::Program OpenCL_Context::createLibrary() {
 		auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
 		for (auto &pair : buildInfo) {
 			logger->error("Error link {}", std::string(pair.second));
+		}
+		throw ex;
+	}
+}
+
+cl::Program OpenCL_Context::createKernel(cl::Program lib, const std::string kernel) {
+	std::stringstream ss;
+	ss << kiss09cl;
+	ss << kernel;
+	//printf("%s\n", ss.str().c_str()); // TODO
+	ProgramEx p(ss.str());
+	try {
+		logger->debug("Compiling {}", ss.str().substr(0, 60));
+		p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
+		auto programs = std::vector<cl::Program>();
+		programs.push_back(lib);
+		programs.push_back(p);
+		auto kernel = linkPrograms(programs);
+		return kernel;
+	} catch (const cl::Error &ex) {
+		cl_int buildErr = CL_SUCCESS;
+		auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
+		for (auto &pair : buildInfo) {
+			logger->error("Error create kernel {}", std::string(pair.second));
 		}
 		throw ex;
 	}

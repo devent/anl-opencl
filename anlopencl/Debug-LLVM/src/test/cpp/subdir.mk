@@ -8,6 +8,8 @@ CPP_SRCS += \
 ../src/test/cpp/OpenCLTestFixture.cpp \
 ../src/test/cpp/anlopencl_core_test.cpp \
 ../src/test/cpp/compile_library_test.cpp \
+../src/test/cpp/opencl_combineColor_test.cpp \
+../src/test/cpp/opencl_noise2D_functions_test.cpp \
 ../src/test/cpp/random_test.cpp 
 
 BCS += \
@@ -15,6 +17,8 @@ BCS += \
 ./src/test/cpp/OpenCLTestFixture.bc \
 ./src/test/cpp/anlopencl_core_test.bc \
 ./src/test/cpp/compile_library_test.bc \
+./src/test/cpp/opencl_combineColor_test.bc \
+./src/test/cpp/opencl_noise2D_functions_test.bc \
 ./src/test/cpp/random_test.bc 
 
 CPP_DEPS += \
@@ -22,6 +26,8 @@ CPP_DEPS += \
 ./src/test/cpp/OpenCLTestFixture.d \
 ./src/test/cpp/anlopencl_core_test.d \
 ./src/test/cpp/compile_library_test.d \
+./src/test/cpp/opencl_combineColor_test.d \
+./src/test/cpp/opencl_noise2D_functions_test.d \
 ./src/test/cpp/random_test.d 
 
 

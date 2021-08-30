@@ -60,6 +60,7 @@
 #include <fstream>
 #include <iterator>
 #include "OpenCLContext.h"
+#include "imaging.h"
 
 std::shared_ptr<spdlog::logger> logger = []() -> std::shared_ptr<spdlog::logger> {
 	logger = spdlog::stderr_color_mt("test", spdlog::color_mode::automatic);
@@ -108,4 +109,43 @@ TEST(compile_library_test, load_library_from_file) {
 			throw ex;
 		}
 	}
+}
+
+TEST(compile_library_test, pre_compile_lib) {
+	OpenCL_Context context;
+	EXPECT_TRUE(context.loadPlatform()) << "Unable to load platform";
+	auto library = context.createLibrary();
+	context.loadInputHeaders();
+    std::string kernel{R"CLC(
+#include <opencl_utils.h>
+#include <noise_gen.h>
+kernel void main(
+global float2 *input,
+global float *output
+) {
+	int id0 = get_global_id(0);
+	kiss09_state srnd;
+	kiss09_seed(&srnd, 200);
+	output[id0] = value_noise2D(input[id0], 200, noInterp);
+	printf("%f\n", output[id0]);
+}
+    )CLC"};
+	auto p = context.createKernel(library, kernel);
+	int imageSize = 4;
+	auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(p, "main");
+	auto input = createVector<float>(imageSize * 2);
+	map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), imageSize / 2, imageSize / 2);
+	auto inputBuffer = createBufferPtr(input);
+	auto output = createVector<float>(imageSize);
+	auto outputBuffer = createBufferPtr(output);
+    cl::DeviceCommandQueue defaultDeviceQueue;
+    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
+	logger->debug("Start kernel with size {}", imageSize);
+	cl_int error;
+	kernelf(
+			cl::EnqueueArgs(cl::NDRange(imageSize)),
+			*inputBuffer,
+			*outputBuffer,
+			error);
+	logger->debug("Created kernel error={}", error);
 }

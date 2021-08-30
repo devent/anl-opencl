@@ -63,6 +63,8 @@
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 
+#include "OpenCLContext.h"
+
 struct KernelContext {
 	std::string kernel;
 	std::string source;
@@ -75,33 +77,6 @@ struct KernelContext {
 		imageSize = imageWidth * imageHeight;
 	}
 };
-
-/**
- * Reads the file as string.
- */
-std::string readFile(std::string fileName);
-
-/**
- * Shortcut function to create a shared_ptr vector.
- */
-template <typename T>
-std::shared_ptr<std::vector<T>> createVector(size_t count) {
-	return std::make_shared<std::vector<T>>(count, 0);
-}
-
-/**
- * Shortcut function to create a shared_ptr Buffer from the vector.
- */
-template <typename T>
-std::shared_ptr<cl::Buffer> createBufferPtr(
-		std::shared_ptr<std::vector<T>> vector,
-		cl_mem_flags flags = CL_MEM_READ_WRITE) {
-	typedef typename std::vector<T>::value_type DataType;
-	return std::make_shared<cl::Buffer>(
-			flags | CL_MEM_USE_HOST_PTR,
-			sizeof(DataType) * vector->size(),
-			vector->data());
-}
 
 /**
  * Outputs the matrix as string.
@@ -180,6 +155,15 @@ public:
 	 */
 	static std::shared_ptr<spdlog::logger> logger;
 protected:
+	/**
+	 * OpenCL context to load platform and create kernel.
+	 */
+	static OpenCL_Context context;
+
+	/**
+	 * Compiled noise library.
+	 */
+	static cl::Program lib;
 
 	/**
 	 * Outputs some info about the OpenCL device.
