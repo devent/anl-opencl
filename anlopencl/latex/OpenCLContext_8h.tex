@@ -1,0 +1,70 @@
+\hypertarget{OpenCLContext_8h}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Context.h File Reference}
+\label{OpenCLContext_8h}\index{src/test/cpp/OpenCLContext.h@{src/test/cpp/OpenCLContext.h}}
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
+Include dependency graph for Open\+C\+L\+Context.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{OpenCLContext_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{OpenCLContext_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classOpenCL__Context}{Open\+C\+L\+\_\+\+Context}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{OpenCLContext_8h_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{OpenCLContext_8h_a7816b64e410893cd106df04c54d71b58}{read\+File}} (std\+::string file\+Name)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{OpenCLContext_8h_ac0df36eca6a5d5521d62dedf40064145}{create\+Vector}} (size\+\_\+t count)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}{create\+Buffer\+Ptr}} (std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$$>$ vector, cl\+\_\+mem\+\_\+flags flags=C\+L\+\_\+\+M\+E\+M\+\_\+\+R\+E\+A\+D\+\_\+\+W\+R\+I\+TE)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{OpenCLContext_8h_ae7c96c1469662004d842704e2ff076fb}\label{OpenCLContext_8h_ae7c96c1469662004d842704e2ff076fb}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+\index{CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}\label{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!createBufferPtr@{createBufferPtr}}
+\index{createBufferPtr@{createBufferPtr}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{createBufferPtr()}{createBufferPtr()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ create\+Buffer\+Ptr (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$$>$}]{vector,  }\item[{cl\+\_\+mem\+\_\+flags}]{flags = {\ttfamily CL\+\_\+MEM\+\_\+READ\+\_\+WRITE} }\end{DoxyParamCaption})}
+
+Shortcut function to create a shared\+\_\+ptr Buffer from the vector. \mbox{\Hypertarget{OpenCLContext_8h_ac0df36eca6a5d5521d62dedf40064145}\label{OpenCLContext_8h_ac0df36eca6a5d5521d62dedf40064145}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!createVector@{createVector}}
+\index{createVector@{createVector}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{createVector()}{createVector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$std\+::vector$<$T$>$ $>$ create\+Vector (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+Shortcut function to create a shared\+\_\+ptr vector. \mbox{\Hypertarget{OpenCLContext_8h_a7816b64e410893cd106df04c54d71b58}\label{OpenCLContext_8h_a7816b64e410893cd106df04c54d71b58}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!readFile@{readFile}}
+\index{readFile@{readFile}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily std\+::string read\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+Reads the file as string. 

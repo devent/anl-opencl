@@ -1,5 +1,6 @@
 <map id="OpenCL_Context_SVM_Fixture" name="OpenCL_Context_SVM_Fixture">
-<area shape="rect" id="node1" title=" " alt="" coords="17,184,184,225"/>
-<area shape="rect" id="node2" href="$classAbstract__OpenCL__Context__Fixture.html" title=" " alt="" coords="5,95,196,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="15,5,187,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="96,200,263,241"/>
+<area shape="rect" id="node2" href="$classAbstract__OpenCL__Context__Fixture.html" title=" " alt="" coords="84,109,275,151"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,177,47"/>
+<area shape="rect" id="node4" href="$classOpenCL__Context.html" title=" " alt="" coords="202,13,333,39"/>
 </map>

@@ -1,0 +1,79 @@
+\hypertarget{compile__library__test_8cpp}{}\doxysection{src/test/cpp/compile\+\_\+library\+\_\+test.cpp File Reference}
+\label{compile__library__test_8cpp}\index{src/test/cpp/compile\_library\_test.cpp@{src/test/cpp/compile\_library\_test.cpp}}
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/sinks/stdout\+\_\+color\+\_\+sinks.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Context.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
+Include dependency graph for compile\+\_\+library\+\_\+test.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compile__library__test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{compile__library__test_8cpp_a20fffe281a9a316e4f716c9c90ae2f2f}{write\+\_\+to\+\_\+file}} (std\+::string name, std\+::vector$<$ unsigned char $>$ data)
+\item 
+std\+::vector$<$ char $>$ \mbox{\hyperlink{compile__library__test_8cpp_a9dd9f2891a17cad359d8586bec76c884}{read\+\_\+from\+\_\+file}} (std\+::string name)
+\item 
+\mbox{\hyperlink{compile__library__test_8cpp_ac349d79f77600e990b6dd602a8124981}{T\+E\+ST}} (compile\+\_\+library\+\_\+test, load\+\_\+library\+\_\+from\+\_\+file)
+\item 
+\mbox{\hyperlink{compile__library__test_8cpp_adb626263856fe694d7a4c6c7ab7966f2}{T\+E\+ST}} (compile\+\_\+library\+\_\+test, pre\+\_\+compile\+\_\+lib)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{compile__library__test_8cpp_a9dd9f2891a17cad359d8586bec76c884}\label{compile__library__test_8cpp_a9dd9f2891a17cad359d8586bec76c884}} 
+\index{compile\_library\_test.cpp@{compile\_library\_test.cpp}!read\_from\_file@{read\_from\_file}}
+\index{read\_from\_file@{read\_from\_file}!compile\_library\_test.cpp@{compile\_library\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{read\_from\_file()}{read\_from\_file()}}
+{\footnotesize\ttfamily std\+::vector$<$char$>$ read\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{compile__library__test_8cpp_ac349d79f77600e990b6dd602a8124981}\label{compile__library__test_8cpp_ac349d79f77600e990b6dd602a8124981}} 
+\index{compile\_library\_test.cpp@{compile\_library\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!compile\_library\_test.cpp@{compile\_library\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily T\+E\+ST (\begin{DoxyParamCaption}\item[{compile\+\_\+library\+\_\+test}]{,  }\item[{load\+\_\+library\+\_\+from\+\_\+file}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{compile__library__test_8cpp_adb626263856fe694d7a4c6c7ab7966f2}\label{compile__library__test_8cpp_adb626263856fe694d7a4c6c7ab7966f2}} 
+\index{compile\_library\_test.cpp@{compile\_library\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!compile\_library\_test.cpp@{compile\_library\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily T\+E\+ST (\begin{DoxyParamCaption}\item[{compile\+\_\+library\+\_\+test}]{,  }\item[{pre\+\_\+compile\+\_\+lib}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{compile__library__test_8cpp_a20fffe281a9a316e4f716c9c90ae2f2f}\label{compile__library__test_8cpp_a20fffe281a9a316e4f716c9c90ae2f2f}} 
+\index{compile\_library\_test.cpp@{compile\_library\_test.cpp}!write\_to\_file@{write\_to\_file}}
+\index{write\_to\_file@{write\_to\_file}!compile\_library\_test.cpp@{compile\_library\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{write\_to\_file()}{write\_to\_file()}}
+{\footnotesize\ttfamily void write\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::vector$<$ unsigned char $>$}]{data }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}\label{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}} 
+\index{compile\_library\_test.cpp@{compile\_library\_test.cpp}!logger@{logger}}
+\index{logger@{logger}!compile\_library\_test.cpp@{compile\_library\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$spdlog\+::logger$>$ logger}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= []() -\/> std::shared\_ptr<spdlog::logger> \{}
+\DoxyCodeLine{    \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}} = spdlog::stderr\_color\_mt(\textcolor{stringliteral}{"test"}, spdlog::color\_mode::automatic);}
+\DoxyCodeLine{    \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}}-\/>set\_level(spdlog::level::trace);}
+\DoxyCodeLine{    \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}}-\/>flush\_on(spdlog::level::debug);}
+\DoxyCodeLine{    \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}}-\/>flush\_on(spdlog::level::err);}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}};}
+\DoxyCodeLine{\}()}
+
+\end{DoxyCode}

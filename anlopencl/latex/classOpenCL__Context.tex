@@ -1,0 +1,72 @@
+\hypertarget{classOpenCL__Context}{}\doxysection{Open\+C\+L\+\_\+\+Context Class Reference}
+\label{classOpenCL__Context}\index{OpenCL\_Context@{OpenCL\_Context}}
+
+
+{\ttfamily \#include $<$Open\+C\+L\+Context.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classOpenCL__Context_a6402e39eeeb25cbe971b7b6e9b5884c6}{Open\+C\+L\+\_\+\+Context}} ()
+\item 
+bool \mbox{\hyperlink{classOpenCL__Context_ab5b868cefe622f12a50e55c91d992e01}{load\+Platform}} ()
+\item 
+void \mbox{\hyperlink{classOpenCL__Context_a2aa5ee7c9f5ff7d281080dab940259b8}{load\+Input\+Headers}} ()
+\item 
+cl\+::\+Program \mbox{\hyperlink{classOpenCL__Context_ac1955b6909a377ea22bea32d424555b4}{create\+Library}} ()
+\item 
+cl\+::\+Program \mbox{\hyperlink{classOpenCL__Context_a2b5ffc6d33178603b3bc1ab911946922}{create\+Kernel}} (cl\+::\+Program lib, const std\+::string kernel)
+\item 
+cl\+::\+Program \mbox{\hyperlink{classOpenCL__Context_acfc5b400afad793a2b61e386b911f66a}{create\+Programs}} (const std\+::string kernel)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper class to create an Open\+CL context and to compile and run Open\+CL kernel. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classOpenCL__Context_a6402e39eeeb25cbe971b7b6e9b5884c6}\label{classOpenCL__Context_a6402e39eeeb25cbe971b7b6e9b5884c6}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!OpenCL\_Context@{OpenCL\_Context}}
+\index{OpenCL\_Context@{OpenCL\_Context}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{OpenCL\_Context()}{OpenCL\_Context()}}
+{\footnotesize\ttfamily Open\+C\+L\+\_\+\+Context\+::\+Open\+C\+L\+\_\+\+Context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates the Open\+CL context. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classOpenCL__Context_a2b5ffc6d33178603b3bc1ab911946922}\label{classOpenCL__Context_a2b5ffc6d33178603b3bc1ab911946922}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!createKernel@{createKernel}}
+\index{createKernel@{createKernel}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{createKernel()}{createKernel()}}
+{\footnotesize\ttfamily cl\+::\+Program Open\+C\+L\+\_\+\+Context\+::create\+Kernel (\begin{DoxyParamCaption}\item[{cl\+::\+Program}]{lib,  }\item[{const std\+::string}]{kernel }\end{DoxyParamCaption})}
+
+Compiles all sources and the kernel to one program. Using the pre-\/compiled library program. \mbox{\Hypertarget{classOpenCL__Context_ac1955b6909a377ea22bea32d424555b4}\label{classOpenCL__Context_ac1955b6909a377ea22bea32d424555b4}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!createLibrary@{createLibrary}}
+\index{createLibrary@{createLibrary}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{createLibrary()}{createLibrary()}}
+{\footnotesize\ttfamily cl\+::\+Program Open\+C\+L\+\_\+\+Context\+::create\+Library (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Compiles all sources and the kernel to one program. \mbox{\Hypertarget{classOpenCL__Context_acfc5b400afad793a2b61e386b911f66a}\label{classOpenCL__Context_acfc5b400afad793a2b61e386b911f66a}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!createPrograms@{createPrograms}}
+\index{createPrograms@{createPrograms}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{createPrograms()}{createPrograms()}}
+{\footnotesize\ttfamily cl\+::\+Program Open\+C\+L\+\_\+\+Context\+::create\+Programs (\begin{DoxyParamCaption}\item[{const std\+::string}]{kernel }\end{DoxyParamCaption})}
+
+Compiles all sources and the kernel to one program. \mbox{\Hypertarget{classOpenCL__Context_a2aa5ee7c9f5ff7d281080dab940259b8}\label{classOpenCL__Context_a2aa5ee7c9f5ff7d281080dab940259b8}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!loadInputHeaders@{loadInputHeaders}}
+\index{loadInputHeaders@{loadInputHeaders}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{loadInputHeaders()}{loadInputHeaders()}}
+{\footnotesize\ttfamily void Open\+C\+L\+\_\+\+Context\+::load\+Input\+Headers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Loads the noise input headers. \mbox{\Hypertarget{classOpenCL__Context_ab5b868cefe622f12a50e55c91d992e01}\label{classOpenCL__Context_ab5b868cefe622f12a50e55c91d992e01}} 
+\index{OpenCL\_Context@{OpenCL\_Context}!loadPlatform@{loadPlatform}}
+\index{loadPlatform@{loadPlatform}!OpenCL\_Context@{OpenCL\_Context}}
+\doxysubsubsection{\texorpdfstring{loadPlatform()}{loadPlatform()}}
+{\footnotesize\ttfamily bool Open\+C\+L\+\_\+\+Context\+::load\+Platform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Loads the Open\+CL 3 platform. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/test/cpp/\mbox{\hyperlink{OpenCLContext_8h}{Open\+C\+L\+Context.\+h}}\item 
+src/test/cpp/\mbox{\hyperlink{OpenCLContext_8cpp}{Open\+C\+L\+Context.\+cpp}}\end{DoxyCompactItemize}

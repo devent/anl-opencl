@@ -1,50 +1,3 @@
-<!--
-
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-    Released as open-source under the Apache License, Version 2.0.
-
-    ****************************************************************************
-    ANL-OpenCL :: Core
-    ****************************************************************************
-
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    ****************************************************************************
-    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
-    http://accidentalnoise.sourceforge.net/index.html
-    ****************************************************************************
-
-    Copyright (C) 2011 Joshua Tippetts
-
-      This software is provided 'as-is', without any express or implied
-      warranty.  In no event will the authors be held liable for any damages
-      arising from the use of this software.
-
-      Permission is granted to anyone to use this software for any purpose,
-      including commercial applications, and to alter it and redistribute it
-      freely, subject to the following restrictions:
-
-      1. The origin of this software must not be misrepresented; you must not
-         claim that you wrote the original software. If you use this software
-         in a product, an acknowledgment in the product documentation would be
-         appreciated but is not required.
-      2. Altered source versions must be plainly marked as such, and must not be
-         misrepresented as being the original software.
-      3. This notice may not be removed or altered from any source distribution.
-
--->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -60,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -113,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">kernel.h File Reference</div>  </div>
@@ -120,7 +75,6 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="src_2main_2cpp_2opencl__utils_8h_source.html">opencl_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="src_2main_2cpp_2noise__gen_8h_source.html">noise_gen.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="random_8h_source.html">random.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for kernel.h:</div>
 <div class="dyncontent">
@@ -128,8 +82,7 @@ Include dependency graph for kernel.h:</div>
 <map name="src_2main_2cpp_2kernel_8h" id="src_2main_2cpp_2kernel_8h">
 <area shape="rect" title=" " alt="" coords="52,5,213,32"/>
 <area shape="rect" href="src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="77,155,189,181"/>
-<area shape="rect" href="src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="83,80,183,107"/>
-<area shape="rect" href="random_8h.html" title=" " alt="" coords="207,80,291,107"/>
+<area shape="rect" href="src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="127,80,227,107"/>
 <area shape="rect" title=" " alt="" coords="5,229,73,256"/>
 <area shape="rect" title=" " alt="" coords="97,229,168,256"/>
 <area shape="rect" title=" " alt="" coords="193,229,275,256"/>
@@ -147,6 +100,11 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="src_2main_2cpp_2kernel_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ad6f1ec76f08cd234c2f6af71bfe1545a"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>) (void *)</td></tr>
+<tr class="separator:ad6f1ec76f08cd234c2f6af71bfe1545a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acf1209cb6bb227dba75938640aad4283"><td class="memItemLeft" align="right" valign="top">vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#acf1209cb6bb227dba75938640aad4283">rotateDomain3</a> (vector3 src, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> angle, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ax, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ay, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> az)</td></tr>
@@ -163,11 +121,11 @@ Functions</h2></td></tr>
 <tr class="separator:a6dc97b9e69ac0fb9577ccfaf46547d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0acf24081cf076e68d2b420dc391f8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#aa0acf24081cf076e68d2b420dc391f8f">simpleBillowLayer3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> layerscale, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> layerfreq, bool rot, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> angle, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ax, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ay, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> az)</td></tr>
 <tr class="separator:aa0acf24081cf076e68d2b420dc391f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab82de3a6119f185f898f786f16a21e37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ab82de3a6119f185f898f786f16a21e37">simplefBm3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
+<tr class="memitem:ab82de3a6119f185f898f786f16a21e37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ab82de3a6119f185f898f786f16a21e37">simplefBm3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
 <tr class="separator:ab82de3a6119f185f898f786f16a21e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b5fc3c54c393ccc0a4304e3f7143830"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#a2b5fc3c54c393ccc0a4304e3f7143830">simpleRidgedMultifractal3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
+<tr class="memitem:a2b5fc3c54c393ccc0a4304e3f7143830"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#a2b5fc3c54c393ccc0a4304e3f7143830">simpleRidgedMultifractal3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
 <tr class="separator:a2b5fc3c54c393ccc0a4304e3f7143830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a582e0a7a6d6279c75f70a3a22a82581e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#a582e0a7a6d6279c75f70a3a22a82581e">simpleBillow3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
+<tr class="memitem:a582e0a7a6d6279c75f70a3a22a82581e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#a582e0a7a6d6279c75f70a3a22a82581e">simpleBillow3</a> (vector3 v, <a class="el" href="target_2classes_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a> basistype, uint seed, <a class="el" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a> interp, <a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a> rnd, void *srnd, uint numoctaves, <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> frequency, bool rot)</td></tr>
 <tr class="separator:a582e0a7a6d6279c75f70a3a22a82581e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4fc1c1bef1bb6873330d9b251b5a5f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ae4fc1c1bef1bb6873330d9b251b5a5f4">x2</a> (vector2 *coord)</td></tr>
 <tr class="separator:ae4fc1c1bef1bb6873330d9b251b5a5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,6 +158,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a1e9f6da605f0dfb838676c696c8a5889"><td class="memItemLeft" align="right" valign="top"><a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2main_2cpp_2kernel_8h.html#a1e9f6da605f0dfb838676c696c8a5889">v8</a> (vector8 *coord)</td></tr>
 <tr class="separator:a1e9f6da605f0dfb838676c696c8a5889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ad6f1ec76f08cd234c2f6af71bfe1545a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f1ec76f08cd234c2f6af71bfe1545a">&#9670;&nbsp;</a></span>random_func</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="target_2classes_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>(* random_func) (void *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af315658772033aca35f6f6adedc9f688"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af315658772033aca35f6f6adedc9f688">&#9670;&nbsp;</a></span>combineHSVA()</h2>
@@ -392,7 +365,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
           <td class="paramname"><em>rnd</em>, </td>
         </tr>
         <tr>
@@ -618,7 +591,7 @@ quinticInterp </li>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
           <td class="paramname"><em>rnd</em>, </td>
         </tr>
         <tr>
@@ -964,7 +937,7 @@ quinticInterp </li>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="random_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2main_2cpp_2kernel_8h.html#ad6f1ec76f08cd234c2f6af71bfe1545a">random_func</a>&#160;</td>
           <td class="paramname"><em>rnd</em>, </td>
         </tr>
         <tr>
