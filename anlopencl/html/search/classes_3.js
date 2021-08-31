@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['example_511',['Example',['../classMyLibrary_1_1Example.html',1,'MyLibrary']]]
+  ['example_514',['Example',['../classMyLibrary_1_1Example.html',1,'MyLibrary']]]
 ];
