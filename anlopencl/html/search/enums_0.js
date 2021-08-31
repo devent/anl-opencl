@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['emappingmodes_931',['EMappingModes',['../src_2main_2cpp_2imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92',1,'EMappingModes():&#160;imaging.h'],['../target_2classes_2imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92',1,'EMappingModes():&#160;imaging.h']]]
+  ['color_994',['Color',['../namespaceMyLibrary.html#a79a9f4bbb675f6c082b09249c5a95ced',1,'MyLibrary']]]
 ];

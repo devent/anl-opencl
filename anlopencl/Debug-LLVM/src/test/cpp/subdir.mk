@@ -4,8 +4,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/test/cpp/OpenCLContext.cpp \
 ../src/test/cpp/OpenCLTestFixture.cpp \
 ../src/test/cpp/anlopencl_core_test.cpp \
+../src/test/cpp/compile_library_test.cpp \
 ../src/test/cpp/distance_functions_test.cpp \
 ../src/test/cpp/imaging_map_test.cpp \
 ../src/test/cpp/imaging_scaleToRange_test.cpp \
@@ -16,6 +18,7 @@ CPP_SRCS += \
 ../src/test/cpp/noise_functions_test.cpp \
 ../src/test/cpp/opencl_combineColor_test.cpp \
 ../src/test/cpp/opencl_cpp_test.cpp \
+../src/test/cpp/opencl_heightmap_example_test.cpp \
 ../src/test/cpp/opencl_map2D_test.cpp \
 ../src/test/cpp/opencl_noise2D_functions_test.cpp \
 ../src/test/cpp/opencl_noise3D_functions_test.cpp \
@@ -30,8 +33,10 @@ CPP_SRCS += \
 ../src/test/cpp/random_test.cpp 
 
 BCS += \
+./src/test/cpp/OpenCLContext.bc \
 ./src/test/cpp/OpenCLTestFixture.bc \
 ./src/test/cpp/anlopencl_core_test.bc \
+./src/test/cpp/compile_library_test.bc \
 ./src/test/cpp/distance_functions_test.bc \
 ./src/test/cpp/imaging_map_test.bc \
 ./src/test/cpp/imaging_scaleToRange_test.bc \
@@ -42,6 +47,7 @@ BCS += \
 ./src/test/cpp/noise_functions_test.bc \
 ./src/test/cpp/opencl_combineColor_test.bc \
 ./src/test/cpp/opencl_cpp_test.bc \
+./src/test/cpp/opencl_heightmap_example_test.bc \
 ./src/test/cpp/opencl_map2D_test.bc \
 ./src/test/cpp/opencl_noise2D_functions_test.bc \
 ./src/test/cpp/opencl_noise3D_functions_test.bc \
@@ -56,8 +62,10 @@ BCS += \
 ./src/test/cpp/random_test.bc 
 
 CPP_DEPS += \
+./src/test/cpp/OpenCLContext.d \
 ./src/test/cpp/OpenCLTestFixture.d \
 ./src/test/cpp/anlopencl_core_test.d \
+./src/test/cpp/compile_library_test.d \
 ./src/test/cpp/distance_functions_test.d \
 ./src/test/cpp/imaging_map_test.d \
 ./src/test/cpp/imaging_scaleToRange_test.d \
@@ -68,6 +76,7 @@ CPP_DEPS += \
 ./src/test/cpp/noise_functions_test.d \
 ./src/test/cpp/opencl_combineColor_test.d \
 ./src/test/cpp/opencl_cpp_test.d \
+./src/test/cpp/opencl_heightmap_example_test.d \
 ./src/test/cpp/opencl_map2D_test.d \
 ./src/test/cpp/opencl_noise2D_functions_test.d \
 ./src/test/cpp/opencl_noise3D_functions_test.d \

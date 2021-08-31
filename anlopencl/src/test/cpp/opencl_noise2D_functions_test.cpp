@@ -54,10 +54,6 @@
  *      Author: Erwin Müller
  */
 
-#include <memory>
-#include <strings.h>
-#include <bits/stdc++.h>
-
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 
@@ -66,8 +62,6 @@
 
 using ::testing::TestWithParam;
 using ::testing::Values;
-using ::spdlog::info;
-using ::spdlog::error;
 
 class opencl_noise2D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
@@ -107,7 +101,7 @@ TEST_P(opencl_noise2D_functions_fixture, show_image) {
 TEST_P(opencl_noise2D_functions_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
-	ss << t.kernel << ".png";
+	ss << "out/noise_functions/" << t.kernel << ".png";
 	saveImageScaleToRange(ss.str(), output, CV_32F);
 }
 

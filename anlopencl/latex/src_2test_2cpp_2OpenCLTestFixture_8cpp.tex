@@ -1,15 +1,12 @@
 \hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Test\+Fixture.cpp File Reference}
 \label{src_2test_2cpp_2OpenCLTestFixture_8cpp}\index{src/test/cpp/OpenCLTestFixture.cpp@{src/test/cpp/OpenCLTestFixture.cpp}}
 {\ttfamily \#include \char`\"{}Open\+C\+L\+Test\+Fixture.\+h\char`\"{}}\newline
-{\ttfamily \#include $<$fstream$>$}\newline
-{\ttfamily \#include $<$algorithm$>$}\newline
-{\ttfamily \#include $<$stdlib.\+h$>$}\newline
-{\ttfamily \#include $<$cstring$>$}\newline
 {\ttfamily \#include $<$spdlog/sinks/stdout\+\_\+color\+\_\+sinks.\+h$>$}\newline
 {\ttfamily \#include $<$opencv2/highgui.\+hpp$>$}\newline
 {\ttfamily \#include $<$opencv2/core/mat.\+hpp$>$}\newline
 {\ttfamily \#include $<$opencv2/imgcodecs.\+hpp$>$}\newline
 {\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Context.\+h\char`\"{}}\newline
 Include dependency graph for Open\+C\+L\+Test\+Fixture.\+cpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -17,60 +14,25 @@ Include dependency graph for Open\+C\+L\+Test\+Fixture.\+cpp\+:\nopagebreak
 \includegraphics[width=350pt]{src_2test_2cpp_2OpenCLTestFixture_8cpp__incl}
 \end{center}
 \end{figure}
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \mbox{\hyperlink{classProgramEx}{Program\+Ex}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}{C\+O\+M\+P\+I\+L\+E\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+E\+RR}}~\char`\"{}Error compile program\char`\"{}
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}{load\+Platform}} (std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ logger)
-\item 
-std\+::string \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}{read\+File}} (std\+::string file\+Name)
-\item 
 std\+::string \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_ae345400e08783040cbcfcc150dd82d84}{mat\+\_\+to\+\_\+s}} (cv\+::\+Mat \&m)
 \item 
-Program \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}{create\+Programs}} (std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ logger, const \mbox{\hyperlink{structKernelContext}{Kernel\+Context}} \&t)
+void \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp_a4e59715c8b15dd97640dd17eac544c91}{output\+Device\+Info}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{spdlog\+::logger}} $>$ \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{logger}})
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_a2f5d944f9584ca73371deb385b7bf571}} 
-\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!COMPILE\_PROGRAM\_ERR@{COMPILE\_PROGRAM\_ERR}}
-\index{COMPILE\_PROGRAM\_ERR@{COMPILE\_PROGRAM\_ERR}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
-\doxysubsubsection{\texorpdfstring{COMPILE\_PROGRAM\_ERR}{COMPILE\_PROGRAM\_ERR}}
-{\footnotesize\ttfamily \#define C\+O\+M\+P\+I\+L\+E\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+E\+RR~\char`\"{}Error compile program\char`\"{}}
-
-
-
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_aefeda057101409e430731f98ba2d54b4}} 
-\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!createPrograms@{createPrograms}}
-\index{createPrograms@{createPrograms}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
-\doxysubsubsection{\texorpdfstring{createPrograms()}{createPrograms()}}
-{\footnotesize\ttfamily Program create\+Programs (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$}]{logger,  }\item[{const \mbox{\hyperlink{structKernelContext}{Kernel\+Context}} \&}]{t }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_ad15af34006239425324989c436de0073}} 
-\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!loadPlatform@{loadPlatform}}
-\index{loadPlatform@{loadPlatform}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
-\doxysubsubsection{\texorpdfstring{loadPlatform()}{loadPlatform()}}
-{\footnotesize\ttfamily bool load\+Platform (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$}]{logger }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_ae345400e08783040cbcfcc150dd82d84}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_ae345400e08783040cbcfcc150dd82d84}} 
 \index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!mat\_to\_s@{mat\_to\_s}}
 \index{mat\_to\_s@{mat\_to\_s}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
 \doxysubsubsection{\texorpdfstring{mat\_to\_s()}{mat\_to\_s()}}
 {\footnotesize\ttfamily std\+::string mat\+\_\+to\+\_\+s (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{m }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_a7816b64e410893cd106df04c54d71b58}} 
-\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!readFile@{readFile}}
-\index{readFile@{readFile}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
-\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
-{\footnotesize\ttfamily std\+::string read\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+Outputs the matrix as string. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8cpp_a4e59715c8b15dd97640dd17eac544c91}\label{src_2test_2cpp_2OpenCLTestFixture_8cpp_a4e59715c8b15dd97640dd17eac544c91}} 
+\index{OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}!outputDeviceInfo@{outputDeviceInfo}}
+\index{outputDeviceInfo@{outputDeviceInfo}!OpenCLTestFixture.cpp@{OpenCLTestFixture.cpp}}
+\doxysubsubsection{\texorpdfstring{outputDeviceInfo()}{outputDeviceInfo()}}
+{\footnotesize\ttfamily void output\+Device\+Info (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{compile__library__test_8cpp_accdc73450b7a41e30a69fca53a8f2232}{spdlog\+::logger}} $>$}]{logger }\end{DoxyParamCaption})}
 

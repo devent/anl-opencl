@@ -56,6 +56,7 @@
 
 #include <gtest/gtest.h>
 #include "random.h"
+#include "kernel.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;

@@ -1,8 +1,7 @@
 <map id="src/main/cpp/kernel.h" name="src/main/cpp/kernel.h">
 <area shape="rect" id="node1" title=" " alt="" coords="52,5,213,32"/>
 <area shape="rect" id="node2" href="$src_2main_2cpp_2opencl__utils_8h.html" title=" " alt="" coords="77,155,189,181"/>
-<area shape="rect" id="node6" href="$src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="83,80,183,107"/>
-<area shape="rect" id="node7" href="$random_8h.html" title=" " alt="" coords="207,80,291,107"/>
+<area shape="rect" id="node6" href="$src_2main_2cpp_2noise__gen_8h.html" title="Contains the definitions of the noise generator functions." alt="" coords="127,80,227,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,229,73,256"/>
 <area shape="rect" id="node4" title=" " alt="" coords="97,229,168,256"/>
 <area shape="rect" id="node5" title=" " alt="" coords="193,229,275,256"/>

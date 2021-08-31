@@ -62,8 +62,6 @@ extern "C" {
 #include "opencl_utils.h"
 #endif // USE_OPENCL
 
-typedef REAL (*random_func)(void*);
-
 #ifndef USE_OPENCL
 void *create_kiss09();
 void delete_kiss09(void *state);

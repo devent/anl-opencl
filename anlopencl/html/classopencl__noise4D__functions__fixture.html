@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: opencl_noise4D_functions_fixture Class Reference</title>
+<title>ANL-OpenCL: opencl_noise4D_functions_fixture Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">ANL-OpenCL
    </div>
+   <div id="projectbrief">ThisisanimplementionoftheAccidentalNoiseLibraryC++librarythatwasoriginallywrittenbyJosuaTippetts.</div>
   </td>
  </tr>
  </tbody>
@@ -85,10 +87,11 @@ Collaboration diagram for opencl_noise4D_functions_fixture:</div>
 <div class="dyncontent">
 <div class="center"><img src="classopencl__noise4D__functions__fixture__coll__graph.png" border="0" usemap="#opencl__noise4D__functions__fixture_coll__map" alt="Collaboration graph"/></div>
 <map name="opencl__noise4D__functions__fixture_coll__map" id="opencl__noise4D__functions__fixture_coll__map">
-<area shape="rect" title=" " alt="" coords="5,273,197,315"/>
-<area shape="rect" href="classOpenCL__Context__Buffer__Fixture.html" title=" " alt="" coords="13,184,189,225"/>
-<area shape="rect" href="classAbstract__OpenCL__Context__Fixture.html" title=" " alt="" coords="6,95,197,136"/>
-<area shape="rect" title=" " alt="" coords="15,5,187,47"/>
+<area shape="rect" title=" " alt="" coords="83,291,275,332"/>
+<area shape="rect" href="classOpenCL__Context__Buffer__Fixture.html" title=" " alt="" coords="91,200,267,241"/>
+<area shape="rect" href="classAbstract__OpenCL__Context__Fixture.html" title=" " alt="" coords="84,109,275,151"/>
+<area shape="rect" title=" " alt="" coords="5,5,177,47"/>
+<area shape="rect" href="classOpenCL__Context.html" title=" " alt="" coords="202,13,333,39"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -131,6 +134,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_static_methods_classAbstract__OpenCL__Context__Fixture"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classAbstract__OpenCL__Context__Fixture')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classAbstract__OpenCL__Context__Fixture.html">Abstract_OpenCL_Context_Fixture</a></td></tr>
 <tr class="memitem:aa2552fa0d701152ff99072a6c0e7be43 inherit pro_static_methods_classAbstract__OpenCL__Context__Fixture"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstract__OpenCL__Context__Fixture.html#aa2552fa0d701152ff99072a6c0e7be43">SetUpTestSuite</a> ()</td></tr>
 <tr class="separator:aa2552fa0d701152ff99072a6c0e7be43 inherit pro_static_methods_classAbstract__OpenCL__Context__Fixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_classAbstract__OpenCL__Context__Fixture"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_classAbstract__OpenCL__Context__Fixture')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="classAbstract__OpenCL__Context__Fixture.html">Abstract_OpenCL_Context_Fixture</a></td></tr>
+<tr class="memitem:a5ce778f7f41c33ad6161c45adcc7160b inherit pro_static_attribs_classAbstract__OpenCL__Context__Fixture"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classOpenCL__Context.html">OpenCL_Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a5ce778f7f41c33ad6161c45adcc7160b">context</a></td></tr>
+<tr class="separator:a5ce778f7f41c33ad6161c45adcc7160b inherit pro_static_attribs_classAbstract__OpenCL__Context__Fixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c3d6bb260692fe9805237b6bc8a75c2 inherit pro_static_attribs_classAbstract__OpenCL__Context__Fixture"><td class="memItemLeft" align="right" valign="top">static cl::Program&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a1c3d6bb260692fe9805237b6bc8a75c2">lib</a></td></tr>
+<tr class="separator:a1c3d6bb260692fe9805237b6bc8a75c2 inherit pro_static_attribs_classAbstract__OpenCL__Context__Fixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4fc6464f15d2bcc2ca128d5bb758f7fe"></a>
@@ -156,6 +164,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Runs the kernel. </p>
 
 <p>Implements <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#ac81e04aaabbdf2b798517d94d4b55dfe">Abstract_OpenCL_Context_Fixture</a>.</p>
 

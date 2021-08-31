@@ -1,9 +1,10 @@
 <map id="src/test/cpp/OpenCLTestFixture.h" name="src/test/cpp/OpenCLTestFixture.h">
-<area shape="rect" id="node1" title=" " alt="" coords="249,5,483,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,129,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="154,80,258,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="282,80,359,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="383,80,442,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="467,80,604,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="628,80,741,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="171,5,404,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="200,155,324,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="29,80,133,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="157,80,234,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="258,80,317,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="341,80,479,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="565,155,679,181"/>
+<area shape="rect" id="node8" href="$OpenCLContext_8h.html" title=" " alt="" coords="503,80,637,107"/>
 </map>

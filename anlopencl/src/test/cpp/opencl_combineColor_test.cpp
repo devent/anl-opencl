@@ -54,27 +54,14 @@
  *      Author: Erwin Müller
  */
 
-#include <memory>
-#include <strings.h>
-#include <bits/stdc++.h>
-
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
-
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core/mat.hpp>
 
 #include "OpenCLTestFixture.h"
 #include "imaging.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;
-using ::spdlog::info;
-using ::spdlog::error;
 
 class opencl_combineColor_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:

@@ -1,15 +1,16 @@
 <map id="src/test/cpp/opencl_map2D_test.cpp" name="src/test/cpp/opencl_map2D_test.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="399,5,543,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,184,83,211"/>
-<area shape="rect" id="node3" title=" " alt="" coords="431,102,510,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="534,102,645,129"/>
-<area shape="rect" id="node5" title=" " alt="" coords="107,184,221,211"/>
-<area shape="rect" id="node6" title=" " alt="" coords="245,184,369,211"/>
-<area shape="rect" id="node7" title=" " alt="" coords="669,95,817,136"/>
-<area shape="rect" id="node8" href="$src_2test_2cpp_2OpenCLTestFixture_8h.html" title=" " alt="" coords="252,102,407,129"/>
-<area shape="rect" id="node12" title=" " alt="" coords="841,102,953,129"/>
-<area shape="rect" id="node13" title=" " alt="" coords="978,102,1065,129"/>
-<area shape="rect" id="node9" title=" " alt="" coords="393,184,497,211"/>
-<area shape="rect" id="node10" title=" " alt="" coords="521,184,580,211"/>
-<area shape="rect" id="node11" title=" " alt="" coords="605,184,742,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="370,5,514,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="29,184,106,211"/>
+<area shape="rect" id="node3" title=" " alt="" coords="76,102,155,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,102,290,129"/>
+<area shape="rect" id="node5" title=" " alt="" coords="87,259,200,285"/>
+<area shape="rect" id="node6" title=" " alt="" coords="536,259,660,285"/>
+<area shape="rect" id="node7" title=" " alt="" coords="544,95,692,136"/>
+<area shape="rect" id="node8" href="$src_2test_2cpp_2OpenCLTestFixture_8h.html" title=" " alt="" coords="365,102,520,129"/>
+<area shape="rect" id="node13" title=" " alt="" coords="814,102,926,129"/>
+<area shape="rect" id="node14" title=" " alt="" coords="951,102,1038,129"/>
+<area shape="rect" id="node9" title=" " alt="" coords="636,184,740,211"/>
+<area shape="rect" id="node10" title=" " alt="" coords="181,184,240,211"/>
+<area shape="rect" id="node11" title=" " alt="" coords="264,184,402,211"/>
+<area shape="rect" id="node12" href="$OpenCLContext_8h.html" title=" " alt="" coords="426,184,560,211"/>
 </map>

@@ -44,6 +44,9 @@
 //   3. This notice may not be removed or altered from any source distribution.
 //
 
+#include <noise_gen.h>
+#include <kernel.h>
+
 kernel void opencl_map2D_default_test(
 global float *output,
 const int sizeWidth,

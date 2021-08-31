@@ -105,7 +105,7 @@ TEST_P(opencl_simplefBm3_fixture, show_image) {
 TEST_P(opencl_simplefBm3_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
-	ss << t.kernel << ".png";
+	ss << "out/simplefBm3/" << t.kernel << ".png";
 	saveImageScaleToRange(ss.str(), output, CV_32F);
 }
 
