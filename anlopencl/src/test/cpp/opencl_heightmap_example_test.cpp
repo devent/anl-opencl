@@ -73,8 +73,8 @@ protected:
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<float>(t.imageSize * dim_float3);
-		map2D(input->data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
+		input = createVector<float>(t.imageSize * dim_float4);
+		map2D(input->data(), calc_seamless_x, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
 		inputBuffer = createBufferPtr(input);
 		output = createVector<float>(t.imageSize);
 		outputBuffer = createBufferPtr(output);

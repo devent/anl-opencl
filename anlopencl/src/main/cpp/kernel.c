@@ -56,8 +56,8 @@
 #include <limits.h>
 #endif // USE_OPENCL
 
-vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay,
-		REAL az) {
+void rotateDomain(REAL dest[], REAL src[],
+		REAL angle, REAL ax, REAL ay, REAL az) {
 	REAL len = sqrt(ax * ax + ay * ay + az * az);
 	ax /= len;
 	ay /= len;
@@ -67,6 +67,10 @@ vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay,
 	REAL sinangle = sin(angle);
 
 	REAL rotmatrix[3][3];
+
+	REAL x = src[0];
+	REAL y = src[1];
+	REAL z = src[2];
 
 	rotmatrix[0][0] = 1.0 + (1.0 - cosangle) * (ax * ax - 1.0);
 	rotmatrix[1][0] = -az * sinangle + (1.0 - cosangle) * ax * ay;
@@ -81,21 +85,44 @@ vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay,
 	rotmatrix[2][2] = 1.0 + (1.0 - cosangle) * (az * az - 1.0);
 
 	REAL nx, ny, nz;
-	nx = (rotmatrix[0][0] * src.x) + (rotmatrix[1][0] * src.y)
-			+ (rotmatrix[2][0] * src.z);
-	ny = (rotmatrix[0][1] * src.x) + (rotmatrix[1][1] * src.y)
-			+ (rotmatrix[2][1] * src.z);
-	nz = (rotmatrix[0][2] * src.x) + (rotmatrix[1][2] * src.y)
-			+ (rotmatrix[2][2] * src.z);
-	return (vector3)(nx, ny, nz);
+	nx = (rotmatrix[0][0] * x) + (rotmatrix[1][0] * y)
+			+ (rotmatrix[2][0] * z);
+	ny = (rotmatrix[0][1] * x) + (rotmatrix[1][1] * y)
+			+ (rotmatrix[2][1] * z);
+	nz = (rotmatrix[0][2] * x) + (rotmatrix[1][2] * y)
+			+ (rotmatrix[2][2] * z);
+
+	dest[0] = nx;
+	dest[1] = ny;
+	dest[2] = nz;
 }
 
-vector3 scaleDomain3(vector3 src, REAL scale) {
-	return src * scale;
+vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay,
+		REAL az) {
+	REAL dest[3];
+	REAL s[] = { src.x, src.y, src.z };
+	rotateDomain(dest, s, angle, ax, ay, az);
+	return (vector3){dest[0], dest[1], dest[2]};
+}
+
+vector4 rotateDomain4(vector4 src, REAL angle, REAL ax, REAL ay,
+		REAL az) {
+	REAL dest[3];
+	REAL s[] = { src.x, src.y, src.z };
+	rotateDomain(dest, s, angle, ax, ay, az);
+	return (vector4){dest[0], dest[1], dest[2], src.w};
+}
+
+vector8 rotateDomain6(vector8 src, REAL angle, REAL ax, REAL ay,
+		REAL az) {
+	REAL dest[3];
+	REAL s[] = {src.x, src.y, src.z};
+	rotateDomain(dest, s, angle, ax, ay, az);
+	return (vector8){dest[0], dest[1], dest[2], src.w, src.s4, src.s5, 0, 0};
 }
 
 vector4 combineRGBA(REAL r, REAL g, REAL b, REAL a) {
-	return (vector4)(r, g, b, a);
+	return (vector4){r, g, b, a};
 }
 
 vector4 combineHSVA(REAL h, REAL s, REAL v, REAL a) {
@@ -111,19 +138,19 @@ vector4 combineHSVA(REAL h, REAL s, REAL v, REAL a) {
 	T = v * (1.0 - s * (1.0 - fract));
 
 	if (h >= 0 && h < 1)
-		return (vector4) (v, T, P, 1);
+		return (vector4) {v, T, P, 1};
 	else if (h >= 1 && h < 2)
-		return (vector4) (Q, v, P, a);
+		return (vector4) {Q, v, P, a};
 	else if (h >= 2 && h < 3)
-		return (vector4) (P, v, T, a);
+		return (vector4) {P, v, T, a};
 	else if (h >= 3 && h < 4)
-		return (vector4) (P, Q, v, a);
+		return (vector4) {P, Q, v, a};
 	else if (h >= 4 && h < 5)
-		return (vector4) (T, P, v, a);
+		return (vector4) {T, P, v, a};
 	else if (h >= 5 && h < 6)
-		return (vector4) (v, P, Q, a);
+		return (vector4) {v, P, Q, a};
 	else
-		return (vector4) (0, 0, 0, a);
+		return (vector4) {0, 0, 0, a};
 }
 
 REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
@@ -137,7 +164,41 @@ REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
 		az /= len;
 		v = rotateDomain3(v, angle, ax, ay, az);
 	}
-	v = scaleDomain3(v, layerfreq);
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleFractalLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain4(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleFractalLayer6(vector8 v, noise_func6 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain6(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
 	REAL value = basistype(v, seed, interp);
 	value *= layerscale;
 	return value;
@@ -154,7 +215,45 @@ REAL simpleRidgedLayer3(vector3 v, noise_func3 basistype,
 		az /= len;
 		v = rotateDomain3(v, angle, ax, ay, az);
 	}
-	v = scaleDomain3(v, layerfreq);
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value = fabs(value);
+	value -= 1;
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleRidgedLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain4(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value = fabs(value);
+	value -= 1;
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleRidgedLayer6(vector8 v, noise_func6 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain6(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
 	REAL value = basistype(v, seed, interp);
 	value = fabs(value);
 	value -= 1;
@@ -173,7 +272,47 @@ REAL simpleBillowLayer3(vector3 v, noise_func3 basistype,
 		az /= len;
 		v = rotateDomain3(v, angle, ax, ay, az);
 	}
-	v = scaleDomain3(v, layerfreq);
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value = fabs(value);
+	value *= 2;
+	value -= 1;
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleBillowLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain4(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
+	REAL value = basistype(v, seed, interp);
+	value = fabs(value);
+	value *= 2;
+	value -= 1;
+	value *= layerscale;
+	return value;
+}
+
+REAL simpleBillowLayer6(vector8 v, noise_func6 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az) {
+	if (rot) {
+		REAL len = sqrt(ax * ax + ay * ay + az * az);
+		ax /= len;
+		ay /= len;
+		az /= len;
+		v = rotateDomain6(v, angle, ax, ay, az);
+	}
+	v = scaleDomain(v, layerfreq);
 	REAL value = basistype(v, seed, interp);
 	value = fabs(value);
 	value *= 2;
@@ -202,6 +341,46 @@ REAL simplefBm3(
 	return value;
 }
 
+REAL simplefBm4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleFractalLayer4(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleFractalLayer4(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+
+REAL simplefBm6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleFractalLayer6(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleFractalLayer6(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+
 REAL simpleRidgedMultifractal3(
 		vector3 v,
 		noise_func3 basistype, uint seed, interp_func interp,
@@ -214,6 +393,46 @@ REAL simpleRidgedMultifractal3(
 			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
 	for (uint c = 0; c < numoctaves - 1; ++c) {
 		REAL octave = simpleRidgedLayer3(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+
+REAL simpleRidgedMultifractal4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleRidgedLayer4(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleRidgedLayer4(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+
+REAL simpleRidgedMultifractal6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleRidgedLayer6(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleRidgedLayer6(v, basistype,
 				seed + 10 + c * 1000, interp,
 				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
 				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
@@ -242,4 +461,42 @@ REAL simpleBillow3(
 	return value;
 }
 
+REAL simpleBillow4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleBillowLayer4(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleBillowLayer4(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
+REAL simpleBillow6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot) {
+	REAL value = simpleBillowLayer6(
+			v,
+			basistype, seed + 10, interp,
+			1.0, 1.0 * frequency, rot,
+			rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+	for (uint c = 0; c < numoctaves - 1; ++c) {
+		REAL octave = simpleBillowLayer6(v, basistype,
+				seed + 10 + c * 1000, interp,
+				1.0 / pow(2.0, c), pow(2.0, c) * frequency,
+				rot, rnd(srnd) * M_PI * 2.0, rnd(srnd), rnd(srnd), rnd(srnd));
+		value = value + octave;
+	}
+	return value;
+}
 

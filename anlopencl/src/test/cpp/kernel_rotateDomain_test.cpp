@@ -62,6 +62,10 @@
 using ::testing::TestWithParam;
 using ::testing::Values;
 
+// ####################################
+// kernel_rotateDomain3
+// ####################################
+
 struct kernel_rotateDomain3_data {
 	size_t count;
 	REAL angle;
@@ -74,7 +78,6 @@ struct kernel_rotateDomain3_data {
 class kernel_rotateDomain3_param: public ::testing::TestWithParam<kernel_rotateDomain3_data> {
 protected:
 	std::vector<vector3> data;
-
 	virtual void SetUp() {
 		auto t = GetParam();
 		data = std::vector<vector3>(t.count);
@@ -89,16 +92,13 @@ protected:
 		}
 		printf("##\n");
 	}
-
-	virtual void TearDown() {
-	}
 };
 
 TEST_P(kernel_rotateDomain3_param, rotateDomain3) {
 	auto t = GetParam();
 	auto after = std::vector<vector3>(t.count);
 	for (int i = 0; i < t.count; ++i) {
-		after.push_back(rotateDomain3(data.data()[i], t.angle, t.ax, t.ay, t.az));
+		after[i] = rotateDomain3(data.data()[i], t.angle, t.ax, t.ay, t.az);
 	}
 	printf("After data:\n");
 	for (int i = 0; i < after.size(); ++i) {
@@ -126,6 +126,75 @@ INSTANTIATE_TEST_SUITE_P(kernel_rotateDomain3_test, kernel_rotateDomain3_param,
 						(vector3){ 0.000000, -0.000796, -1.000000 },
 						(vector3){ -1.000000, 0.000000, 0.000000 },
 						(vector3){ 0, 0, 0 }
+					}
+				} //
+));
+
+// ####################################
+// kernel_rotateDomain4
+// ####################################
+
+struct kernel_rotateDomain4_data {
+	size_t count;
+	REAL angle;
+	REAL ax;
+	REAL ay;
+	REAL az;
+	std::vector<vector4> expected;
+};
+
+class kernel_rotateDomain4_param: public ::testing::TestWithParam<kernel_rotateDomain4_data> {
+protected:
+	std::vector<vector4> data;
+	virtual void SetUp() {
+		auto t = GetParam();
+		data = std::vector<vector4>(t.count);
+		// -0.681690/-1.000000/-1.000000/99.000000
+		// -1.318310/-1.000000/-1.000000/99.000000
+		// -0.681690/-1.000000/0.000000/99.000000
+		// -1.318310/-1.000000/0.000000/99.000000
+		map2D(data.data(), calc_seamless_x, create_ranges_default(), t.count / 2, t.count / 2, 99);
+		printf("Before data:\n");
+		for (int i = 0; i < t.count; ++i) {
+			printf("%f/%f/%f/%f\n", data[i].x, data[i].y, data[i].z, data[i].w);
+		}
+		printf("##\n");
+	}
+};
+
+TEST_P(kernel_rotateDomain4_param, rotateDomain4) {
+	auto t = GetParam();
+	auto after = std::vector<vector4>(t.count);
+	for (int i = 0; i < t.count; ++i) {
+		after[i] = rotateDomain4(data.data()[i], t.angle, t.ax, t.ay, t.az);
+	}
+	printf("After data:\n");
+	for (int i = 0; i < after.size(); ++i) {
+		printf("%f/%f/%f\n", after[i].x, after[i].y, after[i].z);
+	}
+	printf("##\n");
+	for (int i = 0; i < after.size(); ++i) {
+		ASSERT_NEAR(after[i].x, t.expected[i].x, 0.00001);
+		ASSERT_NEAR(after[i].y, t.expected[i].y, 0.00001);
+		ASSERT_NEAR(after[i].z, t.expected[i].z, 0.00001);
+		ASSERT_NEAR(after[i].w, t.expected[i].w, 0.00001);
+	}
+}
+
+INSTANTIATE_TEST_SUITE_P(kernel_rotateDomain4_test, kernel_rotateDomain4_param,
+		Values(
+				kernel_rotateDomain4_data { 4, 0, 1, 0, 0, {
+						(vector4){ -1, -1, 0, 99 },
+						(vector4){ 0, -1, 0, 99 },
+						(vector4){ -1, 0, 0, 99 },
+						(vector4){ 0, 0, 0, 99 }
+					} //
+				}, //
+				kernel_rotateDomain4_data { 4, 1.57, 1, 0, 0, {
+						(vector4){ -1, -0.000796, -1, 99 },
+						(vector4){ 0.000000, -0.000796, -1.000000, 99 },
+						(vector4){ -1.000000, 0.000000, 0.000000, 99 },
+						(vector4){ 0, 0, 0, 99 }
 					}
 				} //
 ));
