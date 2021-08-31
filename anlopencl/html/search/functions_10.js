@@ -1,3 +1,48 @@
+/*
+ * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Released as open-source under the Apache License, Version 2.0.
+ *
+ * ****************************************************************************
+ * ANL-OpenCL :: Core
+ * ****************************************************************************
+ *
+ * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ****************************************************************************
+ * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * http://accidentalnoise.sourceforge.net/index.html
+ * ****************************************************************************
+ *
+ * Copyright (C) 2011 Joshua Tippetts
+ *
+ *   This software is provided 'as-is', without any express or implied
+ *   warranty.  In no event will the authors be held liable for any damages
+ *   arising from the use of this software.
+ *
+ *   Permission is granted to anyone to use this software for any purpose,
+ *   including commercial applications, and to alter it and redistribute it
+ *   freely, subject to the following restrictions:
+ *
+ *   1. The origin of this software must not be misrepresented; you must not
+ *      claim that you wrote the original software. If you use this software
+ *      in a product, an acknowledgment in the product documentation would be
+ *      appreciated but is not required.
+ *   2. Altered source versions must be plainly marked as such, and must not be
+ *      misrepresented as being the original software.
+ *   3. This notice may not be removed or altered from any source distribution.
+ */
 var searchData=
 [
   ['teardown_777',['TearDown',['../classimaging__scaleToRange__param.html#abd22970cfcfe4c5dfa1d9ede938dc5b3',1,'imaging_scaleToRange_param::TearDown()'],['../classkernel__rotateDomain3__param.html#a2adf56c27d44034e1f1ea2685c61eb61',1,'kernel_rotateDomain3_param::TearDown()'],['../classkernel__simplefBm__param.html#a4d8a4aa39eca2bd6f754e344358be4ed',1,'kernel_simplefBm_param::TearDown()'],['../classrandom__kiss09__param.html#a4a3bf729981a540e4ac80d2d23a43c3a',1,'random_kiss09_param::TearDown()'],['../classmap2D__3__params.html#a06c44814e824727ef3e00d083c69c68d',1,'map2D_3_params::TearDown()'],['../classmap2D__4__params.html#a765cd37caa8201af85b2c89e63eab809',1,'map2D_4_params::TearDown()'],['../classmap2D__8__params.html#a8440b7638177eeec68b42bea368ddca4',1,'map2D_8_params::TearDown()'],['../classimaging__scaleToRange__param.html#abd22970cfcfe4c5dfa1d9ede938dc5b3',1,'imaging_scaleToRange_param::TearDown()'],['../classkernel__rotateDomain3__param.html#a2adf56c27d44034e1f1ea2685c61eb61',1,'kernel_rotateDomain3_param::TearDown()'],['../classOpenCL__Context__Fixture.html#a4ee63db291ba5d9085c87477b3c724cd',1,'OpenCL_Context_Fixture::TearDown()']]],
