@@ -105,7 +105,7 @@ TEST_P(opencl_simpleRidgedLayer_fixture, show_image) {
 TEST_P(opencl_simpleRidgedLayer_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
-	ss << t.kernel << ".png";
+	ss << "out/simpleRidgedLayer3/" << t.kernel << ".png";
 	saveImageScaleToRange(ss.str(), output, CV_32F);
 }
 

@@ -98,6 +98,7 @@ void Abstract_OpenCL_Context_Fixture::SetUpTestSuite() {
 	outputDeviceInfo(logger);
 	EXPECT_TRUE(context.loadPlatform()) << "Unable to load platform";
 	lib = context.createLibrary();
+	context.loadInputHeaders();
 }
 
 void Abstract_OpenCL_Context_Fixture::SetUp() {

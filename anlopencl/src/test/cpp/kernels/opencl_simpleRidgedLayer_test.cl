@@ -44,6 +44,9 @@
 //   3. This notice may not be removed or altered from any source distribution.
 //
 
+#include <noise_gen.h>
+#include <kernel.h>
+
 kernel void main(
 global float *output,
 const float sizeWidth,
@@ -56,6 +59,6 @@ local float3 *coord
 		map2D(coord, calc_seamless_none, create_ranges_default(), sizeWidth, sizeHeight, z);
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-	
+
 	output[id] = value_noise3D(coord[id], 200, noInterp);
 }

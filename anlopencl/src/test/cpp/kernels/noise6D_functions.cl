@@ -44,6 +44,9 @@
 //   3. This notice may not be removed or altered from any source distribution.
 //
 
+#include <noise_gen.h>
+#include <kernel.h>
+
 kernel void value_noise6D_noInterp(
 global float8 *input,
 global float *output
