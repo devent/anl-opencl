@@ -61,7 +61,7 @@
 #include "imaging.h"
 #endif // USE_OPENCL
 
-#define PI2 (2.0*M_PI)
+#define PI2 (2.0*3.141592)
 
 struct SMappingRanges create_ranges_default() {
 	struct SMappingRanges r;
