@@ -129,6 +129,14 @@ REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c) {
 	return a * arr[0] + b * arr[1] + c * arr[2];
 }
 
+REAL array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d) {
+	return a * arr[0] + b * arr[1] + c * arr[2] + d * arr[3];
+}
+
+REAL array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f) {
+	return a * arr[0] + b * arr[1] + c * arr[2] + d * arr[3] + e * arr[4] + f * arr[5];
+}
+
 REAL bias(REAL b, REAL t) {
 	return pow(t, log(b) / log((REAL)0.5));
 }

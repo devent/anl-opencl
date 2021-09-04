@@ -149,10 +149,66 @@ REAL white_noise6D(vector8 v, uint seed, interp_func interp);
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
  */
-
 REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions. <b>In my tests the output have gray lines artifacts.</b>
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
+REAL new_simplex_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise6D(vector8 v, uint seed, interp_func interp);
 
 #ifdef __cplusplus
