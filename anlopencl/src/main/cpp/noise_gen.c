@@ -842,14 +842,14 @@ typedef struct SVectorOrdering {
 	int axis;
 } SVectorOrdering;
 
-int vectorOrderingCompare(const void *a, const void *b, void* arg) {
+int vectorOrderingCompare(const void *a, const void *b) {
 	SVectorOrdering v1 = *((SVectorOrdering*) a);
 	SVectorOrdering v2 = *((SVectorOrdering*) b);
 	if (v1.val == v2.val)
 		return 0;
 	if (v1.val > v2.val)
-		return 1;
-	return -1;
+		return -1;
+	return 1;
 }
 
 void sortBy_4(REAL *l1, int *l2) {
@@ -859,6 +859,10 @@ void sortBy_4(REAL *l1, int *l2) {
 		a[c].axis = l2[c];
 	}
 	sort(&a[0], 4, sizeof(SVectorOrdering), vectorOrderingCompare);
+	for (int c = 0; c < 4; ++c) {
+		a[c].val = l1[c];
+		a[c].axis = l2[c];
+	}
 	for (int c = 0; c < 4; ++c)
 		l2[c] = a[c].axis;
 }
@@ -874,30 +878,39 @@ void sortBy_6(REAL *l1, int *l2) {
 		l2[c] = a[c].axis;
 }
 
+// f = ((self.d + 1) ** .5 - 1) / self.d
+// double F4 = (sqrt(5.0) - 1.0) / 4.0;
+#define simplex_noise4D_F4 (0.30901699437494745)
+
+// g=self.f/(1+self.d*self.f)
+// double G4 = F4 / (1.0 + 4.0 * F4);
+#define simplex_noise4D_G4 (0.13819660112501053)
+
+// double sideLength = 2.0 / (4.0 * F4 + 1.0);
+#define simplex_noise4D_sideLength (0.89442719099991586)
+
+// double a = sqrt((sideLength * sideLength) - ((sideLength / 2.0) * (sideLength / 2.0)));
+#define simplex_noise4D_a (0.7745966692414834)
+
+// double cornerToFace = sqrt((a * a + (a / 2.0) * (a / 2.0)));
+#define simplex_noise4D_cornerToFace (0.86602540378443871)
+
+// double cornerToFaceSquared = cornerToFace * cornerToFace;
+#define simplex_noise4D_cornerToFaceSquared (0.75000000000000011)
+
+// double valueScaler = pow(3.0, -0.5);
+static REAL simplex_noise4D_valueScaler = 0.57735026918962573;
+
 REAL simplex_noise4D(vector4 v, uint seed, interp_func interp) {
-	// f = ((self.d + 1) ** .5 - 1) / self.d
-	REAL F4 = (sqrt(5.0) - 1.0) / 4.0;
-
-	// g=self.f/(1+self.d*self.f)
-	REAL G4 = F4 / (1.0 + 4.0 * F4);
-
-	REAL sideLength = 2.0 / (4.0 * F4 + 1.0);
-	REAL a = sqrt(
-			(sideLength * sideLength)
-					- ((sideLength / 2.0) * (sideLength / 2.0)));
-	REAL cornerToFace = sqrt((a * a + (a / 2.0) * (a / 2.0)));
-	REAL cornerToFaceSquared = cornerToFace * cornerToFace;
-
-	REAL valueScaler = pow(3.0, -0.5);
 	// Rough estimated/expirmentally determined function
 	// for scaling output to be -1 to 1
-	valueScaler *= pow(3.0, -3.5) * 100.0 + 13.0;
+	simplex_noise4D_valueScaler *= pow(3.0, -3.5) * 100.0 + 13.0;
 
 	REAL loc[4] = { v.x, v.y, v.z, v.w };
 	REAL s = 0;
 	for (int c = 0; c < 4; ++c)
 		s += loc[c];
-	s *= F4;
+	s *= simplex_noise4D_F4;
 
 	int skewLoc[4] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(v.z + s),
 			fast_floor(v.w + s) };
@@ -906,7 +919,7 @@ REAL simplex_noise4D(vector4 v, uint seed, interp_func interp) {
 	REAL unskew = 0.0;
 	for (int c = 0; c < 4; ++c)
 		unskew += skewLoc[c];
-	unskew *= G4;
+	unskew *= simplex_noise4D_G4;
 	REAL cellDist[4] = { loc[0] - (REAL) skewLoc[0] + unskew, loc[1]
 			- (REAL) skewLoc[1] + unskew, loc[2] - (REAL) skewLoc[2] + unskew,
 			loc[3] - (REAL) skewLoc[3] + unskew };
@@ -929,7 +942,7 @@ REAL simplex_noise4D(vector4 v, uint seed, interp_func interp) {
 			u[d] = cellDist[d] - (intLoc[d] - skewLoc[d]) + skewOffset;
 		}
 
-		REAL t = cornerToFaceSquared;
+		REAL t = simplex_noise4D_cornerToFaceSquared;
 
 		for (int d = 0; d < 4; ++d) {
 			t -= u[d] * u[d];
@@ -946,16 +959,15 @@ REAL simplex_noise4D(vector4 v, uint seed, interp_func interp) {
 
 			n += gr * t * t * t * t;
 		}
-		skewOffset += G4;
+		skewOffset += simplex_noise4D_G4;
 	}
-	n *= valueScaler;
+	n *= simplex_noise4D_valueScaler;
 	return n;
 }
 
 REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
 	// Skew
 	//self.f = ((self.d + 1) ** .5 - 1) / self.d
-
 	REAL F4 = (sqrt(7.0) - 1.0) / 6.0; //(sqrt(5.0)-1.0)/4.0;
 
 	// Unskew

@@ -8,7 +8,7 @@ CPP_SRCS += \
 ../src/test/cpp/OpenCLTestFixture.cpp \
 ../src/test/cpp/anlopencl_core_test.cpp \
 ../src/test/cpp/imaging_map_test.cpp \
-../src/test/cpp/map_functions_bench.cpp \
+../src/test/cpp/noise_functions_test.cpp \
 ../src/test/cpp/opencl_noise4D_functions_test.cpp 
 
 BCS += \
@@ -16,7 +16,7 @@ BCS += \
 ./src/test/cpp/OpenCLTestFixture.bc \
 ./src/test/cpp/anlopencl_core_test.bc \
 ./src/test/cpp/imaging_map_test.bc \
-./src/test/cpp/map_functions_bench.bc \
+./src/test/cpp/noise_functions_test.bc \
 ./src/test/cpp/opencl_noise4D_functions_test.bc 
 
 CPP_DEPS += \
@@ -24,7 +24,7 @@ CPP_DEPS += \
 ./src/test/cpp/OpenCLTestFixture.d \
 ./src/test/cpp/anlopencl_core_test.d \
 ./src/test/cpp/imaging_map_test.d \
-./src/test/cpp/map_functions_bench.d \
+./src/test/cpp/noise_functions_test.d \
 ./src/test/cpp/opencl_noise4D_functions_test.d 
 
 
