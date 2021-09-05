@@ -60,6 +60,17 @@
 using ::testing::TestWithParam;
 using ::testing::Values;
 
+void outputData2(std::vector<vector2> out) {
+	std::stringstream ss;
+	ss.precision(5);
+	ss << "out data:\n";
+	for (int i = 0; i < out.size(); ++i) {
+		ss << out[i].x << "/" << out[i].y << "\n";
+	}
+	ss << "######\n";
+	std::cout << ss.str();
+}
+
 struct map2D_data {
 	calc_seamless calc_seamless;
 	struct SMappingRanges ranges;
@@ -77,12 +88,6 @@ struct map2D_2_data {
 	std::vector<vector2> expected;
 };
 
-/*
- * ###
- * imaging_map_no_z_test-map2D_2_no_z_params
- * ###
- */
-
 class map2D_2_no_z_params: public ::testing::TestWithParam<map2D_2_data> {
 protected:
 	std::vector<vector2> out;
@@ -92,7 +97,14 @@ protected:
 	}
 };
 
-TEST_P(map2D_2_no_z_params, no_z_seamless_none) {
+/**
+ * imaging_map_no_z_test-map2D_2_no_z_params-no_z
+ * <ul>
+ * <li>map2DNoZ
+ * <li>float2
+ * </ul>
+ */
+TEST_P(map2D_2_no_z_params, no_z) {
 	auto t = GetParam();
 	map2DNoZ(out.data(), t.calc_seamless, t.ranges, t.width, t.height);
 	for (int i = 0; i < out.size(); ++i) {
@@ -102,15 +114,33 @@ TEST_P(map2D_2_no_z_params, no_z_seamless_none) {
 	}
 }
 
+/**
+ * imaging_map_no_z_test-map2D_2_no_z_params
+ * <ul>
+ * <li>map2DNoZ
+ * <li>float2
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(imaging_map_no_z_test, map2D_2_no_z_params,
 		Values(
-				map2D_2_data { calc_seamless_no_z_none, create_ranges_default(), 2, 2, 0, {
-						(vector2){-1.000000,-1.000000},
-						(vector2){0.000000,-1.000000},
-						(vector2){-1.000000,0.000000},
-						(vector2){0.000000,0.000000}
-				} } //
-				));
+map2D_2_data { calc_seamless_no_z_none, create_ranges_default(), 2, 2, 0, {
+(vector2){-1.000000,-1.000000},
+(vector2){0.000000,-1.000000},
+(vector2){-1.000000,0.000000},
+(vector2){0.000000,0.000000}
+} } //
+));
+
+void outputData3(std::vector<vector3> out) {
+	std::stringstream ss;
+	ss.precision(5);
+	ss << "out data:\n";
+	for (int i = 0; i < out.size(); ++i) {
+		ss << out[i].x << "/" << out[i].y << "/" << out[i].z << "\n";
+	}
+	ss << "######\n";
+	std::cout << ss.str();
+}
 
 struct map2D_3_data {
 	calc_seamless calc_seamless;
@@ -121,12 +151,6 @@ struct map2D_3_data {
 	std::vector<vector3> expected;
 };
 
-/*
- * ###
- * imaging_map_test-map2D_3_params
- * ###
- */
-
 class map2D_3_params: public ::testing::TestWithParam<map2D_3_data> {
 protected:
 	std::vector<vector3> out;
@@ -136,32 +160,59 @@ protected:
 	}
 };
 
-TEST_P(map2D_3_params, seamless_none) {
+/**
+ * imaging_map_test-map2D_3_params-z
+ * <ul>
+ * <li>map2D
+ * <li>float3
+ * </ul>
+ */
+TEST_P(map2D_3_params, z) {
 	auto t = GetParam();
 	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
+	EXPECT_EQ(out.size(), t.expected.size());
+	outputData3(out);
 	for (int i = 0; i < out.size(); ++i) {
 		EXPECT_NEAR(out[i].x, t.expected[i].x, 0.00001);
 		EXPECT_NEAR(out[i].y, t.expected[i].y, 0.00001);
 		EXPECT_NEAR(out[i].z, t.expected[i].z, 0.00001);
-		printf("%f/%f/%f\n", out[i].x, out[i].y, out[i].z);
 	}
 }
 
+/**
+ * imaging_map_test-map2D_3_params
+ * <ul>
+ * <li>map2D
+ * <li>float3
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(imaging_map_test, map2D_3_params,
 		Values(
-				map2D_3_data { calc_seamless_none, create_ranges_default(), 2, 2, 99, {
-						(vector3){-1.000000,-1.000000,99.00000},
-						(vector3){0.000000,-1.000000,99.00000},
-						(vector3){-1.000000,0.000000,99.00000},
-						(vector3){0.000000,0.000000,99.00000}
-				} } //
-				));
-
-/*
- * ###
- * imaging_map_no_z_test-map2D_no_z_3_params
- * ###
- */
+map2D_3_data { calc_seamless_none, create_ranges_default(), 2, 2, 99, {
+(vector3){-1.000000,-1.000000,99.00000},
+(vector3){0.000000,-1.000000,99.00000},
+(vector3){-1.000000,0.000000,99.00000},
+(vector3){0.000000,0.000000,99.00000}
+} }, //
+map2D_3_data { calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), 4, 4, 99, {
+(vector3){-10.00000,-10.00000,99.00000},
+(vector3){-5.00000,-10.00000,99.00000},
+(vector3){0.00000,-10.00000,99.00000},
+(vector3){5.00000,-10.00000,99.00000},
+(vector3){-10.00000,-5.00000,99.00000},
+(vector3){-5.00000,-5.00000,99.00000},
+(vector3){0.00000,-5.00000,99.00000},
+(vector3){5.00000,-5.00000,99.00000},
+(vector3){-10.00000,0.00000,99.00000},
+(vector3){-5.00000,0.00000,99.00000},
+(vector3){0.00000,0.00000,99.00000},
+(vector3){5.00000,0.00000,99.00000},
+(vector3){-10.00000,5.00000,99.00000},
+(vector3){-5.00000,5.00000,99.00000},
+(vector3){0.00000,5.00000,99.00000},
+(vector3){5.00000,5.00000,99.00000}
+} } //
+));
 
 class map2D_no_z_3_params: public ::testing::TestWithParam<map2D_3_data> {
 protected:
@@ -172,7 +223,14 @@ protected:
 	}
 };
 
-TEST_P(map2D_no_z_3_params, calc_seamless_no_z) {
+/**
+ * imaging_map_no_z_test-map2D_no_z_3_params-no_z
+ * <ul>
+ * <li>map2DNoZ
+ * <li>float3
+ * </ul>
+ */
+TEST_P(map2D_no_z_3_params, no_z) {
 	auto t = GetParam();
 	map2DNoZ(out.data(), t.calc_seamless, t.ranges, t.width, t.height);
 	for (int i = 0; i < out.size(); ++i) {
@@ -185,17 +243,44 @@ TEST_P(map2D_no_z_3_params, calc_seamless_no_z) {
 	}
 }
 
+/**
+ * imaging_map_no_z_test-map2D_no_z_3_params
+ * <ul>
+ * <li>map2DNoZ
+ * <li>float3
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(imaging_map_no_z_test, map2D_no_z_3_params,
 		Values(
-				map2D_3_data { calc_seamless_no_z_x, create_ranges_default(), 2, 2, 99, {
-						(vector3){-0.681690,-1.000000,-1.000000},
-						(vector3){-1.318310,-1.000000,-1.000000},
-						(vector3){-0.681690,-1.000000,0.000000},
-						(vector3){-1.318310,-1.000000,0.000000}
-				} } //
+map2D_3_data { calc_seamless_no_z_x, create_ranges_default(), 2, 2, 99, {
+(vector3){-0.681690,-1.000000,-1.000000},
+(vector3){-1.318310,-1.000000,-1.000000},
+(vector3){-0.681690,-1.000000,0.000000},
+(vector3){-1.318310,-1.000000,0.000000}
+} } //
 ));
 
-class map2D_4_params: public ::testing::TestWithParam<map2D_data> {
+void outputData4(std::vector<vector4> out) {
+	std::stringstream ss;
+	ss.precision(6);
+	ss << "out data:\n";
+	for (int i = 0; i < out.size(); ++i) {
+		ss << out[i].x << "/" << out[i].y << "/" << out[i].z << "/" << out[i].w << "\n";
+	}
+	ss << "######\n";
+	std::cout << ss.str();
+}
+
+struct map2D_4_data {
+	calc_seamless calc_seamless;
+	struct SMappingRanges ranges;
+	size_t width;
+	size_t height;
+	REAL z;
+	std::vector<vector4> expected;
+};
+
+class map2D_4_params: public ::testing::TestWithParam<map2D_4_data> {
 protected:
 	std::vector<vector4> out;
 	virtual void SetUp() {
@@ -204,21 +289,71 @@ protected:
 	}
 };
 
-TEST_P(map2D_4_params, seamless_none) {
+/**
+ * imaging_map_test-map2D_4_params-z
+ * <ul>
+ * <li>map2D
+ * <li>float4
+ * </ul>
+ */
+TEST_P(map2D_4_params, z) {
 	auto t = GetParam();
 	map2D(out.data(), t.calc_seamless, t.ranges, t.width, t.height, t.z);
+	outputData4(out);
 	for (int i = 0; i < out.size(); ++i) {
-		printf("%f/%f/%f/%f\n", out[i].x, out[i].y, out[i].z, out[i].w);
+		EXPECT_NEAR(out[i].x, t.expected[i].x, 0.00001);
+		EXPECT_NEAR(out[i].y, t.expected[i].y, 0.00001);
+		EXPECT_NEAR(out[i].z, t.expected[i].z, 0.00001);
+		EXPECT_NEAR(out[i].w, t.expected[i].w, 0.00001);
 	}
 }
 
-INSTANTIATE_TEST_SUITE_P(imaging_map_test, map2D_4_params, Values(map2D_data {
-		calc_seamless_x, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_y, create_ranges_default(), 2, 2, 99 }, //
-		//
-		map2D_data { calc_seamless_z, create_ranges_default(), 2, 2, 99 } //
-		));
+/**
+ * imaging_map_test-map2D_4_params
+ * <ul>
+ * <li>map2D
+ * <li>float4
+ * </ul>
+ */
+INSTANTIATE_TEST_SUITE_P(imaging_map_test, map2D_4_params, Values(
+map2D_4_data { calc_seamless_x, create_ranges_default(), 2, 2, 99, {
+(vector4){-0.68169,-1.00000,-1.00000,99.00000},
+(vector4){-1.31831,-1.00000,-1.00000,99.00000},
+(vector4){-0.68169,-1.00000,0.00000,99.00000},
+(vector4){-1.31831,-1.00000,0.00000,99.00000}
+} }, //
+map2D_4_data { calc_seamless_y, create_ranges_default(), 2, 2, 99, {
+(vector4){-1.00000,-0.68169,-1.00000,99.00000},
+(vector4){0.00000,-0.68169,-1.00000,99.00000},
+(vector4){-1.00000,-1.31831,-1.00000,99.00000},
+(vector4){0.00000,-1.31831,-1.00000,99.00000}
+} }, //
+//
+map2D_4_data { calc_seamless_z, create_ranges_default(), 2, 2, 99, {
+(vector4){-1.000000,-1.000000,-0.681690,-1.000021},
+(vector4){0.000000,0.000000,-0.681690,-1.000021},
+(vector4){-1.000000,-1.000000,-0.681690,-1.000021},
+(vector4){0.000000,0.000000,-0.681690,-1.000021}
+} }, //
+map2D_4_data { calc_seamless_z, create_ranges_default(), 4, 4, 99, {
+(vector4){-1,-1,-0.68169,-1.000021},
+(vector4){-0.5,-0.5,-0.68169,-1.000021},
+(vector4){0,0,-0.68169,-1.000021},
+(vector4){0.5,0.5,-0.68169,-1.000021},
+(vector4){-1,-1,-0.68169,-1.000021},
+(vector4){-0.5,-0.5,-0.68169,-1.000021},
+(vector4){0,0,-0.68169,-1.000021},
+(vector4){0.5,0.5,-0.68169,-1.000021},
+(vector4){-1,-1,-0.68169,-1.000021},
+(vector4){-0.5,-0.5,-0.68169,-1.000021},
+(vector4){0,0,-0.68169,-1.000021},
+(vector4){0.5,0.5,-0.68169,-1.000021},
+(vector4){-1,-1,-0.68169,-1.000021},
+(vector4){-0.5,-0.5,-0.68169,-1.000021},
+(vector4){0,0,-0.68169,-1.000021},
+(vector4){0.5,0.5,-0.68169,-1.000021}
+} } //
+));
 
 class map2D_8_params: public ::testing::TestWithParam<map2D_data> {
 protected:

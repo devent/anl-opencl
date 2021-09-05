@@ -73,8 +73,7 @@ std::string mat_to_s(cv::Mat & m) {
 std::shared_ptr<spdlog::logger> Abstract_OpenCL_Context_Fixture::logger = []() -> std::shared_ptr<spdlog::logger> {
 	logger = spdlog::stderr_color_mt("OpenCL_Context_Fixture", spdlog::color_mode::automatic);
 	logger->set_level(spdlog::level::trace);
-	logger->flush_on(spdlog::level::debug);
-	logger->flush_on(spdlog::level::err);
+	logger->flush_on(spdlog::level::trace);
 	return logger;
 }();
 
@@ -106,6 +105,7 @@ void Abstract_OpenCL_Context_Fixture::SetUp() {
 	auto kernel = context.createKernel(lib, t.source);
 	size_t numElements;
 	try {
+		logger->debug("Run kernel {}", t.kernel);
 		numElements = runKernel(kernel);
 	} catch (const cl::Error &ex) {
 		logger->error("Run kernel error {}: {}", ex.err(), ex.what());

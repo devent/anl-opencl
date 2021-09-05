@@ -78,7 +78,7 @@ protected:
 		input = createVector<float>(t.imageSize * dim_float4);
 		map2D(input->data(), calc_seamless_x,
 				create_ranges_map2D(-10, 10, -10, 10),
-				t.imageWidth, t.imageHeight, 10);
+				t.imageWidth, t.imageHeight, 0);
 		inputBuffer = createBufferPtr(input);
 		output = createVector<float>(t.imageSize);
 		outputBuffer = createBufferPtr(output);

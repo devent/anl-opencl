@@ -71,11 +71,35 @@ struct Func2D {
 class noise_func2_params: public ::testing::TestWithParam<Func2D> {
 };
 
-TEST_P(noise_func2_params, value_noise2D) {
+/**
+ * noise_gen_noise2D_test-noise_func2_params-noise2D
+ * <ul>
+ * <li>Func2D
+ * <li>float2
+ * <li>value_noise2D
+ * <li>gradient_noise2D
+ * <li>gradval_noise2D
+ * <li>white_noise2D
+ * <li>simplex_noise2D
+ * </ul>
+ */
+TEST_P(noise_func2_params, noise2D) {
 	auto t = GetParam();
 	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
 }
 
+/**
+ * noise_gen_noise2D_test-noise_func2_params
+ * <ul>
+ * <li>Func2D
+ * <li>float2
+ * <li>value_noise2D
+ * <li>gradient_noise2D
+ * <li>gradval_noise2D
+ * <li>white_noise2D
+ * <li>simplex_noise2D
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise2D_test, noise_func2_params, Values( //
 		Func2D { (vector2){ -1.0, -1.0 }, 200, value_noise2D, noInterp, -0.27843 }, //
 		Func2D { (vector2){ 0.0, 0.0 }, 200, value_noise2D, noInterp, 0.15294 }, //
@@ -110,11 +134,35 @@ struct Func3D {
 class noise_func3_params: public ::testing::TestWithParam<Func3D> {
 };
 
-TEST_P(noise_func3_params, value_noise3D) {
+/**
+ * noise_gen_noise3D_test-noise_func3_params-noise3D
+ * <ul>
+ * <li>Func3D
+ * <li>float3
+ * <li>value_noise3D
+ * <li>gradient_noise3D
+ * <li>gradval_noise3D
+ * <li>white_noise3D
+ * <li>simplex_noise3D
+ * </ul>
+ */
+TEST_P(noise_func3_params, noise3D) {
 	auto t = GetParam();
 	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
 }
 
+/**
+ * noise_gen_noise3D_test-noise_func3_params
+ * <ul>
+ * <li>Func3D
+ * <li>float3
+ * <li>value_noise3D
+ * <li>gradient_noise3D
+ * <li>gradval_noise3D
+ * <li>white_noise3D
+ * <li>simplex_noise3D
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise3D_test, noise_func3_params, Values( //
 		Func3D { (vector3){ -1.0, -1.0, 0.0 }, 200, value_noise3D, noInterp, -0.82745 }, // 0
 		Func3D { (vector3){ -1.0, -0.5, 0.0 }, 200, value_noise3D, noInterp, 0.56078 }, //
@@ -161,13 +209,42 @@ struct Func4D {
 class noise_func4_params: public ::testing::TestWithParam<Func4D> {
 };
 
+/**
+ * noise_gen_noise4D_test-noise_func4_params-noise4D
+ * <ul>
+ * <li>Func4D
+ * <li>float4
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ */
 TEST_P(noise_func4_params, value_noise4D) {
 	auto t = GetParam();
 	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
 }
 
+/**
+ * noise_gen_noise4D_test-noise_func4_params
+ * <ul>
+ * <li>Func4D
+ * <li>float4
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise4D_test, noise_func4_params, Values( //
-		Func4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, value_noise4D, noInterp, 0.76471 } // 0
+Func4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, value_noise4D, noInterp, 0.76471 }, // 0
+//
+Func4D { (vector4){ -0.681690,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, 0.571490 }, // 1
+Func4D { (vector4){ -0.681690,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.835860 }, // 2
+Func4D { (vector4){ -1.318310,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.361193 }, // 3
+Func4D { (vector4){ -1.318310,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.572204 } // 4
 ));
 
 struct Func6D {
@@ -181,11 +258,40 @@ struct Func6D {
 class noise_func6_params: public ::testing::TestWithParam<Func6D> {
 };
 
+/**
+ * noise_gen_noise6D_test-noise_func6_params-noise6D
+ * <ul>
+ * <li>Func6D
+ * <li>float6
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ */
 TEST_P(noise_func6_params, value_noise6D) {
 	auto t = GetParam();
 	EXPECT_NEAR(t.noise_func(t.v, t.seed, t.interp), t.y, 0.00001);
 }
 
+/**
+ * noise_gen_noise6D_test-noise_func6_params
+ * <ul>
+ * <li>Func6D
+ * <li>float6
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ */
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise6D_test, noise_func6_params, Values( //
-		Func6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, value_noise6D, noInterp, 0.81961 } // 0
+Func6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, value_noise6D, noInterp, 0.81961 }, // 0
+//
+Func6D { (vector8){ -0.681690,-1.000000,-0.681690,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, 0.007967 }, // 1
+Func6D { (vector8){ -0.681690,-1.000000,-1.318310,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, 0.043427 }, // 2
+Func6D { (vector8){ -1.318310,-1.000000,-0.681690,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, -0.144565 }, // 3
+Func6D { (vector8){ -1.318310,-1.000000,-1.318310,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, -0.125572 } // 4
 ));

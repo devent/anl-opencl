@@ -176,4 +176,10 @@ var menudata={children:[
 {text:"k",url:"globals_defs.html#index_k"},
 {text:"p",url:"globals_defs.html#index_p"},
 {text:"r",url:"globals_defs.html#index_r"},
-{text:"s",url:"globals_defs.html#index_s"}]}]}]}]}
+{text:"s",url:"globals_defs.html#index_s"},
+{text:"u",url:"globals_defs.html#index_u"},
+{text:"v",url:"globals_defs.html#index_v"},
+{text:"w",url:"globals_defs.html#index_w"},
+{text:"x",url:"globals_defs.html#index_x"},
+{text:"y",url:"globals_defs.html#index_y"},
+{text:"z",url:"globals_defs.html#index_z"}]}]}]}]}

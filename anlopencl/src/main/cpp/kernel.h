@@ -63,17 +63,36 @@ extern "C" {
 #include "noise_gen.h"
 #endif // USE_OPENCL
 
+/**
+ * Function that returns a random number.
+ */
 typedef REAL (*random_func)(void*);
 
 /**
  * Rotates the source coordinates by the angle over the rotation axis.
+ * @param src the source vector3 (x,y,z).
+ * @return the rotated vector3 (x',y',z').
  */
 vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az);
 
 /**
+ * Rotates the source coordinates by the angle over the rotation axis.
+ * @param src the source vector4 (x,y,z,w).
+ * @return the rotated vector4 (x',y',z',w).
+ */
+vector4 rotateDomain4(vector4 src, REAL angle, REAL ax, REAL ay, REAL az);
+
+/**
+ * Rotates the source coordinates by the angle over the rotation axis.
+ * @param src the source vector8 (x,y,z,w,u,v).
+ * @return the rotated vector8 (x',y',z',w,u,v).
+ */
+vector8 rotateDomain6(vector8 src, REAL angle, REAL ax, REAL ay, REAL az);
+
+/**
  * Multiplies the source coordinates by the scale.
  */
-vector3 scaleDomain3(vector3 src, REAL scale);
+#define scaleDomain(v, scale) (v * scale)
 
 /**
  * Combines the RGBA values.
@@ -118,6 +137,68 @@ REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
 		REAL angle, REAL ax, REAL ay, REAL az);
 
 /**
+ * Returns simple fractal layer value for the coordinate.
+ * @param v the vector4 (x,y,z,w) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleFractalLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+/**
+ * Returns simple fractal layer value for the coordinate.
+ * @param v the vector8 (x,y,z,w,v,u) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleFractalLayer6(vector8 v, noise_func6 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+/**
  * Returns simple ridged layer value for the coordinate.
  * @param v the vector3 (x,y,z) coordinate.
  * @param basistype the noise_func3 basis noise generation function.
@@ -145,6 +226,69 @@ REAL simpleFractalLayer3(vector3 v, noise_func3 basistype,
  * @param az the rotation vector z component.
  */
 REAL simpleRidgedLayer3(vector3 v, noise_func3 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+
+/**
+ * Returns simple ridged layer value for the coordinate.
+ * @param v the vector4 (x,y,z) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleRidgedLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+/**
+ * Returns simple ridged layer value for the coordinate.
+ * @param v the vector8 (x,y,z,w,u,v) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleRidgedLayer6(vector8 v, noise_func6 basistype,
 		uint seed, interp_func interp,
 		REAL layerscale, REAL layerfreq, bool rot,
 		REAL angle, REAL ax, REAL ay, REAL az);
@@ -182,6 +326,70 @@ REAL simpleBillowLayer3(vector3 v, noise_func3 basistype,
 		REAL angle, REAL ax, REAL ay, REAL az);
 
 /**
+ * Returns simple billow layer value for the coordinate.
+ * @param v the vector4 (x,y,z,w) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleBillowLayer4(vector4 v, noise_func4 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+
+/**
+ * Returns simple billow layer value for the coordinate.
+ * @param v the vector8 (x,y,z,w,u,v) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param layerscale the scaling of the layer.
+ * @param layerfreq the frequency of the layer.
+ * @param rot set to true to rotate the layer by the angle and rotation axis.
+ * @param angle the rotation angle in radians.
+ * @param ax the rotation vector x component.
+ * @param ay the rotation vector y component.
+ * @param az the rotation vector z component.
+ */
+REAL simpleBillowLayer6(vector8 v, noise_func6 basistype,
+		uint seed, interp_func interp,
+		REAL layerscale, REAL layerfreq, bool rot,
+		REAL angle, REAL ax, REAL ay, REAL az);
+
+/**
  * Returns fractional brownian motion value for the coordinate.
  * @param v the vector3 (x,y,z) coordinate.
  * @param basistype the noise_func3 basis noise generation function.
@@ -209,6 +417,68 @@ REAL simpleBillowLayer3(vector3 v, noise_func3 basistype,
 REAL simplefBm3(
 		vector3 v,
 		noise_func3 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
+
+/**
+ * Returns fractional brownian motion value for the coordinate.
+ * @param v the vector4 (x,y,z,w) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simplefBm4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
+
+/**
+ * Returns fractional brownian motion value for the coordinate.
+ * @param v the vector8 (x,y,z,w,u,v) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simplefBm6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
 		random_func rnd, void *srnd,
 		uint numoctaves, REAL frequency, bool rot);
 
@@ -244,6 +514,68 @@ REAL simpleRidgedMultifractal3(
 		uint numoctaves, REAL frequency, bool rot);
 
 /**
+ * Returns ridged-multifractal noise value for the coordinate.
+ * @param v the vector4 (x,y,z,w) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simpleRidgedMultifractal4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
+
+/**
+ * Returns ridged-multifractal noise value for the coordinate.
+ * @param v the vector8 (x,y,z,w,u,v) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simpleRidgedMultifractal6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
+
+/**
  * Returns billow (cloud-like, lumpy) fractal value for the coordinate.
  * @param v the vector3 (x,y,z) coordinate.
  * @param basistype the noise_func3 basis noise generation function.
@@ -274,30 +606,80 @@ REAL simpleBillow3(
 		random_func rnd, void *srnd,
 		uint numoctaves, REAL frequency, bool rot);
 
-REAL x2(vector2 *coord);
-REAL y2(vector2 *coord);
+/**
+ * Returns billow (cloud-like, lumpy) fractal value for the coordinate.
+ * @param v the vector4 (x,y,z,w) coordinate.
+ * @param basistype the noise_func4 basis noise generation function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simpleBillow4(
+		vector4 v,
+		noise_func4 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
 
-REAL x3(vector3 *coord);
-REAL y3(vector3 *coord);
-REAL z3(vector3 *coord);
+/**
+ * Returns billow (cloud-like, lumpy) fractal value for the coordinate.
+ * @param v the vector8 (x,y,z,w,u,v) coordinate.
+ * @param basistype the noise_func6 basis noise generation function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ * @param seed the uint seed for the noise generation function.
+ * @param interp the interpolation function for the noise generation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ * @param numoctaves the number of octaves.
+ * @param frequency the frequency.
+ * @param rnd the random_func to return random values.
+ * @param srnd the random generator state.
+ * @param rot set to true to rotate the layers by a random value.
+ */
+REAL simpleBillow6(
+		vector8 v,
+		noise_func6 basistype, uint seed, interp_func interp,
+		random_func rnd, void *srnd,
+		uint numoctaves, REAL frequency, bool rot);
 
-REAL x4(vector4 *coord);
-REAL y4(vector4 *coord);
-REAL z4(vector4 *coord);
-REAL w4(vector4 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-
-REAL x8(vector8 *coord);
-REAL y8(vector8 *coord);
-REAL z8(vector8 *coord);
-REAL w8(vector8 *coord);
-REAL u8(vector8 *coord);
-REAL v8(vector8 *coord);
+/** Returns the x component of the vector **/
+#define x(v) (v.x)
+/** Returns the y component of the vector **/
+#define y(v) (v.y)
+/** Returns the z component of the vector **/
+#define z(v) (v.z)
+/** Returns the w component of the vector **/
+#define w(v) (v.w)
+/** Returns the u component of the vector **/
+#define u(v) (v.s4)
+/** Returns the v component of the vector **/
+#define v(v) (v.s5)
 
 #ifdef __cplusplus
 }

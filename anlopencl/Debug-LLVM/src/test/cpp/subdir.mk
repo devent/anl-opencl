@@ -16,20 +16,6 @@ CPP_SRCS += \
 ../src/test/cpp/kernel_simplefBm_test.cpp \
 ../src/test/cpp/map_functions_bench.cpp \
 ../src/test/cpp/noise_functions_test.cpp \
-../src/test/cpp/opencl_combineColor_test.cpp \
-../src/test/cpp/opencl_cpp_test.cpp \
-../src/test/cpp/opencl_heightmap_example_test.cpp \
-../src/test/cpp/opencl_map2D_test.cpp \
-../src/test/cpp/opencl_noise2D_functions_test.cpp \
-../src/test/cpp/opencl_noise3D_functions_test.cpp \
-../src/test/cpp/opencl_noise4D_functions_test.cpp \
-../src/test/cpp/opencl_noise6D_functions_test.cpp \
-../src/test/cpp/opencl_simpleBillowLayer_test.cpp \
-../src/test/cpp/opencl_simpleBillow_test.cpp \
-../src/test/cpp/opencl_simpleFractalLayer_test.cpp \
-../src/test/cpp/opencl_simpleRidgedLayer_test.cpp \
-../src/test/cpp/opencl_simpleRidgedMultifractal_test.cpp \
-../src/test/cpp/opencl_simplefBm_test.cpp \
 ../src/test/cpp/random_test.cpp 
 
 BCS += \
@@ -45,20 +31,6 @@ BCS += \
 ./src/test/cpp/kernel_simplefBm_test.bc \
 ./src/test/cpp/map_functions_bench.bc \
 ./src/test/cpp/noise_functions_test.bc \
-./src/test/cpp/opencl_combineColor_test.bc \
-./src/test/cpp/opencl_cpp_test.bc \
-./src/test/cpp/opencl_heightmap_example_test.bc \
-./src/test/cpp/opencl_map2D_test.bc \
-./src/test/cpp/opencl_noise2D_functions_test.bc \
-./src/test/cpp/opencl_noise3D_functions_test.bc \
-./src/test/cpp/opencl_noise4D_functions_test.bc \
-./src/test/cpp/opencl_noise6D_functions_test.bc \
-./src/test/cpp/opencl_simpleBillowLayer_test.bc \
-./src/test/cpp/opencl_simpleBillow_test.bc \
-./src/test/cpp/opencl_simpleFractalLayer_test.bc \
-./src/test/cpp/opencl_simpleRidgedLayer_test.bc \
-./src/test/cpp/opencl_simpleRidgedMultifractal_test.bc \
-./src/test/cpp/opencl_simplefBm_test.bc \
 ./src/test/cpp/random_test.bc 
 
 CPP_DEPS += \
@@ -74,20 +46,6 @@ CPP_DEPS += \
 ./src/test/cpp/kernel_simplefBm_test.d \
 ./src/test/cpp/map_functions_bench.d \
 ./src/test/cpp/noise_functions_test.d \
-./src/test/cpp/opencl_combineColor_test.d \
-./src/test/cpp/opencl_cpp_test.d \
-./src/test/cpp/opencl_heightmap_example_test.d \
-./src/test/cpp/opencl_map2D_test.d \
-./src/test/cpp/opencl_noise2D_functions_test.d \
-./src/test/cpp/opencl_noise3D_functions_test.d \
-./src/test/cpp/opencl_noise4D_functions_test.d \
-./src/test/cpp/opencl_noise6D_functions_test.d \
-./src/test/cpp/opencl_simpleBillowLayer_test.d \
-./src/test/cpp/opencl_simpleBillow_test.d \
-./src/test/cpp/opencl_simpleFractalLayer_test.d \
-./src/test/cpp/opencl_simpleRidgedLayer_test.d \
-./src/test/cpp/opencl_simpleRidgedMultifractal_test.d \
-./src/test/cpp/opencl_simplefBm_test.d \
 ./src/test/cpp/random_test.d 
 
 

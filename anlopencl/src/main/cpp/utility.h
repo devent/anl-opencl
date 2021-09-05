@@ -91,6 +91,8 @@ int8 fast_floor8(vector8 v);
 REAL array_dot(REAL *arr, REAL a, REAL b);
 REAL array_dot2(REAL *arr, REAL a, REAL b);
 REAL array_dot3(REAL *arr, REAL a, REAL b, REAL c);
+REAL array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d);
+REAL array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f);
 
 REAL bias(REAL b, REAL t);
 

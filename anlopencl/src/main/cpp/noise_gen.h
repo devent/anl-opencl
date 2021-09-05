@@ -62,59 +62,346 @@ extern "C" {
 #include "opencl_utils.h"
 #endif // USE_OPENCL
 
+/**
+ * The interpolation function.
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
+ */
 typedef REAL (*interp_func)(REAL);
 
+/**
+ * The 2D noise function.
+ * <ul>
+ * <li>value_noise2D
+ * <li>gradient_noise2D
+ * <li>gradval_noise2D
+ * <li>white_noise2D
+ * <li>simplex_noise2D
+ * </ul>
+ */
 typedef REAL (*noise_func2)(vector2, uint, interp_func);
+
+/**
+ * The 3D noise function.
+ * <ul>
+ * <li>value_noise3D
+ * <li>gradient_noise3D
+ * <li>gradval_noise3D
+ * <li>white_noise3D
+ * <li>simplex_noise3D
+ * </ul>
+ */
 typedef REAL (*noise_func3)(vector3, uint, interp_func);
+
+/**
+ * The 4D noise function.
+ * <ul>
+ * <li>value_noise4D
+ * <li>gradient_noise4D
+ * <li>gradval_noise4D
+ * <li>white_noise4D
+ * <li>simplex_noise4D
+ * </ul>
+ */
 typedef REAL (*noise_func4)(vector4, uint, interp_func);
+
+/**
+ * The 6D noise function.
+ * <ul>
+ * <li>value_noise6D
+ * <li>gradient_noise6D
+ * <li>gradval_noise6D
+ * <li>white_noise6D
+ * <li>simplex_noise6D
+ * </ul>
+ */
 typedef REAL (*noise_func6)(vector8, uint, interp_func);
 
+/**
+ * The 2D distance function.
+ * <ul>
+ * <li>distEuclid2
+ * <li>distManhattan2
+ * <li>distGreatestAxis2
+ * <li>distLeastAxis2
+ * </ul>
+ */
 typedef REAL (*dist_func2)(vector2, vector2);
+
+/**
+ * The 3D distance function.
+ * <ul>
+ * <li>distEuclid3
+ * <li>distManhattan3
+ * <li>distGreatestAxis3
+ * <li>distLeastAxis3
+ * </ul>
+ */
 typedef REAL (*dist_func3)(vector3, vector3);
+
+/**
+ * The 4D distance function.
+ * <ul>
+ * <li>distEuclid4
+ * <li>distManhattan4
+ * <li>distGreatestAxis4
+ * <li>distLeastAxis4
+ * </ul>
+ */
 typedef REAL (*dist_func4)(vector4, vector4);
+
+/**
+ * The 6D distance function.
+ * <ul>
+ * <li>distEuclid6
+ * <li>distManhattan6
+ * <li>distGreatestAxis6
+ * <li>distLeastAxis6
+ * </ul>
+ */
 typedef REAL (*dist_func6)(vector8, vector8);
 
-// Interpolation functions
+/**
+ * No interpolation, i.e. returns 0.
+ */
 REAL noInterp(REAL t);
+
+/**
+ * Linear interpolation, i.e. returns t.
+ */
 REAL linearInterp(REAL t);
+
+/**
+ * Hermite interpolation.
+ */
 REAL hermiteInterp(REAL t);
+
+/**
+ * Quintic interpolation.
+ */
 REAL quinticInterp(REAL t);
 
-// Distance functions
+/**
+ * Returns the Euclidean distance between two points.
+ * \f$d(a,b) = |a-b|\f$
+ */
 REAL distEuclid2(vector2 a, vector2 b);
+
+/**
+ * Returns the Euclidean distance between two points.
+ * \f$d(a,b) = |a-b|\f$
+ */
 REAL distEuclid3(vector3 a, vector3 b);
+
+/**
+ * Returns the Euclidean distance between two points.
+ * \f$d(a,b) = |a-b|\f$
+ */
 REAL distEuclid4(vector4 a, vector4 b);
+
+/**
+ * Returns the Euclidean distance between two points.
+ * \f$d(a,b) = |a-b|\f$
+ */
 REAL distEuclid6(vector8 a, vector8 b);
 
+/**
+ * Returns the Manhattan distance between two points.
+ *
+ * <blockquote>
+ * A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates.
+ * https://en.wikipedia.org/wiki/Taxicab_geometry
+ * </blockquote>
+ */
 REAL distManhattan2(vector2 a, vector2 b);
+
+/**
+ * Returns the Manhattan distance between two points.
+ *
+ * <blockquote>
+ * A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates.
+ * https://en.wikipedia.org/wiki/Taxicab_geometry
+ * </blockquote>
+ */
 REAL distManhattan3(vector3 a, vector3 b);
+
+/**
+ * Returns the Manhattan distance between two points.
+ *
+ * <blockquote>
+ * A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates.
+ * https://en.wikipedia.org/wiki/Taxicab_geometry
+ * </blockquote>
+ */
 REAL distManhattan4(vector4 a, vector4 b);
+
+/**
+ * Returns the Manhattan distance between two points.
+ *
+ * <blockquote>
+ * A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates.
+ * https://en.wikipedia.org/wiki/Taxicab_geometry
+ * </blockquote>
+ */
 REAL distManhattan6(vector8 a, vector8 b);
 
+/**
+ * Returns the distance between two points on the axis that have the greatest distance.
+ */
 REAL distGreatestAxis2(vector2 a, vector2 b);
+
+/**
+ * Returns the distance between two points on the axis that have the greatest distance.
+ */
 REAL distGreatestAxis3(vector3 a, vector3 b);
+
+/**
+ * Returns the distance between two points on the axis that have the greatest distance.
+ */
 REAL distGreatestAxis4(vector4 a, vector4 b);
+
+/**
+ * Returns the distance between two points on the axis that have the greatest distance.
+ */
 REAL distGreatestAxis6(vector8 a, vector8 b);
 
+/**
+ * Returns the distance between two points on the axis that have the least distance.
+ */
 REAL distLeastAxis2(vector2 a, vector2 b);
+
+/**
+ * Returns the distance between two points on the axis that have the least distance.
+ */
 REAL distLeastAxis3(vector3 a, vector3 b);
+
+/**
+ * Returns the distance between two points on the axis that have the least distance.
+ */
 REAL distLeastAxis4(vector4 a, vector4 b);
+
+/**
+ * Returns the distance between two points on the axis that have the least distance.
+ */
 REAL distLeastAxis6(vector8 a, vector8 b);
 
-// Noise generators
+/**
+ * Value noise functions.
+ *
+ * <blockquote>
+ * Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of the creation of a lattice of points which are assigned random values.
+ * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
+ * https://en.wikipedia.org/wiki/Value_noise
+ * </blockquote>
+ */
 REAL value_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * Value noise functions.
+ *
+ * <blockquote>
+ * Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of the creation of a lattice of points which are assigned random values.
+ * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
+ * https://en.wikipedia.org/wiki/Value_noise
+ * </blockquote>
+ */
 REAL value_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * Value noise functions.
+ *
+ * <blockquote>
+ * Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of the creation of a lattice of points which are assigned random values.
+ * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
+ * https://en.wikipedia.org/wiki/Value_noise
+ * </blockquote>
+ */
 REAL value_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Value noise functions.
+ *
+ * <blockquote>
+ * Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of the creation of a lattice of points which are assigned random values.
+ * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
+ * https://en.wikipedia.org/wiki/Value_noise
+ * </blockquote>
+ */
 REAL value_noise6D(vector8 v, uint seed, interp_func interp);
 
+/**
+ * Gradient noise functions.
+ *
+ * <blockquote>
+ * Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of a creation of a lattice of random (or typically pseudorandom) gradients,
+ * dot products of which are then interpolated to obtain values in between the lattices.
+ * An artifact of some implementations of this noise is that the returned value at the lattice points is 0.
+ * Unlike the value noise, gradient noise has more energy in the high frequencies.
+ * https://en.wikipedia.org/wiki/Gradient_noise
+ * </blockquote>
+ */
 REAL gradient_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * Gradient noise functions.
+ *
+ * <blockquote>
+ * Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of a creation of a lattice of random (or typically pseudorandom) gradients,
+ * dot products of which are then interpolated to obtain values in between the lattices.
+ * An artifact of some implementations of this noise is that the returned value at the lattice points is 0.
+ * Unlike the value noise, gradient noise has more energy in the high frequencies.
+ * https://en.wikipedia.org/wiki/Gradient_noise
+ * </blockquote>
+ */
 REAL gradient_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * Gradient noise functions.
+ *
+ * <blockquote>
+ * Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of a creation of a lattice of random (or typically pseudorandom) gradients,
+ * dot products of which are then interpolated to obtain values in between the lattices.
+ * An artifact of some implementations of this noise is that the returned value at the lattice points is 0.
+ * Unlike the value noise, gradient noise has more energy in the high frequencies.
+ * https://en.wikipedia.org/wiki/Gradient_noise
+ * </blockquote>
+ */
 REAL gradient_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Combined value and gradient noise functions.
+ */
 REAL gradient_noise6D(vector8 v, uint seed, interp_func interp);
 
+/**
+ * Combined value and gradient noise functions.
+ */
 REAL gradval_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * Combined value and gradient noise functions.
+ */
 REAL gradval_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * Combined value and gradient noise functions.
+ */
 REAL gradval_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Combined value and gradient noise functions.
+ */
 REAL gradval_noise6D(vector8 v, uint seed, interp_func interp);
 
 /**
@@ -130,10 +417,51 @@ REAL gradval_noise6D(vector8 v, uint seed, interp_func interp);
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
  */
-
 REAL white_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * White noise functions.
+ *
+ * <blockquote>
+ * In signal processing, white noise is a random signal having equal
+ * intensity at different frequencies, giving it a constant power spectral density.
+ * https://en.wikipedia.org/wiki/White_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL white_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * White noise functions.
+ *
+ * <blockquote>
+ * In signal processing, white noise is a random signal having equal
+ * intensity at different frequencies, giving it a constant power spectral density.
+ * https://en.wikipedia.org/wiki/White_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL white_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * White noise functions.
+ *
+ * <blockquote>
+ * In signal processing, white noise is a random signal having equal
+ * intensity at different frequencies, giving it a constant power spectral density.
+ * https://en.wikipedia.org/wiki/White_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL white_noise6D(vector8 v, uint seed, interp_func interp);
 
 /**
@@ -149,10 +477,66 @@ REAL white_noise6D(vector8 v, uint seed, interp_func interp);
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
  */
-
 REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions. <b>In my tests the output have gray lines artifacts.</b>
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
+REAL new_simplex_noise4D(vector4 v, uint seed, interp_func interp);
+
+/**
+ * Simplex noise functions.
+ * <blockquote>
+ * Simplex noise is a method for constructing an n-dimensional noise function
+ * comparable to Perlin noise ("classic" noise) but with fewer directional
+ * artifacts and, in higher dimensions, a lower computational overhead.
+ * https://en.wikipedia.org/wiki/Simplex_noise
+ * </blockquote>
+ *
+ * The interpolation function parameter is not used.
+ * The interpolation function parameter is only for compatibility with
+ * the other noise functions.
+ */
 REAL simplex_noise6D(vector8 v, uint seed, interp_func interp);
 
 #ifdef __cplusplus

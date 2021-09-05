@@ -55,7 +55,7 @@ global float4 *output
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
 
-	input[id0] = scaleDomain3(input[id0], 5.0);
+	input[id0] = scaleDomain(input[id0], 5.0f);
 
 	float bm = simpleBillow3(input[id0], value_noise3D, 200, linearInterp, random_kiss09, &srnd, 1, 0.125, true);
 	float r = bm * 0.5 + 0.5;
@@ -77,12 +77,12 @@ global float4 *output
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
 
-	input[id0] = scaleDomain3(input[id0], 5.0);
+	input[id0] = scaleDomain(input[id0], 5.0f);
 
 	float bm = simpleBillow3(input[id0], value_noise3D, 200, linearInterp, random_kiss09, &srnd, 1, 0.125, true);
-	float h = bm * 0.5 + 0.5;
+	float h = (bm * 0.5 + 0.5) * 360;
 
-	bm = simpleBillow3(input[id0], value_noise3D, 2000, linearInterp, random_kiss09, &srnd, 1, 0.125, true);
+	bm = simpleBillow3(input[id0], gradient_noise3D, 2000, linearInterp, random_kiss09, &srnd, 1, 0.125, true);
 	float s = bm * 0.5 + 0.5;
 
 	bm = simpleBillow3(input[id0], value_noise3D, 4000, linearInterp, random_kiss09, &srnd, 1, 0.125, true);
