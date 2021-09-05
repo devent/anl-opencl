@@ -1105,32 +1105,39 @@ REAL new_simplex_noise4D(vector4 v, uint seed, interp_func interp) {
 	return n;
 }
 
+// Skew
+// self.f = ((self.d + 1) ** .5 - 1) / self.d
+// double F4 = (sqrt(7.0) - 1.0) / 6.0; //(sqrt(5.0)-1.0)/4.0;
+#define simplex_noise6D_F4 (0.2742918851774318)
+
+// Unskew
+// self.g=self.f/(1+self.d*self.f)
+// double G4 = F4 / (1.0 + 6.0 * F4);
+#define simplex_noise6D_G4 (0.10367258783179548)
+
+// double sideLength = sqrt(6.0) / (6.0 * F4 + 1.0);
+#define simplex_noise6D_sideLength (0.92582009977255131)
+
+// double a = sqrt((sideLength * sideLength) - ((sideLength / 2.0) * (sideLength / 2.0)));
+#define simplex_noise6D_a (0.80178372573727308)
+
+// double cornerFace = sqrt(a * a + (a / 2.0) * (a / 2.0));
+#define simplex_noise6D_cornerFace (0.89642145700079512)
+
+// double cornerFaceSqrd = cornerFace * cornerFace;
+#define simplex_noise6D_cornerFaceSqrd (0.80357142857142838)
+
+// self.valueScaler=(self.d-1)**-.5
+// double valueScaler = pow(5.0, -0.5);
+// valueScaler *= pow(5.0, -3.5) * 100 + 13;
+#define simplex_noise6D_valueScaler (5.9737767414994529)
+
 REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
-	// Skew
-	//self.f = ((self.d + 1) ** .5 - 1) / self.d
-	REAL F4 = (sqrt(7.0) - 1.0) / 6.0; //(sqrt(5.0)-1.0)/4.0;
-
-	// Unskew
-	// self.g=self.f/(1+self.d*self.f)
-	REAL G4 = F4 / (1.0 + 6.0 * F4);
-
-	REAL sideLength = sqrt(6.0) / (6.0 * F4 + 1.0);
-	REAL a = sqrt(
-			(sideLength * sideLength)
-					- ((sideLength / 2.0) * (sideLength / 2.0)));
-	REAL cornerFace = sqrt(a * a + (a / 2.0) * (a / 2.0));
-
-	REAL cornerFaceSqrd = cornerFace * cornerFace;
-
-	//self.valueScaler=(self.d-1)**-.5
-	REAL valueScaler = pow(5.0, -0.5);
-	valueScaler *= pow(5.0, -3.5) * 100 + 13;
-
 	REAL loc[6] = { v.x, v.y, v.z, v.w, v.s4, v.s5 };
 	REAL s = 0;
 	for (int c = 0; c < 6; ++c)
 		s += loc[c];
-	s *= F4;
+	s *= simplex_noise6D_F4;
 
 	int skewLoc[6] = { fast_floor(v.x + s), fast_floor(v.y + s), fast_floor(
 			v.z + s), fast_floor(v.w + s), fast_floor(v.s4 + s), fast_floor(
@@ -1141,7 +1148,7 @@ REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
 	REAL unskew = 0.0;
 	for (int c = 0; c < 6; ++c)
 		unskew += skewLoc[c];
-	unskew *= G4;
+	unskew *= simplex_noise6D_G4;
 	REAL cellDist[6] = { loc[0] - (REAL) skewLoc[0] + unskew, loc[1]
 			- (REAL) skewLoc[1] + unskew, loc[2] - (REAL) skewLoc[2] + unskew,
 			loc[3] - (REAL) skewLoc[3] + unskew, loc[4] - (REAL) skewLoc[4]
@@ -1165,7 +1172,7 @@ REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
 			u[d] = cellDist[d] - (intLoc[d] - skewLoc[d]) + skewOffset;
 		}
 
-		REAL t = cornerFaceSqrd;
+		REAL t = simplex_noise6D_cornerFaceSqrd;
 
 		for (int d = 0; d < 6; ++d) {
 			t -= u[d] * u[d];
@@ -1182,8 +1189,8 @@ REAL simplex_noise6D(vector8 v, uint seed, interp_func interp) {
 
 			n += gr * t * t * t * t * t;
 		}
-		skewOffset += G4;
+		skewOffset += simplex_noise6D_G4;
 	}
-	n *= valueScaler;
+	n *= simplex_noise6D_valueScaler;
 	return n;
 }

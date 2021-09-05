@@ -241,10 +241,10 @@ TEST_P(noise_func4_params, value_noise4D) {
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise4D_test, noise_func4_params, Values( //
 Func4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, value_noise4D, noInterp, 0.76471 }, // 0
 //
-Func4D { (vector4){ -0.681690,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, 0.471849 }, // 1
-Func4D { (vector4){ -0.681690,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -17.937542 }, // 2
-Func4D { (vector4){ -1.318310,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, -73.654045 }, // 3
-Func4D { (vector4){ -1.318310,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -1936.394042 } // 4
+Func4D { (vector4){ -0.681690,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, 0.571490 }, // 1
+Func4D { (vector4){ -0.681690,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.835860 }, // 2
+Func4D { (vector4){ -1.318310,-1.000000,-1.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.361193 }, // 3
+Func4D { (vector4){ -1.318310,-1.000000,0.000000,0.000000 }, 200, simplex_noise4D, noInterp, -0.572204 } // 4
 ));
 
 struct Func6D {
@@ -288,5 +288,10 @@ TEST_P(noise_func6_params, value_noise6D) {
  * </ul>
  */
 INSTANTIATE_TEST_SUITE_P(noise_gen_noise6D_test, noise_func6_params, Values( //
-		Func6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, value_noise6D, noInterp, 0.81961 } // 0
+Func6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, value_noise6D, noInterp, 0.81961 }, // 0
+//
+Func6D { (vector8){ -0.681690,-1.000000,-0.681690,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, 0.007967 }, // 1
+Func6D { (vector8){ -0.681690,-1.000000,-1.318310,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, 0.043427 }, // 2
+Func6D { (vector8){ -1.318310,-1.000000,-0.681690,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, -0.144565 }, // 3
+Func6D { (vector8){ -1.318310,-1.000000,-1.318310,-1.000000,-1.318310,-1.000000 }, 200, simplex_noise6D, noInterp, -0.125572 } // 4
 ));
