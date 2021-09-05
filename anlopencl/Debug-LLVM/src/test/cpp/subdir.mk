@@ -7,25 +7,46 @@ CPP_SRCS += \
 ../src/test/cpp/OpenCLContext.cpp \
 ../src/test/cpp/OpenCLTestFixture.cpp \
 ../src/test/cpp/anlopencl_core_test.cpp \
+../src/test/cpp/compile_library_test.cpp \
+../src/test/cpp/distance_functions_test.cpp \
 ../src/test/cpp/imaging_map_test.cpp \
+../src/test/cpp/imaging_scaleToRange_test.cpp \
+../src/test/cpp/interpolation_functions_test.cpp \
+../src/test/cpp/kernel_rotateDomain_test.cpp \
+../src/test/cpp/kernel_simplefBm_test.cpp \
+../src/test/cpp/map_functions_bench.cpp \
 ../src/test/cpp/noise_functions_test.cpp \
-../src/test/cpp/opencl_noise4D_functions_test.cpp 
+../src/test/cpp/random_test.cpp 
 
 BCS += \
 ./src/test/cpp/OpenCLContext.bc \
 ./src/test/cpp/OpenCLTestFixture.bc \
 ./src/test/cpp/anlopencl_core_test.bc \
+./src/test/cpp/compile_library_test.bc \
+./src/test/cpp/distance_functions_test.bc \
 ./src/test/cpp/imaging_map_test.bc \
+./src/test/cpp/imaging_scaleToRange_test.bc \
+./src/test/cpp/interpolation_functions_test.bc \
+./src/test/cpp/kernel_rotateDomain_test.bc \
+./src/test/cpp/kernel_simplefBm_test.bc \
+./src/test/cpp/map_functions_bench.bc \
 ./src/test/cpp/noise_functions_test.bc \
-./src/test/cpp/opencl_noise4D_functions_test.bc 
+./src/test/cpp/random_test.bc 
 
 CPP_DEPS += \
 ./src/test/cpp/OpenCLContext.d \
 ./src/test/cpp/OpenCLTestFixture.d \
 ./src/test/cpp/anlopencl_core_test.d \
+./src/test/cpp/compile_library_test.d \
+./src/test/cpp/distance_functions_test.d \
 ./src/test/cpp/imaging_map_test.d \
+./src/test/cpp/imaging_scaleToRange_test.d \
+./src/test/cpp/interpolation_functions_test.d \
+./src/test/cpp/kernel_rotateDomain_test.d \
+./src/test/cpp/kernel_simplefBm_test.d \
+./src/test/cpp/map_functions_bench.d \
 ./src/test/cpp/noise_functions_test.d \
-./src/test/cpp/opencl_noise4D_functions_test.d 
+./src/test/cpp/random_test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

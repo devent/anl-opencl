@@ -150,7 +150,7 @@ $(function() {
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">int</span> int8 <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a768b2b7acd18422d16f4306c759a56cb">__attribute__</a>((ext_vector_type(8)));</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">int</span> int16 <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a768b2b7acd18422d16f4306c759a56cb">__attribute__</a>((ext_vector_type(16)));</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;vector4 <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#adfde8e523693983afafe30e00f6d47a6">convert_float4</a>(int4 v);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;vector4 <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#adfde8e523693983afafe30e00f6d47a6">convert_float4</a>(int4 <a class="code" href="src_2main_2cpp_2kernel_8h.html#ae580e0f1aa527e7c362f7b08bf836b4c">v</a>);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#define vector2 float2</span></div>
@@ -166,6 +166,7 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* OPENCL_UTILS_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="asrc_2main_2cpp_2kernel_8h_html_ae580e0f1aa527e7c362f7b08bf836b4c"><div class="ttname"><a href="src_2main_2cpp_2kernel_8h.html#ae580e0f1aa527e7c362f7b08bf836b4c">v</a></div><div class="ttdeci">#define v(v)</div><div class="ttdef"><b>Definition:</b> kernel.h:682</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a768b2b7acd18422d16f4306c759a56cb"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a768b2b7acd18422d16f4306c759a56cb">__attribute__</a></div><div class="ttdeci">REAL vector2 __attribute__((ext_vector_type(2)))</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:68</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a4b654506f18b8bfd61ad2a29a7e38c25"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a></div><div class="ttdeci">#define REAL</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:61</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_adfde8e523693983afafe30e00f6d47a6"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#adfde8e523693983afafe30e00f6d47a6">convert_float4</a></div><div class="ttdeci">vector4 convert_float4(int4 v)</div><div class="ttdef"><b>Definition:</b> opencl_utils.c:58</div></div>

@@ -485,8 +485,7 @@ Static Protected Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= []() -&gt; std::shared_ptr&lt;spdlog::logger&gt; {</div>
 <div class="line">    <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a> = spdlog::stderr_color_mt(<span class="stringliteral">&quot;OpenCL_Context_Fixture&quot;</span>, spdlog::color_mode::automatic);</div>
 <div class="line">    <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a>-&gt;set_level(spdlog::level::trace);</div>
-<div class="line">    <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a>-&gt;flush_on(spdlog::level::debug);</div>
-<div class="line">    <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a>-&gt;flush_on(spdlog::level::err);</div>
+<div class="line">    <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a>-&gt;flush_on(spdlog::level::trace);</div>
 <div class="line">    <span class="keywordflow">return</span> <a class="code" href="classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462">logger</a>;</div>
 <div class="line">}()</div>
 </div><!-- fragment --><p>Logger for the test. </p>
