@@ -58,9 +58,9 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <opencl_utils.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 #define FNV_32_PRIME ((uint)0x01000193)
 #define FNV_32_INIT ((uint )2166136261)

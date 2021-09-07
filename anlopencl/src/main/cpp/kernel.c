@@ -51,10 +51,10 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "kernel.h"
 #include <limits.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 void rotateDomain(REAL dest[], REAL src[],
 		REAL angle, REAL ax, REAL ay, REAL az) {

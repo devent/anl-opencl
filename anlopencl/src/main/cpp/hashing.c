@@ -51,9 +51,9 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <hashing.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 #ifdef ANL_LONG_PERIOD_HASHING
 // Use long-period hashing

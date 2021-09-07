@@ -58,15 +58,15 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "opencl_utils.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 void *create_kiss09();
 void delete_kiss09(void *state);
 void seed_kiss09(void *state, ulong seed);
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 REAL random_kiss09(void *state);
 
 #ifdef __cplusplus

@@ -58,9 +58,9 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "opencl_utils.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 /**
  * The interpolation function.
@@ -298,6 +298,16 @@ REAL distLeastAxis6(vector8 a, vector8 b);
  * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
  * https://en.wikipedia.org/wiki/Value_noise
  * </blockquote>
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL value_noise2D(vector2 v, uint seed, interp_func interp);
 
@@ -310,6 +320,16 @@ REAL value_noise2D(vector2 v, uint seed, interp_func interp);
  * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
  * https://en.wikipedia.org/wiki/Value_noise
  * </blockquote>
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL value_noise3D(vector3 v, uint seed, interp_func interp);
 
@@ -322,6 +342,16 @@ REAL value_noise3D(vector3 v, uint seed, interp_func interp);
  * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
  * https://en.wikipedia.org/wiki/Value_noise
  * </blockquote>
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL value_noise4D(vector4 v, uint seed, interp_func interp);
 
@@ -334,6 +364,16 @@ REAL value_noise4D(vector4 v, uint seed, interp_func interp);
  * The noise function then returns the interpolated number based on the values of the surrounding lattice points.
  * https://en.wikipedia.org/wiki/Value_noise
  * </blockquote>
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL value_noise6D(vector8 v, uint seed, interp_func interp);
 
@@ -348,6 +388,16 @@ REAL value_noise6D(vector8 v, uint seed, interp_func interp);
  * Unlike the value noise, gradient noise has more energy in the high frequencies.
  * https://en.wikipedia.org/wiki/Gradient_noise
  * </blockquote>
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradient_noise2D(vector2 v, uint seed, interp_func interp);
 
@@ -362,6 +412,16 @@ REAL gradient_noise2D(vector2 v, uint seed, interp_func interp);
  * Unlike the value noise, gradient noise has more energy in the high frequencies.
  * https://en.wikipedia.org/wiki/Gradient_noise
  * </blockquote>
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradient_noise3D(vector3 v, uint seed, interp_func interp);
 
@@ -376,31 +436,100 @@ REAL gradient_noise3D(vector3 v, uint seed, interp_func interp);
  * Unlike the value noise, gradient noise has more energy in the high frequencies.
  * https://en.wikipedia.org/wiki/Gradient_noise
  * </blockquote>
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradient_noise4D(vector4 v, uint seed, interp_func interp);
 
 /**
- * Combined value and gradient noise functions.
+ * Gradient noise functions.
+ *
+ * <blockquote>
+ * Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics.
+ * This method consists of a creation of a lattice of random (or typically pseudorandom) gradients,
+ * dot products of which are then interpolated to obtain values in between the lattices.
+ * An artifact of some implementations of this noise is that the returned value at the lattice points is 0.
+ * Unlike the value noise, gradient noise has more energy in the high frequencies.
+ * https://en.wikipedia.org/wiki/Gradient_noise
+ * </blockquote>
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradient_noise6D(vector8 v, uint seed, interp_func interp);
 
 /**
  * Combined value and gradient noise functions.
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradval_noise2D(vector2 v, uint seed, interp_func interp);
 
 /**
  * Combined value and gradient noise functions.
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradval_noise3D(vector3 v, uint seed, interp_func interp);
 
 /**
  * Combined value and gradient noise functions.
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradval_noise4D(vector4 v, uint seed, interp_func interp);
 
 /**
  * Combined value and gradient noise functions.
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp the interpolation function:
+ * <ul>
+ * <li>noInterp
+ * <li>linearInterp
+ * <li>hermiteInterp
+ * <li>quinticInterp
+ * </ul>
  */
 REAL gradval_noise6D(vector8 v, uint seed, interp_func interp);
 
@@ -416,6 +545,10 @@ REAL gradval_noise6D(vector8 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL white_noise2D(vector2 v, uint seed, interp_func interp);
 
@@ -431,6 +564,10 @@ REAL white_noise2D(vector2 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL white_noise3D(vector3 v, uint seed, interp_func interp);
 
@@ -446,6 +583,10 @@ REAL white_noise3D(vector3 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL white_noise4D(vector4 v, uint seed, interp_func interp);
 
@@ -461,6 +602,10 @@ REAL white_noise4D(vector4 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL white_noise6D(vector8 v, uint seed, interp_func interp);
 
@@ -476,6 +621,10 @@ REAL white_noise6D(vector8 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
 
@@ -491,6 +640,10 @@ REAL simplex_noise2D(vector2 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);
 
@@ -506,6 +659,10 @@ REAL simplex_noise3D(vector3 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL simplex_noise4D(vector4 v, uint seed, interp_func interp);
 
@@ -521,6 +678,10 @@ REAL simplex_noise4D(vector4 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL new_simplex_noise4D(vector4 v, uint seed, interp_func interp);
 
@@ -536,8 +697,80 @@ REAL new_simplex_noise4D(vector4 v, uint seed, interp_func interp);
  * The interpolation function parameter is not used.
  * The interpolation function parameter is only for compatibility with
  * the other noise functions.
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param interp not used.
  */
 REAL simplex_noise6D(vector8 v, uint seed, interp_func interp);
+
+/**
+ * Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+ *
+ * @param v the vector2 (x,y) coordinates.
+ * @param seed the uint random number seed.
+ * @param f a real number array containing exactly 4 frequencies.
+ * @param disp a real number array containing exactly 4 points of displacement.
+ * @param distance the dist_func2 function calculating the distance:
+ * <ul>
+ * <li>distEuclid2
+ * <li>distManhattan2
+ * <li>distGreatestAxis2
+ * <li>distLeastAxis2
+ * </ul>
+ */
+REAL cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp, dist_func2 distance);
+
+/**
+ * Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+ *
+ * @param v the vector3 (x,y,z) coordinates.
+ * @param seed the uint random number seed.
+ * @param f a real number array containing exactly 4 frequencies.
+ * @param disp a real number array containing exactly 4 points of displacement.
+ * @param distance the dist_func2 function calculating the distance:
+ * <ul>
+ * <li>distEuclid3
+ * <li>distManhattan3
+ * <li>distGreatestAxis3
+ * <li>distLeastAxis3
+ * </ul>
+ */
+REAL cellular_function3D(vector3 v, uint seed, REAL *f, REAL *disp, dist_func3 distance);
+
+/**
+ * Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+ *
+ * @param v the vector4 (x,y,z,w) coordinates.
+ * @param seed the uint random number seed.
+ * @param f a real number array containing exactly 4 frequencies.
+ * @param disp a real number array containing exactly 4 points of displacement.
+ * @param distance the dist_func2 function calculating the distance:
+ * <ul>
+ * <li>distEuclid4
+ * <li>distManhattan4
+ * <li>distGreatestAxis4
+ * <li>distLeastAxis4
+ * </ul>
+ */
+REAL cellular_function4D(vector4 v, uint seed, REAL *f, REAL *disp, dist_func4 distance);
+
+/**
+ * Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+ *
+ * @param v the vector8 (x,y,z,w,u,v) coordinates.
+ * @param seed the uint random number seed.
+ * @param f a real number array containing exactly 4 frequencies.
+ * @param disp a real number array containing exactly 4 points of displacement.
+ * @param distance the dist_func2 function calculating the distance:
+ * <ul>
+ * <li>distEuclid6
+ * <li>distManhattan6
+ * <li>distGreatestAxis6
+ * <li>distLeastAxis6
+ * </ul>
+ */
+REAL cellular_function6D(vector8 v, uint seed, REAL *f, REAL *disp, dist_func6 distance);
 
 #ifdef __cplusplus
 }

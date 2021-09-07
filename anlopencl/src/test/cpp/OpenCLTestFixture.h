@@ -64,6 +64,7 @@
 #include <CL/opencl.hpp>
 
 #include "OpenCLContext.h"
+#include "opencl_utils.h"
 
 struct KernelContext {
 	std::string kernel;
@@ -125,25 +126,11 @@ inline cl_int copy(const cl::Buffer &buffer, std::vector<T> &target) {
 	return copy(queue, buffer, target);
 }
 
-/**
- * float2 have 2 floats.
- */
-const size_t dim_float2 = sizeof(cl_float2) / sizeof(cl_float);
-
-/**
- * float3 have 4 floats.
- */
-const size_t dim_float3 = sizeof(cl_float3) / sizeof(cl_float);
-
-/**
- * float4 have 4 floats.
- */
-const size_t dim_float4 = sizeof(cl_float4) / sizeof(cl_float);
-
-/**
- * float8 have 8 floats.
- */
-const size_t dim_float8 = sizeof(cl_float8) / sizeof(cl_float);
+#ifdef ANLOPENCL_USE_DOUBLE
+#define GREY_CV CV_64F
+#else
+#define GREY_CV CV_32F
+#endif // ANLOPENCL_USE_DOUBLE
 
 /**
  * Setups the OpenCL context.
@@ -188,22 +175,22 @@ protected:
 	/**
 	 * Scales the values to range between [0..1] and shows the image.
 	 */
-	void showImageScaleToRange(std::shared_ptr<std::vector<float>> output, int type);
+	void showImageScaleToRange(std::shared_ptr<std::vector<REAL>> output, int type);
 
 	/**
 	 * Shows the image.
 	 */
-	void showImage(std::shared_ptr<std::vector<float>> output, int type);
+	void showImage(std::shared_ptr<std::vector<REAL>> output, int type);
 
 	/**
 	 * Scales the values to range between [0..1] and saves the image to file.
 	 */
-	void saveImageScaleToRange(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
+	void saveImageScaleToRange(std::string fileName, std::shared_ptr<std::vector<REAL>> output, int type);
 
 	/**
 	 * Saves the image to file.
 	 */
-	void saveImage(std::string fileName, std::shared_ptr<std::vector<float>> output, int type);
+	void saveImage(std::string fileName, std::shared_ptr<std::vector<REAL>> output, int type);
 };
 
 /**
@@ -211,7 +198,7 @@ protected:
  */
 class OpenCL_Context_Buffer_Fixture: public Abstract_OpenCL_Context_Fixture {
 public:
-	std::shared_ptr<std::vector<float>> output;
+	std::shared_ptr<std::vector<REAL>> output;
 	std::shared_ptr<cl::Buffer> outputBuffer;
 protected:
 	virtual void copyBuffers();
@@ -221,7 +208,7 @@ protected:
  * SVM vector for float elements.
  */
 template < class T >
-using coarse_float_svm_vector = std::vector<T, cl::SVMAllocator<float, cl::SVMTraitCoarse<>>>;
+using coarse_float_svm_vector = std::vector<T, cl::SVMAllocator<REAL, cl::SVMTraitCoarse<>>>;
 
 /**
  * Setups the OpenCL context. Uses a SVM for output.
@@ -229,7 +216,7 @@ using coarse_float_svm_vector = std::vector<T, cl::SVMAllocator<float, cl::SVMTr
 class OpenCL_Context_SVM_Fixture: public Abstract_OpenCL_Context_Fixture {
 public:
 	cl::SVMAllocator<float, cl::SVMTraitCoarse<>> outputAlloc;
-	std::shared_ptr<coarse_float_svm_vector<float>> output;
+	std::shared_ptr<coarse_float_svm_vector<REAL>> output;
 protected:
 	virtual void copyBuffers();
 };

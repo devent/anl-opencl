@@ -58,9 +58,9 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <opencl_utils.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 extern REAL gradient2D_lut[8][2];
 extern REAL gradient3D_lut[24][3];

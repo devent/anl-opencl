@@ -51,13 +51,13 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <noise_gen.h>
 #include <hashing.h>
 #include <utility.h>
 #include "noise_lut.h"
 #include "qsort.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 REAL noInterp(REAL t) {
 	return 0;
@@ -616,10 +616,7 @@ void add_dist(REAL *f, REAL *disp, REAL testdist, REAL testdisp) {
 	}
 }
 
-void cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp,
-		dist_func2 distance) {
-//	int xint = fast_floor(x);
-//	int yint = fast_floor(y);
+REAL cellular_function2D_work(vector2 v, uint seed, REAL *f, REAL *disp, dist_func2 distance) {
 	int2 vint = fast_floor2(v);
 
 	for (int c = 0; c < 4; ++c) {
@@ -627,17 +624,25 @@ void cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp,
 		disp[c] = 0.0;
 	}
 
-	vector2 vpos;
 	for (int ycur = vint.y - 3; ycur <= vint.y + 3; ++ycur) {
 		for (int xcur = vint.x - 3; xcur <= vint.x + 3; ++xcur) {
-			vpos = (vector2) ((REAL) xcur + value_noise_2(v, xcur, ycur, seed),
-					(REAL) ycur	+ value_noise_2(v, xcur, ycur, seed + 1));
+			vector2 vpos = (vector2) { (REAL) xcur
+					+ value_noise_2(v, xcur, ycur, seed), (REAL) ycur
+					+ value_noise_2(v, xcur, ycur, seed + 1) };
 			REAL dist = distance(vpos, v);
 			int2 vval = fast_floor2(vpos);
 			REAL dsp = value_noise_2(v, vval.x, vval.y, seed + 3);
 			add_dist(f, disp, dist, dsp);
 		}
 	}
+}
+
+REAL cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp, dist_func2 distance) {
+	REAL ff[4], dd[4];
+	cellular_function2D_work(v, seed, ff, dd, distance);
+	return f[0] * ff[0] + f[1] * ff[1] + f[2] * ff[2] + f[3] * ff[3]
+			+ disp[0] * dd[0] + disp[1] * dd[1] + disp[2] * dd[2]
+			+ disp[3] * dd[3];
 }
 
 const REAL F2 = 0.36602540378443864676372317075294;

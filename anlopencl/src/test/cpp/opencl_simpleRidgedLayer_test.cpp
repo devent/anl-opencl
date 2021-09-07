@@ -68,19 +68,19 @@ using ::spdlog::error;
 class opencl_simpleRidgedLayer_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	std::shared_ptr<std::vector<float>> input;
+	std::shared_ptr<std::vector<REAL>> input;
 
 	std::shared_ptr<cl::Buffer> inputBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<float>(t.imageSize * dim_float3);
+		input = createVector<REAL>(t.imageSize * dim_real3);
 		map2D(input->data(), calc_seamless_none,
 				create_ranges_map2D(-10, 10, -10, 10),
 				t.imageWidth, t.imageHeight, 10);
 		inputBuffer = createBufferPtr(input);
-		output = createVector<float>(t.imageSize);
+		output = createVector<REAL>(t.imageSize);
 		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -99,14 +99,14 @@ protected:
 
 TEST_P(opencl_simpleRidgedLayer_fixture, show_image) {
 	auto t = GetParam();
-	showImageScaleToRange(output, CV_32F);
+	showImageScaleToRange(output, GREY_CV);
 }
 
 TEST_P(opencl_simpleRidgedLayer_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
 	ss << "out/simpleRidgedLayer3/" << t.kernel << ".png";
-	saveImageScaleToRange(ss.str(), output, CV_32F);
+	saveImageScaleToRange(ss.str(), output, GREY_CV);
 }
 
 const size_t size = pow(2, 10);

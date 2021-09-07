@@ -58,10 +58,10 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "opencl_utils.h"
 #include "noise_gen.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 /**
  * Function that returns a random number.

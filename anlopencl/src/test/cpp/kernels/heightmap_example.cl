@@ -48,24 +48,24 @@
 #include <kernel.h>
 
 kernel void heightmap_example(
-global float8 *input,
-global float *output
+global vector8 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
 	kiss09_seed(&srnd, 200);
-	float f1 = 0.25;
-	float heightFractal = simplefBm6(
+	REAL f1 = 0.25;
+	REAL heightFractal = simplefBm6(
 		input[id0], gradient_noise6D, 200, quinticInterp,
 		random_kiss09, &srnd, 6, f1, false);
-	float ridgedHeightFractal = simpleRidgedMultifractal6(
+	REAL ridgedHeightFractal = simpleRidgedMultifractal6(
 		input[id0], simplex_noise6D, 200, quinticInterp,
 		random_kiss09, &srnd, 6, f1, false);
 	input[id0].x += ridgedHeightFractal;
 	input[id0].y += heightFractal;
 	input[id0].z += heightFractal;
-	float f2 = 0.06;
-	float v = simpleRidgedMultifractal6(
+	REAL f2 = 0.06;
+	REAL v = simpleRidgedMultifractal6(
 		input[id0], gradient_noise6D, 200, quinticInterp,
 		random_kiss09, &srnd, 6, f2, false);
 	output[id0] = v;

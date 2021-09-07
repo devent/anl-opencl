@@ -51,15 +51,15 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
-#ifdef USE_THREAD
+#ifndef ANLOPENCL_USE_OPENCL
+#ifdef ANLOPENCL_USE_THREAD
 #include <pthread.h>
 #ifdef _GNU_SOURCE
 #include <sys/sysinfo.h>
 #endif // _GNU_SOURCE
-#endif // USE_THREAD
+#endif // ANLOPENCL_USE_THREAD
 #include "imaging.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 #define PI2 (2.0*3.141592)
 
@@ -242,8 +242,8 @@ void* map2DChunk(void *vargp) {
 	return NULL;
 }
 
-#ifndef USE_OPENCL
-#ifdef USE_THREAD
+#ifndef ANLOPENCL_USE_OPENCL
+#ifdef ANLOPENCL_USE_THREAD
 /**
  * From https://stackoverflow.com/questions/7341046/posix-equivalent-of-boostthreadhardware-concurrency
  */
@@ -263,12 +263,12 @@ int hardware_concurrency() {
 	return 0;
 #endif
 }
-#endif // USE_THREAD
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_THREAD
+#endif // ANLOPENCL_USE_OPENCL
 
 void* map2D(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height, REAL z) {
-#if !defined(USE_THREAD) && !defined(USE_THREAD)
+#if !defined(ANLOPENCL_USE_THREAD) || defined(ANLOPENCL_USE_OPENCL)
 	struct SChunk chunk;
 	chunk.calc_seamless = calc_seamless;
 	chunk.out = out;
@@ -309,7 +309,7 @@ void* map2D(void *out, calc_seamless calc_seamless,
 		pthread_join(threads[c], NULL);
 		free(chunks[c]);
 	}
-#endif // USE_THREAD && USE_THREAD
+#endif // ANLOPENCL_USE_THREAD || ANLOPENCL_USE_OPENCL
 	return out;
 }
 
@@ -445,7 +445,7 @@ void* map2DChunkNoZ(void *vargp) {
 
 void* map2DNoZ(void *out, calc_seamless calc_seamless,
 		struct SMappingRanges ranges, size_t width, size_t height) {
-#if !defined(USE_THREAD) && !defined(USE_THREAD)
+#if !defined(ANLOPENCL_USE_THREAD) || defined(ANLOPENCL_USE_OPENCL)
 	struct SChunk chunk;
 	chunk.calc_seamless = calc_seamless;
 	chunk.out = out;
@@ -486,7 +486,7 @@ void* map2DNoZ(void *out, calc_seamless calc_seamless,
 		pthread_join(threads[c], NULL);
 		free(chunks[c]);
 	}
-#endif // USE_THREAD && USE_THREAD
+#endif // ANLOPENCL_USE_THREAD || ANLOPENCL_USE_OPENCL
 	return out;
 }
 

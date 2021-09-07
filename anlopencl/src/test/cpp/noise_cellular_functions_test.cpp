@@ -45,69 +45,78 @@
 //
 
 /*
- * opencl_heightmap_example_test.cpp
+ * noise_functions_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_heightmap_example_test*"
+ * --gtest_filter="noise_gen_cellular_noise*D_test*"
  *
- *  Created on: Auf 24, 2021
+ *  Created on: Jul 26, 2021
  *      Author: Erwin Müller
  */
 
-#define CL_HPP_ENABLE_EXCEPTIONS
-#include <CL/opencl.hpp>
-
-#include "OpenCLTestFixture.h"
-#include "imaging.h"
+#include <gtest/gtest.h>
+#include "noise_gen.h"
 
 using ::testing::TestWithParam;
 using ::testing::Values;
 
-class opencl_heightmap_example_fixture: public OpenCL_Context_Buffer_Fixture {
-protected:
-
-	std::shared_ptr<std::vector<REAL>> input;
-
-	std::shared_ptr<cl::Buffer> inputBuffer;
-
-	virtual size_t runKernel(cl::Program & kernel) {
-		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<REAL>(t.imageSize * dim_real8);
-		map2D(input->data(), calc_seamless_xy, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
-		inputBuffer = createBufferPtr(input);
-		output = createVector<REAL>(t.imageSize);
-		outputBuffer = createBufferPtr(output);
-	    cl::DeviceCommandQueue defaultDeviceQueue;
-	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
-		logger->trace("Start kernel with size {}", t.imageSize);
-		cl_int error;
-		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				*inputBuffer,
-				*outputBuffer,
-				error);
-		logger->info("Created kernel error={}", error);
-		return t.imageSize;
-	}
-
+struct Cell2D {
+	vector2 v;
+	uint seed;
+	dist_func2 dist_func;
+	REAL y;
 };
 
-TEST_P(opencl_heightmap_example_fixture, show_image) {
+class noise_cell_func2_params: public ::testing::TestWithParam<Cell2D> {
+protected:
+	REAL f[4] = { 10, 5, 2.5, 1.25 };
+	REAL disp[4] = { 100, 50, 25, 10 };
+};
+
+/**
+ * noise_gen_cellular_noise2D_test-noise_cell_func2_params-cell2D
+ * <ul>
+ * <li>Cell2D
+ * <li>float2
+ * <li>distEuclid2
+ * <li>cellular_function2D
+ * </ul>
+ */
+TEST_P(noise_cell_func2_params, cell2D) {
 	auto t = GetParam();
-	showImageScaleToRange(output, GREY_CV);
+	EXPECT_NEAR(cellular_function2D(t.v, t.seed, f, disp, t.dist_func), t.y, 0.00001);
 }
 
-TEST_P(opencl_heightmap_example_fixture, save_image) {
-	auto t = GetParam();
-	std::stringstream ss;
-	ss << "out/noise_functions/" << t.kernel << ".png";
-	saveImageScaleToRange(ss.str(), output, GREY_CV);
-}
-
-const size_t size = pow(2, 10);
-
-INSTANTIATE_TEST_SUITE_P(opencl_heightmap_example_test, opencl_heightmap_example_fixture,
-		Values(
-			KernelContext("heightmap_example", readFile("src/test/cpp/kernels/heightmap_example.cl"), size) //
+/**
+ * noise_gen_cellular_noise2D_test-noise_cell_func2_params
+ * <ul>
+ * <li>Cell2D
+ * <li>float2
+ * <li>distEuclid2
+ * </ul>
+ */
+INSTANTIATE_TEST_SUITE_P(noise_gen_cellular_noise2D_test, noise_cell_func2_params, Values( //
+Cell2D { (vector2){ -10.0, -10.0 }, 200, distEuclid2, 18.011899 }, // 0
+Cell2D { (vector2){ -5.0, -10.0 }, 200, distEuclid2, 72.943490 }, //
+Cell2D { (vector2){ 0.0, -10.0 }, 200, distEuclid2, -57.643821 }, //
+Cell2D { (vector2){ 5.0, -10.0 }, 200, distEuclid2, 49.627965 }, //
+Cell2D { (vector2){ -10.0, 5.0 }, 200, distEuclid2, 0.133623 }, //
+Cell2D { (vector2){ -5.0, 5.0 }, 200, distEuclid2, -87.675907 }, // 5
+Cell2D { (vector2){ 0.0, 5.0 }, 200, distEuclid2, 95.684490 }, //
+Cell2D { (vector2){ 5.0, 5.0 }, 200, distEuclid2, -10.900518 }, //
+Cell2D { (vector2){ -10.0, 0.0 }, 200, distEuclid2, -23.899339 }, //
+Cell2D { (vector2){ -5.0, 0.0 }, 200, distEuclid2, 47.488621 }, //
+Cell2D { (vector2){ 0.0, 0.0 }, 200, distEuclid2, 46.469304 }, // 10
+Cell2D { (vector2){ 5.0, 0.0 }, 200, distEuclid2, -93.750297 }, //
+Cell2D { (vector2){ -10.0, -5.0 }, 200, distEuclid2, -47.540723 }, //
+Cell2D { (vector2){ -5, -5 }, 200, distEuclid2, 17.030809 }, //
+Cell2D { (vector2){ 0, -5 }, 200, distEuclid2, 138.801578 }, //
+Cell2D { (vector2){ 5, -5 }, 200, distEuclid2, 69.693651 }, // 15
+//
+Cell2D { (vector2){ -1.0, -1.0 }, 200, distManhattan2, -15.063725 }, //
+Cell2D { (vector2){ 0.0, 0.0 }, 200, distManhattan2, -4.259804 }, //
+//
+Cell2D { (vector2){ -1.0, -1.0 }, 200, distGreatestAxis2, -18.294118 }, //
+Cell2D { (vector2){ 0.0, 0.0 }, 200, distGreatestAxis2, 31.107847 } //
 ));
+

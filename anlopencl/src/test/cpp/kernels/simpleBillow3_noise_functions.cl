@@ -52,8 +52,8 @@
 // #########################################
 
 kernel void simpleBillow3_value_noise3D_noInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -63,8 +63,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_noInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -74,8 +74,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_linearInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -85,8 +85,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_linearInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -96,8 +96,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_hermiteInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -107,8 +107,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_hermiteInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -118,8 +118,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_quinticInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -129,8 +129,8 @@ global float *output
 }
 
 kernel void simpleBillow3_value_noise3D_quinticInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -144,8 +144,8 @@ global float *output
 // #########################################
 
 kernel void simpleBillow3_gradient_noise3D_noInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -155,8 +155,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_noInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -166,8 +166,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_linearInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -177,8 +177,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_linearInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -188,8 +188,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_hermiteInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -199,8 +199,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_hermiteInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -210,8 +210,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_quinticInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -221,8 +221,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradient_noise3D_quinticInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -236,8 +236,8 @@ global float *output
 // #########################################
 
 kernel void simpleBillow3_gradval_noise3D_noInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -247,8 +247,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_noInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -258,8 +258,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_linearInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -269,8 +269,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_linearInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -280,8 +280,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_hermiteInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -291,8 +291,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_hermiteInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -302,8 +302,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_quinticInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -313,8 +313,8 @@ global float *output
 }
 
 kernel void simpleBillow3_gradval_noise3D_quinticInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -328,8 +328,8 @@ global float *output
 // #########################################
 
 kernel void simpleBillow3_white_noise3D_noInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -339,8 +339,8 @@ global float *output
 }
 
 kernel void simpleBillow3_white_noise3D_noInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -354,8 +354,8 @@ global float *output
 // #########################################
 
 kernel void simpleBillow3_simplex_noise3D_noInterp_norot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;
@@ -365,8 +365,8 @@ global float *output
 }
 
 kernel void simpleBillow3_simplex_noise3D_noInterp_rot(
-global float3 *input,
-global float *output
+global vector3 *input,
+global REAL *output
 ) {
 	int id0 = get_global_id(0);
 	kiss09_state srnd;

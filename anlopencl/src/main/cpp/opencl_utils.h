@@ -58,9 +58,13 @@
 extern "C" {
 #endif
 
+#ifdef ANLOPENCL_USE_DOUBLE
+#define REAL double
+#else
 #define REAL float
+#endif // ANLOPENCL_USE_DOUBLE
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -80,15 +84,23 @@ typedef int int16 __attribute__((ext_vector_type(16)));
 /**
  * Replacement for the OpenCL function convert_float4.
  */
-vector4 convert_float4(int4 v);
+vector4 convert_real4(int4 v);
 
+#else
+#ifdef ANLOPENCL_USE_DOUBLE
+#define vector2 double2
+#define vector3 double3
+#define vector4 double4
+#define vector8 double8
+#define vector16 double16
 #else
 #define vector2 float2
 #define vector3 float3
 #define vector4 float4
 #define vector8 float8
 #define vector16 float16
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_DOUBLE
+#endif // ANLOPENCL_USE_OPENCL
 
 #ifdef __cplusplus
 }

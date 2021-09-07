@@ -58,6 +58,48 @@
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 
+#ifdef ANLOPENCL_USE_DOUBLE
+/**
+ * double2 have 2 doubles.
+ */
+const size_t dim_real2 = sizeof(cl_double2) / sizeof(cl_double);
+
+/**
+ * double3 have 4 doubles.
+ */
+const size_t dim_real3 = sizeof(cl_double3) / sizeof(cl_double);
+
+/**
+ * double4 have 4 doubles.
+ */
+const size_t dim_real4 = sizeof(cl_double4) / sizeof(cl_double);
+
+/**
+ * double8 have 8 doubles.
+ */
+const size_t dim_real8 = sizeof(cl_double8) / sizeof(cl_double);
+#else
+/**
+ * float2 have 2 floats.
+ */
+const size_t dim_real2 = sizeof(cl_float2) / sizeof(cl_float);
+
+/**
+ * float3 have 4 floats.
+ */
+const size_t dim_real3 = sizeof(cl_float3) / sizeof(cl_float);
+
+/**
+ * float4 have 4 floats.
+ */
+const size_t dim_real4 = sizeof(cl_float4) / sizeof(cl_float);
+
+/**
+ * float8 have 8 floats.
+ */
+const size_t dim_real8 = sizeof(cl_float8) / sizeof(cl_float);
+#endif // ANLOPENCL_USE_DOUBLE
+
 /**
  * Reads the file as string.
  */
@@ -83,6 +125,20 @@ std::shared_ptr<cl::Buffer> createBufferPtr(
 			flags | CL_MEM_USE_HOST_PTR,
 			sizeof(DataType) * vector->size(),
 			vector->data());
+}
+
+/**
+ * Shortcut function to create a shared_ptr Buffer from the vector.
+ */
+template <typename T>
+cl::Buffer createBuffer(
+		std::vector<T> vector,
+		cl_mem_flags flags = CL_MEM_READ_WRITE) {
+	typedef typename std::vector<T>::value_type DataType;
+	return cl::Buffer(
+			flags | CL_MEM_USE_HOST_PTR,
+			sizeof(DataType) * vector.size(),
+			vector.data());
 }
 
 /**

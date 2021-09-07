@@ -45,10 +45,10 @@
 //
 
 /*
- * opencl_noise4D_functions_test.cpp
+ * opencl_cellular_functions_test.cpp
  *
  * Flag to run only this tests:
- * --gtest_filter="opencl_noise4D_functions_test*"
+ * --gtest_filter="opencl_cellular_functions*D_test*"
  *
  *  Created on: Auf 27, 2021
  *      Author: Erwin Müller
@@ -65,7 +65,7 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
-class opencl_noise4D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
+class opencl_cellular_function2D_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	std::shared_ptr<std::vector<REAL>> input;
@@ -74,14 +74,21 @@ protected:
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<REAL>(t.imageSize * dim_real4);
-		map2D(input->data(), calc_seamless_x,
-				create_ranges_map2D(-10, 10, -10, 10),
-				t.imageWidth, t.imageHeight, 0);
+		auto kernelf = cl::KernelFunctor<
+				cl::Buffer, // input
+				cl::Buffer, // f
+				cl::Buffer, // disp
+				cl::Buffer // output
+				>(kernel, t.kernel);
+		input = createVector<REAL>(t.imageSize * dim_real2);
+		map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight);
 		inputBuffer = createBufferPtr(input);
 		output = createVector<REAL>(t.imageSize);
 		outputBuffer = createBufferPtr(output);
+		std::vector<REAL> f = { 10, 5, 2.5, 1.25 };
+		auto fBuffer = createBuffer(f);
+		std::vector<REAL> disp = { 100, 50, 25, 10 };
+		auto dispBuffer = createBuffer(disp);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
 		logger->trace("Start kernel with size {}", t.imageSize);
@@ -89,6 +96,8 @@ protected:
 		kernelf(
 				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
 				*inputBuffer,
+				fBuffer,
+				dispBuffer,
 				*outputBuffer,
 				error);
 		logger->info("Created kernel error={}", error);
@@ -97,12 +106,12 @@ protected:
 
 };
 
-TEST_P(opencl_noise4D_functions_fixture, show_image) {
+TEST_P(opencl_cellular_function2D_fixture, show_image) {
 	auto t = GetParam();
 	showImageScaleToRange(output, GREY_CV);
 }
 
-TEST_P(opencl_noise4D_functions_fixture, save_image) {
+TEST_P(opencl_cellular_function2D_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
 	ss << "out/noise_functions/" << t.kernel << ".png";
@@ -111,24 +120,10 @@ TEST_P(opencl_noise4D_functions_fixture, save_image) {
 
 const size_t size = pow(2, 10);
 
-INSTANTIATE_TEST_SUITE_P(opencl_noise4D_functions_test, opencl_noise4D_functions_fixture,
+INSTANTIATE_TEST_SUITE_P(opencl_cellular_function2D_test, opencl_cellular_function2D_fixture,
 		Values(
-			KernelContext("value_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("gradient_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("gradval_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("white_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("simplex_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size) //
+KernelContext("cellular_function2D_distEuclid", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
+KernelContext("cellular_function2D_distManhattan", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
+KernelContext("cellular_function2D_distGreatestAxis", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
+KernelContext("cellular_function2D_distLeastAxis", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size) //
 ));

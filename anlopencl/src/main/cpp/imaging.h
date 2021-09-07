@@ -58,9 +58,9 @@
 extern "C" {
 #endif
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <opencl_utils.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 enum EMappingModes {
 	SEAMLESS_NONE,

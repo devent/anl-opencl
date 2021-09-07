@@ -74,7 +74,7 @@
    Engineering a sort function; Jon Bentley and M. Douglas McIlroy;
    Software - Practice and Experience; Vol. 23 (11), 1249-1265, 1993.  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "qsort.h"
 #else
 
@@ -307,4 +307,4 @@ _quicksort (void *const pbase, size_t total_elems, size_t size,
   }
 }
 
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL

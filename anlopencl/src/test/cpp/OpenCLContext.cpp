@@ -136,6 +136,12 @@ public:
 
 };
 
+#ifdef ANLOPENCL_USE_DOUBLE
+static const std::string COMPILE_OPTIONS = "-DANLOPENCL_USE_DOUBLE -DANLOPENCL_USE_OPENCL";
+#else
+static const std::string COMPILE_OPTIONS = "-DANLOPENCL_USE_OPENCL";
+#endif // ANLOPENCL_USE_DOUBLE
+
 #if CL_HPP_TARGET_OPENCL_VERSION >= 120
 
 cl::Program compileProgram(
@@ -146,7 +152,7 @@ cl::Program compileProgram(
 	ProgramEx p(s);
 	try {
 		logger->debug("Compiling {}", s.substr(0, 60));
-		p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
+		p.compile(inputHeaders, inputHeaderNames, COMPILE_OPTIONS.c_str());
 	} catch (const cl::Error &ex) {
 		 cl_int buildErr = CL_SUCCESS;
 		 auto buildInfo = p.getBuildInfo<CL_PROGRAM_BUILD_LOG>(&buildErr);
@@ -342,7 +348,7 @@ cl::Program OpenCL_Context::createKernel(cl::Program lib, const std::string kern
 	ProgramEx p(ss.str());
 	try {
 		logger->debug("Compiling {}", ss.str().substr(0, 60));
-		p.compile(inputHeaders, inputHeaderNames, "-D USE_OPENCL");
+		p.compile(inputHeaders, inputHeaderNames, COMPILE_OPTIONS.c_str());
 		auto programs = std::vector<cl::Program>();
 		programs.push_back(lib);
 		programs.push_back(p);

@@ -51,23 +51,23 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "utility.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL degrees(REAL radians) {
 	return (180 / M_PI) * radians;
 }
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL radians(REAL degrees) {
 	return (M_PI / 180) * degrees;
 }
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL clamp(REAL v, REAL l, REAL h) {
 	if (v < l)
 		v = l;
@@ -76,7 +76,7 @@ REAL clamp(REAL v, REAL l, REAL h) {
 
 	return v;
 }
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 REAL lerp(REAL t, REAL a, REAL b) {
 	return a + t * (b - a);

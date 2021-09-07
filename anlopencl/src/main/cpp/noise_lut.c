@@ -51,9 +51,9 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "noise_lut.h"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 // Lookup tables for 2D, 3D, 4D and 6D gradient and simplex noise.
 

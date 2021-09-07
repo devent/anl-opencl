@@ -58,21 +58,21 @@
 extern "C" {
 #endif // __cplusplus
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include <opencl_utils.h>
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL degrees(REAL radians);
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL radians(REAL degrees);
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 REAL clamp(REAL v, REAL l, REAL h);
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 REAL lerp(REAL t, REAL a, REAL b);
 

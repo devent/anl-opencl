@@ -51,12 +51,12 @@
  *      Author: Erwin Müller
  */
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 #include "random.h"
 #include "extern/RandomCL/generators/kiss09.cl"
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
-#ifndef USE_OPENCL
+#ifndef ANLOPENCL_USE_OPENCL
 void *create_kiss09() {
 	return malloc(sizeof(kiss09_state));
 }
@@ -68,7 +68,7 @@ void delete_kiss09(void *state) {
 void seed_kiss09(void *state, ulong seed) {
 	kiss09_seed(state, seed);
 }
-#endif // USE_OPENCL
+#endif // ANLOPENCL_USE_OPENCL
 
 REAL random_kiss09(void *state) {
 	return kiss09_float((*(kiss09_state*)state));

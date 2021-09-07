@@ -66,17 +66,17 @@ using ::testing::Values;
 class opencl_noise2D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
-	std::shared_ptr<std::vector<float>> input;
+	std::shared_ptr<std::vector<REAL>> input;
 
 	std::shared_ptr<cl::Buffer> inputBuffer;
 
 	virtual size_t runKernel(cl::Program & kernel) {
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<float>(t.imageSize * dim_float2);
+		input = createVector<REAL>(t.imageSize * dim_real2);
 		map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight);
 		inputBuffer = createBufferPtr(input);
-		output = createVector<float>(t.imageSize);
+		output = createVector<REAL>(t.imageSize);
 		outputBuffer = createBufferPtr(output);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -95,14 +95,14 @@ protected:
 
 TEST_P(opencl_noise2D_functions_fixture, show_image) {
 	auto t = GetParam();
-	showImageScaleToRange(output, CV_32F);
+	showImageScaleToRange(output, GREY_CV);
 }
 
 TEST_P(opencl_noise2D_functions_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
 	ss << "out/noise_functions/" << t.kernel << ".png";
-	saveImageScaleToRange(ss.str(), output, CV_32F);
+	saveImageScaleToRange(ss.str(), output, GREY_CV);
 }
 
 const size_t size = pow(2, 10);

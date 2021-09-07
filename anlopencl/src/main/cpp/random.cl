@@ -53,6 +53,12 @@
 
 #include <opencl_utils.h>
 
+#ifdef ANLOPENCL_USE_DOUBLE
+REAL random_kiss09(void *state) {
+	return kiss09_double((*(kiss09_state*)state));
+}
+#else
 REAL random_kiss09(void *state) {
 	return kiss09_float((*(kiss09_state*)state));
 }
+#endif // ANLOPENCL_USE_DOUBLE

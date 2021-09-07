@@ -121,20 +121,20 @@ void Abstract_OpenCL_Context_Fixture::SetUp() {
 }
 
 void Abstract_OpenCL_Context_Fixture::showImageScaleToRange(
-		std::shared_ptr<std::vector<float>> output, int type) {
-    float min = *std::min_element(output->begin(), output->end());
-    float max = *std::max_element(output->begin(), output->end());
+		std::shared_ptr<std::vector<REAL>> output, int type) {
+    REAL min = *std::min_element(output->begin(), output->end());
+    REAL max = *std::max_element(output->begin(), output->end());
     scaleToRange(output->data(), output->size(), min, max, 0, 1);
     logger->trace("Scale to range min={}, max={}", min, max);
 	showImage(output, type);
 }
 
 void Abstract_OpenCL_Context_Fixture::showImage(
-		std::shared_ptr<std::vector<float>> output, int type) {
+		std::shared_ptr<std::vector<REAL>> output, int type) {
 	auto t = GetParam();
 	logger->debug("Preparing showing image size {}x{}", t.imageWidth, t.imageHeight);
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), type);
-    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
+    std::memcpy(m.data, output->data(), output->size() * sizeof(REAL));
     //logger->trace("Showing m={}", mat_to_s(m));
     std::string w = "Grey Image Vec Copy";
     cv::namedWindow(w, cv::WINDOW_NORMAL);
@@ -145,20 +145,20 @@ void Abstract_OpenCL_Context_Fixture::showImage(
 }
 
 void Abstract_OpenCL_Context_Fixture::saveImageScaleToRange(
-		std::string fileName, std::shared_ptr<std::vector<float>> output, int type) {
-    float min = *std::min_element(output->begin(), output->end());
-    float max = *std::max_element(output->begin(), output->end());
+		std::string fileName, std::shared_ptr<std::vector<REAL>> output, int type) {
+	REAL min = *std::min_element(output->begin(), output->end());
+	REAL max = *std::max_element(output->begin(), output->end());
     scaleToRange(output->data(), output->size(), min, max, 0, 1);
     logger->trace("Scale to range min={}, max={}", min, max);
 	saveImage(fileName, output, type);
 }
 
 void Abstract_OpenCL_Context_Fixture::saveImage(
-		std::string fileName, std::shared_ptr<std::vector<float>> output, int type) {
+		std::string fileName, std::shared_ptr<std::vector<REAL>> output, int type) {
 	auto t = GetParam();
 	logger->debug("Preparing saving image size {}x{}", t.imageWidth, t.imageHeight);
 	cv::Mat m = cv::Mat(cv::Size(t.imageWidth, t.imageHeight), type);
-    std::memcpy(m.data, output->data(), output->size() * sizeof(float));
+    std::memcpy(m.data, output->data(), output->size() * sizeof(REAL));
     m.convertTo(m, CV_8UC3, 255.0);
     cv::imwrite(fileName, m);
 }
