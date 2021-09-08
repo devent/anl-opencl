@@ -44,33 +44,40 @@
 //   3. This notice may not be removed or altered from any source distribution.
 //
 
-#include <utility.h>
 #include <noise_gen.h>
 #include <kernel.h>
 
-kernel void heightmap_example(
-global vector8 *input,
+REAL f[] = { 10, 5, 2.5, 1.25 };
+REAL disp[] = { 100, 50, 25, 10 };
+
+kernel void cellular_function3D_distEuclid(
+global vector3 *input,
 global REAL *output
 ) {
 	int id0 = get_global_id(0);
-	kiss09_state srnd;
-	kiss09_seed(&srnd, 200);
-	REAL f1 = 0.02;
-	REAL heightFractal = simplefBm6(
-		input[id0], gradient_noise6D, kiss09_ulong(srnd), quinticInterp,
-		random_kiss09, &srnd, 6, f1, false);
-	REAL ridgedHeightFractal = simpleRidgedMultifractal6(
-		input[id0], simplex_noise6D, kiss09_ulong(srnd), quinticInterp,
-		random_kiss09, &srnd, 6, f1, false);
-	input[id0].x += ridgedHeightFractal;
-	input[id0].y += ridgedHeightFractal;
-	input[id0].z += heightFractal;
-	input[id0].w += heightFractal;
-	input[id0].s4 += heightFractal;
-	input[id0].s5 += heightFractal;
-	REAL f2 = 0.02;
-	REAL v = simplefBm6(
-		input[id0], gradient_noise6D, kiss09_ulong(srnd), quinticInterp,
-		random_kiss09, &srnd, 6, f2, false);
-	output[id0] = v;
+	output[id0] = cellular_function3D(input[id0], 200, f, disp, distEuclid3);
+}
+
+kernel void cellular_function3D_distManhattan(
+global vector3 *input,
+global REAL *output
+) {
+	int id0 = get_global_id(0);
+	output[id0] = cellular_function3D(input[id0], 200, f, disp, distManhattan3);
+}
+
+kernel void cellular_function3D_distGreatestAxis(
+global vector3 *input,
+global REAL *output
+) {
+	int id0 = get_global_id(0);
+	output[id0] = cellular_function3D(input[id0], 200, f, disp, distGreatestAxis3);
+}
+
+kernel void cellular_function3D_distLeastAxis(
+global vector3 *input,
+global REAL *output
+) {
+	int id0 = get_global_id(0);
+	output[id0] = cellular_function3D(input[id0], 200, f, disp, distLeastAxis3);
 }

@@ -64,6 +64,27 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
+#include <bits/stdc++.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <libgen.h>
+
+/**
+ * Taken from https://stackoverflow.com/questions/2336242/recursive-mkdir-system-call-on-unix
+ */
+int mkpath(const char *dir, mode_t mode) {
+	struct stat sb;
+	if (!dir) {
+		errno = EINVAL;
+		return 1;
+	}
+	if (!stat(dir, &sb))
+		return 0;
+	mkpath(dirname(strdupa(dir)), mode);
+	return mkdir(dir, mode);
+}
+
 std::string mat_to_s(cv::Mat & m) {
     std::string ms;
     ms << m;
@@ -163,6 +184,35 @@ void Abstract_OpenCL_Context_Fixture::saveImage(
     cv::imwrite(fileName, m);
 }
 
+size_t OpenCL_Context_Buffer_Fixture::commonRunKernel(cl::Program & kernel) {
+	auto t = GetParam();
+	auto kernelf = cl::KernelFunctor<
+			cl::Buffer, // input
+			cl::Buffer // output
+			>(kernel, t.kernel);
+	setupInput();
+	output = createVector<REAL>(t.imageSize);
+	outputBuffer = createBufferPtr(output);
+    cl::DeviceCommandQueue defaultDeviceQueue;
+    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
+	logger->trace("Start kernel with size {}", t.imageSize);
+	cl_int error;
+	kernelf(
+			cl::EnqueueArgs(cl::NDRange(t.imageSize)),
+			*getInputBuffer(),
+			*outputBuffer,
+			error);
+	logger->info("Created kernel error={}", error);
+	return t.imageSize;
+}
+
+void OpenCL_Context_Buffer_Fixture::setupInput() {
+}
+
+std::shared_ptr<cl::Buffer> OpenCL_Context_Buffer_Fixture::getInputBuffer() {
+	return 0;
+}
+
 void OpenCL_Context_Buffer_Fixture::copyBuffers() {
 	copy(*outputBuffer, *output);
 }
@@ -170,4 +220,3 @@ void OpenCL_Context_Buffer_Fixture::copyBuffers() {
 void OpenCL_Context_SVM_Fixture::copyBuffers() {
 	cl::mapSVM(*output);
 }
-

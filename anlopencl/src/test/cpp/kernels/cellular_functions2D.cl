@@ -47,10 +47,11 @@
 #include <noise_gen.h>
 #include <kernel.h>
 
+REAL f[] = { 10, 5, 2.5, 1.25 };
+REAL disp[] = { 100, 50, 25, 10 };
+
 kernel void cellular_function2D_distEuclid(
 global vector2 *input,
-global REAL *f,
-global REAL *disp,
 global REAL *output
 ) {
 	int id0 = get_global_id(0);
@@ -59,8 +60,6 @@ global REAL *output
 
 kernel void cellular_function2D_distManhattan(
 global vector2 *input,
-global REAL *f,
-global REAL *disp,
 global REAL *output
 ) {
 	int id0 = get_global_id(0);
@@ -69,8 +68,6 @@ global REAL *output
 
 kernel void cellular_function2D_distGreatestAxis(
 global vector2 *input,
-global REAL *f,
-global REAL *disp,
 global REAL *output
 ) {
 	int id0 = get_global_id(0);
@@ -79,8 +76,6 @@ global REAL *output
 
 kernel void cellular_function2D_distLeastAxis(
 global vector2 *input,
-global REAL *f,
-global REAL *disp,
 global REAL *output
 ) {
 	int id0 = get_global_id(0);

@@ -626,9 +626,10 @@ REAL cellular_function2D_work(vector2 v, uint seed, REAL *f, REAL *disp, dist_fu
 
 	for (int ycur = vint.y - 3; ycur <= vint.y + 3; ++ycur) {
 		for (int xcur = vint.x - 3; xcur <= vint.x + 3; ++xcur) {
-			vector2 vpos = (vector2) { (REAL) xcur
-					+ value_noise_2(v, xcur, ycur, seed), (REAL) ycur
-					+ value_noise_2(v, xcur, ycur, seed + 1) };
+			vector2 vpos = (vector2) {
+					(REAL) xcur + value_noise_2(v, xcur, ycur, seed),
+					(REAL) ycur + value_noise_2(v, xcur, ycur, seed + 1)
+			};
 			REAL dist = distance(vpos, v);
 			int2 vval = fast_floor2(vpos);
 			REAL dsp = value_noise_2(v, vval.x, vval.y, seed + 3);
@@ -640,6 +641,138 @@ REAL cellular_function2D_work(vector2 v, uint seed, REAL *f, REAL *disp, dist_fu
 REAL cellular_function2D(vector2 v, uint seed, REAL *f, REAL *disp, dist_func2 distance) {
 	REAL ff[4], dd[4];
 	cellular_function2D_work(v, seed, ff, dd, distance);
+	return f[0] * ff[0] + f[1] * ff[1] + f[2] * ff[2] + f[3] * ff[3]
+			+ disp[0] * dd[0] + disp[1] * dd[1] + disp[2] * dd[2]
+			+ disp[3] * dd[3];
+}
+
+void cellular_function3D_work(vector3 v, uint seed, REAL *f, REAL *disp,
+		dist_func3 distance) {
+	int3 vint = fast_floor3(v);
+
+	for (int c = 0; c < 4; ++c) {
+		f[c] = 99999.0;
+		disp[c] = 0.0;
+	}
+
+	for (int zcur = vint.z - 2; zcur <= vint.z + 2; ++zcur) {
+		for (int ycur = vint.y - 2; ycur <= vint.y + 2; ++ycur) {
+			for (int xcur = vint.x - 2; xcur <= vint.x + 2; ++xcur) {
+    			vector3 vpos = (vector3) {
+    					(REAL) xcur + value_noise_3(v, xcur, ycur, zcur, seed),
+    					(REAL) ycur + value_noise_3(v, xcur, ycur, zcur, seed + 1),
+    					(REAL) zcur + value_noise_3(v, xcur, ycur, zcur, seed + 2),
+    			};
+                //REAL xdist=xpos-x;
+                //REAL ydist=ypos-y;
+                //REAL zdist=zpos-z;
+                //REAL dist=(xdist*xdist + ydist*ydist + zdist*zdist);
+				REAL dist = distance(vpos, v);
+				int3 vval = fast_floor3(vpos);
+				REAL dsp = value_noise_3(v, vval.x, vval.y, vval.z, seed + 3);
+				add_dist(f, disp, dist, dsp);
+            }
+        }
+    }
+}
+
+REAL cellular_function3D(vector3 v, uint seed, REAL *f, REAL *disp, dist_func3 distance) {
+	REAL ff[4], dd[4];
+	cellular_function3D_work(v, seed, ff, dd, distance);
+	return f[0] * ff[0] + f[1] * ff[1] + f[2] * ff[2] + f[3] * ff[3]
+			+ disp[0] * dd[0] + disp[1] * dd[1] + disp[2] * dd[2]
+			+ disp[3] * dd[3];
+}
+
+void cellular_function4D_work(vector4 v, uint seed, REAL *f, REAL *disp,
+		dist_func4 distance) {
+	int4 vint = fast_floor4(v);
+
+	for (int c = 0; c < 4; ++c) {
+		f[c] = 99999.0;
+		disp[c] = 0.0;
+	}
+
+	for (int wcur = vint.w - 2; wcur <= vint.w + 2; ++wcur) {
+		for (int zcur = vint.z - 2; zcur <= vint.z + 2; ++zcur) {
+			for (int ycur = vint.y - 2; ycur <= vint.y + 2; ++ycur) {
+				for (int xcur = vint.x - 2; xcur <= vint.x + 2; ++xcur) {
+        			vector4 vpos = (vector4) {
+        					(REAL) xcur + value_noise_4(v, xcur, ycur, zcur, wcur, seed),
+        					(REAL) ycur + value_noise_4(v, xcur, ycur, zcur, wcur, seed + 1),
+        					(REAL) zcur + value_noise_4(v, xcur, ycur, zcur, wcur, seed + 2),
+        					(REAL) wcur + value_noise_4(v, xcur, ycur, zcur, wcur, seed + 3)
+        			};
+                    //REAL xdist=xpos-x;
+                    //REAL ydist=ypos-y;
+                    //REAL zdist=zpos-z;
+                    //REAL wdist=wpos-w;
+                    //REAL dist=(xdist*xdist + ydist*ydist + zdist*zdist + wdist*wdist);
+					REAL dist = distance(vpos, v);
+					int4 vval = fast_floor4(vpos);
+					REAL dsp = value_noise_4(v, vval.x, vval.y, vval.z, vval.w, seed + 3);
+					add_dist(f, disp, dist, dsp);
+                }
+            }
+        }
+    }
+}
+
+REAL cellular_function4D(vector4 v, uint seed, REAL *f, REAL *disp, dist_func4 distance) {
+	REAL ff[4], dd[4];
+	cellular_function4D_work(v, seed, ff, dd, distance);
+	return f[0] * ff[0] + f[1] * ff[1] + f[2] * ff[2] + f[3] * ff[3]
+			+ disp[0] * dd[0] + disp[1] * dd[1] + disp[2] * dd[2]
+			+ disp[3] * dd[3];
+}
+
+void cellular_function6D_work(vector8 v, uint seed, REAL *f, REAL *disp,
+		dist_func6 distance) {
+	int8 vint = fast_floor8(v);
+
+	for (int c = 0; c < 4; ++c) {
+		f[c] = 99999.0;
+		disp[c] = 0.0;
+	}
+
+	for (int vcur = vint.s5 - 1; vcur <= vint.s5 + 1; ++vcur) {
+		for (int ucur = vint.s4 - 1; ucur <= vint.s4 + 1; ++ucur) {
+			for (int wcur = vint.w - 2; wcur <= vint.w + 2; ++wcur) {
+				for (int zcur = vint.z - 2; zcur <= vint.z + 2; ++zcur) {
+					for (int ycur = vint.y - 2; ycur <= vint.y + 2; ++ycur) {
+						for (int xcur = vint.x - 2; xcur <= vint.x + 2; ++xcur) {
+		        			vector8 vpos = (vector8) {
+		        					(REAL) xcur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed),
+		        					(REAL) ycur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed + 1),
+		        					(REAL) zcur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed + 2),
+		        					(REAL) wcur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed + 3),
+		        					(REAL) ucur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed + 4),
+		        					(REAL) vcur + value_noise_6(v, xcur, ycur, zcur, wcur, ucur, vcur, seed + 5),
+									0,
+									0
+		        			};
+                            //REAL xdist=xpos-x;
+                            //REAL ydist=ypos-y;
+                            //REAL zdist=zpos-z;
+                            //REAL wdist=wpos-w;
+                            //REAL udist=upos-u;
+                            //REAL vdist=vpos-v;
+                            //REAL dist=(xdist*xdist + ydist*ydist + zdist*zdist + wdist*wdist + udist*udist + vdist*vdist);
+							REAL dist = distance(vpos, v);
+							int8 vval = fast_floor8(vpos);
+							REAL dsp = value_noise_6(v, vval.x, vval.y, vval.z, vval.w, vval.s4, vval.s5, seed + 6);
+							add_dist(f, disp, dist, dsp);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+REAL cellular_function6D(vector8 v, uint seed, REAL *f, REAL *disp, dist_func6 distance) {
+	REAL ff[4], dd[4];
+	cellular_function6D_work(v, seed, ff, dd, distance);
 	return f[0] * ff[0] + f[1] * ff[1] + f[2] * ff[2] + f[3] * ff[3]
 			+ disp[0] * dd[0] + disp[1] * dd[1] + disp[2] * dd[2]
 			+ disp[3] * dd[3];

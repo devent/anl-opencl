@@ -60,6 +60,9 @@
 using ::testing::TestWithParam;
 using ::testing::Values;
 
+/**
+ * Cell2D
+ */
 struct Cell2D {
 	vector2 v;
 	uint seed;
@@ -67,6 +70,9 @@ struct Cell2D {
 	REAL y;
 };
 
+/**
+ * noise_cell_func2_params
+ */
 class noise_cell_func2_params: public ::testing::TestWithParam<Cell2D> {
 protected:
 	REAL f[4] = { 10, 5, 2.5, 1.25 };
@@ -77,8 +83,6 @@ protected:
  * noise_gen_cellular_noise2D_test-noise_cell_func2_params-cell2D
  * <ul>
  * <li>Cell2D
- * <li>float2
- * <li>distEuclid2
  * <li>cellular_function2D
  * </ul>
  */
@@ -93,6 +97,8 @@ TEST_P(noise_cell_func2_params, cell2D) {
  * <li>Cell2D
  * <li>float2
  * <li>distEuclid2
+ * <li>distManhattan2
+ * <li>distGreatestAxis2
  * </ul>
  */
 INSTANTIATE_TEST_SUITE_P(noise_gen_cellular_noise2D_test, noise_cell_func2_params, Values( //
@@ -118,5 +124,161 @@ Cell2D { (vector2){ 0.0, 0.0 }, 200, distManhattan2, -4.259804 }, //
 //
 Cell2D { (vector2){ -1.0, -1.0 }, 200, distGreatestAxis2, -18.294118 }, //
 Cell2D { (vector2){ 0.0, 0.0 }, 200, distGreatestAxis2, 31.107847 } //
+));
+
+/**
+ * Cell3D
+ */
+struct Cell3D {
+	vector3 v;
+	uint seed;
+	dist_func3 dist_func;
+	REAL y;
+};
+
+/**
+ * noise_cell_func3_params
+ */
+class noise_cell_func3_params: public ::testing::TestWithParam<Cell3D> {
+protected:
+	REAL f[4] = { 10, 5, 2.5, 1.25 };
+	REAL disp[4] = { 100, 50, 25, 10 };
+};
+
+/**
+ * noise_gen_cellular_noise3D_test-noise_cell_func3_params-cell3D
+ * <ul>
+ * <li>Cell3D
+ * <li>cellular_function3D
+ * </ul>
+ */
+TEST_P(noise_cell_func3_params, cell3D) {
+	auto t = GetParam();
+	EXPECT_NEAR(cellular_function3D(t.v, t.seed, f, disp, t.dist_func), t.y, 0.00001);
+}
+
+/**
+ * noise_gen_cellular_noise3D_test-noise_cell_func3_params
+ * <ul>
+ * <li>Cell3D
+ * <li>float3
+ * <li>distEuclid3
+ * <li>distManhattan3
+ * <li>distGreatestAxis3
+ * <li>distLeastAxis3
+ * </ul>
+ */
+INSTANTIATE_TEST_SUITE_P(noise_gen_cellular_noise3D_test, noise_cell_func3_params, Values( //
+Cell3D { (vector3){ -1.0, -1.0, 0.0 }, 200, distEuclid3, 24.79700 }, // 0
+//
+Cell3D { (vector3){ -1.0, -1.0, 0.0 }, 200, distManhattan3, 32.22059 }, //
+//
+Cell3D { (vector3){ -1.0, -1.0, 0.0 }, 200, distGreatestAxis3, 17.058834 }, //
+//
+Cell3D { (vector3){ -1.0, -1.0, 0.0 }, 200, distLeastAxis3, 24.79700 } //
+));
+
+/**
+ * Cell4D
+ */
+struct Cell4D {
+	vector4 v;
+	uint seed;
+	dist_func4 dist_func;
+	REAL y;
+};
+
+/**
+ * noise_cell_func4_params
+ */
+class noise_cell_func4_params: public ::testing::TestWithParam<Cell4D> {
+protected:
+	REAL f[4] = { 10, 5, 2.5, 1.25 };
+	REAL disp[4] = { 100, 50, 25, 10 };
+};
+
+/**
+ * noise_gen_cellular_noise4D_test-noise_cell_func4_params-cell4D
+ * <ul>
+ * <li>Cell4D
+ * <li>cellular_function4D
+ * </ul>
+ */
+TEST_P(noise_cell_func4_params, cell4D) {
+	auto t = GetParam();
+	EXPECT_NEAR(cellular_function4D(t.v, t.seed, f, disp, t.dist_func), t.y, 0.00001);
+}
+
+/**
+ * noise_gen_cellular_noise4D_test-noise_cell_func4_params
+ * <ul>
+ * <li>Cell4D
+ * <li>float4
+ * <li>distEuclid4
+ * <li>distManhattan4
+ * <li>distGreatestAxis4
+ * <li>distLeastAxis4
+ * </ul>
+ */
+INSTANTIATE_TEST_SUITE_P(noise_gen_cellular_noise4D_test, noise_cell_func4_params, Values( //
+Cell4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, distEuclid4, -81.92229 }, // 0
+//
+Cell4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, distManhattan4, -75.90196 }, //
+//
+Cell4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, distGreatestAxis4, -121.44118 }, //
+//
+Cell4D { (vector4){ -1.0, -1.0, -1.0, 0.0 }, 200, distLeastAxis4, -81.92229 } //
+));
+
+/**
+ * Cell6D
+ */
+struct Cell6D {
+	vector8 v;
+	uint seed;
+	dist_func6 dist_func;
+	REAL y;
+};
+
+/**
+ * noise_cell_func6_params
+ */
+class noise_cell_func6_params: public ::testing::TestWithParam<Cell6D> {
+protected:
+	REAL f[4] = { 10, 5, 2.5, 1.25 };
+	REAL disp[4] = { 100, 50, 25, 10 };
+};
+
+/**
+ * noise_gen_cellular_noise6D_test-noise_cell_func6_params-cell6D
+ * <ul>
+ * <li>Cell6D
+ * <li>cellular_function6D
+ * </ul>
+ */
+TEST_P(noise_cell_func6_params, cell6D) {
+	auto t = GetParam();
+	EXPECT_NEAR(cellular_function6D(t.v, t.seed, f, disp, t.dist_func), t.y, 0.00001);
+}
+
+/**
+ * noise_gen_cellular_noise6D_test-noise_cell_func6_params
+ * <ul>
+ * <li>Cell6D
+ * <li>float8
+ * <li>distEuclid6
+ * <li>distManhattan6
+ * <li>distGreatestAxis6
+ * <li>distLeastAxis6
+ * </ul>
+ */
+INSTANTIATE_TEST_SUITE_P(noise_gen_cellular_noise6D_test, noise_cell_func6_params, Values( //
+Cell6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, distEuclid6, -101.23390 }, // 0
+//
+Cell6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, distManhattan6, -75.90686 }, //
+//
+Cell6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, distGreatestAxis6, -82.80882 }, //
+//
+Cell6D { (vector8){ -1.0, -1.0, -1.0, -1.0, -1.0, 0.0 }, 200, distLeastAxis6, -101.23390 } //
 ));
 

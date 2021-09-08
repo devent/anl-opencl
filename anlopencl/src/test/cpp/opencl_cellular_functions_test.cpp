@@ -65,65 +65,222 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
+const size_t size = pow(2, 10);
+
+const std::string out_dir = "out/cellular_functions/";
+
+/**
+ * opencl_cellular_function2D_fixture
+ */
 class opencl_cellular_function2D_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
-
 	std::shared_ptr<std::vector<REAL>> input;
-
 	std::shared_ptr<cl::Buffer> inputBuffer;
-
-	virtual size_t runKernel(cl::Program & kernel) {
+	void setupInput() {
 		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<
-				cl::Buffer, // input
-				cl::Buffer, // f
-				cl::Buffer, // disp
-				cl::Buffer // output
-				>(kernel, t.kernel);
 		input = createVector<REAL>(t.imageSize * dim_real2);
-		map2DNoZ(input->data(), calc_seamless_no_z_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight);
+		map2DNoZ(input->data(),
+				calc_seamless_no_z_none,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight);
 		inputBuffer = createBufferPtr(input);
-		output = createVector<REAL>(t.imageSize);
-		outputBuffer = createBufferPtr(output);
-		std::vector<REAL> f = { 10, 5, 2.5, 1.25 };
-		auto fBuffer = createBuffer(f);
-		std::vector<REAL> disp = { 100, 50, 25, 10 };
-		auto dispBuffer = createBuffer(disp);
-	    cl::DeviceCommandQueue defaultDeviceQueue;
-	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
-		logger->trace("Start kernel with size {}", t.imageSize);
-		cl_int error;
-		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				*inputBuffer,
-				fBuffer,
-				dispBuffer,
-				*outputBuffer,
-				error);
-		logger->info("Created kernel error={}", error);
-		return t.imageSize;
 	}
-
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+	virtual size_t runKernel(cl::Program & kernel) {
+		return commonRunKernel(kernel);
+	}
 };
 
+/**
+ * opencl_cellular_function2D_test-opencl_cellular_function2D_fixture-show_image
+ */
 TEST_P(opencl_cellular_function2D_fixture, show_image) {
 	auto t = GetParam();
 	showImageScaleToRange(output, GREY_CV);
 }
 
+/**
+ * opencl_cellular_function2D_test-opencl_cellular_function2D_fixture-save_image
+ */
 TEST_P(opencl_cellular_function2D_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
-	ss << "out/noise_functions/" << t.kernel << ".png";
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
 	saveImageScaleToRange(ss.str(), output, GREY_CV);
 }
 
-const size_t size = pow(2, 10);
-
+/**
+ * opencl_cellular_function2D_test-opencl_cellular_function2D_fixture
+ */
 INSTANTIATE_TEST_SUITE_P(opencl_cellular_function2D_test, opencl_cellular_function2D_fixture,
 		Values(
 KernelContext("cellular_function2D_distEuclid", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
 KernelContext("cellular_function2D_distManhattan", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
 KernelContext("cellular_function2D_distGreatestAxis", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size), //
 KernelContext("cellular_function2D_distLeastAxis", readFile("src/test/cpp/kernels/cellular_functions2D.cl"), size) //
+));
+
+/**
+ * opencl_cellular_function3D_fixture
+ */
+class opencl_cellular_function3D_fixture: public OpenCL_Context_Buffer_Fixture {
+protected:
+	std::shared_ptr<std::vector<REAL>> input;
+	std::shared_ptr<cl::Buffer> inputBuffer;
+	void setupInput() {
+		auto t = GetParam();
+		input = createVector<REAL>(t.imageSize * dim_real3);
+		map2D(input->data(),
+				calc_seamless_none,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+	}
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+	virtual size_t runKernel(cl::Program & kernel) {
+		return commonRunKernel(kernel);
+	}
+};
+
+/**
+ * opencl_cellular_function3D_test-opencl_cellular_function3D_fixture-show_image
+ */
+TEST_P(opencl_cellular_function3D_fixture, show_image) {
+	auto t = GetParam();
+	showImageScaleToRange(output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function3D_test-opencl_cellular_function3D_fixture-save_image
+ */
+TEST_P(opencl_cellular_function3D_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function3D_test-opencl_cellular_function3D_fixture
+ */
+INSTANTIATE_TEST_SUITE_P(opencl_cellular_function3D_test, opencl_cellular_function3D_fixture,
+		Values(
+KernelContext("cellular_function3D_distEuclid", readFile("src/test/cpp/kernels/cellular_functions3D.cl"), size), //
+KernelContext("cellular_function3D_distManhattan", readFile("src/test/cpp/kernels/cellular_functions3D.cl"), size), //
+KernelContext("cellular_function3D_distGreatestAxis", readFile("src/test/cpp/kernels/cellular_functions3D.cl"), size), //
+KernelContext("cellular_function3D_distLeastAxis", readFile("src/test/cpp/kernels/cellular_functions3D.cl"), size) //
+));
+
+/**
+ * opencl_cellular_function4D_fixture
+ */
+class opencl_cellular_function4D_fixture: public OpenCL_Context_Buffer_Fixture {
+protected:
+	std::shared_ptr<std::vector<REAL>> input;
+	std::shared_ptr<cl::Buffer> inputBuffer;
+	void setupInput() {
+		auto t = GetParam();
+		input = createVector<REAL>(t.imageSize * dim_real4);
+		map2D(input->data(),
+				calc_seamless_x,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+	}
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+	virtual size_t runKernel(cl::Program & kernel) {
+		return commonRunKernel(kernel);
+	}
+};
+
+/**
+ * opencl_cellular_function4D_test-opencl_cellular_function4D_fixture-show_image
+ */
+TEST_P(opencl_cellular_function4D_fixture, show_image) {
+	auto t = GetParam();
+	showImageScaleToRange(output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function4D_test-opencl_cellular_function4D_fixture-save_image
+ */
+TEST_P(opencl_cellular_function4D_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function4D_test-opencl_cellular_function4D_fixture
+ */
+INSTANTIATE_TEST_SUITE_P(opencl_cellular_function4D_test, opencl_cellular_function4D_fixture,
+		Values(
+KernelContext("cellular_function4D_distEuclid", readFile("src/test/cpp/kernels/cellular_functions4D.cl"), size), //
+KernelContext("cellular_function4D_distManhattan", readFile("src/test/cpp/kernels/cellular_functions4D.cl"), size), //
+KernelContext("cellular_function4D_distGreatestAxis", readFile("src/test/cpp/kernels/cellular_functions4D.cl"), size), //
+KernelContext("cellular_function4D_distLeastAxis", readFile("src/test/cpp/kernels/cellular_functions4D.cl"), size) //
+));
+
+/**
+ * opencl_cellular_function6D_fixture
+ */
+class opencl_cellular_function6D_fixture: public OpenCL_Context_Buffer_Fixture {
+protected:
+	std::shared_ptr<std::vector<REAL>> input;
+	std::shared_ptr<cl::Buffer> inputBuffer;
+	void setupInput() {
+		auto t = GetParam();
+		input = createVector<REAL>(t.imageSize * dim_real8);
+		map2D(input->data(),
+				calc_seamless_xyz,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+	}
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+	virtual size_t runKernel(cl::Program & kernel) {
+		return commonRunKernel(kernel);
+	}
+};
+
+/**
+ * opencl_cellular_function6D_test-opencl_cellular_function6D_fixture-show_image
+ */
+TEST_P(opencl_cellular_function6D_fixture, show_image) {
+	auto t = GetParam();
+	showImageScaleToRange(output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function6D_test-opencl_cellular_function6D_fixture-save_image
+ */
+TEST_P(opencl_cellular_function6D_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, GREY_CV);
+}
+
+/**
+ * opencl_cellular_function6D_test-opencl_cellular_function6D_fixture
+ */
+INSTANTIATE_TEST_SUITE_P(opencl_cellular_function6D_test, opencl_cellular_function6D_fixture,
+		Values(
+KernelContext("cellular_function6D_distEuclid", readFile("src/test/cpp/kernels/cellular_functions6D.cl"), size), //
+KernelContext("cellular_function6D_distManhattan", readFile("src/test/cpp/kernels/cellular_functions6D.cl"), size), //
+KernelContext("cellular_function6D_distGreatestAxis", readFile("src/test/cpp/kernels/cellular_functions6D.cl"), size), //
+KernelContext("cellular_function6D_distLeastAxis", readFile("src/test/cpp/kernels/cellular_functions6D.cl"), size) //
 ));

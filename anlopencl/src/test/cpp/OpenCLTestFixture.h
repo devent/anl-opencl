@@ -80,6 +80,11 @@ struct KernelContext {
 };
 
 /**
+ * Creates the directory if it does not exist.
+ */
+int mkpath(const char *dir, mode_t mode = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+/**
  * Outputs the matrix as string.
  */
 std::string mat_to_s(cv::Mat &m);
@@ -202,6 +207,21 @@ public:
 	std::shared_ptr<cl::Buffer> outputBuffer;
 protected:
 	virtual void copyBuffers();
+
+	/**
+	 * Runs a kernel with an input and output buffer.
+	 */
+	size_t commonRunKernel(cl::Program & kernel);
+
+	/**
+	 * Setups the input buffer for the commonRunKernel(cl::Program) function.
+	 */
+	virtual void setupInput();
+
+	/**
+	 * Returns the input buffer for the commonRunKernel(cl::Program) function.
+	 */
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer();
 };
 
 /**

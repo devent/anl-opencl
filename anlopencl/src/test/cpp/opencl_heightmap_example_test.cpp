@@ -74,7 +74,10 @@ protected:
 		auto t = GetParam();
 		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
 		input = createVector<REAL>(t.imageSize * dim_real8);
-		map2D(input->data(), calc_seamless_xy, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
+		map2D(input->data(),
+				calc_seamless_xy,
+				create_ranges_map2D(-100, 100, -100, 100),
+				t.imageWidth, t.imageHeight, 0);
 		inputBuffer = createBufferPtr(input);
 		output = createVector<REAL>(t.imageSize);
 		outputBuffer = createBufferPtr(output);
