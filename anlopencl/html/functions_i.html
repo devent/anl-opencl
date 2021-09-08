@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +61,7 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +72,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ANL-OpenCL
    </div>
-   <div id="projectbrief">ThisisanimplementionoftheAccidentalNoiseLibraryC++librarythatwasoriginallywrittenbyJosuaTippetts.</div>
+   <div id="projectbrief">This is an implemention of the Accidental Noise Library C++ library that was originally written by Josua Tippetts.</div>
   </td>
  </tr>
  </tbody>
@@ -76,21 +124,29 @@ $(function() {
 : <a class="el" href="structKernelContext.html#a4cf17df972687b9c9a825b0358ebfd3b">KernelContext</a>
 </li>
 <li>input
-: <a class="el" href="classopencl__combineColor__fixture.html#a105052d74403f0747b888a47eb4092ce">opencl_combineColor_fixture</a>
-, <a class="el" href="classopencl__heightmap__example__fixture.html#a2a6b345918848ce218a2aace956f8b9d">opencl_heightmap_example_fixture</a>
-, <a class="el" href="classopencl__noise2D__functions__fixture.html#a6dad6a453b081e580ca515bca5a91e7e">opencl_noise2D_functions_fixture</a>
-, <a class="el" href="classopencl__noise3D__functions__fixture.html#a3e6e220d822ab5aacdb7f2bc51951b33">opencl_noise3D_functions_fixture</a>
-, <a class="el" href="classopencl__noise4D__functions__fixture.html#a69b504dbf6f58785363628c4c1f86b03">opencl_noise4D_functions_fixture</a>
-, <a class="el" href="classopencl__noise6D__functions__fixture.html#ae7dab08c6f23a11ec031f7ab09d11363">opencl_noise6D_functions_fixture</a>
-, <a class="el" href="classopencl__simpleBillow3__fixture.html#ad0d2897485eff3b07ba78f6105ac9bbd">opencl_simpleBillow3_fixture</a>
-, <a class="el" href="classopencl__simpleBillowLayer__fixture.html#ae0b1f69bfe05f4ed30d21e98b3a68cb2">opencl_simpleBillowLayer_fixture</a>
-, <a class="el" href="classopencl__simplefBm3__fixture.html#af22c61d3e1f701325a0ee05bf6469639">opencl_simplefBm3_fixture</a>
-, <a class="el" href="classopencl__simpleFractalLayer__fixture.html#a71e5f7badd0e6924a8feb0681c01b6ca">opencl_simpleFractalLayer_fixture</a>
-, <a class="el" href="classopencl__simpleRidgedLayer__fixture.html#a8572c817c7cfa0fab3e90950eed6b901">opencl_simpleRidgedLayer_fixture</a>
-, <a class="el" href="classopencl__simpleRidgedMultifractal3__fixture.html#a62bd19a3b42565c62a555ba14a114ec7">opencl_simpleRidgedMultifractal3_fixture</a>
+: <a class="el" href="classopencl__cellular__function2D__fixture.html#a42e21a966fb98047363bd20aef4f025f">opencl_cellular_function2D_fixture</a>
+, <a class="el" href="classopencl__cellular__function3D__fixture.html#a32c959384d5221e6a681d45c6c3480ea">opencl_cellular_function3D_fixture</a>
+, <a class="el" href="classopencl__cellular__function4D__fixture.html#af804e8d6ddd1180102b6ab9ae35cd1f9">opencl_cellular_function4D_fixture</a>
+, <a class="el" href="classopencl__cellular__function6D__fixture.html#ad880cf14752fd62aa8aa2ecf347546c4">opencl_cellular_function6D_fixture</a>
+, <a class="el" href="classopencl__combineColor__fixture.html#a336ab1e2c41be7d6658db579c1ed98d5">opencl_combineColor_fixture</a>
+, <a class="el" href="classopencl__heightmap__example__fixture.html#a6f9ae0ac5b235eea11b3a4f0dea295f4">opencl_heightmap_example_fixture</a>
+, <a class="el" href="classopencl__noise2D__functions__fixture.html#a62757fa403442dfc33e0f79e9cccc480">opencl_noise2D_functions_fixture</a>
+, <a class="el" href="classopencl__noise3D__functions__fixture.html#ac2c178bf8ed75429a7c18005ad505284">opencl_noise3D_functions_fixture</a>
+, <a class="el" href="classopencl__noise4D__functions__fixture.html#a8ed3c88bc2beba214d3f131767c3d865">opencl_noise4D_functions_fixture</a>
+, <a class="el" href="classopencl__noise6D__functions__fixture.html#a4bc974fbaf91d9e064a4c7f041040cba">opencl_noise6D_functions_fixture</a>
+, <a class="el" href="classopencl__simpleBillow3__fixture.html#ad17f8f32955edf3f2ae92407964906c1">opencl_simpleBillow3_fixture</a>
+, <a class="el" href="classopencl__simpleBillowLayer__fixture.html#aa06bebf3708ebce3367270bd838f8fff">opencl_simpleBillowLayer_fixture</a>
+, <a class="el" href="classopencl__simplefBm3__fixture.html#a400918dc7d43221047100cc63aba28cd">opencl_simplefBm3_fixture</a>
+, <a class="el" href="classopencl__simpleFractalLayer__fixture.html#acd02d28c9d8562b4bc349c1908930ec1">opencl_simpleFractalLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedLayer__fixture.html#a1470de7700619514002f6633245ded7d">opencl_simpleRidgedLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedMultifractal3__fixture.html#abc3425b71ccdd3e48f496f29ead792bf">opencl_simpleRidgedMultifractal3_fixture</a>
 </li>
 <li>inputBuffer
-: <a class="el" href="classopencl__combineColor__fixture.html#afda5726b4ccd3e0977f206ff4b7eb6cc">opencl_combineColor_fixture</a>
+: <a class="el" href="classopencl__cellular__function2D__fixture.html#abf1e988bc7dd76d81b168408a2ab42e7">opencl_cellular_function2D_fixture</a>
+, <a class="el" href="classopencl__cellular__function3D__fixture.html#a857ee01d9d55f587f81dde9a8d19123b">opencl_cellular_function3D_fixture</a>
+, <a class="el" href="classopencl__cellular__function4D__fixture.html#ae27a522ed6db4786bc90a747affe6143">opencl_cellular_function4D_fixture</a>
+, <a class="el" href="classopencl__cellular__function6D__fixture.html#a32a35dfe668123d82f5a3fdd52fa8267">opencl_cellular_function6D_fixture</a>
+, <a class="el" href="classopencl__combineColor__fixture.html#afda5726b4ccd3e0977f206ff4b7eb6cc">opencl_combineColor_fixture</a>
 , <a class="el" href="classopencl__heightmap__example__fixture.html#a0329a100cea9b9f9ed699dbff18fa8e7">opencl_heightmap_example_fixture</a>
 , <a class="el" href="classopencl__noise2D__functions__fixture.html#a5afe3a0226e7cae9f57490284182fefe">opencl_noise2D_functions_fixture</a>
 , <a class="el" href="classopencl__noise3D__functions__fixture.html#acfb369a644c1f5af1ee9561d284c8d30">opencl_noise3D_functions_fixture</a>

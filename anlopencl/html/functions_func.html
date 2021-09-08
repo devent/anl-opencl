@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +61,7 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +72,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ANL-OpenCL
    </div>
-   <div id="projectbrief">ThisisanimplementionoftheAccidentalNoiseLibraryC++librarythatwasoriginallywrittenbyJosuaTippetts.</div>
+   <div id="projectbrief">This is an implemention of the Accidental Noise Library C++ library that was originally written by Josua Tippetts.</div>
   </td>
  </tr>
  </tbody>
@@ -66,6 +114,9 @@ $(function() {
 &#160;
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>commonRunKernel()
+: <a class="el" href="classOpenCL__Context__Buffer__Fixture.html#a3dfb4a102ac903369fd398e68c69a28a">OpenCL_Context_Buffer_Fixture</a>
+</li>
 <li>copyBuffers()
 : <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a60cad2bb9657cc43c3d03a32ba00a0e7">Abstract_OpenCL_Context_Fixture</a>
 , <a class="el" href="classOpenCL__Context__Buffer__Fixture.html#ae131198f57ce210da1348428708e7e66">OpenCL_Context_Buffer_Fixture</a>
@@ -84,12 +135,35 @@ $(function() {
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
-<li>fill2dSpace()
-: <a class="el" href="classvalue__color__noise3D__fixture.html#a8849e6ce51586032a06a7cb8bf6908f7">value_color_noise3D_fixture</a>
-, <a class="el" href="classvalue__noise3D__fixture.html#a9081a557ca57fb8c0cfdbb05b144334b">value_noise3D_fixture</a>
-</li>
 <li>fnv32ABuf()
 : <a class="el" href="classcom_1_1anrisoftware_1_1anlopencl_1_1CoreTest.html#a1eacd3111675aef54763f046b42ed53f">com.anrisoftware.anlopencl.CoreTest</a>
+</li>
+</ul>
+
+
+<h3><a id="index_g"></a>- g -</h3><ul>
+<li>getColorChannels()
+: <a class="el" href="classopencl__combineColor__fixture.html#ac256d525869d5b6d9cd12e0e1b69ddb6">opencl_combineColor_fixture</a>
+, <a class="el" href="classOpenCL__Context__Buffer__Fixture.html#a552b74373854a067ab89b213b2b99a3f">OpenCL_Context_Buffer_Fixture</a>
+</li>
+<li>getInputBuffer()
+: <a class="el" href="classopencl__cellular__function2D__fixture.html#aec114c483d2dc35df973cdff646a8afc">opencl_cellular_function2D_fixture</a>
+, <a class="el" href="classopencl__cellular__function3D__fixture.html#a90995bedf9033b935d2d3be4b4b139f5">opencl_cellular_function3D_fixture</a>
+, <a class="el" href="classopencl__cellular__function4D__fixture.html#a4b20e2218dcff520e6e5cfa186e8fb64">opencl_cellular_function4D_fixture</a>
+, <a class="el" href="classopencl__cellular__function6D__fixture.html#a7ecdc3d023f2ab4d33d285aebb6358eb">opencl_cellular_function6D_fixture</a>
+, <a class="el" href="classopencl__combineColor__fixture.html#a10f43444983e4316664e218e04ac668e">opencl_combineColor_fixture</a>
+, <a class="el" href="classOpenCL__Context__Buffer__Fixture.html#a5450f0a53d4e7772ff83170a5eb606dc">OpenCL_Context_Buffer_Fixture</a>
+, <a class="el" href="classopencl__heightmap__example__fixture.html#a5a72f8261710ab363ee2158828966ccf">opencl_heightmap_example_fixture</a>
+, <a class="el" href="classopencl__noise2D__functions__fixture.html#a1e1f1b1f1e0083eff65f20224dddbe93">opencl_noise2D_functions_fixture</a>
+, <a class="el" href="classopencl__noise3D__functions__fixture.html#a7a40f6c9237dfa88a4448f477d74cef8">opencl_noise3D_functions_fixture</a>
+, <a class="el" href="classopencl__noise4D__functions__fixture.html#aee980c2a58eb5695b1e2d1c5c1937b7d">opencl_noise4D_functions_fixture</a>
+, <a class="el" href="classopencl__noise6D__functions__fixture.html#a4c830b6f4580af008a7cc874d769d5eb">opencl_noise6D_functions_fixture</a>
+, <a class="el" href="classopencl__simpleBillow3__fixture.html#a8b66c22704590adb7ed09d1008f72f6e">opencl_simpleBillow3_fixture</a>
+, <a class="el" href="classopencl__simpleBillowLayer__fixture.html#a100b470c782b975b9fedcdbbd6bdd02b">opencl_simpleBillowLayer_fixture</a>
+, <a class="el" href="classopencl__simplefBm3__fixture.html#a399917aae0cc10869638d2f34b32679a">opencl_simplefBm3_fixture</a>
+, <a class="el" href="classopencl__simpleFractalLayer__fixture.html#ac4929d98d4b6f5c05eb525e50635835f">opencl_simpleFractalLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedLayer__fixture.html#a302dfbe0969fe548d2ba61063dfe6e53">opencl_simpleRidgedLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedMultifractal3__fixture.html#a023913621bad74a16a479371d48b3395">opencl_simpleRidgedMultifractal3_fixture</a>
 </li>
 </ul>
 
@@ -111,15 +185,6 @@ $(function() {
 </ul>
 
 
-<h3><a id="index_m"></a>- m -</h3><ul>
-<li>mat_to_s()
-: <a class="el" href="classvalue__color__noise3D__fixture.html#ae4302565960519245b5c31f1854ffa8f">value_color_noise3D_fixture</a>
-, <a class="el" href="classvalue__map2D__fixture.html#a03a845bebf0fafdf08850d8e1f29d9f8">value_map2D_fixture</a>
-, <a class="el" href="classvalue__noise3D__fixture.html#ace42cf505c67c8835fc543e07540388e">value_noise3D_fixture</a>
-</li>
-</ul>
-
-
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>OpenCL_Context()
 : <a class="el" href="classOpenCL__Context.html#a6402e39eeeb25cbe971b7b6e9b5884c6">OpenCL_Context</a>
@@ -137,8 +202,11 @@ $(function() {
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>runKernel()
 : <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#ac81e04aaabbdf2b798517d94d4b55dfe">Abstract_OpenCL_Context_Fixture</a>
+, <a class="el" href="classopencl__cellular__function2D__fixture.html#a119a197a6d7259d6818568fa9e1a7816">opencl_cellular_function2D_fixture</a>
+, <a class="el" href="classopencl__cellular__function3D__fixture.html#ad744fe06468923f29758be83ab251c9b">opencl_cellular_function3D_fixture</a>
+, <a class="el" href="classopencl__cellular__function4D__fixture.html#a10f758f68945350d337b8b5404f0cdaa">opencl_cellular_function4D_fixture</a>
+, <a class="el" href="classopencl__cellular__function6D__fixture.html#ae68e7d573fdc5452e11b291df625b997">opencl_cellular_function6D_fixture</a>
 , <a class="el" href="classopencl__combineColor__fixture.html#a84df23e4e7723ed3d44fc62c1b12729a">opencl_combineColor_fixture</a>
-, <a class="el" href="classOpenCL__Context__Fixture.html#a8ebfa0f4ad96ff27eaf562fe7e3374a2">OpenCL_Context_Fixture</a>
 , <a class="el" href="classopencl__heightmap__example__fixture.html#a7ce9b5e3641032c356f8c100e93a2612">opencl_heightmap_example_fixture</a>
 , <a class="el" href="classopencl__noise2D__functions__fixture.html#afe3602c98042929449765c4b9c6ba384">opencl_noise2D_functions_fixture</a>
 , <a class="el" href="classopencl__noise3D__functions__fixture.html#a7b140347a22eaadb33c1c908e013bd47">opencl_noise3D_functions_fixture</a>
@@ -150,20 +218,17 @@ $(function() {
 , <a class="el" href="classopencl__simpleFractalLayer__fixture.html#a12caf6ccfecb54b97e9d13cd84283d6b">opencl_simpleFractalLayer_fixture</a>
 , <a class="el" href="classopencl__simpleRidgedLayer__fixture.html#a8581e0d7f0ba083f96ed0574875ed511">opencl_simpleRidgedLayer_fixture</a>
 , <a class="el" href="classopencl__simpleRidgedMultifractal3__fixture.html#a09faed30490529d7355907f8c54fe03c">opencl_simpleRidgedMultifractal3_fixture</a>
-, <a class="el" href="classvalue__color__noise3D__fixture.html#a2654b7f843ff85ce6e548fe86d3c685a">value_color_noise3D_fixture</a>
 , <a class="el" href="classvalue__map2D__default__fixture.html#aece23cfb4c772052349551c4c30631b3">value_map2D_default_fixture</a>
-, <a class="el" href="classvalue__map2D__fixture.html#a44d571172331dc82b345f267aee0b9a3">value_map2D_fixture</a>
-, <a class="el" href="classvalue__noise3D__fixture.html#aa880c7f5a549e01018fa165eddc446e6">value_noise3D_fixture</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>saveImage()
-: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#ad03fcbc21273d9b58799722f0fb21207">Abstract_OpenCL_Context_Fixture</a>
+: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a7085b0231ad99035e4027a742ad0ac79">Abstract_OpenCL_Context_Fixture</a>
 </li>
 <li>saveImageScaleToRange()
-: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a0d373c1988357fa38696661aa4cf7944">Abstract_OpenCL_Context_Fixture</a>
+: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#aa138ced95e4879fe02fac17affa79a2a">Abstract_OpenCL_Context_Fixture</a>
 </li>
 <li>SetUp()
 : <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#aaed0657c8f4be23cffaf4caa9858ab06">Abstract_OpenCL_Context_Fixture</a>
@@ -176,24 +241,35 @@ $(function() {
 , <a class="el" href="classmap2D__4__params.html#ac9025c350296aded7f12322871e9fab5">map2D_4_params</a>
 , <a class="el" href="classmap2D__8__params.html#aeb199cd3ff18a3a1a5c0acd45d084b8e">map2D_8_params</a>
 , <a class="el" href="classmap2D__no__z__3__params.html#aabfd1625ba2659746893a5dabee0e656">map2D_no_z_3_params</a>
-, <a class="el" href="classOpenCL__Context__Fixture.html#a5159fb8661813804639a569340d88538">OpenCL_Context_Fixture</a>
 , <a class="el" href="classrandom__kiss09__param.html#a2ba1092a3116f052557c5863ac2e9d02">random_kiss09_param</a>
+</li>
+<li>setupInput()
+: <a class="el" href="classopencl__cellular__function2D__fixture.html#ac839cc1167ad1d066da2097992a3a714">opencl_cellular_function2D_fixture</a>
+, <a class="el" href="classopencl__cellular__function3D__fixture.html#a8737623e4047d8625c04ed139b4a60c1">opencl_cellular_function3D_fixture</a>
+, <a class="el" href="classopencl__cellular__function4D__fixture.html#aeef8d3d44108e2d3472e6d8452bf7a68">opencl_cellular_function4D_fixture</a>
+, <a class="el" href="classopencl__cellular__function6D__fixture.html#a7ccc96be7c8dd72e466f7a79e7de9323">opencl_cellular_function6D_fixture</a>
+, <a class="el" href="classopencl__combineColor__fixture.html#a83206c1d640e43baef78db305bd2d4d6">opencl_combineColor_fixture</a>
+, <a class="el" href="classOpenCL__Context__Buffer__Fixture.html#a46e836e9c0bb0692873801f5cb0b8e02">OpenCL_Context_Buffer_Fixture</a>
+, <a class="el" href="classopencl__heightmap__example__fixture.html#a09873bc6ddfe9d66b0db178f19132202">opencl_heightmap_example_fixture</a>
+, <a class="el" href="classopencl__noise2D__functions__fixture.html#a98bdb859994a759bbd9bfd023fb99db7">opencl_noise2D_functions_fixture</a>
+, <a class="el" href="classopencl__noise3D__functions__fixture.html#a0dae7f5e8dfca67db2112887956c9873">opencl_noise3D_functions_fixture</a>
+, <a class="el" href="classopencl__noise4D__functions__fixture.html#ad7cc6e6f94060d00ff4ee07e3c52ab04">opencl_noise4D_functions_fixture</a>
+, <a class="el" href="classopencl__noise6D__functions__fixture.html#aa0b8f59bd16aed40ef4ad802ef89a8fe">opencl_noise6D_functions_fixture</a>
+, <a class="el" href="classopencl__simpleBillow3__fixture.html#a107d232b96e1308180dc68c660d00dc3">opencl_simpleBillow3_fixture</a>
+, <a class="el" href="classopencl__simpleBillowLayer__fixture.html#a061af8ded2f2b3d570466f3b526402d4">opencl_simpleBillowLayer_fixture</a>
+, <a class="el" href="classopencl__simplefBm3__fixture.html#ab1882d6a3b5eb3543d3273e00426c2ba">opencl_simplefBm3_fixture</a>
+, <a class="el" href="classopencl__simpleFractalLayer__fixture.html#a2136389561a5169f8857ddb141d8f262">opencl_simpleFractalLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedLayer__fixture.html#a3351ceb4620305618173815801e01194">opencl_simpleRidgedLayer_fixture</a>
+, <a class="el" href="classopencl__simpleRidgedMultifractal3__fixture.html#ac0f857ff399fd6d8d151b4f7bfe3af1b">opencl_simpleRidgedMultifractal3_fixture</a>
 </li>
 <li>SetUpTestSuite()
 : <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#aa2552fa0d701152ff99072a6c0e7be43">Abstract_OpenCL_Context_Fixture</a>
-, <a class="el" href="classOpenCL__Context__Fixture.html#a478977abb27d97d3ddb29164acbfce84">OpenCL_Context_Fixture</a>
 </li>
 <li>showImage()
-: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#ac7d610c6365df2a0487f8348e4f259c5">Abstract_OpenCL_Context_Fixture</a>
+: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#aec2a2fcba526f49f8775d25e1c07d131">Abstract_OpenCL_Context_Fixture</a>
 </li>
 <li>showImageScaleToRange()
-: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a82d4dd13053636270bbf2b93aad29e13">Abstract_OpenCL_Context_Fixture</a>
-</li>
-<li>staticfunc()
-: <a class="el" href="classMyLibrary_1_1Example.html#a8c3ea5ce33b9e1fada7ff46eab0956a7">MyLibrary::Example</a>
-</li>
-<li>super_long_function_with_lots_of_parameters()
-: <a class="el" href="classMyLibrary_1_1SubclassExample.html#ab45f5cdda2582ae3d098555c2d3cbf6d">MyLibrary::SubclassExample</a>
+: <a class="el" href="classAbstract__OpenCL__Context__Fixture.html#a53783e03611759be40dff7ba87757733">Abstract_OpenCL_Context_Fixture</a>
 </li>
 </ul>
 
@@ -201,24 +277,8 @@ $(function() {
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>TearDown()
 : <a class="el" href="classimaging__scaleToRange__param.html#abd22970cfcfe4c5dfa1d9ede938dc5b3">imaging_scaleToRange_param</a>
-, <a class="el" href="classkernel__rotateDomain3__param.html#a2adf56c27d44034e1f1ea2685c61eb61">kernel_rotateDomain3_param</a>
 , <a class="el" href="classkernel__simplefBm__param.html#a4d8a4aa39eca2bd6f754e344358be4ed">kernel_simplefBm_param</a>
-, <a class="el" href="classmap2D__3__params.html#a06c44814e824727ef3e00d083c69c68d">map2D_3_params</a>
-, <a class="el" href="classmap2D__4__params.html#a765cd37caa8201af85b2c89e63eab809">map2D_4_params</a>
-, <a class="el" href="classmap2D__8__params.html#a8440b7638177eeec68b42bea368ddca4">map2D_8_params</a>
-, <a class="el" href="classOpenCL__Context__Fixture.html#a4ee63db291ba5d9085c87477b3c724cd">OpenCL_Context_Fixture</a>
 , <a class="el" href="classrandom__kiss09__param.html#a4a3bf729981a540e4ac80d2d23a43c3a">random_kiss09_param</a>
-</li>
-<li>test()
-: <a class="el" href="classMyLibrary_1_1Example.html#a1c0046b0674eb4cad09c5d3e943912b8">MyLibrary::Example</a>
-</li>
-</ul>
-
-
-<h3><a id="index_v"></a>- v -</h3><ul>
-<li>virtualfunc()
-: <a class="el" href="classMyLibrary_1_1Example.html#a8431ef1c10c4e2a36302b8e8556514f6">MyLibrary::Example</a>
-, <a class="el" href="classMyLibrary_1_1SubclassExample.html#a6c1b7e5c6e56d31a169ddd42e8992300">MyLibrary::SubclassExample</a>
 </li>
 </ul>
 

@@ -65,70 +65,83 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
+/**
+ * Width x Height of the generated image.
+ */
+const size_t size = pow(2, 10);
+
+/**
+ * Output directory.
+ */
+const std::string out_dir = "out/noise_functions/";
+
+/**
+ * opencl_noise4D_functions_fixture
+ */
 class opencl_noise4D_functions_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
-
 	std::shared_ptr<std::vector<REAL>> input;
-
 	std::shared_ptr<cl::Buffer> inputBuffer;
 
-	virtual size_t runKernel(cl::Program & kernel) {
+	void setupInput() {
 		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
 		input = createVector<REAL>(t.imageSize * dim_real4);
 		map2D(input->data(), calc_seamless_x,
 				create_ranges_map2D(-10, 10, -10, 10),
 				t.imageWidth, t.imageHeight, 0);
 		inputBuffer = createBufferPtr(input);
-		output = createVector<REAL>(t.imageSize);
-		outputBuffer = createBufferPtr(output);
-	    cl::DeviceCommandQueue defaultDeviceQueue;
-	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
-		logger->trace("Start kernel with size {}", t.imageSize);
-		cl_int error;
-		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				*inputBuffer,
-				*outputBuffer,
-				error);
-		logger->info("Created kernel error={}", error);
-		return t.imageSize;
+	}
+
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+
+	virtual size_t runKernel(cl::Program & kernel) {
+		return commonRunKernel(kernel);
 	}
 
 };
 
+/**
+ * opencl_noise4D_functions_test-opencl_noise4D_functions_fixture-show_image
+ */
 TEST_P(opencl_noise4D_functions_fixture, show_image) {
 	auto t = GetParam();
 	showImageScaleToRange(output, GREY_CV);
 }
 
+/**
+ * opencl_noise4D_functions_test-opencl_noise4D_functions_fixture-save_image
+ */
 TEST_P(opencl_noise4D_functions_fixture, save_image) {
 	auto t = GetParam();
 	std::stringstream ss;
-	ss << "out/noise_functions/" << t.kernel << ".png";
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
 	saveImageScaleToRange(ss.str(), output, GREY_CV);
 }
 
-const size_t size = pow(2, 10);
-
+/**
+ * opencl_noise4D_functions_test-opencl_noise4D_functions_fixture
+ */
 INSTANTIATE_TEST_SUITE_P(opencl_noise4D_functions_test, opencl_noise4D_functions_fixture,
 		Values(
-			KernelContext("value_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("value_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("gradient_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradient_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("gradval_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			KernelContext("gradval_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("white_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
-			//
-			KernelContext("simplex_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size) //
+KernelContext("value_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("value_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("value_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("value_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+//
+KernelContext("gradient_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradient_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradient_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradient_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+//
+KernelContext("gradval_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradval_noise4D_linearInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradval_noise4D_hermiteInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+KernelContext("gradval_noise4D_quinticInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+//
+KernelContext("white_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size), //
+//
+KernelContext("simplex_noise4D_noInterp", readFile("src/test/cpp/kernels/noise4D_functions.cl"), size) //
 ));

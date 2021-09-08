@@ -73,12 +73,20 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
+/**
+ * Width x Height of the generated image.
+ */
+const size_t size = pow(2, 10);
+
+/**
+ * value_map2D_default_fixture
+ */
 class value_map2D_default_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 
 	const size_t channels = 3;
 
-	std::shared_ptr<std::vector<float>> coord;
+	std::shared_ptr<std::vector<REAL>> coord;
 
 	std::shared_ptr<cl::Buffer> coordBuffer;
 
@@ -95,9 +103,9 @@ protected:
 				float, // sy1
 				cl::LocalSpaceArg
 				>(kernel, t.kernel);
-		output = createVector<float>(t.imageSize * channels);
+		output = createVector<REAL>(t.imageSize * channels);
 	    outputBuffer = createBufferPtr(output);
-	    coord = createVector<float>(t.imageSize * dim_float3);
+	    coord = createVector<REAL>(t.imageSize * dim_real3);
 	    coordBuffer = createBufferPtr(coord);
 	    cl::DeviceCommandQueue defaultDeviceQueue;
 	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -121,14 +129,18 @@ protected:
 
 };
 
+/**
+ * opencl_map2D_test-value_map2D_default_fixture-show_image
+ */
 TEST_P(value_map2D_default_fixture, show_image) {
 	auto t = GetParam();
 	showImage(output, CV_32FC3);
 }
 
-const size_t size = pow(2, 3);
-
+/**
+ * opencl_map2D_test-value_map2D_default_fixture
+ */
 INSTANTIATE_TEST_SUITE_P(opencl_map2D_test, value_map2D_default_fixture,
 		Values(
-				KernelContext("opencl_map2D_default_test", readFile("src/test/cpp/kernels/opencl_map2D_test.cl"), size) //
-						));
+KernelContext("opencl_map2D_default_test", readFile("src/test/cpp/kernels/opencl_map2D_test.cl"), size) //
+));

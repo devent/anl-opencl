@@ -1,63 +1,83 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \doxysection{File List}
 Here is a list of all files with brief descriptions\+:\begin{DoxyCompactList}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{hashing_8d}{hashing.\+d}} }{\pageref{hashing_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{imaging_8d}{imaging.\+d}} }{\pageref{imaging_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{kernel_8d}{kernel.\+d}} }{\pageref{kernel_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{noise__gen_8d}{noise\+\_\+gen.\+d}} }{\pageref{noise__gen_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{noise__lut_8d}{noise\+\_\+lut.\+d}} }{\pageref{noise__lut_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{opencl__utils_8d}{opencl\+\_\+utils.\+d}} }{\pageref{opencl__utils_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{qsort_8d}{qsort.\+d}} }{\pageref{qsort_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{random_8d}{random.\+d}} }{\pageref{random_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/main/cpp/\mbox{\hyperlink{utility_8d}{utility.\+d}} }{\pageref{utility_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{anlopencl__core__test_8d}{anlopencl\+\_\+core\+\_\+test.\+d}} }{\pageref{anlopencl__core__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{compile__library__test_8d}{compile\+\_\+library\+\_\+test.\+d}} }{\pageref{compile__library__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{distance__functions__test_8d}{distance\+\_\+functions\+\_\+test.\+d}} }{\pageref{distance__functions__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{imaging__map__test_8d}{imaging\+\_\+map\+\_\+test.\+d}} }{\pageref{imaging__map__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{imaging__scaleToRange__test_8d}{imaging\+\_\+scale\+To\+Range\+\_\+test.\+d}} }{\pageref{imaging__scaleToRange__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{interpolation__functions__test_8d}{interpolation\+\_\+functions\+\_\+test.\+d}} }{\pageref{interpolation__functions__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{kernel__rotateDomain__test_8d}{kernel\+\_\+rotate\+Domain\+\_\+test.\+d}} }{\pageref{kernel__rotateDomain__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{kernel__simplefBm__test_8d}{kernel\+\_\+simplef\+Bm\+\_\+test.\+d}} }{\pageref{kernel__simplefBm__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{map__functions__bench_8d}{map\+\_\+functions\+\_\+bench.\+d}} }{\pageref{map__functions__bench_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{noise__functions__test_8d}{noise\+\_\+functions\+\_\+test.\+d}} }{\pageref{noise__functions__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{opencl__test_8d}{opencl\+\_\+test.\+d}} }{\pageref{opencl__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{OpenCLContext_8d}{Open\+C\+L\+Context.\+d}} }{\pageref{OpenCLContext_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{OpenCLTestFixture_8d}{Open\+C\+L\+Test\+Fixture.\+d}} }{\pageref{OpenCLTestFixture_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/\mbox{\hyperlink{random__test_8d}{random\+\_\+test.\+d}} }{\pageref{random__test_8d}}{}
-\item\contentsline{section}{Debug-\/\+L\+L\+V\+M/src/test/cpp/kernels/\mbox{\hyperlink{opencl__map2D__test_8d}{opencl\+\_\+map2\+D\+\_\+test.\+d}} }{\pageref{opencl__map2D__test_8d}}{}
-\item\contentsline{section}{doxygen-\/awesome-\/css/include/\+My\+Library/\mbox{\hyperlink{example_8hpp}{example.\+hpp}} }{\pageref{example_8hpp}}{}
-\item\contentsline{section}{doxygen-\/awesome-\/css/include/\+My\+Library/\mbox{\hyperlink{subclass-example_8hpp}{subclass-\/example.\+hpp}} }{\pageref{subclass-example_8hpp}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2hashing_8c}{hashing.\+c}} }{\pageref{src_2main_2cpp_2hashing_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2hashing_8h}{hashing.\+h}} }{\pageref{src_2main_2cpp_2hashing_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2imaging_8c}{imaging.\+c}} }{\pageref{src_2main_2cpp_2imaging_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2imaging_8h}{imaging.\+h}} }{\pageref{src_2main_2cpp_2imaging_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2kernel_8c}{kernel.\+c}} }{\pageref{src_2main_2cpp_2kernel_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2kernel_8h}{kernel.\+h}} }{\pageref{src_2main_2cpp_2kernel_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2noise__gen_8c}{noise\+\_\+gen.\+c}} }{\pageref{src_2main_2cpp_2noise__gen_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h}{noise\+\_\+gen.\+h}} \\*Contains the definitions of the noise generator functions }{\pageref{src_2main_2cpp_2noise__gen_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2noise__lut_8c}{noise\+\_\+lut.\+c}} }{\pageref{src_2main_2cpp_2noise__lut_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2noise__lut_8h}{noise\+\_\+lut.\+h}} }{\pageref{src_2main_2cpp_2noise__lut_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{opencl__utils_8c}{opencl\+\_\+utils.\+c}} \\*Implements functions from opencl\+\_\+utils.\+h }{\pageref{opencl__utils_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2opencl__utils_8h}{opencl\+\_\+utils.\+h}} }{\pageref{src_2main_2cpp_2opencl__utils_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{hashing_8c}{hashing.\+c}} }{\pageref{hashing_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{hashing_8h}{hashing.\+h}} }{\pageref{hashing_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{imaging_8c}{imaging.\+c}} }{\pageref{imaging_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{imaging_8h}{imaging.\+h}} }{\pageref{imaging_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{kernel_8c}{kernel.\+c}} }{\pageref{kernel_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{kernel_8h}{kernel.\+h}} }{\pageref{kernel_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{noise__gen_8c}{noise\+\_\+gen.\+c}} }{\pageref{noise__gen_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{noise__gen_8h}{noise\+\_\+gen.\+h}} \\*Contains the definitions of the noise generator functions }{\pageref{noise__gen_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{noise__lut_8c}{noise\+\_\+lut.\+c}} }{\pageref{noise__lut_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{noise__lut_8h}{noise\+\_\+lut.\+h}} }{\pageref{noise__lut_8h}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{opencl__utils_8c}{opencl\+\_\+utils.\+c}} \\*Implements functions from \mbox{\hyperlink{opencl__utils_8h}{opencl\+\_\+utils.\+h}} }{\pageref{opencl__utils_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{opencl__utils_8h}{opencl\+\_\+utils.\+h}} }{\pageref{opencl__utils_8h}}{}
 \item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{qsort_8c}{qsort.\+c}} \\*Copy of the G\+NU qsort function }{\pageref{qsort_8c}}{}
 \item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{qsort_8h}{qsort.\+h}} \\*Wraps the G\+NU qsort function depedent on if we are in a Open\+CL kernel or not }{\pageref{qsort_8h}}{}
 \item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{random_8c}{random.\+c}} }{\pageref{random_8c}}{}
 \item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{random_8h}{random.\+h}} }{\pageref{random_8h}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2utility_8c}{utility.\+c}} }{\pageref{src_2main_2cpp_2utility_8c}}{}
-\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{src_2main_2cpp_2utility_8h}{utility.\+h}} }{\pageref{src_2main_2cpp_2utility_8h}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2anlopencl__core__test_8cpp}{anlopencl\+\_\+core\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2anlopencl__core__test_8cpp}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{utility_8c}{utility.\+c}} }{\pageref{utility_8c}}{}
+\item\contentsline{section}{src/main/cpp/\mbox{\hyperlink{utility_8h}{utility.\+h}} }{\pageref{utility_8h}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{anlopencl__core__test_8cpp}{anlopencl\+\_\+core\+\_\+test.\+cpp}} }{\pageref{anlopencl__core__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{compile__library__test_8cpp}{compile\+\_\+library\+\_\+test.\+cpp}} }{\pageref{compile__library__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2distance__functions__test_8cpp}{distance\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2distance__functions__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2imaging__map__test_8cpp}{imaging\+\_\+map\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2imaging__map__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2imaging__scaleToRange__test_8cpp}{imaging\+\_\+scale\+To\+Range\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2imaging__scaleToRange__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2interpolation__functions__test_8cpp}{interpolation\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2interpolation__functions__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2kernel__rotateDomain__test_8cpp}{kernel\+\_\+rotate\+Domain\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2kernel__rotateDomain__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{distance__functions__test_8cpp}{distance\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{distance__functions__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{imaging__map__test_8cpp}{imaging\+\_\+map\+\_\+test.\+cpp}} }{\pageref{imaging__map__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{imaging__scaleToRange__test_8cpp}{imaging\+\_\+scale\+To\+Range\+\_\+test.\+cpp}} }{\pageref{imaging__scaleToRange__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{interpolation__functions__test_8cpp}{interpolation\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{interpolation__functions__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{kernel__rotateDomain__test_8cpp}{kernel\+\_\+rotate\+Domain\+\_\+test.\+cpp}} }{\pageref{kernel__rotateDomain__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{kernel__simplefBm__test_8cpp}{kernel\+\_\+simplef\+Bm\+\_\+test.\+cpp}} }{\pageref{kernel__simplefBm__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2map__functions__bench_8cpp}{map\+\_\+functions\+\_\+bench.\+cpp}} }{\pageref{src_2test_2cpp_2map__functions__bench_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2noise__functions__test_8cpp}{noise\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2noise__functions__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{map__functions__bench_8cpp}{map\+\_\+functions\+\_\+bench.\+cpp}} }{\pageref{map__functions__bench_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{noise__cellular__functions__test_8cpp}{noise\+\_\+cellular\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{noise__cellular__functions__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{noise__functions__test_8cpp}{noise\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{noise__functions__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__cellular__functions__test_8cpp}{opencl\+\_\+cellular\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{opencl__cellular__functions__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__combineColor__test_8cpp}{opencl\+\_\+combine\+Color\+\_\+test.\+cpp}} }{\pageref{opencl__combineColor__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__cpp__test_8cpp}{opencl\+\_\+cpp\+\_\+test.\+cpp}} }{\pageref{opencl__cpp__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__heightmap__example__test_8cpp}{opencl\+\_\+heightmap\+\_\+example\+\_\+test.\+cpp}} }{\pageref{opencl__heightmap__example__test_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2opencl__map2D__test_8cpp}{opencl\+\_\+map2\+D\+\_\+test.\+cpp}} }{\pageref{src_2test_2cpp_2opencl__map2D__test_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__map2D__test_8cpp}{opencl\+\_\+map2\+D\+\_\+test.\+cpp}} }{\pageref{opencl__map2D__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__noise2D__functions__test_8cpp}{opencl\+\_\+noise2\+D\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{opencl__noise2D__functions__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__noise3D__functions__test_8cpp}{opencl\+\_\+noise3\+D\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{opencl__noise3D__functions__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__noise4D__functions__test_8cpp}{opencl\+\_\+noise4\+D\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{opencl__noise4D__functions__test_8cpp}}{}
@@ -70,34 +90,8 @@ Here is a list of all files with brief descriptions\+:\begin{DoxyCompactList}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{opencl__simpleRidgedMultifractal__test_8cpp}{opencl\+\_\+simple\+Ridged\+Multifractal\+\_\+test.\+cpp}} }{\pageref{opencl__simpleRidgedMultifractal__test_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{OpenCLContext_8cpp}{Open\+C\+L\+Context.\+cpp}} }{\pageref{OpenCLContext_8cpp}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{OpenCLContext_8h}{Open\+C\+L\+Context.\+h}} }{\pageref{OpenCLContext_8h}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8cpp}{Open\+C\+L\+Test\+Fixture.\+cpp}} }{\pageref{src_2test_2cpp_2OpenCLTestFixture_8cpp}}{}
-\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}} }{\pageref{src_2test_2cpp_2OpenCLTestFixture_8h}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{OpenCLTestFixture_8cpp}{Open\+C\+L\+Test\+Fixture.\+cpp}} }{\pageref{OpenCLTestFixture_8cpp}}{}
+\item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}} }{\pageref{OpenCLTestFixture_8h}}{}
 \item\contentsline{section}{src/test/cpp/\mbox{\hyperlink{random__test_8cpp}{random\+\_\+test.\+cpp}} }{\pageref{random__test_8cpp}}{}
 \item\contentsline{section}{src/test/java/com/anrisoftware/anlopencl/\mbox{\hyperlink{CoreTest_8java}{Core\+Test.\+java}} }{\pageref{CoreTest_8java}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2anlopencl__core__test_8cpp}{anlopencl\+\_\+core\+\_\+test.\+cpp}} }{\pageref{target_2classes_2anlopencl__core__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2distance__functions__test_8cpp}{distance\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{target_2classes_2distance__functions__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2hashing_8c}{hashing.\+c}} }{\pageref{target_2classes_2hashing_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2hashing_8h}{hashing.\+h}} }{\pageref{target_2classes_2hashing_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2imaging_8c}{imaging.\+c}} }{\pageref{target_2classes_2imaging_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2imaging_8h}{imaging.\+h}} }{\pageref{target_2classes_2imaging_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2imaging__map__test_8cpp}{imaging\+\_\+map\+\_\+test.\+cpp}} }{\pageref{target_2classes_2imaging__map__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2imaging__scaleToRange__test_8cpp}{imaging\+\_\+scale\+To\+Range\+\_\+test.\+cpp}} }{\pageref{target_2classes_2imaging__scaleToRange__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2interpolation__functions__test_8cpp}{interpolation\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{target_2classes_2interpolation__functions__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2kernel_8c}{kernel.\+c}} }{\pageref{target_2classes_2kernel_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2kernel_8h}{kernel.\+h}} }{\pageref{target_2classes_2kernel_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2kernel__rotateDomain__test_8cpp}{kernel\+\_\+rotate\+Domain\+\_\+test.\+cpp}} }{\pageref{target_2classes_2kernel__rotateDomain__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2map__functions__bench_8cpp}{map\+\_\+functions\+\_\+bench.\+cpp}} }{\pageref{target_2classes_2map__functions__bench_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2noise__functions__test_8cpp}{noise\+\_\+functions\+\_\+test.\+cpp}} }{\pageref{target_2classes_2noise__functions__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2noise__gen_8c}{noise\+\_\+gen.\+c}} }{\pageref{target_2classes_2noise__gen_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2noise__gen_8h}{noise\+\_\+gen.\+h}} }{\pageref{target_2classes_2noise__gen_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2noise__lut_8c}{noise\+\_\+lut.\+c}} }{\pageref{target_2classes_2noise__lut_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2noise__lut_8h}{noise\+\_\+lut.\+h}} }{\pageref{target_2classes_2noise__lut_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{opencl__color__noise3D__test_8cpp}{opencl\+\_\+color\+\_\+noise3\+D\+\_\+test.\+cpp}} }{\pageref{opencl__color__noise3D__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2opencl__map2D__test_8cpp}{opencl\+\_\+map2\+D\+\_\+test.\+cpp}} }{\pageref{target_2classes_2opencl__map2D__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{opencl__noise3D__test_8cpp}{opencl\+\_\+noise3\+D\+\_\+test.\+cpp}} }{\pageref{opencl__noise3D__test_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2opencl__utils_8h}{opencl\+\_\+utils.\+h}} }{\pageref{target_2classes_2opencl__utils_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp}{Open\+C\+L\+Test\+Fixture.\+cpp}} }{\pageref{target_2classes_2OpenCLTestFixture_8cpp}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}} }{\pageref{target_2classes_2OpenCLTestFixture_8h}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2utility_8c}{utility.\+c}} }{\pageref{target_2classes_2utility_8c}}{}
-\item\contentsline{section}{target/classes/\mbox{\hyperlink{target_2classes_2utility_8h}{utility.\+h}} }{\pageref{target_2classes_2utility_8h}}{}
 \end{DoxyCompactList}

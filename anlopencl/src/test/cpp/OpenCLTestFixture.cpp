@@ -191,7 +191,7 @@ size_t OpenCL_Context_Buffer_Fixture::commonRunKernel(cl::Program & kernel) {
 			cl::Buffer // output
 			>(kernel, t.kernel);
 	setupInput();
-	output = createVector<REAL>(t.imageSize);
+	output = createVector<REAL>(t.imageSize * getColorChannels());
 	outputBuffer = createBufferPtr(output);
     cl::DeviceCommandQueue defaultDeviceQueue;
     defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
@@ -211,6 +211,10 @@ void OpenCL_Context_Buffer_Fixture::setupInput() {
 
 std::shared_ptr<cl::Buffer> OpenCL_Context_Buffer_Fixture::getInputBuffer() {
 	return 0;
+}
+
+size_t OpenCL_Context_Buffer_Fixture::getColorChannels() {
+	return 1;
 }
 
 void OpenCL_Context_Buffer_Fixture::copyBuffers() {

@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -86,9 +133,9 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifndef USE_OPENCL</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifndef ANLOPENCL_USE_OPENCL</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="target_2classes_2opencl__utils_8h.html">opencl_utils.h</a>&gt;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif // USE_OPENCL</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif // ANLOPENCL_USE_OPENCL</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="target_2classes_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">   64</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> (*<a class="code" href="src_2main_2cpp_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a>)(<a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a>);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
@@ -210,7 +257,7 @@ $(function() {
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a897957d863f891f6567fbd9af0ac206a"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a897957d863f891f6567fbd9af0ac206a">white_noise8D</a></div><div class="ttdeci">REAL white_noise8D(vector8 v, uint seed, interp_func interp)</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_aa4c6afafffa49b473219cd6ea788b6ef"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#aa4c6afafffa49b473219cd6ea788b6ef">dist_func3</a></div><div class="ttdeci">REAL(* dist_func3)(vector3, vector3)</div><div class="ttdef"><b>Definition:</b> noise_gen.h:144</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a692552643c90c9d20db633a93a8c26d1"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a692552643c90c9d20db633a93a8c26d1">gradient_noise4D</a></div><div class="ttdeci">REAL gradient_noise4D(vector4 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:532</div></div>
-<div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a4b654506f18b8bfd61ad2a29a7e38c25"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a></div><div class="ttdeci">#define REAL</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:61</div></div>
+<div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a4b654506f18b8bfd61ad2a29a7e38c25"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a></div><div class="ttdeci">#define REAL</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:64</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a357824a9e11c3b802a24a65f13c7c231"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a357824a9e11c3b802a24a65f13c7c231">gradval_noise2D</a></div><div class="ttdeci">REAL gradval_noise2D(vector2 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:561</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_acad64853244634beaddcb3f86362fff5"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#acad64853244634beaddcb3f86362fff5">interp_func</a></div><div class="ttdeci">REAL(* interp_func)(REAL)</div><div class="ttdef"><b>Definition:</b> noise_gen.h:74</div></div>
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a1c226259da296f0461d29906f3dc2103"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a1c226259da296f0461d29906f3dc2103">distEuclid16</a></div><div class="ttdeci">REAL distEuclid16(vector16 a, vector16 b)</div></div>
@@ -218,16 +265,16 @@ $(function() {
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a4530b3e17b43660a39cb94c286aa3260"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a4530b3e17b43660a39cb94c286aa3260">distLeastAxis3</a></div><div class="ttdeci">REAL distLeastAxis3(vector3 a, vector3 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:179</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a03160b7e757d3bd0cd071c27b07307c1"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a03160b7e757d3bd0cd071c27b07307c1">noInterp</a></div><div class="ttdeci">REAL noInterp(REAL t)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:62</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a4a6105af0f7e79ec01461072d6d3f17b"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a4a6105af0f7e79ec01461072d6d3f17b">noise_func3</a></div><div class="ttdeci">REAL(* noise_func3)(vector3, uint, interp_func)</div><div class="ttdef"><b>Definition:</b> noise_gen.h:98</div></div>
-<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a617aa1e7db88ba18d89376d779fc23df"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a617aa1e7db88ba18d89376d779fc23df">simplex_noise2D</a></div><div class="ttdeci">REAL simplex_noise2D(vector2 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:648</div></div>
+<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a617aa1e7db88ba18d89376d779fc23df"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a617aa1e7db88ba18d89376d779fc23df">simplex_noise2D</a></div><div class="ttdeci">REAL simplex_noise2D(vector2 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:653</div></div>
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a4b0ea5005eb5c94d4fad8ccc1f9ef774"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a4b0ea5005eb5c94d4fad8ccc1f9ef774">gradval_noise16D</a></div><div class="ttdeci">REAL gradval_noise16D(vector16 v, uint seed, interp_func interp)</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a0e144707658ef5ee26304e320c82960b"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a0e144707658ef5ee26304e320c82960b">distGreatestAxis2</a></div><div class="ttdeci">REAL distGreatestAxis2(vector2 a, vector2 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:142</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_af3ff81622f97ac62bd9feccce5f34af5"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#af3ff81622f97ac62bd9feccce5f34af5">distEuclid3</a></div><div class="ttdeci">REAL distEuclid3(vector3 a, vector3 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:86</div></div>
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a8271c80d10f79005de33693b68b9bdab"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a8271c80d10f79005de33693b68b9bdab">distGreatestAxis16</a></div><div class="ttdeci">REAL distGreatestAxis16(vector16 a, vector16 b)</div></div>
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a7d19e24df02b8be2b9bdbde058d4f764"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a7d19e24df02b8be2b9bdbde058d4f764">distManhattan8</a></div><div class="ttdeci">REAL distManhattan8(vector8 a, vector8 b)</div></div>
-<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a5502241504ae04803a56284b736dd647"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a5502241504ae04803a56284b736dd647">simplex_noise3D</a></div><div class="ttdeci">REAL simplex_noise3D(vector3 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:713</div></div>
+<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a5502241504ae04803a56284b736dd647"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a5502241504ae04803a56284b736dd647">simplex_noise3D</a></div><div class="ttdeci">REAL simplex_noise3D(vector3 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:718</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a93aa4eb6ab956dbe1b94f39ea4ddb5d9"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a93aa4eb6ab956dbe1b94f39ea4ddb5d9">value_noise3D</a></div><div class="ttdeci">REAL value_noise3D(vector3 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:469</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a237532c935cd335aba4b9f3d7520aba1"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a237532c935cd335aba4b9f3d7520aba1">distLeastAxis4</a></div><div class="ttdeci">REAL distLeastAxis4(vector4 a, vector4 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:186</div></div>
-<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_ac36c0eef802bee29164e91aa5e8d7b0a"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#ac36c0eef802bee29164e91aa5e8d7b0a">simplex_noise4D</a></div><div class="ttdeci">REAL simplex_noise4D(vector4 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:852</div></div>
+<div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_ac36c0eef802bee29164e91aa5e8d7b0a"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#ac36c0eef802bee29164e91aa5e8d7b0a">simplex_noise4D</a></div><div class="ttdeci">REAL simplex_noise4D(vector4 v, uint seed, interp_func interp)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:857</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a7cbdfc4442d32e14a1dfe0fc6c3d6f88"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a7cbdfc4442d32e14a1dfe0fc6c3d6f88">distManhattan3</a></div><div class="ttdeci">REAL distManhattan3(vector3 a, vector3 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:117</div></div>
 <div class="ttc" id="atarget_2classes_2noise__gen_8h_html_a400012ab12691727078805090e73adb2"><div class="ttname"><a href="target_2classes_2noise__gen_8h.html#a400012ab12691727078805090e73adb2">value_noise16D</a></div><div class="ttdeci">REAL value_noise16D(vector16 v, uint seed, interp_func interp)</div></div>
 <div class="ttc" id="asrc_2main_2cpp_2noise__gen_8h_html_a3b13e3a789fa95006164fa3ec1eacdbe"><div class="ttname"><a href="src_2main_2cpp_2noise__gen_8h.html#a3b13e3a789fa95006164fa3ec1eacdbe">distGreatestAxis3</a></div><div class="ttdeci">REAL distGreatestAxis3(vector3 a, vector3 b)</div><div class="ttdef"><b>Definition:</b> noise_gen.c:148</div></div>

@@ -1,3 +1,47 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Test\+Fixture.h File Reference}
 \label{src_2test_2cpp_2OpenCLTestFixture_8h}\index{src/test/cpp/OpenCLTestFixture.h@{src/test/cpp/OpenCLTestFixture.h}}
 {\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
@@ -7,14 +51,17 @@
 {\ttfamily \#include $<$opencv2/core.\+hpp$>$}\newline
 {\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
 {\ttfamily \#include \char`\"{}Open\+C\+L\+Context.\+h\char`\"{}}\newline
-Include dependency graph for Open\+C\+L\+Test\+Fixture.\+h\+:\nopagebreak
+{\ttfamily \#include \char`\"{}opencl\+\_\+utils.\+h\char`\"{}}\newline
+Include dependency graph for Open\+C\+L\+Test\+Fixture.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{src_2test_2cpp_2OpenCLTestFixture_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -36,11 +83,13 @@ class \mbox{\hyperlink{classOpenCL__Context__SVM__Fixture}{Open\+C\+L\+\_\+\+Con
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\item 
+\#define \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}{G\+R\+E\+Y\+\_\+\+CV}}~C\+V\+\_\+32F
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T $>$ }\\using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} = std\+::vector$<$ T, cl\+::\+S\+V\+M\+Allocator$<$ float, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$
+{\footnotesize template$<$class T $>$ }\\using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} = std\+::vector$<$ T, cl\+::\+S\+V\+M\+Allocator$<$ \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -51,17 +100,6 @@ std\+::string \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_ae345400e087
 \item 
 {\footnotesize template$<$typename T $>$ }\\cl\+\_\+int \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}{copy}} (const cl\+::\+Buffer \&buffer, std\+::vector$<$ T $>$ \&target)
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}{dim\+\_\+float2}} = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)
-\item 
-const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}{dim\+\_\+float3}} = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)
-\item 
-const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}{dim\+\_\+float4}} = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)
-\item 
-const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a3327e2391a9c420d0782d775102894f7}{dim\+\_\+float8}} = sizeof(cl\+\_\+float8) / sizeof(cl\+\_\+float)
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -71,15 +109,21 @@ const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a3327e23
 \doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
 {\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
 
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!GREY\_CV@{GREY\_CV}}
+\index{GREY\_CV@{GREY\_CV}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{GREY\_CV}{GREY\_CV}}
+{\footnotesize\ttfamily \#define G\+R\+E\+Y\+\_\+\+CV~C\+V\+\_\+32F}
+
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}} 
+\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}} 
 \index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}}
 \index{coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
 \doxysubsubsection{\texorpdfstring{coarse\_float\_svm\_vector}{coarse\_float\_svm\_vector}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
-using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a8c59cc402ff9bfcc6ab3020682a97da6}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} =  std\+::vector$<$T, cl\+::\+S\+V\+M\+Allocator$<$float, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$}
+using \mbox{\hyperlink{src_2test_2cpp_2OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} =  std\+::vector$<$T, cl\+::\+S\+V\+M\+Allocator$<$\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$}
 
 S\+VM vector for float elements. 
 
@@ -105,30 +149,3 @@ Blocking copy operation between iterators and a buffer. Device to Host. Uses spe
 {\footnotesize\ttfamily std\+::string mat\+\_\+to\+\_\+s (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{m }\end{DoxyParamCaption})}
 
 Outputs the matrix as string. 
-
-\doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a77e04dd8f65587691e5b8b3dc6a59730}} 
-\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float2@{dim\_float2}}
-\index{dim\_float2@{dim\_float2}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
-\doxysubsubsection{\texorpdfstring{dim\_float2}{dim\_float2}}
-{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float2 = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)}
-
-float2 have 2 floats. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}\label{src_2test_2cpp_2OpenCLTestFixture_8h_adb073f8e5c8111cfef37c45a7272c7df}} 
-\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float3@{dim\_float3}}
-\index{dim\_float3@{dim\_float3}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
-\doxysubsubsection{\texorpdfstring{dim\_float3}{dim\_float3}}
-{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float3 = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)}
-
-float3 have 4 floats. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a5bf21fba9f6c96590f37cf7ca2805815}} 
-\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float4@{dim\_float4}}
-\index{dim\_float4@{dim\_float4}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
-\doxysubsubsection{\texorpdfstring{dim\_float4}{dim\_float4}}
-{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float4 = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)}
-
-float4 have 4 floats. \mbox{\Hypertarget{src_2test_2cpp_2OpenCLTestFixture_8h_a3327e2391a9c420d0782d775102894f7}\label{src_2test_2cpp_2OpenCLTestFixture_8h_a3327e2391a9c420d0782d775102894f7}} 
-\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!dim\_float8@{dim\_float8}}
-\index{dim\_float8@{dim\_float8}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
-\doxysubsubsection{\texorpdfstring{dim\_float8}{dim\_float8}}
-{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+float8 = sizeof(cl\+\_\+float8) / sizeof(cl\+\_\+float)}
-
-float8 have 8 floats. 

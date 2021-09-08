@@ -63,45 +63,68 @@
 using ::testing::TestWithParam;
 using ::testing::Values;
 
+/**
+ * Width x Height of the generated image.
+ */
+const size_t size = pow(2, 10);
+
+/**
+ * opencl_combineColor_fixture
+ */
 class opencl_combineColor_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
-
-	std::shared_ptr<std::vector<float>> input;
-
+	std::shared_ptr<std::vector<REAL>> input;
 	std::shared_ptr<cl::Buffer> inputBuffer;
+	const std::string out_dir = "out/combineColor/";
+
+	void setupInput() {
+		auto t = GetParam();
+		input = createVector<REAL>(t.imageSize * dim_real3);
+		map2D(input->data(),
+				calc_seamless_none,
+				create_ranges_map2D(-10, 10, -10, 10),
+				t.imageWidth, t.imageHeight, 0);
+		inputBuffer = createBufferPtr(input);
+	}
+
+	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
+		return inputBuffer;
+	}
+
+	virtual size_t getColorChannels() {
+		return 4;
+	}
 
 	virtual size_t runKernel(cl::Program & kernel) {
-		auto t = GetParam();
-		auto kernelf = cl::KernelFunctor<cl::Buffer, cl::Buffer>(kernel, t.kernel);
-		input = createVector<float>(t.imageSize * dim_float3);
-		map2D(input->data(), calc_seamless_none, create_ranges_map2D(-10, 10, -10, 10), t.imageWidth, t.imageHeight, 0);
-		inputBuffer = createBufferPtr(input);
-		output = createVector<float>(t.imageSize * dim_float4);
-		outputBuffer = createBufferPtr(output);
-	    cl::DeviceCommandQueue defaultDeviceQueue;
-	    defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault();
-		logger->trace("Start kernel with size {}", t.imageSize);
-		cl_int error;
-		kernelf(
-				cl::EnqueueArgs(cl::NDRange(t.imageSize)),
-				*inputBuffer,
-				*outputBuffer,
-				error);
-		logger->info("Created kernel error={}", error);
-		return t.imageSize;
+		return commonRunKernel(kernel);
 	}
 
 };
 
+/**
+ * opencl_combineColor_test-opencl_combineColor_fixture-show_image
+ */
 TEST_P(opencl_combineColor_fixture, show_image) {
 	auto t = GetParam();
 	showImage(output, CV_32FC4);
 }
 
-const size_t size = pow(2, 10);
+/**
+ * opencl_combineColor_test-opencl_combineColor_fixture-save_image
+ */
+TEST_P(opencl_combineColor_fixture, save_image) {
+	auto t = GetParam();
+	std::stringstream ss;
+	mkpath(out_dir.c_str());
+	ss << out_dir << t.kernel << ".png";
+	saveImageScaleToRange(ss.str(), output, CV_32FC4);
+}
 
+/**
+ * opencl_combineColor_test-opencl_combineColor_fixture
+ */
 INSTANTIATE_TEST_SUITE_P(opencl_combineColor_test, opencl_combineColor_fixture,
 		Values(
-				KernelContext("combineRGBA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size), //
-				KernelContext("combineHSVA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size) //
-						));
+KernelContext("combineRGBA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size), //
+KernelContext("combineHSVA_simpleBillow", readFile("src/test/cpp/kernels/combineColor_simpleBillow_test.cl"), size) //
+));

@@ -65,8 +65,14 @@ using ::testing::Values;
 using ::spdlog::info;
 using ::spdlog::error;
 
+/**
+ * Width x Height of the generated image.
+ */
 const size_t size = pow(2, 10);
 
+/**
+ * Output directory.
+ */
 const std::string out_dir = "out/cellular_functions/";
 
 /**
@@ -76,6 +82,7 @@ class opencl_cellular_function2D_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 	std::shared_ptr<std::vector<REAL>> input;
 	std::shared_ptr<cl::Buffer> inputBuffer;
+
 	void setupInput() {
 		auto t = GetParam();
 		input = createVector<REAL>(t.imageSize * dim_real2);
@@ -85,9 +92,11 @@ protected:
 				t.imageWidth, t.imageHeight);
 		inputBuffer = createBufferPtr(input);
 	}
+
 	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
 		return inputBuffer;
 	}
+
 	virtual size_t runKernel(cl::Program & kernel) {
 		return commonRunKernel(kernel);
 	}
@@ -238,6 +247,7 @@ class opencl_cellular_function6D_fixture: public OpenCL_Context_Buffer_Fixture {
 protected:
 	std::shared_ptr<std::vector<REAL>> input;
 	std::shared_ptr<cl::Buffer> inputBuffer;
+
 	void setupInput() {
 		auto t = GetParam();
 		input = createVector<REAL>(t.imageSize * dim_real8);
@@ -247,9 +257,11 @@ protected:
 				t.imageWidth, t.imageHeight, 0);
 		inputBuffer = createBufferPtr(input);
 	}
+
 	virtual std::shared_ptr<cl::Buffer> getInputBuffer() {
 		return inputBuffer;
 	}
+
 	virtual size_t runKernel(cl::Program & kernel) {
 		return commonRunKernel(kernel);
 	}

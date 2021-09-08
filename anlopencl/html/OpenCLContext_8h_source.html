@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +61,7 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +72,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ANL-OpenCL
    </div>
-   <div id="projectbrief">ThisisanimplementionoftheAccidentalNoiseLibraryC++librarythatwasoriginallywrittenbyJosuaTippetts.</div>
+   <div id="projectbrief">This is an implemention of the Accidental Noise Library C++ library that was originally written by Josua Tippetts.</div>
   </td>
  </tr>
  </tbody>
@@ -131,58 +179,94 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#ae7c96c1469662004d842704e2ff076fb">   58</a></span>&#160;<span class="preprocessor">#define CL_HPP_ENABLE_EXCEPTIONS</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;CL/opencl.hpp&gt;</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;std::string <a class="code" href="OpenCLContext_8h.html#a7816b64e410893cd106df04c54d71b58">readFile</a>(std::string fileName);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">   70</a></span>&#160;std::shared_ptr&lt;std::vector&lt;T&gt;&gt; <a class="code" href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">createVector</a>(<span class="keywordtype">size_t</span> count) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> std::make_shared&lt;std::vector&lt;T&gt;&gt;(count, 0);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">   78</a></span>&#160;std::shared_ptr&lt;cl::Buffer&gt; <a class="code" href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">createBufferPtr</a>(</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::shared_ptr&lt;std::vector&lt;T&gt;&gt; vector,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        cl_mem_flags flags = CL_MEM_READ_WRITE) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> std::vector&lt;T&gt;::value_type DataType;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> std::make_shared&lt;cl::Buffer&gt;(</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            flags | CL_MEM_USE_HOST_PTR,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">sizeof</span>(DataType) * vector-&gt;size(),</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            vector-&gt;data());</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classOpenCL__Context.html">   91</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOpenCL__Context.html">OpenCL_Context</a> {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="classOpenCL__Context.html#a6402e39eeeb25cbe971b7b6e9b5884c6">OpenCL_Context</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01">loadPlatform</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifdef ANLOPENCL_USE_DOUBLE</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336">dim_real2</a> = <span class="keyword">sizeof</span>(cl_double2) / <span class="keyword">sizeof</span>(cl_double);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202">dim_real3</a> = <span class="keyword">sizeof</span>(cl_double3) / <span class="keyword">sizeof</span>(cl_double);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10">dim_real4</a> = <span class="keyword">sizeof</span>(cl_double4) / <span class="keyword">sizeof</span>(cl_double);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d">dim_real8</a> = <span class="keyword">sizeof</span>(cl_double8) / <span class="keyword">sizeof</span>(cl_double);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336">   85</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336">dim_real2</a> = <span class="keyword">sizeof</span>(cl_float2) / <span class="keyword">sizeof</span>(cl_float);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202">   90</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202">dim_real3</a> = <span class="keyword">sizeof</span>(cl_float3) / <span class="keyword">sizeof</span>(cl_float);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10">   95</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10">dim_real4</a> = <span class="keyword">sizeof</span>(cl_float4) / <span class="keyword">sizeof</span>(cl_float);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d">  100</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d">dim_real8</a> = <span class="keyword">sizeof</span>(cl_float8) / <span class="keyword">sizeof</span>(cl_float);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif // ANLOPENCL_USE_DOUBLE</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8">loadInputHeaders</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;std::string <a class="code" href="OpenCLContext_8h.html#a7816b64e410893cd106df04c54d71b58">readFile</a>(std::string fileName);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#ac1955b6909a377ea22bea32d424555b4">createLibrary</a>();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#a2b5ffc6d33178603b3bc1ab911946922">createKernel</a>(cl::Program lib, <span class="keyword">const</span> std::string kernel);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#acfc5b400afad793a2b61e386b911f66a">createPrograms</a>(<span class="keyword">const</span> std::string kernel);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;spdlog::logger&gt; logger;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    std::vector&lt;cl::Program&gt; inputHeaders;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::vector&lt;std::string&gt; inputHeaderNames;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    std::string sources;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    std::string kiss09cl;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    std::string randomcl;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;};</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* OPENCLCONTEXT_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">  112</a></span>&#160;std::shared_ptr&lt;std::vector&lt;T&gt;&gt; <a class="code" href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">createVector</a>(<span class="keywordtype">size_t</span> count) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> std::make_shared&lt;std::vector&lt;T&gt;&gt;(count, 0);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">  120</a></span>&#160;std::shared_ptr&lt;cl::Buffer&gt; <a class="code" href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">createBufferPtr</a>(</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        std::shared_ptr&lt;std::vector&lt;T&gt;&gt; vector,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        cl_mem_flags flags = CL_MEM_READ_WRITE) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> std::vector&lt;T&gt;::value_type DataType;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> std::make_shared&lt;cl::Buffer&gt;(</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            flags | CL_MEM_USE_HOST_PTR,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keyword">sizeof</span>(DataType) * vector-&gt;size(),</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            vector-&gt;data());</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="OpenCLContext_8h.html#aed8d23359e0e4de5c4d51bb7b72a7e83">  134</a></span>&#160;cl::Buffer <a class="code" href="OpenCLContext_8h.html#aed8d23359e0e4de5c4d51bb7b72a7e83">createBuffer</a>(</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        std::vector&lt;T&gt; vector,</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        cl_mem_flags flags = CL_MEM_READ_WRITE) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> std::vector&lt;T&gt;::value_type DataType;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> cl::Buffer(</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            flags | CL_MEM_USE_HOST_PTR,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keyword">sizeof</span>(DataType) * vector.size(),</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            vector.data());</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classOpenCL__Context.html">  147</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOpenCL__Context.html">OpenCL_Context</a> {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <a class="code" href="classOpenCL__Context.html#a6402e39eeeb25cbe971b7b6e9b5884c6">OpenCL_Context</a>();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01">loadPlatform</a>();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8">loadInputHeaders</a>();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#ac1955b6909a377ea22bea32d424555b4">createLibrary</a>();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#a2b5ffc6d33178603b3bc1ab911946922">createKernel</a>(cl::Program lib, <span class="keyword">const</span> std::string kernel);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    cl::Program <a class="code" href="classOpenCL__Context.html#acfc5b400afad793a2b61e386b911f66a">createPrograms</a>(<span class="keyword">const</span> std::string kernel);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;spdlog::logger&gt; logger;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    std::vector&lt;cl::Program&gt; inputHeaders;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    std::vector&lt;std::string&gt; inputHeaderNames;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    std::string sources;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    std::string kiss09cl;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    std::string randomcl;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;};</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* OPENCLCONTEXT_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassOpenCL__Context_html_ac1955b6909a377ea22bea32d424555b4"><div class="ttname"><a href="classOpenCL__Context.html#ac1955b6909a377ea22bea32d424555b4">OpenCL_Context::createLibrary</a></div><div class="ttdeci">cl::Program createLibrary()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:319</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_ac1955b6909a377ea22bea32d424555b4"><div class="ttname"><a href="classOpenCL__Context.html#ac1955b6909a377ea22bea32d424555b4">OpenCL_Context::createLibrary</a></div><div class="ttdeci">cl::Program createLibrary()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:325</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_acd50100d13fe99056be7abaf74d3a336"><div class="ttname"><a href="OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336">dim_real2</a></div><div class="ttdeci">const size_t dim_real2</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:85</div></div>
 <div class="ttc" id="aOpenCLContext_8h_html_a7816b64e410893cd106df04c54d71b58"><div class="ttname"><a href="OpenCLContext_8h.html#a7816b64e410893cd106df04c54d71b58">readFile</a></div><div class="ttdeci">std::string readFile(std::string fileName)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:59</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html_acfc5b400afad793a2b61e386b911f66a"><div class="ttname"><a href="classOpenCL__Context.html#acfc5b400afad793a2b61e386b911f66a">OpenCL_Context::createPrograms</a></div><div class="ttdeci">cl::Program createPrograms(const std::string kernel)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:361</div></div>
-<div class="ttc" id="aOpenCLContext_8h_html_ac0df36eca6a5d5521d62dedf40064145"><div class="ttname"><a href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">createVector</a></div><div class="ttdeci">std::shared_ptr&lt; std::vector&lt; T &gt; &gt; createVector(size_t count)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:70</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html_a6402e39eeeb25cbe971b7b6e9b5884c6"><div class="ttname"><a href="classOpenCL__Context.html#a6402e39eeeb25cbe971b7b6e9b5884c6">OpenCL_Context::OpenCL_Context</a></div><div class="ttdeci">OpenCL_Context()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:252</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html_ab5b868cefe622f12a50e55c91d992e01"><div class="ttname"><a href="classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01">OpenCL_Context::loadPlatform</a></div><div class="ttdeci">bool loadPlatform()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:276</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html_a2b5ffc6d33178603b3bc1ab911946922"><div class="ttname"><a href="classOpenCL__Context.html#a2b5ffc6d33178603b3bc1ab911946922">OpenCL_Context::createKernel</a></div><div class="ttdeci">cl::Program createKernel(cl::Program lib, const std::string kernel)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:337</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html"><div class="ttname"><a href="classOpenCL__Context.html">OpenCL_Context</a></div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:91</div></div>
-<div class="ttc" id="aclassOpenCL__Context_html_a2aa5ee7c9f5ff7d281080dab940259b8"><div class="ttname"><a href="classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8">OpenCL_Context::loadInputHeaders</a></div><div class="ttdeci">void loadInputHeaders()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:298</div></div>
-<div class="ttc" id="aOpenCLContext_8h_html_a3de11bc10253b51dcadf1f68f6075944"><div class="ttname"><a href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">createBufferPtr</a></div><div class="ttdeci">std::shared_ptr&lt; cl::Buffer &gt; createBufferPtr(std::shared_ptr&lt; std::vector&lt; T &gt;&gt; vector, cl_mem_flags flags=CL_MEM_READ_WRITE)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:78</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_acfc5b400afad793a2b61e386b911f66a"><div class="ttname"><a href="classOpenCL__Context.html#acfc5b400afad793a2b61e386b911f66a">OpenCL_Context::createPrograms</a></div><div class="ttdeci">cl::Program createPrograms(const std::string kernel)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:367</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_ac0df36eca6a5d5521d62dedf40064145"><div class="ttname"><a href="OpenCLContext_8h.html#ac0df36eca6a5d5521d62dedf40064145">createVector</a></div><div class="ttdeci">std::shared_ptr&lt; std::vector&lt; T &gt; &gt; createVector(size_t count)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:112</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_aed8d23359e0e4de5c4d51bb7b72a7e83"><div class="ttname"><a href="OpenCLContext_8h.html#aed8d23359e0e4de5c4d51bb7b72a7e83">createBuffer</a></div><div class="ttdeci">cl::Buffer createBuffer(std::vector&lt; T &gt; vector, cl_mem_flags flags=CL_MEM_READ_WRITE)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:134</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_a6402e39eeeb25cbe971b7b6e9b5884c6"><div class="ttname"><a href="classOpenCL__Context.html#a6402e39eeeb25cbe971b7b6e9b5884c6">OpenCL_Context::OpenCL_Context</a></div><div class="ttdeci">OpenCL_Context()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:258</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_ab5b868cefe622f12a50e55c91d992e01"><div class="ttname"><a href="classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01">OpenCL_Context::loadPlatform</a></div><div class="ttdeci">bool loadPlatform()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:282</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_a2b5ffc6d33178603b3bc1ab911946922"><div class="ttname"><a href="classOpenCL__Context.html#a2b5ffc6d33178603b3bc1ab911946922">OpenCL_Context::createKernel</a></div><div class="ttdeci">cl::Program createKernel(cl::Program lib, const std::string kernel)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:343</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html"><div class="ttname"><a href="classOpenCL__Context.html">OpenCL_Context</a></div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:147</div></div>
+<div class="ttc" id="aclassOpenCL__Context_html_a2aa5ee7c9f5ff7d281080dab940259b8"><div class="ttname"><a href="classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8">OpenCL_Context::loadInputHeaders</a></div><div class="ttdeci">void loadInputHeaders()</div><div class="ttdef"><b>Definition:</b> OpenCLContext.cpp:304</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_a87057bdcad2d87ffdd1c0bc4414da202"><div class="ttname"><a href="OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202">dim_real3</a></div><div class="ttdeci">const size_t dim_real3</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:90</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_ade4e614dd13dde562c8f7487bbd9cb10"><div class="ttname"><a href="OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10">dim_real4</a></div><div class="ttdeci">const size_t dim_real4</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:95</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_a0cbee28ed39495323a98bb080d33933d"><div class="ttname"><a href="OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d">dim_real8</a></div><div class="ttdeci">const size_t dim_real8</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:100</div></div>
+<div class="ttc" id="aOpenCLContext_8h_html_a3de11bc10253b51dcadf1f68f6075944"><div class="ttname"><a href="OpenCLContext_8h.html#a3de11bc10253b51dcadf1f68f6075944">createBufferPtr</a></div><div class="ttdeci">std::shared_ptr&lt; cl::Buffer &gt; createBufferPtr(std::shared_ptr&lt; std::vector&lt; T &gt;&gt; vector, cl_mem_flags flags=CL_MEM_READ_WRITE)</div><div class="ttdef"><b>Definition:</b> OpenCLContext.h:120</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

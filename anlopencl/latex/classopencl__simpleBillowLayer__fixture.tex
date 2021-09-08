@@ -1,3 +1,47 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \hypertarget{classopencl__simpleBillowLayer__fixture}{}\doxysection{opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture Class Reference}
 \label{classopencl__simpleBillowLayer__fixture}\index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
 
@@ -21,19 +65,38 @@ Collaboration diagram for opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+:\nopa
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_a061af8ded2f2b3d570466f3b526402d4}{setup\+Input}} ()
+\item 
+virtual std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_a100b470c782b975b9fedcdbbd6bdd02b}{get\+Input\+Buffer}} ()
+\item 
 virtual size\+\_\+t \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_aa1b3337102f39824021b7b90a1a36626}{run\+Kernel}} (cl\+::\+Program \&kernel)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$ $>$ \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_ae0b1f69bfe05f4ed30d21e98b3a68cb2}{input}}
+std\+::shared\+\_\+ptr$<$ std\+::vector$<$ \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $>$ $>$ \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_aa06bebf3708ebce3367270bd838f8fff}{input}}
 \item 
 std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_a44feae668901204a3072777d904c54fe}{input\+Buffer}}
+\item 
+const std\+::string \mbox{\hyperlink{classopencl__simpleBillowLayer__fixture_aca7a6fe7b7e887daed30cc51972d9fd4}{out\+\_\+dir}} = \char`\"{}out/\mbox{\hyperlink{kernel_8h_aa0acf24081cf076e68d2b420dc391f8f}{simple\+Billow\+Layer3}}/\char`\"{}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classopencl__simpleBillowLayer__fixture}{opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture}} 
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_a100b470c782b975b9fedcdbbd6bdd02b}\label{classopencl__simpleBillowLayer__fixture_a100b470c782b975b9fedcdbbd6bdd02b}} 
+\index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!getInputBuffer@{getInputBuffer}}
+\index{getInputBuffer@{getInputBuffer}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
+\doxysubsubsection{\texorpdfstring{getInputBuffer()}{getInputBuffer()}}
+{\footnotesize\ttfamily virtual std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::get\+Input\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Returns the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a5450f0a53d4e7772ff83170a5eb606dc}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
 \mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_aa1b3337102f39824021b7b90a1a36626}\label{classopencl__simpleBillowLayer__fixture_aa1b3337102f39824021b7b90a1a36626}} 
 \index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!runKernel@{runKernel}}
 \index{runKernel@{runKernel}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
@@ -44,20 +107,36 @@ Runs the kernel.
 
 Implements \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture}}.
 
+\mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_a061af8ded2f2b3d570466f3b526402d4}\label{classopencl__simpleBillowLayer__fixture_a061af8ded2f2b3d570466f3b526402d4}} 
+\index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!setupInput@{setupInput}}
+\index{setupInput@{setupInput}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
+\doxysubsubsection{\texorpdfstring{setupInput()}{setupInput()}}
+{\footnotesize\ttfamily void opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::setup\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Setups the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a46e836e9c0bb0692873801f5cb0b8e02}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_ae0b1f69bfe05f4ed30d21e98b3a68cb2}\label{classopencl__simpleBillowLayer__fixture_ae0b1f69bfe05f4ed30d21e98b3a68cb2}} 
+\mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_aa06bebf3708ebce3367270bd838f8fff}\label{classopencl__simpleBillowLayer__fixture_aa06bebf3708ebce3367270bd838f8fff}} 
 \index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!input@{input}}
 \index{input@{input}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
 \doxysubsubsection{\texorpdfstring{input}{input}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$std\+::vector$<$float$>$ $>$ opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::input\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$std\+::vector$<$\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}$>$ $>$ opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::input\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_a44feae668901204a3072777d904c54fe}\label{classopencl__simpleBillowLayer__fixture_a44feae668901204a3072777d904c54fe}} 
 \index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!inputBuffer@{inputBuffer}}
 \index{inputBuffer@{inputBuffer}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
 \doxysubsubsection{\texorpdfstring{inputBuffer}{inputBuffer}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::input\+Buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classopencl__simpleBillowLayer__fixture_aca7a6fe7b7e887daed30cc51972d9fd4}\label{classopencl__simpleBillowLayer__fixture_aca7a6fe7b7e887daed30cc51972d9fd4}} 
+\index{opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}!out\_dir@{out\_dir}}
+\index{out\_dir@{out\_dir}!opencl\_simpleBillowLayer\_fixture@{opencl\_simpleBillowLayer\_fixture}}
+\doxysubsubsection{\texorpdfstring{out\_dir}{out\_dir}}
+{\footnotesize\ttfamily const std\+::string opencl\+\_\+simple\+Billow\+Layer\+\_\+fixture\+::out\+\_\+dir = \char`\"{}out/\mbox{\hyperlink{kernel_8h_aa0acf24081cf076e68d2b420dc391f8f}{simple\+Billow\+Layer3}}/\char`\"{}\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

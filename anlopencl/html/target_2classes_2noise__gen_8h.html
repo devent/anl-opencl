@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -92,17 +139,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="target_2classes_2noise__gen_8h__dep__incl.png" border="0" usemap="#target_2classes_2noise__gen_8hdep" alt=""/></div>
 <map name="target_2classes_2noise__gen_8hdep" id="target_2classes_2noise__gen_8hdep">
-<area shape="rect" title=" " alt="" coords="877,5,1029,47"/>
-<area shape="rect" href="src_2test_2cpp_2distance__functions__test_8cpp.html" title=" " alt="" coords="5,95,161,136"/>
-<area shape="rect" href="src_2test_2cpp_2imaging__scaleToRange__test_8cpp.html" title=" " alt="" coords="185,95,363,136"/>
-<area shape="rect" href="src_2test_2cpp_2interpolation__functions__test_8cpp.html" title=" " alt="" coords="387,95,571,136"/>
-<area shape="rect" href="src_2test_2cpp_2noise__functions__test_8cpp.html" title=" " alt="" coords="596,95,744,136"/>
-<area shape="rect" href="target_2classes_2distance__functions__test_8cpp.html" title=" " alt="" coords="768,95,940,136"/>
-<area shape="rect" href="target_2classes_2imaging__scaleToRange__test_8cpp.html" title=" " alt="" coords="964,95,1141,136"/>
-<area shape="rect" href="target_2classes_2interpolation__functions__test_8cpp.html" title=" " alt="" coords="1166,95,1366,136"/>
-<area shape="rect" href="target_2classes_2kernel_8c.html" title=" " alt="" coords="1390,102,1558,129"/>
-<area shape="rect" href="target_2classes_2noise__functions__test_8cpp.html" title=" " alt="" coords="1582,95,1734,136"/>
-<area shape="rect" href="target_2classes_2noise__gen_8c.html" title=" " alt="" coords="1758,95,1910,136"/>
+<area shape="rect" title=" " alt="" coords="946,5,1098,47"/>
+<area shape="rect" href="src_2test_2cpp_2distance__functions__test_8cpp.html" title=" " alt="" coords="5,102,161,143"/>
+<area shape="rect" href="src_2test_2cpp_2imaging__scaleToRange__test_8cpp.html" title=" " alt="" coords="185,102,363,143"/>
+<area shape="rect" href="src_2test_2cpp_2interpolation__functions__test_8cpp.html" title=" " alt="" coords="387,102,571,143"/>
+<area shape="rect" href="noise__cellular__functions__test_8cpp.html" title=" " alt="" coords="595,95,739,151"/>
+<area shape="rect" href="src_2test_2cpp_2noise__functions__test_8cpp.html" title=" " alt="" coords="764,102,912,143"/>
+<area shape="rect" href="target_2classes_2distance__functions__test_8cpp.html" title=" " alt="" coords="936,102,1108,143"/>
+<area shape="rect" href="target_2classes_2imaging__scaleToRange__test_8cpp.html" title=" " alt="" coords="1132,102,1309,143"/>
+<area shape="rect" href="target_2classes_2interpolation__functions__test_8cpp.html" title=" " alt="" coords="1334,102,1534,143"/>
+<area shape="rect" href="target_2classes_2kernel_8c.html" title=" " alt="" coords="1558,109,1726,136"/>
+<area shape="rect" href="target_2classes_2noise__functions__test_8cpp.html" title=" " alt="" coords="1750,102,1902,143"/>
+<area shape="rect" href="target_2classes_2noise__gen_8c.html" title=" " alt="" coords="1926,102,2078,143"/>
 </map>
 </div>
 </div>
@@ -1058,6 +1106,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. <a href="https://en.wikipedia.org/wiki/Gradient_noise">https://en.wikipedia.org/wiki/Gradient_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector2 (x,y) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1096,6 +1162,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. <a href="https://en.wikipedia.org/wiki/Gradient_noise">https://en.wikipedia.org/wiki/Gradient_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector3 (x,y,z) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1134,6 +1218,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. <a href="https://en.wikipedia.org/wiki/Gradient_noise">https://en.wikipedia.org/wiki/Gradient_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector4 (x,y,z,w) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1236,7 +1338,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Combined value and gradient noise functions. </p>
+<p>Combined value and gradient noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector2 (x,y) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1271,7 +1391,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Combined value and gradient noise functions. </p>
+<p>Combined value and gradient noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector3 (x,y,z) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1306,7 +1444,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Combined value and gradient noise functions. </p>
+<p>Combined value and gradient noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector4 (x,y,z,w) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1506,7 +1662,15 @@ Functions</h2></td></tr>
 <p>Simplex noise functions. </p><blockquote class="doxtable">
 <p>Simplex noise is a method for constructing an n-dimensional noise function comparable to Perlin noise ("classic" noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. <a href="https://en.wikipedia.org/wiki/Simplex_noise">https://en.wikipedia.org/wiki/Simplex_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector2 (x,y) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1544,7 +1708,15 @@ Functions</h2></td></tr>
 <p>Simplex noise functions. </p><blockquote class="doxtable">
 <p>Simplex noise is a method for constructing an n-dimensional noise function comparable to Perlin noise ("classic" noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. <a href="https://en.wikipedia.org/wiki/Simplex_noise">https://en.wikipedia.org/wiki/Simplex_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector3 (x,y,z) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1582,7 +1754,15 @@ Functions</h2></td></tr>
 <p>Simplex noise functions. </p><blockquote class="doxtable">
 <p>Simplex noise is a method for constructing an n-dimensional noise function comparable to Perlin noise ("classic" noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. <a href="https://en.wikipedia.org/wiki/Simplex_noise">https://en.wikipedia.org/wiki/Simplex_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector4 (x,y,z,w) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1689,6 +1869,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. <a href="https://en.wikipedia.org/wiki/Value_noise">https://en.wikipedia.org/wiki/Value_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector2 (x,y) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1727,6 +1925,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. <a href="https://en.wikipedia.org/wiki/Value_noise">https://en.wikipedia.org/wiki/Value_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector3 (x,y,z) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1765,6 +1981,24 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. <a href="https://en.wikipedia.org/wiki/Value_noise">https://en.wikipedia.org/wiki/Value_noise</a> </p>
 </blockquote>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector4 (x,y,z,w) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>the interpolation function: <ul>
+<li>
+noInterp </li>
+<li>
+linearInterp </li>
+<li>
+hermiteInterp </li>
+<li>
+quinticInterp </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1871,7 +2105,15 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. <a href="https://en.wikipedia.org/wiki/White_noise">https://en.wikipedia.org/wiki/White_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector2 (x,y) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1910,7 +2152,15 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. <a href="https://en.wikipedia.org/wiki/White_noise">https://en.wikipedia.org/wiki/White_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector3 (x,y,z) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1949,7 +2199,15 @@ Functions</h2></td></tr>
 <blockquote class="doxtable">
 <p>In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. <a href="https://en.wikipedia.org/wiki/White_noise">https://en.wikipedia.org/wiki/White_noise</a> </p>
 </blockquote>
-<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. </p>
+<p>The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector4 (x,y,z,w) coordinates. </td></tr>
+    <tr><td class="paramname">seed</td><td>the uint random number seed. </td></tr>
+    <tr><td class="paramname">interp</td><td>not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

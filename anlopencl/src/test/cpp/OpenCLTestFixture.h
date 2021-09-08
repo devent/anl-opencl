@@ -66,6 +66,9 @@
 #include "OpenCLContext.h"
 #include "opencl_utils.h"
 
+/**
+ * KernelContext
+ */
 struct KernelContext {
 	std::string kernel;
 	std::string source;
@@ -222,6 +225,12 @@ protected:
 	 * Returns the input buffer for the commonRunKernel(cl::Program) function.
 	 */
 	virtual std::shared_ptr<cl::Buffer> getInputBuffer();
+
+	/**
+	 * Returns color channels of the output buffer. Defaults to 1.
+	 */
+	virtual size_t getColorChannels();
+
 };
 
 /**

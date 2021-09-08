@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +61,7 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +72,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ANL-OpenCL
    </div>
-   <div id="projectbrief">ThisisanimplementionoftheAccidentalNoiseLibraryC++librarythatwasoriginallywrittenbyJosuaTippetts.</div>
+   <div id="projectbrief">This is an implemention of the Accidental Noise Library C++ library that was originally written by Josua Tippetts.</div>
   </td>
  </tr>
  </tbody>
@@ -124,7 +172,7 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifndef USE_OPENCL</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifndef ANLOPENCL_USE_OPENCL</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/* Use GNU qsort from stdlib if not in a OpenCL kernel. */</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="qsort_8h.html#a25becd130e4fe840719610b3c0010092">   64</a></span>&#160;<span class="preprocessor">#define sort qsort</span></div>
@@ -135,12 +183,12 @@ $(function() {
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">/* Use the GNU qsort copy if in a OpenCL kernel. */</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="qsort_8h.html#a25becd130e4fe840719610b3c0010092">sort</a> (<span class="keywordtype">void</span> *<span class="keyword">const</span> pbase, <span class="keywordtype">size_t</span> total_elems, <span class="keywordtype">size_t</span> <a class="code" href="opencl__combineColor__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a>,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="qsort_8h.html#a25becd130e4fe840719610b3c0010092">sort</a> (<span class="keywordtype">void</span> *<span class="keyword">const</span> pbase, <span class="keywordtype">size_t</span> total_elems, <span class="keywordtype">size_t</span> <a class="code" href="opencl__cellular__functions__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a>,</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        __compar_d_fn_t cmp);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/* qsort. Taken from https://github.com/lattera/glibc/blob/master/stdlib/qsort.c */</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;_quicksort (<span class="keywordtype">void</span> *<span class="keyword">const</span> pbase, <span class="keywordtype">size_t</span> total_elems, <span class="keywordtype">size_t</span> <a class="code" href="opencl__combineColor__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a>,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;_quicksort (<span class="keywordtype">void</span> *<span class="keyword">const</span> pbase, <span class="keywordtype">size_t</span> total_elems, <span class="keywordtype">size_t</span> <a class="code" href="opencl__cellular__functions__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a>,</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        __compar_d_fn_t cmp, <span class="keywordtype">void</span> *arg);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -153,7 +201,7 @@ $(function() {
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* QSORT_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aqsort_8h_html_a25becd130e4fe840719610b3c0010092"><div class="ttname"><a href="qsort_8h.html#a25becd130e4fe840719610b3c0010092">sort</a></div><div class="ttdeci">#define sort</div><div class="ttdef"><b>Definition:</b> qsort.h:64</div></div>
-<div class="ttc" id="aopencl__combineColor__test_8cpp_html_a685609860d73ccd0d45ada287ab9ab5f"><div class="ttname"><a href="opencl__combineColor__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a></div><div class="ttdeci">const size_t size</div><div class="ttdef"><b>Definition:</b> opencl_combineColor_test.cpp:101</div></div>
+<div class="ttc" id="aopencl__cellular__functions__test_8cpp_html_a685609860d73ccd0d45ada287ab9ab5f"><div class="ttname"><a href="opencl__cellular__functions__test_8cpp.html#a685609860d73ccd0d45ada287ab9ab5f">size</a></div><div class="ttdeci">const size_t size</div><div class="ttdef"><b>Definition:</b> opencl_cellular_functions_test.cpp:71</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

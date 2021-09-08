@@ -1,3 +1,50 @@
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -86,9 +133,9 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifndef USE_OPENCL</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifndef ANLOPENCL_USE_OPENCL</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="target_2classes_2opencl__utils_8h.html">opencl_utils.h</a>&gt;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif // USE_OPENCL</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif // ANLOPENCL_USE_OPENCL</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;vector3* <a class="code" href="src_2main_2cpp_2kernel_8h.html#acf1209cb6bb227dba75938640aad4283">rotateDomain3</a>(vector3 *src, <span class="keywordtype">size_t</span> index, <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> angle, <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ax, <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> ay,</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a> az);</div>
@@ -133,7 +180,7 @@ $(function() {
 <div class="ttc" id="atarget_2classes_2kernel_8h_html_a0ac15d012b0323397cb6fca8277742b3"><div class="ttname"><a href="target_2classes_2kernel_8h.html#a0ac15d012b0323397cb6fca8277742b3">y8</a></div><div class="ttdeci">REAL y8(vector8 *coord)</div></div>
 <div class="ttc" id="atarget_2classes_2opencl__utils_8h_html"><div class="ttname"><a href="target_2classes_2opencl__utils_8h.html">opencl_utils.h</a></div></div>
 <div class="ttc" id="asrc_2main_2cpp_2kernel_8h_html_acf1209cb6bb227dba75938640aad4283"><div class="ttname"><a href="src_2main_2cpp_2kernel_8h.html#acf1209cb6bb227dba75938640aad4283">rotateDomain3</a></div><div class="ttdeci">vector3 rotateDomain3(vector3 src, REAL angle, REAL ax, REAL ay, REAL az)</div><div class="ttdef"><b>Definition:</b> kernel.c:100</div></div>
-<div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a4b654506f18b8bfd61ad2a29a7e38c25"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a></div><div class="ttdeci">#define REAL</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:61</div></div>
+<div class="ttc" id="asrc_2main_2cpp_2opencl__utils_8h_html_a4b654506f18b8bfd61ad2a29a7e38c25"><div class="ttname"><a href="src_2main_2cpp_2opencl__utils_8h.html#a4b654506f18b8bfd61ad2a29a7e38c25">REAL</a></div><div class="ttdeci">#define REAL</div><div class="ttdef"><b>Definition:</b> opencl_utils.h:64</div></div>
 <div class="ttc" id="atarget_2classes_2kernel_8h_html_a1e9f6da605f0dfb838676c696c8a5889"><div class="ttname"><a href="target_2classes_2kernel_8h.html#a1e9f6da605f0dfb838676c696c8a5889">v8</a></div><div class="ttdeci">REAL v8(vector8 *coord)</div></div>
 <div class="ttc" id="atarget_2classes_2kernel_8h_html_aa475748304b952ae72d5d6a114448f4a"><div class="ttname"><a href="target_2classes_2kernel_8h.html#aa475748304b952ae72d5d6a114448f4a">y4</a></div><div class="ttdeci">REAL y4(vector4 *coord)</div></div>
 <div class="ttc" id="atarget_2classes_2kernel_8h_html_ae4fc1c1bef1bb6873330d9b251b5a5f4"><div class="ttname"><a href="target_2classes_2kernel_8h.html#ae4fc1c1bef1bb6873330d9b251b5a5f4">x2</a></div><div class="ttdeci">REAL x2(vector2 *coord)</div></div>

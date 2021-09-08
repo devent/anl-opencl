@@ -1,3 +1,47 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \hypertarget{OpenCLContext_8h}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Context.h File Reference}
 \label{OpenCLContext_8h}\index{src/test/cpp/OpenCLContext.h@{src/test/cpp/OpenCLContext.h}}
 {\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
@@ -34,6 +78,19 @@ std\+::string \mbox{\hyperlink{OpenCLContext_8h_a7816b64e410893cd106df04c54d71b5
 {\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{OpenCLContext_8h_ac0df36eca6a5d5521d62dedf40064145}{create\+Vector}} (size\+\_\+t count)
 \item 
 {\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}{create\+Buffer\+Ptr}} (std\+::shared\+\_\+ptr$<$ std\+::vector$<$ T $>$$>$ vector, cl\+\_\+mem\+\_\+flags flags=C\+L\+\_\+\+M\+E\+M\+\_\+\+R\+E\+A\+D\+\_\+\+W\+R\+I\+TE)
+\item 
+{\footnotesize template$<$typename T $>$ }\\cl\+::\+Buffer \mbox{\hyperlink{OpenCLContext_8h_aed8d23359e0e4de5c4d51bb7b72a7e83}{create\+Buffer}} (std\+::vector$<$ T $>$ vector, cl\+\_\+mem\+\_\+flags flags=C\+L\+\_\+\+M\+E\+M\+\_\+\+R\+E\+A\+D\+\_\+\+W\+R\+I\+TE)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const size\+\_\+t \mbox{\hyperlink{OpenCLContext_8h_acd50100d13fe99056be7abaf74d3a336}{dim\+\_\+real2}} = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)
+\item 
+const size\+\_\+t \mbox{\hyperlink{OpenCLContext_8h_a87057bdcad2d87ffdd1c0bc4414da202}{dim\+\_\+real3}} = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)
+\item 
+const size\+\_\+t \mbox{\hyperlink{OpenCLContext_8h_ade4e614dd13dde562c8f7487bbd9cb10}{dim\+\_\+real4}} = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)
+\item 
+const size\+\_\+t \mbox{\hyperlink{OpenCLContext_8h_a0cbee28ed39495323a98bb080d33933d}{dim\+\_\+real8}} = sizeof(cl\+\_\+float8) / sizeof(cl\+\_\+float)
 \end{DoxyCompactItemize}
 
 
@@ -47,7 +104,14 @@ std\+::string \mbox{\hyperlink{OpenCLContext_8h_a7816b64e410893cd106df04c54d71b5
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}\label{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}} 
+\mbox{\Hypertarget{OpenCLContext_8h_aed8d23359e0e4de5c4d51bb7b72a7e83}\label{OpenCLContext_8h_aed8d23359e0e4de5c4d51bb7b72a7e83}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!createBuffer@{createBuffer}}
+\index{createBuffer@{createBuffer}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{createBuffer()}{createBuffer()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+cl\+::\+Buffer create\+Buffer (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{vector,  }\item[{cl\+\_\+mem\+\_\+flags}]{flags = {\ttfamily CL\+\_\+MEM\+\_\+READ\+\_\+WRITE} }\end{DoxyParamCaption})}
+
+Shortcut function to create a shared\+\_\+ptr Buffer from the vector. \mbox{\Hypertarget{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}\label{OpenCLContext_8h_a3de11bc10253b51dcadf1f68f6075944}} 
 \index{OpenCLContext.h@{OpenCLContext.h}!createBufferPtr@{createBufferPtr}}
 \index{createBufferPtr@{createBufferPtr}!OpenCLContext.h@{OpenCLContext.h}}
 \doxysubsubsection{\texorpdfstring{createBufferPtr()}{createBufferPtr()}}
@@ -68,3 +132,30 @@ Shortcut function to create a shared\+\_\+ptr vector. \mbox{\Hypertarget{OpenCLC
 {\footnotesize\ttfamily std\+::string read\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
 
 Reads the file as string. 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{OpenCLContext_8h_acd50100d13fe99056be7abaf74d3a336}\label{OpenCLContext_8h_acd50100d13fe99056be7abaf74d3a336}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!dim\_real2@{dim\_real2}}
+\index{dim\_real2@{dim\_real2}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{dim\_real2}{dim\_real2}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+real2 = sizeof(cl\+\_\+float2) / sizeof(cl\+\_\+float)}
+
+float2 have 2 floats. \mbox{\Hypertarget{OpenCLContext_8h_a87057bdcad2d87ffdd1c0bc4414da202}\label{OpenCLContext_8h_a87057bdcad2d87ffdd1c0bc4414da202}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!dim\_real3@{dim\_real3}}
+\index{dim\_real3@{dim\_real3}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{dim\_real3}{dim\_real3}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+real3 = sizeof(cl\+\_\+float3) / sizeof(cl\+\_\+float)}
+
+float3 have 4 floats. \mbox{\Hypertarget{OpenCLContext_8h_ade4e614dd13dde562c8f7487bbd9cb10}\label{OpenCLContext_8h_ade4e614dd13dde562c8f7487bbd9cb10}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!dim\_real4@{dim\_real4}}
+\index{dim\_real4@{dim\_real4}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{dim\_real4}{dim\_real4}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+real4 = sizeof(cl\+\_\+float4) / sizeof(cl\+\_\+float)}
+
+float4 have 4 floats. \mbox{\Hypertarget{OpenCLContext_8h_a0cbee28ed39495323a98bb080d33933d}\label{OpenCLContext_8h_a0cbee28ed39495323a98bb080d33933d}} 
+\index{OpenCLContext.h@{OpenCLContext.h}!dim\_real8@{dim\_real8}}
+\index{dim\_real8@{dim\_real8}!OpenCLContext.h@{OpenCLContext.h}}
+\doxysubsubsection{\texorpdfstring{dim\_real8}{dim\_real8}}
+{\footnotesize\ttfamily const size\+\_\+t dim\+\_\+real8 = sizeof(cl\+\_\+float8) / sizeof(cl\+\_\+float)}
+
+float8 have 8 floats. 

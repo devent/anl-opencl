@@ -1,3 +1,47 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \hypertarget{target_2classes_2noise__gen_8h}{}\doxysection{target/classes/noise\+\_\+gen.h File Reference}
 \label{target_2classes_2noise__gen_8h}\index{target/classes/noise\_gen.h@{target/classes/noise\_gen.h}}
 {\ttfamily \#include $<$opencl\+\_\+utils.\+h$>$}\newline
@@ -8,7 +52,8 @@ Include dependency graph for noise\+\_\+gen.\+h\+:\nopagebreak
 \includegraphics[width=283pt]{target_2classes_2noise__gen_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -394,6 +439,23 @@ Gradient noise functions.
 
 \begin{quote}
 Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}\label{target_2classes_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradient\_noise3D@{gradient\_noise3D}}
 \index{gradient\_noise3D@{gradient\_noise3D}!noise\_gen.h@{noise\_gen.h}}
@@ -404,6 +466,23 @@ Gradient noise functions.
 
 \begin{quote}
 Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a692552643c90c9d20db633a93a8c26d1}\label{target_2classes_2noise__gen_8h_a692552643c90c9d20db633a93a8c26d1}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradient\_noise4D@{gradient\_noise4D}}
 \index{gradient\_noise4D@{gradient\_noise4D}!noise\_gen.h@{noise\_gen.h}}
@@ -414,6 +493,23 @@ Gradient noise functions.
 
 \begin{quote}
 Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_af766ff28679accd293454c783d46fd80}\label{target_2classes_2noise__gen_8h_af766ff28679accd293454c783d46fd80}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradient\_noise8D@{gradient\_noise8D}}
 \index{gradient\_noise8D@{gradient\_noise8D}!noise\_gen.h@{noise\_gen.h}}
@@ -432,19 +528,70 @@ Gradient noise is a type of noise commonly used as a procedural texture primitiv
 \doxysubsubsection{\texorpdfstring{gradval\_noise2D()}{gradval\_noise2D()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
 
-Combined value and gradient noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}\label{target_2classes_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}} 
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}\label{target_2classes_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradval\_noise3D@{gradval\_noise3D}}
 \index{gradval\_noise3D@{gradval\_noise3D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{gradval\_noise3D()}{gradval\_noise3D()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
 
-Combined value and gradient noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}\label{target_2classes_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}} 
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}\label{target_2classes_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradval\_noise4D@{gradval\_noise4D}}
 \index{gradval\_noise4D@{gradval\_noise4D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{gradval\_noise4D()}{gradval\_noise4D()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
 
-Combined value and gradient noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_ae3e04638daeda9943fc64208438dd1d7}\label{target_2classes_2noise__gen_8h_ae3e04638daeda9943fc64208438dd1d7}} 
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_ae3e04638daeda9943fc64208438dd1d7}\label{target_2classes_2noise__gen_8h_ae3e04638daeda9943fc64208438dd1d7}} 
 \index{noise\_gen.h@{noise\_gen.h}!gradval\_noise8D@{gradval\_noise8D}}
 \index{gradval\_noise8D@{gradval\_noise8D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{gradval\_noise8D()}{gradval\_noise8D()}}
@@ -525,7 +672,18 @@ Simplex noise functions. \begin{quote}
 Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}\label{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}\label{target_2classes_2noise__gen_8h_a5502241504ae04803a56284b736dd647}} 
 \index{noise\_gen.h@{noise\_gen.h}!simplex\_noise3D@{simplex\_noise3D}}
 \index{simplex\_noise3D@{simplex\_noise3D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{simplex\_noise3D()}{simplex\_noise3D()}}
@@ -535,7 +693,18 @@ Simplex noise functions. \begin{quote}
 Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}\label{target_2classes_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}\label{target_2classes_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}} 
 \index{noise\_gen.h@{noise\_gen.h}!simplex\_noise4D@{simplex\_noise4D}}
 \index{simplex\_noise4D@{simplex\_noise4D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{simplex\_noise4D()}{simplex\_noise4D()}}
@@ -545,7 +714,18 @@ Simplex noise functions. \begin{quote}
 Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a1cdd13899c8dc145c6be6775fa9abb6e}\label{target_2classes_2noise__gen_8h_a1cdd13899c8dc145c6be6775fa9abb6e}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a1cdd13899c8dc145c6be6775fa9abb6e}\label{target_2classes_2noise__gen_8h_a1cdd13899c8dc145c6be6775fa9abb6e}} 
 \index{noise\_gen.h@{noise\_gen.h}!simplex\_noise8D@{simplex\_noise8D}}
 \index{simplex\_noise8D@{simplex\_noise8D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{simplex\_noise8D()}{simplex\_noise8D()}}
@@ -567,6 +747,23 @@ Value noise functions.
 
 \begin{quote}
 Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}\label{target_2classes_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}} 
 \index{noise\_gen.h@{noise\_gen.h}!value\_noise3D@{value\_noise3D}}
 \index{value\_noise3D@{value\_noise3D}!noise\_gen.h@{noise\_gen.h}}
@@ -577,6 +774,23 @@ Value noise functions.
 
 \begin{quote}
 Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a73e27d58f9390919852cb156d1c9e694}\label{target_2classes_2noise__gen_8h_a73e27d58f9390919852cb156d1c9e694}} 
 \index{noise\_gen.h@{noise\_gen.h}!value\_noise4D@{value\_noise4D}}
 \index{value\_noise4D@{value\_noise4D}!noise\_gen.h@{noise\_gen.h}}
@@ -587,6 +801,23 @@ Value noise functions.
 
 \begin{quote}
 Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{target_2classes_2noise__gen_8h_ab7f113f32ea32921901ca9a276d97686}\label{target_2classes_2noise__gen_8h_ab7f113f32ea32921901ca9a276d97686}} 
 \index{noise\_gen.h@{noise\_gen.h}!value\_noise8D@{value\_noise8D}}
 \index{value\_noise8D@{value\_noise8D}!noise\_gen.h@{noise\_gen.h}}
@@ -611,7 +842,18 @@ White noise functions.
 In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}\label{target_2classes_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}\label{target_2classes_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}} 
 \index{noise\_gen.h@{noise\_gen.h}!white\_noise3D@{white\_noise3D}}
 \index{white\_noise3D@{white\_noise3D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{white\_noise3D()}{white\_noise3D()}}
@@ -623,7 +865,18 @@ White noise functions.
 In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}\label{target_2classes_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}\label{target_2classes_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}} 
 \index{noise\_gen.h@{noise\_gen.h}!white\_noise4D@{white\_noise4D}}
 \index{white\_noise4D@{white\_noise4D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{white\_noise4D()}{white\_noise4D()}}
@@ -635,7 +888,18 @@ White noise functions.
 In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
 
 
-The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions. \mbox{\Hypertarget{target_2classes_2noise__gen_8h_a897957d863f891f6567fbd9af0ac206a}\label{target_2classes_2noise__gen_8h_a897957d863f891f6567fbd9af0ac206a}} 
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2noise__gen_8h_a897957d863f891f6567fbd9af0ac206a}\label{target_2classes_2noise__gen_8h_a897957d863f891f6567fbd9af0ac206a}} 
 \index{noise\_gen.h@{noise\_gen.h}!white\_noise8D@{white\_noise8D}}
 \index{white\_noise8D@{white\_noise8D}!noise\_gen.h@{noise\_gen.h}}
 \doxysubsubsection{\texorpdfstring{white\_noise8D()}{white\_noise8D()}}

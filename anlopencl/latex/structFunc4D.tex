@@ -1,3 +1,47 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
 \hypertarget{structFunc4D}{}\doxysection{Func4D Struct Reference}
 \label{structFunc4D}\index{Func4D@{Func4D}}
 \doxysubsection*{Public Attributes}
@@ -7,11 +51,11 @@ vector4 \mbox{\hyperlink{structFunc4D_a7aeb923eb008e54be038090959c393a3}{v}}
 \item 
 uint \mbox{\hyperlink{structFunc4D_abea22080b5cfefec9bda86c24bfeef46}{seed}}
 \item 
-\mbox{\hyperlink{target_2classes_2noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} \mbox{\hyperlink{structFunc4D_a4b2dd1c8483ea0d0ec53e86bb563b60c}{noise\+\_\+func}}
+\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} \mbox{\hyperlink{structFunc4D_a4b2dd1c8483ea0d0ec53e86bb563b60c}{noise\+\_\+func}}
 \item 
-\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} \mbox{\hyperlink{structFunc4D_a20635b286105c9f754274f155d840ab7}{interp}}
+\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} \mbox{\hyperlink{structFunc4D_a20635b286105c9f754274f155d840ab7}{interp}}
 \item 
-\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{structFunc4D_ab149117a2cd7d3cecbc04559560b9ad6}{y}}
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{structFunc4D_ab149117a2cd7d3cecbc04559560b9ad6}{y}}
 \end{DoxyCompactItemize}
 
 
@@ -20,13 +64,13 @@ uint \mbox{\hyperlink{structFunc4D_abea22080b5cfefec9bda86c24bfeef46}{seed}}
 \index{Func4D@{Func4D}!interp@{interp}}
 \index{interp@{interp}!Func4D@{Func4D}}
 \doxysubsubsection{\texorpdfstring{interp}{interp}}
-{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} Func4\+D\+::interp}
+{\footnotesize\ttfamily \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} Func4\+D\+::interp}
 
 \mbox{\Hypertarget{structFunc4D_a4b2dd1c8483ea0d0ec53e86bb563b60c}\label{structFunc4D_a4b2dd1c8483ea0d0ec53e86bb563b60c}} 
 \index{Func4D@{Func4D}!noise\_func@{noise\_func}}
 \index{noise\_func@{noise\_func}!Func4D@{Func4D}}
 \doxysubsubsection{\texorpdfstring{noise\_func}{noise\_func}}
-{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} Func4\+D\+::noise\+\_\+func}
+{\footnotesize\ttfamily \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} Func4\+D\+::noise\+\_\+func}
 
 \mbox{\Hypertarget{structFunc4D_abea22080b5cfefec9bda86c24bfeef46}\label{structFunc4D_abea22080b5cfefec9bda86c24bfeef46}} 
 \index{Func4D@{Func4D}!seed@{seed}}
@@ -44,10 +88,10 @@ uint \mbox{\hyperlink{structFunc4D_abea22080b5cfefec9bda86c24bfeef46}{seed}}
 \index{Func4D@{Func4D}!y@{y}}
 \index{y@{y}!Func4D@{Func4D}}
 \doxysubsubsection{\texorpdfstring{y}{y}}
-{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} Func4\+D\+::y}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} Func4\+D\+::y}
 
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/test/cpp/\mbox{\hyperlink{src_2test_2cpp_2noise__functions__test_8cpp}{noise\+\_\+functions\+\_\+test.\+cpp}}\end{DoxyCompactItemize}
+src/test/cpp/\mbox{\hyperlink{noise__functions__test_8cpp}{noise\+\_\+functions\+\_\+test.\+cpp}}\end{DoxyCompactItemize}
