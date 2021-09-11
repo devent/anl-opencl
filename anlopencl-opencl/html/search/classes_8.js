@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,13 +45,13 @@
  */
 var searchData=
 [
-  ['map2d_5f2_5fdata_489',['map2D_2_data',['../structmap2D__2__data.html',1,'']]],
-  ['map2d_5f2_5fno_5fz_5fparams_490',['map2D_2_no_z_params',['../classmap2D__2__no__z__params.html',1,'']]],
-  ['map2d_5f3_5fdata_491',['map2D_3_data',['../structmap2D__3__data.html',1,'']]],
-  ['map2d_5f3_5fparams_492',['map2D_3_params',['../classmap2D__3__params.html',1,'']]],
-  ['map2d_5f4_5fdata_493',['map2D_4_data',['../structmap2D__4__data.html',1,'']]],
-  ['map2d_5f4_5fparams_494',['map2D_4_params',['../classmap2D__4__params.html',1,'']]],
-  ['map2d_5f8_5fparams_495',['map2D_8_params',['../classmap2D__8__params.html',1,'']]],
-  ['map2d_5fdata_496',['map2D_data',['../structmap2D__data.html',1,'']]],
-  ['map2d_5fno_5fz_5f3_5fparams_497',['map2D_no_z_3_params',['../classmap2D__no__z__3__params.html',1,'']]]
+  ['map2d_5f2_5fdata_481',['map2D_2_data',['../structmap2D__2__data.html',1,'']]],
+  ['map2d_5f2_5fno_5fz_5fparams_482',['map2D_2_no_z_params',['../classmap2D__2__no__z__params.html',1,'']]],
+  ['map2d_5f3_5fdata_483',['map2D_3_data',['../structmap2D__3__data.html',1,'']]],
+  ['map2d_5f3_5fparams_484',['map2D_3_params',['../classmap2D__3__params.html',1,'']]],
+  ['map2d_5f4_5fdata_485',['map2D_4_data',['../structmap2D__4__data.html',1,'']]],
+  ['map2d_5f4_5fparams_486',['map2D_4_params',['../classmap2D__4__params.html',1,'']]],
+  ['map2d_5f8_5fparams_487',['map2D_8_params',['../classmap2D__8__params.html',1,'']]],
+  ['map2d_5fdata_488',['map2D_data',['../structmap2D__data.html',1,'']]],
+  ['map2d_5fno_5fz_5f3_5fparams_489',['map2D_no_z_3_params',['../classmap2D__no__z__3__params.html',1,'']]]
 ];

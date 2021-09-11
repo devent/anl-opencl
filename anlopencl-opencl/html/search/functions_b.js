@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,6 +45,6 @@
  */
 var searchData=
 [
-  ['new_5fsimplex_5fnoise4d_719',['new_simplex_noise4D',['../noise__gen_8c.html#ad813f9fb8f63f5289996f9e2693b2e79',1,'new_simplex_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#ad813f9fb8f63f5289996f9e2693b2e79',1,'new_simplex_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
-  ['nointerp_720',['noInterp',['../noise__gen_8c.html#a03160b7e757d3bd0cd071c27b07307c1',1,'noInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a03160b7e757d3bd0cd071c27b07307c1',1,'noInterp(REAL t):&#160;noise_gen.c']]]
+  ['new_5fsimplex_5fnoise4d_706',['new_simplex_noise4D',['../noise__gen_8c.html#ad813f9fb8f63f5289996f9e2693b2e79',1,'new_simplex_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#ad813f9fb8f63f5289996f9e2693b2e79',1,'new_simplex_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
+  ['nointerp_707',['noInterp',['../noise__gen_8c.html#a03160b7e757d3bd0cd071c27b07307c1',1,'noInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a03160b7e757d3bd0cd071c27b07307c1',1,'noInterp(REAL t):&#160;noise_gen.c']]]
 ];

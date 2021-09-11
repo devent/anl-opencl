@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,5 +45,5 @@
  */
 var searchData=
 [
-  ['y_460',['y',['../structFunc2.html#ab5d08712a16aba2268b878e7dde1361d',1,'Func2::y()'],['../structFunc.html#a220a75878b0d71edf81021b94311f17d',1,'Func::y()'],['../structCell2D.html#af299dcf935b6b60bf0d2dcf170ebf4b9',1,'Cell2D::y()'],['../structCell3D.html#a23f2fdb6d49778c8cbb6e41be0c64027',1,'Cell3D::y()'],['../structCell4D.html#a661cf68fd893744929d47ccd6769d8cf',1,'Cell4D::y()'],['../structCell6D.html#a144b4601f76496b8e24f69360fbfdebb',1,'Cell6D::y()'],['../structFunc2D.html#adcb285fa29d3cdd239547a2e1634707a',1,'Func2D::y()'],['../structFunc3D.html#a7707f146fcc523250cbde494b958b7ff',1,'Func3D::y()'],['../structFunc4D.html#ab149117a2cd7d3cecbc04559560b9ad6',1,'Func4D::y()'],['../structFunc6D.html#a15b7ca6881e90a41a4fff040b7acd368',1,'Func6D::y()'],['../kernel_8h.html#ab10692e2286f905fbf79e48907023fef',1,'y():&#160;kernel.h']]]
+  ['y_453',['y',['../structFunc2.html#ab5d08712a16aba2268b878e7dde1361d',1,'Func2::y()'],['../structFunc.html#a220a75878b0d71edf81021b94311f17d',1,'Func::y()'],['../structCell2D.html#af299dcf935b6b60bf0d2dcf170ebf4b9',1,'Cell2D::y()'],['../structCell3D.html#a23f2fdb6d49778c8cbb6e41be0c64027',1,'Cell3D::y()'],['../structCell4D.html#a661cf68fd893744929d47ccd6769d8cf',1,'Cell4D::y()'],['../structCell6D.html#a144b4601f76496b8e24f69360fbfdebb',1,'Cell6D::y()'],['../structFunc2D.html#adcb285fa29d3cdd239547a2e1634707a',1,'Func2D::y()'],['../structFunc3D.html#a7707f146fcc523250cbde494b958b7ff',1,'Func3D::y()'],['../structFunc4D.html#ab149117a2cd7d3cecbc04559560b9ad6',1,'Func4D::y()'],['../structFunc6D.html#a15b7ca6881e90a41a4fff040b7acd368',1,'Func6D::y()'],['../kernel_8h.html#ab10692e2286f905fbf79e48907023fef',1,'y():&#160;kernel.h']]]
 ];

@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,10 @@
  */
 var searchData=
 [
-  ['g2_818',['G2',['../noise__gen_8c.html#a807fb037bf2cad582d80791be7b11092',1,'noise_gen.c']]],
-  ['g3_819',['G3',['../noise__gen_8c.html#a16b7871a3a26b1cee8cb158156499092',1,'noise_gen.c']]],
-  ['gradient2d_5flut_820',['gradient2D_lut',['../noise__lut_8c.html#a892b4a5c3b3559fb6f797401ec210d20',1,'gradient2D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#a892b4a5c3b3559fb6f797401ec210d20',1,'gradient2D_lut():&#160;noise_lut.c']]],
-  ['gradient3d_5flut_821',['gradient3D_lut',['../noise__lut_8c.html#adb5d4f8f0cf12656ca2f59f4df659263',1,'gradient3D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#adb5d4f8f0cf12656ca2f59f4df659263',1,'gradient3D_lut():&#160;noise_lut.c']]],
-  ['gradient4d_5flut_822',['gradient4D_lut',['../noise__lut_8c.html#ac7e446415aa4031a1a9a5594e2fde553',1,'gradient4D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#ac7e446415aa4031a1a9a5594e2fde553',1,'gradient4D_lut():&#160;noise_lut.c']]],
-  ['gradient6d_5flut_823',['gradient6D_lut',['../noise__lut_8c.html#a8b15be48470a7b50bfdf31c4999c61a3',1,'gradient6D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#a8b15be48470a7b50bfdf31c4999c61a3',1,'gradient6D_lut():&#160;noise_lut.c']]]
+  ['g2_804',['G2',['../noise__gen_8c.html#a807fb037bf2cad582d80791be7b11092',1,'noise_gen.c']]],
+  ['g3_805',['G3',['../noise__gen_8c.html#a16b7871a3a26b1cee8cb158156499092',1,'noise_gen.c']]],
+  ['gradient2d_5flut_806',['gradient2D_lut',['../noise__lut_8c.html#a892b4a5c3b3559fb6f797401ec210d20',1,'gradient2D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#a892b4a5c3b3559fb6f797401ec210d20',1,'gradient2D_lut():&#160;noise_lut.c']]],
+  ['gradient3d_5flut_807',['gradient3D_lut',['../noise__lut_8c.html#adb5d4f8f0cf12656ca2f59f4df659263',1,'gradient3D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#adb5d4f8f0cf12656ca2f59f4df659263',1,'gradient3D_lut():&#160;noise_lut.c']]],
+  ['gradient4d_5flut_808',['gradient4D_lut',['../noise__lut_8c.html#ac7e446415aa4031a1a9a5594e2fde553',1,'gradient4D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#ac7e446415aa4031a1a9a5594e2fde553',1,'gradient4D_lut():&#160;noise_lut.c']]],
+  ['gradient6d_5flut_809',['gradient6D_lut',['../noise__lut_8c.html#a8b15be48470a7b50bfdf31c4999c61a3',1,'gradient6D_lut():&#160;noise_lut.c'],['../noise__lut_8h.html#a8b15be48470a7b50bfdf31c4999c61a3',1,'gradient6D_lut():&#160;noise_lut.c']]]
 ];

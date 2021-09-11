@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,9 +45,8 @@
  */
 var searchData=
 [
-  ['cell2d_463',['Cell2D',['../structCell2D.html',1,'']]],
-  ['cell3d_464',['Cell3D',['../structCell3D.html',1,'']]],
-  ['cell4d_465',['Cell4D',['../structCell4D.html',1,'']]],
-  ['cell6d_466',['Cell6D',['../structCell6D.html',1,'']]],
-  ['coretest_467',['CoreTest',['../classcom_1_1anrisoftware_1_1anlopencl_1_1CoreTest.html',1,'com::anrisoftware::anlopencl']]]
+  ['cell2d_456',['Cell2D',['../structCell2D.html',1,'']]],
+  ['cell3d_457',['Cell3D',['../structCell3D.html',1,'']]],
+  ['cell4d_458',['Cell4D',['../structCell4D.html',1,'']]],
+  ['cell6d_459',['Cell6D',['../structCell6D.html',1,'']]]
 ];

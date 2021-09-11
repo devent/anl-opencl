@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['f_814',['f',['../classnoise__cell__func2__params.html#abf346d6dbc80ac8956018c5695e7808b',1,'noise_cell_func2_params::f()'],['../classnoise__cell__func3__params.html#a0e4511d078e8bbd461a38c8e195e8bd3',1,'noise_cell_func3_params::f()'],['../classnoise__cell__func4__params.html#a02ce6935e117506baf5098d64fa58cb3',1,'noise_cell_func4_params::f()'],['../classnoise__cell__func6__params.html#a8dc46834bcb460ac99e3920e8855b38c',1,'noise_cell_func6_params::f()']]],
-  ['f2_815',['F2',['../noise__gen_8c.html#a232e6050a32049eac795ccfa519374b6',1,'noise_gen.c']]],
-  ['f3_816',['F3',['../noise__gen_8c.html#abec4074532d2e2e2f457b11323448fe9',1,'noise_gen.c']]],
-  ['frequency_817',['frequency',['../structkernel__simplefBm__data.html#a395f41b9b28ee4d78458b701c1f8870d',1,'kernel_simplefBm_data']]]
+  ['f_800',['f',['../classnoise__cell__func2__params.html#abf346d6dbc80ac8956018c5695e7808b',1,'noise_cell_func2_params::f()'],['../classnoise__cell__func3__params.html#a0e4511d078e8bbd461a38c8e195e8bd3',1,'noise_cell_func3_params::f()'],['../classnoise__cell__func4__params.html#a02ce6935e117506baf5098d64fa58cb3',1,'noise_cell_func4_params::f()'],['../classnoise__cell__func6__params.html#a8dc46834bcb460ac99e3920e8855b38c',1,'noise_cell_func6_params::f()']]],
+  ['f2_801',['F2',['../noise__gen_8c.html#a232e6050a32049eac795ccfa519374b6',1,'noise_gen.c']]],
+  ['f3_802',['F3',['../noise__gen_8c.html#abec4074532d2e2e2f457b11323448fe9',1,'noise_gen.c']]],
+  ['frequency_803',['frequency',['../structkernel__simplefBm__data.html#a395f41b9b28ee4d78458b701c1f8870d',1,'kernel_simplefBm_data']]]
 ];

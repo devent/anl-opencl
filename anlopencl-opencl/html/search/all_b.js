@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,20 +45,20 @@
  */
 var searchData=
 [
-  ['lerp_222',['lerp',['../utility_8c.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c']]],
-  ['lib_223',['lib',['../classAbstract__OpenCL__Context__Fixture.html#a1c3d6bb260692fe9805237b6bc8a75c2',1,'Abstract_OpenCL_Context_Fixture']]],
-  ['license_2emd_224',['LICENSE.md',['../LICENSE_8md.html',1,'']]],
-  ['linearinterp_225',['linearInterp',['../noise__gen_8c.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c']]],
-  ['linearinterp_5fparams_226',['linearInterp_params',['../classlinearInterp__params.html',1,'']]],
-  ['loadinputheaders_227',['loadInputHeaders',['../classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8',1,'OpenCL_Context']]],
-  ['loadplatform_228',['loadPlatform',['../classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01',1,'OpenCL_Context']]],
-  ['logger_229',['logger',['../classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462',1,'Abstract_OpenCL_Context_Fixture::logger()'],['../compile__library__test_8cpp.html#accdc73450b7a41e30a69fca53a8f2232',1,'logger():&#160;compile_library_test.cpp']]],
-  ['loopx0_230',['loopx0',['../structSMappingRanges.html#aba79af62cf14ff85c8ebe389283fbcd8',1,'SMappingRanges']]],
-  ['loopx1_231',['loopx1',['../structSMappingRanges.html#a8ec4b102392db17f7645a1f288c58d86',1,'SMappingRanges']]],
-  ['loopy0_232',['loopy0',['../structSMappingRanges.html#ade2081bab2d9ab9be460db14bb22c522',1,'SMappingRanges']]],
-  ['loopy1_233',['loopy1',['../structSMappingRanges.html#a4cd3363675afa5b184bfe0117f5cf158',1,'SMappingRanges']]],
-  ['loopz0_234',['loopz0',['../structSMappingRanges.html#ad8b2f11ea43e259b60ca0cf3732bb15a',1,'SMappingRanges']]],
-  ['loopz1_235',['loopz1',['../structSMappingRanges.html#acb8989107b9331b30e8f57df329e7a0f',1,'SMappingRanges']]],
-  ['low_236',['low',['../structimaging__scaleToRange__data.html#a09e6634b8bfe45ccd829f2fe472e067d',1,'imaging_scaleToRange_data']]],
-  ['license_237',['LICENSE',['../md_src_main_cpp_extern_RandomCL_LICENSE.html',1,'']]]
+  ['lerp_216',['lerp',['../utility_8c.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c']]],
+  ['lib_217',['lib',['../classAbstract__OpenCL__Context__Fixture.html#a1c3d6bb260692fe9805237b6bc8a75c2',1,'Abstract_OpenCL_Context_Fixture']]],
+  ['license_2emd_218',['LICENSE.md',['../LICENSE_8md.html',1,'']]],
+  ['linearinterp_219',['linearInterp',['../noise__gen_8c.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c']]],
+  ['linearinterp_5fparams_220',['linearInterp_params',['../classlinearInterp__params.html',1,'']]],
+  ['loadinputheaders_221',['loadInputHeaders',['../classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8',1,'OpenCL_Context']]],
+  ['loadplatform_222',['loadPlatform',['../classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01',1,'OpenCL_Context']]],
+  ['logger_223',['logger',['../classAbstract__OpenCL__Context__Fixture.html#a5f0faf1570e18a72bf8c91b489869462',1,'Abstract_OpenCL_Context_Fixture::logger()'],['../compile__library__test_8cpp.html#accdc73450b7a41e30a69fca53a8f2232',1,'logger():&#160;compile_library_test.cpp']]],
+  ['loopx0_224',['loopx0',['../structSMappingRanges.html#aba79af62cf14ff85c8ebe389283fbcd8',1,'SMappingRanges']]],
+  ['loopx1_225',['loopx1',['../structSMappingRanges.html#a8ec4b102392db17f7645a1f288c58d86',1,'SMappingRanges']]],
+  ['loopy0_226',['loopy0',['../structSMappingRanges.html#ade2081bab2d9ab9be460db14bb22c522',1,'SMappingRanges']]],
+  ['loopy1_227',['loopy1',['../structSMappingRanges.html#a4cd3363675afa5b184bfe0117f5cf158',1,'SMappingRanges']]],
+  ['loopz0_228',['loopz0',['../structSMappingRanges.html#ad8b2f11ea43e259b60ca0cf3732bb15a',1,'SMappingRanges']]],
+  ['loopz1_229',['loopz1',['../structSMappingRanges.html#acb8989107b9331b30e8f57df329e7a0f',1,'SMappingRanges']]],
+  ['low_230',['low',['../structimaging__scaleToRange__data.html#a09e6634b8bfe45ccd829f2fe472e067d',1,'imaging_scaleToRange_data']]],
+  ['license_231',['LICENSE',['../md_src_main_cpp_extern_RandomCL_LICENSE.html',1,'']]]
 ];

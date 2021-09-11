@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,9 @@
  */
 var searchData=
 [
-  ['white_5fnoise2d_783',['white_noise2D',['../noise__gen_8c.html#a8a101e4f59c63b09f8994108fbed4598',1,'white_noise2D(vector2 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a8a101e4f59c63b09f8994108fbed4598',1,'white_noise2D(vector2 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
-  ['white_5fnoise3d_784',['white_noise3D',['../noise__gen_8c.html#a74d0f4e546c12e108592c93154f6aa37',1,'white_noise3D(vector3 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a74d0f4e546c12e108592c93154f6aa37',1,'white_noise3D(vector3 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
-  ['white_5fnoise4d_785',['white_noise4D',['../noise__gen_8c.html#a2a38ce8ddcbd88cea585747da7a63228',1,'white_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a2a38ce8ddcbd88cea585747da7a63228',1,'white_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
-  ['white_5fnoise6d_786',['white_noise6D',['../noise__gen_8c.html#aff51e13b7a73d323dd941401f26ec1f5',1,'white_noise6D(vector8 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#aff51e13b7a73d323dd941401f26ec1f5',1,'white_noise6D(vector8 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
-  ['workernoise3gradient_5fcalculate_787',['WorkerNoise3Gradient_calculate',['../classcom_1_1anrisoftware_1_1anlopencl_1_1CoreTest.html#a5fda7e6829ac8ba78becb2cf52028f4f',1,'com::anrisoftware::anlopencl::CoreTest']]],
-  ['write_5fto_5ffile_788',['write_to_file',['../compile__library__test_8cpp.html#a20fffe281a9a316e4f716c9c90ae2f2f',1,'compile_library_test.cpp']]]
+  ['white_5fnoise2d_770',['white_noise2D',['../noise__gen_8c.html#a8a101e4f59c63b09f8994108fbed4598',1,'white_noise2D(vector2 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a8a101e4f59c63b09f8994108fbed4598',1,'white_noise2D(vector2 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
+  ['white_5fnoise3d_771',['white_noise3D',['../noise__gen_8c.html#a74d0f4e546c12e108592c93154f6aa37',1,'white_noise3D(vector3 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a74d0f4e546c12e108592c93154f6aa37',1,'white_noise3D(vector3 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
+  ['white_5fnoise4d_772',['white_noise4D',['../noise__gen_8c.html#a2a38ce8ddcbd88cea585747da7a63228',1,'white_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#a2a38ce8ddcbd88cea585747da7a63228',1,'white_noise4D(vector4 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
+  ['white_5fnoise6d_773',['white_noise6D',['../noise__gen_8c.html#aff51e13b7a73d323dd941401f26ec1f5',1,'white_noise6D(vector8 v, uint seed, interp_func interp):&#160;noise_gen.c'],['../noise__gen_8h.html#aff51e13b7a73d323dd941401f26ec1f5',1,'white_noise6D(vector8 v, uint seed, interp_func interp):&#160;noise_gen.c']]],
+  ['write_5fto_5ffile_774',['write_to_file',['../compile__library__test_8cpp.html#a20fffe281a9a316e4f716c9c90ae2f2f',1,'compile_library_test.cpp']]]
 ];

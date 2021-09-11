@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['random_2ec_583',['random.c',['../random_8c.html',1,'']]],
-  ['random_2eh_584',['random.h',['../random_8h.html',1,'']]],
-  ['random_5ftest_2ecpp_585',['random_test.cpp',['../random__test_8cpp.html',1,'']]],
-  ['readme_2emd_586',['README.md',['../README_8md.html',1,'']]]
+  ['random_2ec_571',['random.c',['../random_8c.html',1,'']]],
+  ['random_2eh_572',['random.h',['../random_8h.html',1,'']]],
+  ['random_5ftest_2ecpp_573',['random_test.cpp',['../random__test_8cpp.html',1,'']]],
+  ['readme_2emd_574',['README.md',['../README_8md.html',1,'']]]
 ];

@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  */
 var searchData=
 [
-  ['ranges_859',['ranges',['../structSChunk.html#ade4ab6d6b74ac7281695d24acb803506',1,'SChunk::ranges()'],['../structmap2D__data.html#a9ccc987a629ef1dae772794215f68427',1,'map2D_data::ranges()'],['../structmap2D__2__data.html#a551586bd6f508cba66e5fb7efff2ba26',1,'map2D_2_data::ranges()'],['../structmap2D__3__data.html#ae0cdfcb1b3d2de1e3e6b79e7c09d74ca',1,'map2D_3_data::ranges()'],['../structmap2D__4__data.html#a7240fa3b2bbccc03e25b9911ecd1d081',1,'map2D_4_data::ranges()']]],
-  ['rnd_860',['rnd',['../structkernel__simplefBm__data.html#a3bd7136099b4f29bb854d3742763fcaa',1,'kernel_simplefBm_data::rnd()'],['../structrandom__test__data.html#a184bdf58bdeb650651413da70dcedff7',1,'random_test_data::rnd()']]],
-  ['rot_861',['rot',['../structkernel__simplefBm__data.html#a61adcd4f1a1e98b17f0f11fdad1c57da',1,'kernel_simplefBm_data']]]
+  ['ranges_845',['ranges',['../structSChunk.html#ade4ab6d6b74ac7281695d24acb803506',1,'SChunk::ranges()'],['../structmap2D__data.html#a9ccc987a629ef1dae772794215f68427',1,'map2D_data::ranges()'],['../structmap2D__2__data.html#a551586bd6f508cba66e5fb7efff2ba26',1,'map2D_2_data::ranges()'],['../structmap2D__3__data.html#ae0cdfcb1b3d2de1e3e6b79e7c09d74ca',1,'map2D_3_data::ranges()'],['../structmap2D__4__data.html#a7240fa3b2bbccc03e25b9911ecd1d081',1,'map2D_4_data::ranges()']]],
+  ['rnd_846',['rnd',['../structkernel__simplefBm__data.html#a3bd7136099b4f29bb854d3742763fcaa',1,'kernel_simplefBm_data::rnd()'],['../structrandom__test__data.html#a184bdf58bdeb650651413da70dcedff7',1,'random_test_data::rnd()']]],
+  ['rot_847',['rot',['../structkernel__simplefBm__data.html#a61adcd4f1a1e98b17f0f11fdad1c57da',1,'kernel_simplefBm_data']]]
 ];

@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  */
 var searchData=
 [
-  ['calc_5fseamless_874',['calc_seamless',['../imaging_8h.html#afc89ba8862372eae4213f989a3e4d102',1,'imaging.h']]],
-  ['calc_5fseamless_5fno_5fz_875',['calc_seamless_no_z',['../imaging_8h.html#ac792b9aaded06b8dc84d566dc67c33c8',1,'imaging.h']]],
-  ['coarse_5ffloat_5fsvm_5fvector_876',['coarse_float_svm_vector',['../OpenCLTestFixture_8h.html#a44712ae5ff6c167d122c0e2b103ec3f7',1,'OpenCLTestFixture.h']]]
+  ['calc_5fseamless_860',['calc_seamless',['../imaging_8h.html#afc89ba8862372eae4213f989a3e4d102',1,'imaging.h']]],
+  ['calc_5fseamless_5fno_5fz_861',['calc_seamless_no_z',['../imaging_8h.html#ac792b9aaded06b8dc84d566dc67c33c8',1,'imaging.h']]],
+  ['coarse_5ffloat_5fsvm_5fvector_862',['coarse_float_svm_vector',['../OpenCLTestFixture_8h.html#a44712ae5ff6c167d122c0e2b103ec3f7',1,'OpenCLTestFixture.h']]]
 ];

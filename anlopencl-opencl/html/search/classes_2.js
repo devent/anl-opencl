@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['disteuclid2_5fparams_468',['distEuclid2_params',['../classdistEuclid2__params.html',1,'']]],
-  ['distgreatestaxis2_5fparams_469',['distGreatestAxis2_params',['../classdistGreatestAxis2__params.html',1,'']]],
-  ['distleastaxis2_5fparams_470',['distLeastAxis2_params',['../classdistLeastAxis2__params.html',1,'']]],
-  ['distmanhattan2_5fparams_471',['distManhattan2_params',['../classdistManhattan2__params.html',1,'']]]
+  ['disteuclid2_5fparams_460',['distEuclid2_params',['../classdistEuclid2__params.html',1,'']]],
+  ['distgreatestaxis2_5fparams_461',['distGreatestAxis2_params',['../classdistGreatestAxis2__params.html',1,'']]],
+  ['distleastaxis2_5fparams_462',['distLeastAxis2_params',['../classdistLeastAxis2__params.html',1,'']]],
+  ['distmanhattan2_5fparams_463',['distManhattan2_params',['../classdistManhattan2__params.html',1,'']]]
 ];

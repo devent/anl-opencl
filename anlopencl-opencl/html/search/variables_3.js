@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,11 +45,11 @@
  */
 var searchData=
 [
-  ['data_806',['data',['../classimaging__scaleToRange__param.html#a2fc1c4d16f3e1a7f9bd55e8f8d651ced',1,'imaging_scaleToRange_param::data()'],['../classkernel__rotateDomain3__param.html#afcfcc68450d7e760b4bd82be8497bbec',1,'kernel_rotateDomain3_param::data()'],['../classkernel__rotateDomain4__param.html#ac7e818a9316ff9065e5471db97680c7e',1,'kernel_rotateDomain4_param::data()'],['../classkernel__simplefBm__param.html#a2123a6c071038ceb5c26f0a0492ead85',1,'kernel_simplefBm_param::data()']]],
-  ['dim_5freal2_807',['dim_real2',['../OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336',1,'OpenCLContext.h']]],
-  ['dim_5freal3_808',['dim_real3',['../OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202',1,'OpenCLContext.h']]],
-  ['dim_5freal4_809',['dim_real4',['../OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10',1,'OpenCLContext.h']]],
-  ['dim_5freal8_810',['dim_real8',['../OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d',1,'OpenCLContext.h']]],
-  ['disp_811',['disp',['../classnoise__cell__func2__params.html#a8c8a87b96941cd0630149b9d72406ed7',1,'noise_cell_func2_params::disp()'],['../classnoise__cell__func3__params.html#a34dfbd2a8c1661bc400de465a94bfd92',1,'noise_cell_func3_params::disp()'],['../classnoise__cell__func4__params.html#a3425271d627ba946def66af0067a4751',1,'noise_cell_func4_params::disp()'],['../classnoise__cell__func6__params.html#a8f06048e1d8eb94fb5654b8e8c1927a5',1,'noise_cell_func6_params::disp()']]],
-  ['dist_5ffunc_812',['dist_func',['../structCell2D.html#a5fd8b0f29edf1e62bcd64ce3b06d457a',1,'Cell2D::dist_func()'],['../structCell3D.html#a4e8d71f65a23a64aac69a6e4e0180a65',1,'Cell3D::dist_func()'],['../structCell4D.html#afeed0bc6acff0b06f889ce6cd005a82a',1,'Cell4D::dist_func()'],['../structCell6D.html#a91b233b00b0e3a1d8c2be5d85d897f2f',1,'Cell6D::dist_func()']]]
+  ['data_792',['data',['../classimaging__scaleToRange__param.html#a2fc1c4d16f3e1a7f9bd55e8f8d651ced',1,'imaging_scaleToRange_param::data()'],['../classkernel__rotateDomain3__param.html#afcfcc68450d7e760b4bd82be8497bbec',1,'kernel_rotateDomain3_param::data()'],['../classkernel__rotateDomain4__param.html#ac7e818a9316ff9065e5471db97680c7e',1,'kernel_rotateDomain4_param::data()'],['../classkernel__simplefBm__param.html#a2123a6c071038ceb5c26f0a0492ead85',1,'kernel_simplefBm_param::data()']]],
+  ['dim_5freal2_793',['dim_real2',['../OpenCLContext_8h.html#acd50100d13fe99056be7abaf74d3a336',1,'OpenCLContext.h']]],
+  ['dim_5freal3_794',['dim_real3',['../OpenCLContext_8h.html#a87057bdcad2d87ffdd1c0bc4414da202',1,'OpenCLContext.h']]],
+  ['dim_5freal4_795',['dim_real4',['../OpenCLContext_8h.html#ade4e614dd13dde562c8f7487bbd9cb10',1,'OpenCLContext.h']]],
+  ['dim_5freal8_796',['dim_real8',['../OpenCLContext_8h.html#a0cbee28ed39495323a98bb080d33933d',1,'OpenCLContext.h']]],
+  ['disp_797',['disp',['../classnoise__cell__func2__params.html#a8c8a87b96941cd0630149b9d72406ed7',1,'noise_cell_func2_params::disp()'],['../classnoise__cell__func3__params.html#a34dfbd2a8c1661bc400de465a94bfd92',1,'noise_cell_func3_params::disp()'],['../classnoise__cell__func4__params.html#a3425271d627ba946def66af0067a4751',1,'noise_cell_func4_params::disp()'],['../classnoise__cell__func6__params.html#a8f06048e1d8eb94fb5654b8e8c1927a5',1,'noise_cell_func6_params::disp()']]],
+  ['dist_5ffunc_798',['dist_func',['../structCell2D.html#a5fd8b0f29edf1e62bcd64ce3b06d457a',1,'Cell2D::dist_func()'],['../structCell3D.html#a4e8d71f65a23a64aac69a6e4e0180a65',1,'Cell3D::dist_func()'],['../structCell4D.html#afeed0bc6acff0b06f889ce6cd005a82a',1,'Cell4D::dist_func()'],['../structCell6D.html#a91b233b00b0e3a1d8c2be5d85d897f2f',1,'Cell6D::dist_func()']]]
 ];

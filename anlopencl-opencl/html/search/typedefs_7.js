@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['worker_5fnoise_5f2_888',['worker_noise_2',['../noise__gen_8c.html#aad08c7873e886c1797f7fd69869d5fe6',1,'noise_gen.c']]],
-  ['worker_5fnoise_5f3_889',['worker_noise_3',['../noise__gen_8c.html#aa273c7b5276bf8636e14a14c0ab83731',1,'noise_gen.c']]],
-  ['worker_5fnoise_5f4_890',['worker_noise_4',['../noise__gen_8c.html#a7b715b0a9bfec4683665bf331238688a',1,'noise_gen.c']]],
-  ['worker_5fnoise_5f6_891',['worker_noise_6',['../noise__gen_8c.html#ade114cf5761ac35228c00f466cb5777c',1,'noise_gen.c']]]
+  ['worker_5fnoise_5f2_874',['worker_noise_2',['../noise__gen_8c.html#aad08c7873e886c1797f7fd69869d5fe6',1,'noise_gen.c']]],
+  ['worker_5fnoise_5f3_875',['worker_noise_3',['../noise__gen_8c.html#aa273c7b5276bf8636e14a14c0ab83731',1,'noise_gen.c']]],
+  ['worker_5fnoise_5f4_876',['worker_noise_4',['../noise__gen_8c.html#a7b715b0a9bfec4683665bf331238688a',1,'noise_gen.c']]],
+  ['worker_5fnoise_5f6_877',['worker_noise_6',['../noise__gen_8c.html#ade114cf5761ac35228c00f466cb5777c',1,'noise_gen.c']]]
 ];

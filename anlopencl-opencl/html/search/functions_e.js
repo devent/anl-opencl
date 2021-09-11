@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,6 +45,6 @@
  */
 var searchData=
 [
-  ['quintic_5fblend_727',['quintic_blend',['../utility_8c.html#a2234eca7596ec61c75ddb7362d191fa2',1,'quintic_blend(REAL t):&#160;utility.c'],['../utility_8h.html#a2234eca7596ec61c75ddb7362d191fa2',1,'quintic_blend(REAL t):&#160;utility.c']]],
-  ['quinticinterp_728',['quinticInterp',['../noise__gen_8c.html#a2db335ae978be4c1d69ea188d9d1da33',1,'quinticInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a2db335ae978be4c1d69ea188d9d1da33',1,'quinticInterp(REAL t):&#160;noise_gen.c']]]
+  ['quintic_5fblend_714',['quintic_blend',['../utility_8c.html#a2234eca7596ec61c75ddb7362d191fa2',1,'quintic_blend(REAL t):&#160;utility.c'],['../utility_8h.html#a2234eca7596ec61c75ddb7362d191fa2',1,'quintic_blend(REAL t):&#160;utility.c']]],
+  ['quinticinterp_715',['quinticInterp',['../noise__gen_8c.html#a2db335ae978be4c1d69ea188d9d1da33',1,'quinticInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a2db335ae978be4c1d69ea188d9d1da33',1,'quinticInterp(REAL t):&#160;noise_gen.c']]]
 ];

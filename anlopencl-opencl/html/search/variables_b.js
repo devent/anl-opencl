@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,12 +45,12 @@
  */
 var searchData=
 [
-  ['mapx0_842',['mapx0',['../structSMappingRanges.html#aa7a8872744f333cd491a02a57dd4b84c',1,'SMappingRanges']]],
-  ['mapx1_843',['mapx1',['../structSMappingRanges.html#a4435f69adea71a251be785bc129e8d24',1,'SMappingRanges']]],
-  ['mapy0_844',['mapy0',['../structSMappingRanges.html#a6b58d0032cbfe0fb908fcab2e98e0178',1,'SMappingRanges']]],
-  ['mapy1_845',['mapy1',['../structSMappingRanges.html#a11ba1c11dc2d87e1d379079def95ddff',1,'SMappingRanges']]],
-  ['mapz0_846',['mapz0',['../structSMappingRanges.html#a461e1c2a14e8026dd385b928d5a45cf4',1,'SMappingRanges']]],
-  ['mapz1_847',['mapz1',['../structSMappingRanges.html#a6edd9460fc69ffc7152dd29010da3c8c',1,'SMappingRanges']]],
-  ['max_848',['max',['../classimaging__scaleToRange__param.html#a86fd589aeb754397c4c61b9688f7676e',1,'imaging_scaleToRange_param']]],
-  ['min_849',['min',['../classimaging__scaleToRange__param.html#a2654589747234f25fbc9825c23252f4b',1,'imaging_scaleToRange_param']]]
+  ['mapx0_828',['mapx0',['../structSMappingRanges.html#aa7a8872744f333cd491a02a57dd4b84c',1,'SMappingRanges']]],
+  ['mapx1_829',['mapx1',['../structSMappingRanges.html#a4435f69adea71a251be785bc129e8d24',1,'SMappingRanges']]],
+  ['mapy0_830',['mapy0',['../structSMappingRanges.html#a6b58d0032cbfe0fb908fcab2e98e0178',1,'SMappingRanges']]],
+  ['mapy1_831',['mapy1',['../structSMappingRanges.html#a11ba1c11dc2d87e1d379079def95ddff',1,'SMappingRanges']]],
+  ['mapz0_832',['mapz0',['../structSMappingRanges.html#a461e1c2a14e8026dd385b928d5a45cf4',1,'SMappingRanges']]],
+  ['mapz1_833',['mapz1',['../structSMappingRanges.html#a6edd9460fc69ffc7152dd29010da3c8c',1,'SMappingRanges']]],
+  ['max_834',['max',['../classimaging__scaleToRange__param.html#a86fd589aeb754397c4c61b9688f7676e',1,'imaging_scaleToRange_param']]],
+  ['min_835',['min',['../classimaging__scaleToRange__param.html#a2654589747234f25fbc9825c23252f4b',1,'imaging_scaleToRange_param']]]
 ];

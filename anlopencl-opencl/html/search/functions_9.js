@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['lerp_708',['lerp',['../utility_8c.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c']]],
-  ['linearinterp_709',['linearInterp',['../noise__gen_8c.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c']]],
-  ['loadinputheaders_710',['loadInputHeaders',['../classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8',1,'OpenCL_Context']]],
-  ['loadplatform_711',['loadPlatform',['../classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01',1,'OpenCL_Context']]]
+  ['lerp_695',['lerp',['../utility_8c.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a496bb7109d17e5745516825f9c501ee4',1,'lerp(REAL t, REAL a, REAL b):&#160;utility.c']]],
+  ['linearinterp_696',['linearInterp',['../noise__gen_8c.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#af7751d6bf317b367835b605c3584abd0',1,'linearInterp(REAL t):&#160;noise_gen.c']]],
+  ['loadinputheaders_697',['loadInputHeaders',['../classOpenCL__Context.html#a2aa5ee7c9f5ff7d281080dab940259b8',1,'OpenCL_Context']]],
+  ['loadplatform_698',['loadPlatform',['../classOpenCL__Context.html#ab5b868cefe622f12a50e55c91d992e01',1,'OpenCL_Context']]]
 ];

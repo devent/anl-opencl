@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,10 @@
  */
 var searchData=
 [
-  ['func_472',['Func',['../structFunc.html',1,'']]],
-  ['func2_473',['Func2',['../structFunc2.html',1,'']]],
-  ['func2d_474',['Func2D',['../structFunc2D.html',1,'']]],
-  ['func3d_475',['Func3D',['../structFunc3D.html',1,'']]],
-  ['func4d_476',['Func4D',['../structFunc4D.html',1,'']]],
-  ['func6d_477',['Func6D',['../structFunc6D.html',1,'']]]
+  ['func_464',['Func',['../structFunc.html',1,'']]],
+  ['func2_465',['Func2',['../structFunc2.html',1,'']]],
+  ['func2d_466',['Func2D',['../structFunc2D.html',1,'']]],
+  ['func3d_467',['Func3D',['../structFunc3D.html',1,'']]],
+  ['func4d_468',['Func4D',['../structFunc4D.html',1,'']]],
+  ['func6d_469',['Func6D',['../structFunc6D.html',1,'']]]
 ];

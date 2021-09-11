@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,17 +45,17 @@
  */
 var searchData=
 [
-  ['kernel_209',['kernel',['../structKernelContext.html#aead6c718332be3246027bd5cef8b9c1d',1,'KernelContext']]],
-  ['kernel_2ec_210',['kernel.c',['../kernel_8c.html',1,'']]],
-  ['kernel_2eh_211',['kernel.h',['../kernel_8h.html',1,'']]],
-  ['kernel_5frotatedomain3_5fdata_212',['kernel_rotateDomain3_data',['../structkernel__rotateDomain3__data.html',1,'']]],
-  ['kernel_5frotatedomain3_5fparam_213',['kernel_rotateDomain3_param',['../classkernel__rotateDomain3__param.html',1,'']]],
-  ['kernel_5frotatedomain4_5fdata_214',['kernel_rotateDomain4_data',['../structkernel__rotateDomain4__data.html',1,'']]],
-  ['kernel_5frotatedomain4_5fparam_215',['kernel_rotateDomain4_param',['../classkernel__rotateDomain4__param.html',1,'']]],
-  ['kernel_5frotatedomain_5ftest_2ecpp_216',['kernel_rotateDomain_test.cpp',['../kernel__rotateDomain__test_8cpp.html',1,'']]],
-  ['kernel_5fsimplefbm_5fdata_217',['kernel_simplefBm_data',['../structkernel__simplefBm__data.html',1,'']]],
-  ['kernel_5fsimplefbm_5fparam_218',['kernel_simplefBm_param',['../classkernel__simplefBm__param.html',1,'']]],
-  ['kernel_5fsimplefbm_5ftest_2ecpp_219',['kernel_simplefBm_test.cpp',['../kernel__simplefBm__test_8cpp.html',1,'']]],
-  ['kernelcontext_220',['KernelContext',['../structKernelContext.html',1,'KernelContext'],['../structKernelContext.html#a0c2949e52c4f33f1b050b0d1d27a312d',1,'KernelContext::KernelContext()']]],
-  ['kiss09_5fdouble2_221',['kiss09_double2',['../random_8c.html#a6df9be39556eb990b90bd23ebb4ab6a6',1,'random.c']]]
+  ['kernel_203',['kernel',['../structKernelContext.html#aead6c718332be3246027bd5cef8b9c1d',1,'KernelContext']]],
+  ['kernel_2ec_204',['kernel.c',['../kernel_8c.html',1,'']]],
+  ['kernel_2eh_205',['kernel.h',['../kernel_8h.html',1,'']]],
+  ['kernel_5frotatedomain3_5fdata_206',['kernel_rotateDomain3_data',['../structkernel__rotateDomain3__data.html',1,'']]],
+  ['kernel_5frotatedomain3_5fparam_207',['kernel_rotateDomain3_param',['../classkernel__rotateDomain3__param.html',1,'']]],
+  ['kernel_5frotatedomain4_5fdata_208',['kernel_rotateDomain4_data',['../structkernel__rotateDomain4__data.html',1,'']]],
+  ['kernel_5frotatedomain4_5fparam_209',['kernel_rotateDomain4_param',['../classkernel__rotateDomain4__param.html',1,'']]],
+  ['kernel_5frotatedomain_5ftest_2ecpp_210',['kernel_rotateDomain_test.cpp',['../kernel__rotateDomain__test_8cpp.html',1,'']]],
+  ['kernel_5fsimplefbm_5fdata_211',['kernel_simplefBm_data',['../structkernel__simplefBm__data.html',1,'']]],
+  ['kernel_5fsimplefbm_5fparam_212',['kernel_simplefBm_param',['../classkernel__simplefBm__param.html',1,'']]],
+  ['kernel_5fsimplefbm_5ftest_2ecpp_213',['kernel_simplefBm_test.cpp',['../kernel__simplefBm__test_8cpp.html',1,'']]],
+  ['kernelcontext_214',['KernelContext',['../structKernelContext.html',1,'KernelContext'],['../structKernelContext.html#a0c2949e52c4f33f1b050b0d1d27a312d',1,'KernelContext::KernelContext()']]],
+  ['kiss09_5fdouble2_215',['kiss09_double2',['../random_8c.html#a6df9be39556eb990b90bd23ebb4ab6a6',1,'random.c']]]
 ];

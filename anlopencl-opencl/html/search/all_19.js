@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,5 +45,5 @@
  */
 var searchData=
 [
-  ['z_461',['z',['../structSChunk.html#a6faa2743d9b3079ff2d58e0ba8d63ec4',1,'SChunk::z()'],['../structmap2D__data.html#a2e5fd76cd7f054c4d1ec87fe40ddba43',1,'map2D_data::z()'],['../structmap2D__2__data.html#a306d98484ace61088bf8e53235214ab1',1,'map2D_2_data::z()'],['../structmap2D__3__data.html#a156337d7e76fa42fe9d70dac62ee6d59',1,'map2D_3_data::z()'],['../structmap2D__4__data.html#a295f8775aaca88997d85fb1f02e8e2c0',1,'map2D_4_data::z()'],['../kernel_8h.html#a0de3a6926aecbecf7a6c072916440013',1,'z():&#160;kernel.h']]]
+  ['z_454',['z',['../structSChunk.html#a6faa2743d9b3079ff2d58e0ba8d63ec4',1,'SChunk::z()'],['../structmap2D__data.html#a2e5fd76cd7f054c4d1ec87fe40ddba43',1,'map2D_data::z()'],['../structmap2D__2__data.html#a306d98484ace61088bf8e53235214ab1',1,'map2D_2_data::z()'],['../structmap2D__3__data.html#a156337d7e76fa42fe9d70dac62ee6d59',1,'map2D_3_data::z()'],['../structmap2D__4__data.html#a295f8775aaca88997d85fb1f02e8e2c0',1,'map2D_4_data::z()'],['../kernel_8h.html#a0de3a6926aecbecf7a6c072916440013',1,'z():&#160;kernel.h']]]
 ];

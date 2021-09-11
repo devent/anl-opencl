@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,10 @@
  */
 var searchData=
 [
-  ['add_5fdist_589',['add_dist',['../noise__gen_8c.html#a7829b0ef06992a0eef054d3b69b37851',1,'noise_gen.c']]],
-  ['array_5fdot_590',['array_dot',['../utility_8c.html#ab41e3340082e3e5cd74b8969e757bf24',1,'array_dot(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#ab41e3340082e3e5cd74b8969e757bf24',1,'array_dot(REAL *arr, REAL a, REAL b):&#160;utility.c']]],
-  ['array_5fdot2_591',['array_dot2',['../utility_8c.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c']]],
-  ['array_5fdot3_592',['array_dot3',['../utility_8c.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c'],['../utility_8h.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c']]],
-  ['array_5fdot4_593',['array_dot4',['../utility_8c.html#a0750b6ea40caabea604ffa2e94cef780',1,'array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d):&#160;utility.c'],['../utility_8h.html#a0750b6ea40caabea604ffa2e94cef780',1,'array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d):&#160;utility.c']]],
-  ['array_5fdot6_594',['array_dot6',['../utility_8c.html#a793275d541da5dd2012685978ba66357',1,'array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f):&#160;utility.c'],['../utility_8h.html#a793275d541da5dd2012685978ba66357',1,'array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f):&#160;utility.c']]]
+  ['add_5fdist_577',['add_dist',['../noise__gen_8c.html#a7829b0ef06992a0eef054d3b69b37851',1,'noise_gen.c']]],
+  ['array_5fdot_578',['array_dot',['../utility_8c.html#ab41e3340082e3e5cd74b8969e757bf24',1,'array_dot(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#ab41e3340082e3e5cd74b8969e757bf24',1,'array_dot(REAL *arr, REAL a, REAL b):&#160;utility.c']]],
+  ['array_5fdot2_579',['array_dot2',['../utility_8c.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c'],['../utility_8h.html#a7ac9d27a94d5f4b1b0b4ee007a698335',1,'array_dot2(REAL *arr, REAL a, REAL b):&#160;utility.c']]],
+  ['array_5fdot3_580',['array_dot3',['../utility_8c.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c'],['../utility_8h.html#a3250a4bfaff936299c64ec647e005d8c',1,'array_dot3(REAL *arr, REAL a, REAL b, REAL c):&#160;utility.c']]],
+  ['array_5fdot4_581',['array_dot4',['../utility_8c.html#a0750b6ea40caabea604ffa2e94cef780',1,'array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d):&#160;utility.c'],['../utility_8h.html#a0750b6ea40caabea604ffa2e94cef780',1,'array_dot4(REAL *arr, REAL a, REAL b, REAL c, REAL d):&#160;utility.c']]],
+  ['array_5fdot6_582',['array_dot6',['../utility_8c.html#a793275d541da5dd2012685978ba66357',1,'array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f):&#160;utility.c'],['../utility_8h.html#a793275d541da5dd2012685978ba66357',1,'array_dot6(REAL *arr, REAL a, REAL b, REAL c, REAL d, REAL e, REAL f):&#160;utility.c']]]
 ];

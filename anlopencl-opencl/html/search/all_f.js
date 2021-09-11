@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  */
 var searchData=
 [
-  ['permute_336',['permute',['../hashing_8c.html#a3ac708ce808c1e8d8af594a316ee0cb9',1,'hashing.c']]],
-  ['pi2_337',['PI2',['../imaging_8c.html#a2750dfdda752269a036f487a4a34b849',1,'imaging.c']]],
-  ['programex_338',['ProgramEx',['../classProgramEx.html',1,'ProgramEx'],['../classProgramEx.html#ababf376855d0cd2fc2a6c951cf5b6d00',1,'ProgramEx::ProgramEx(const std::string &amp;source, bool build=false, cl_int *err=NULL)'],['../classProgramEx.html#ac88cf4215859047cd8980964d718437f',1,'ProgramEx::ProgramEx(const cl::Context &amp;context, const std::string &amp;source, bool build=false, cl_int *err=NULL)'],['../classProgramEx.html#ab2cbbf17cc2767226635c7a101f2e24d',1,'ProgramEx::ProgramEx(const Sources &amp;sources, cl_int *err=NULL)'],['../classProgramEx.html#af8a5c6e9b1d28e7855c5a2be8850a7bd',1,'ProgramEx::ProgramEx(const cl::Context &amp;context, const Sources &amp;sources, cl_int *err=NULL)']]]
+  ['permute_330',['permute',['../hashing_8c.html#a3ac708ce808c1e8d8af594a316ee0cb9',1,'hashing.c']]],
+  ['pi2_331',['PI2',['../imaging_8c.html#a2750dfdda752269a036f487a4a34b849',1,'imaging.c']]],
+  ['programex_332',['ProgramEx',['../classProgramEx.html',1,'ProgramEx'],['../classProgramEx.html#ababf376855d0cd2fc2a6c951cf5b6d00',1,'ProgramEx::ProgramEx(const std::string &amp;source, bool build=false, cl_int *err=NULL)'],['../classProgramEx.html#ac88cf4215859047cd8980964d718437f',1,'ProgramEx::ProgramEx(const cl::Context &amp;context, const std::string &amp;source, bool build=false, cl_int *err=NULL)'],['../classProgramEx.html#ab2cbbf17cc2767226635c7a101f2e24d',1,'ProgramEx::ProgramEx(const Sources &amp;sources, cl_int *err=NULL)'],['../classProgramEx.html#af8a5c6e9b1d28e7855c5a2be8850a7bd',1,'ProgramEx::ProgramEx(const cl::Context &amp;context, const Sources &amp;sources, cl_int *err=NULL)']]]
 ];

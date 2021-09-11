@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,9 +45,9 @@
  */
 var searchData=
 [
-  ['imaging_2ec_543',['imaging.c',['../imaging_8c.html',1,'']]],
-  ['imaging_2eh_544',['imaging.h',['../imaging_8h.html',1,'']]],
-  ['imaging_5fmap_5ftest_2ecpp_545',['imaging_map_test.cpp',['../imaging__map__test_8cpp.html',1,'']]],
-  ['imaging_5fscaletorange_5ftest_2ecpp_546',['imaging_scaleToRange_test.cpp',['../imaging__scaleToRange__test_8cpp.html',1,'']]],
-  ['interpolation_5ffunctions_5ftest_2ecpp_547',['interpolation_functions_test.cpp',['../interpolation__functions__test_8cpp.html',1,'']]]
+  ['imaging_2ec_531',['imaging.c',['../imaging_8c.html',1,'']]],
+  ['imaging_2eh_532',['imaging.h',['../imaging_8h.html',1,'']]],
+  ['imaging_5fmap_5ftest_2ecpp_533',['imaging_map_test.cpp',['../imaging__map__test_8cpp.html',1,'']]],
+  ['imaging_5fscaletorange_5ftest_2ecpp_534',['imaging_scaleToRange_test.cpp',['../imaging__scaleToRange__test_8cpp.html',1,'']]],
+  ['interpolation_5ffunctions_5ftest_2ecpp_535',['interpolation_functions_test.cpp',['../interpolation__functions__test_8cpp.html',1,'']]]
 ];

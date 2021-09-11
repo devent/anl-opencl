@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,5 +45,5 @@
  */
 var searchData=
 [
-  ['_5f_5fattribute_5f_5f_873',['__attribute__',['../opencl__utils_8h.html#a768b2b7acd18422d16f4306c759a56cb',1,'opencl_utils.h']]]
+  ['_5f_5fattribute_5f_5f_859',['__attribute__',['../opencl__utils_8h.html#a768b2b7acd18422d16f4306c759a56cb',1,'opencl_utils.h']]]
 ];

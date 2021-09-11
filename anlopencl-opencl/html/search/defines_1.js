@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  */
 var searchData=
 [
-  ['fnv_5f32_5finit_903',['FNV_32_INIT',['../hashing_8h.html#a7489fa90eb57a2d7e70485d85490c0cf',1,'hashing.h']]],
-  ['fnv_5f32_5fprime_904',['FNV_32_PRIME',['../hashing_8h.html#ae13a6565bea334e9b6fb19033a392857',1,'hashing.h']]],
-  ['fnv_5fmask_5f8_905',['FNV_MASK_8',['../hashing_8h.html#ab3ee621200e3e2a4936208389ca98cc6',1,'hashing.h']]]
+  ['fnv_5f32_5finit_889',['FNV_32_INIT',['../hashing_8h.html#a7489fa90eb57a2d7e70485d85490c0cf',1,'hashing.h']]],
+  ['fnv_5f32_5fprime_890',['FNV_32_PRIME',['../hashing_8h.html#ae13a6565bea334e9b6fb19033a392857',1,'hashing.h']]],
+  ['fnv_5fmask_5f8_891',['FNV_MASK_8',['../hashing_8h.html#ab3ee621200e3e2a4936208389ca98cc6',1,'hashing.h']]]
 ];

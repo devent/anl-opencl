@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,8 +45,8 @@
  */
 var searchData=
 [
-  ['kernel_2ec_548',['kernel.c',['../kernel_8c.html',1,'']]],
-  ['kernel_2eh_549',['kernel.h',['../kernel_8h.html',1,'']]],
-  ['kernel_5frotatedomain_5ftest_2ecpp_550',['kernel_rotateDomain_test.cpp',['../kernel__rotateDomain__test_8cpp.html',1,'']]],
-  ['kernel_5fsimplefbm_5ftest_2ecpp_551',['kernel_simplefBm_test.cpp',['../kernel__simplefBm__test_8cpp.html',1,'']]]
+  ['kernel_2ec_536',['kernel.c',['../kernel_8c.html',1,'']]],
+  ['kernel_2eh_537',['kernel.h',['../kernel_8h.html',1,'']]],
+  ['kernel_5frotatedomain_5ftest_2ecpp_538',['kernel_rotateDomain_test.cpp',['../kernel__rotateDomain__test_8cpp.html',1,'']]],
+  ['kernel_5fsimplefbm_5ftest_2ecpp_539',['kernel_simplefBm_test.cpp',['../kernel__simplefBm__test_8cpp.html',1,'']]]
 ];

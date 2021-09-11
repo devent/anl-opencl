@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,12 +45,12 @@
  */
 var searchData=
 [
-  ['seamless_5fnone_893',['SEAMLESS_NONE',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aa1bcb6956c9d74aa7cb0dcb3dafbaadc',1,'imaging.h']]],
-  ['seamless_5fx_894',['SEAMLESS_X',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a2978ce6a500145b6f803d15c996b8f16',1,'imaging.h']]],
-  ['seamless_5fxy_895',['SEAMLESS_XY',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aaf2b8dd7a479ac1ac667213e9ed64bfc',1,'imaging.h']]],
-  ['seamless_5fxyz_896',['SEAMLESS_XYZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a8533c3eb520f0628b4785ad9e832633e',1,'imaging.h']]],
-  ['seamless_5fxz_897',['SEAMLESS_XZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a2acc82a89869ef4d5f5623d78bc7e137',1,'imaging.h']]],
-  ['seamless_5fy_898',['SEAMLESS_Y',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aadb0e3d441c17163d3d0b6b4ceac11f9',1,'imaging.h']]],
-  ['seamless_5fyz_899',['SEAMLESS_YZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92ab397bdbaecb0a673d8e1e5425abd0036',1,'imaging.h']]],
-  ['seamless_5fz_900',['SEAMLESS_Z',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a7b72fe1664eb0eebc435a06d674d9215',1,'imaging.h']]]
+  ['seamless_5fnone_879',['SEAMLESS_NONE',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aa1bcb6956c9d74aa7cb0dcb3dafbaadc',1,'imaging.h']]],
+  ['seamless_5fx_880',['SEAMLESS_X',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a2978ce6a500145b6f803d15c996b8f16',1,'imaging.h']]],
+  ['seamless_5fxy_881',['SEAMLESS_XY',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aaf2b8dd7a479ac1ac667213e9ed64bfc',1,'imaging.h']]],
+  ['seamless_5fxyz_882',['SEAMLESS_XYZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a8533c3eb520f0628b4785ad9e832633e',1,'imaging.h']]],
+  ['seamless_5fxz_883',['SEAMLESS_XZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a2acc82a89869ef4d5f5623d78bc7e137',1,'imaging.h']]],
+  ['seamless_5fy_884',['SEAMLESS_Y',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92aadb0e3d441c17163d3d0b6b4ceac11f9',1,'imaging.h']]],
+  ['seamless_5fyz_885',['SEAMLESS_YZ',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92ab397bdbaecb0a673d8e1e5425abd0036',1,'imaging.h']]],
+  ['seamless_5fz_886',['SEAMLESS_Z',['../imaging_8h.html#a64419b0462bdb8030c8d81ab1bccce92a7b72fe1664eb0eebc435a06d674d9215',1,'imaging.h']]]
 ];

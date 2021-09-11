@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,10 @@
  */
 var searchData=
 [
-  ['hash_5fcoords_5f2_684',['hash_coords_2',['../hashing_8c.html#af9f8f05c5c134b1646c1f2c3ce474dc3',1,'hash_coords_2(uint x, uint y, uint seed):&#160;hashing.c'],['../hashing_8h.html#af9f8f05c5c134b1646c1f2c3ce474dc3',1,'hash_coords_2(uint x, uint y, uint seed):&#160;hashing.c']]],
-  ['hash_5fcoords_5f3_685',['hash_coords_3',['../hashing_8c.html#aeb5f69259d6a0733a3cd1cccc09e7530',1,'hash_coords_3(uint x, uint y, uint z, uint seed):&#160;hashing.c'],['../hashing_8h.html#aeb5f69259d6a0733a3cd1cccc09e7530',1,'hash_coords_3(uint x, uint y, uint z, uint seed):&#160;hashing.c']]],
-  ['hash_5fcoords_5f4_686',['hash_coords_4',['../hashing_8c.html#ad8e3d380282260bc87d6457587d6b748',1,'hash_coords_4(uint x, uint y, uint z, uint w, uint seed):&#160;hashing.c'],['../hashing_8h.html#ad8e3d380282260bc87d6457587d6b748',1,'hash_coords_4(uint x, uint y, uint z, uint w, uint seed):&#160;hashing.c']]],
-  ['hash_5fcoords_5f6_687',['hash_coords_6',['../hashing_8c.html#a3e2b42eb9595bba86e80aeae80b94c3b',1,'hash_coords_6(uint x, uint y, uint z, uint w, uint u, uint v, uint seed):&#160;hashing.c'],['../hashing_8h.html#a3e2b42eb9595bba86e80aeae80b94c3b',1,'hash_coords_6(uint x, uint y, uint z, uint w, uint u, uint v, uint seed):&#160;hashing.c']]],
-  ['hermite_5fblend_688',['hermite_blend',['../utility_8c.html#a342006f63ea885e6425c12b620cc9e4f',1,'hermite_blend(REAL t):&#160;utility.c'],['../utility_8h.html#a342006f63ea885e6425c12b620cc9e4f',1,'hermite_blend(REAL t):&#160;utility.c']]],
-  ['hermiteinterp_689',['hermiteInterp',['../noise__gen_8c.html#a90e207a22f91430a6459c13684b64342',1,'hermiteInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a90e207a22f91430a6459c13684b64342',1,'hermiteInterp(REAL t):&#160;noise_gen.c']]]
+  ['hash_5fcoords_5f2_671',['hash_coords_2',['../hashing_8c.html#af9f8f05c5c134b1646c1f2c3ce474dc3',1,'hash_coords_2(uint x, uint y, uint seed):&#160;hashing.c'],['../hashing_8h.html#af9f8f05c5c134b1646c1f2c3ce474dc3',1,'hash_coords_2(uint x, uint y, uint seed):&#160;hashing.c']]],
+  ['hash_5fcoords_5f3_672',['hash_coords_3',['../hashing_8c.html#aeb5f69259d6a0733a3cd1cccc09e7530',1,'hash_coords_3(uint x, uint y, uint z, uint seed):&#160;hashing.c'],['../hashing_8h.html#aeb5f69259d6a0733a3cd1cccc09e7530',1,'hash_coords_3(uint x, uint y, uint z, uint seed):&#160;hashing.c']]],
+  ['hash_5fcoords_5f4_673',['hash_coords_4',['../hashing_8c.html#ad8e3d380282260bc87d6457587d6b748',1,'hash_coords_4(uint x, uint y, uint z, uint w, uint seed):&#160;hashing.c'],['../hashing_8h.html#ad8e3d380282260bc87d6457587d6b748',1,'hash_coords_4(uint x, uint y, uint z, uint w, uint seed):&#160;hashing.c']]],
+  ['hash_5fcoords_5f6_674',['hash_coords_6',['../hashing_8c.html#a3e2b42eb9595bba86e80aeae80b94c3b',1,'hash_coords_6(uint x, uint y, uint z, uint w, uint u, uint v, uint seed):&#160;hashing.c'],['../hashing_8h.html#a3e2b42eb9595bba86e80aeae80b94c3b',1,'hash_coords_6(uint x, uint y, uint z, uint w, uint u, uint v, uint seed):&#160;hashing.c']]],
+  ['hermite_5fblend_675',['hermite_blend',['../utility_8c.html#a342006f63ea885e6425c12b620cc9e4f',1,'hermite_blend(REAL t):&#160;utility.c'],['../utility_8h.html#a342006f63ea885e6425c12b620cc9e4f',1,'hermite_blend(REAL t):&#160;utility.c']]],
+  ['hermiteinterp_676',['hermiteInterp',['../noise__gen_8c.html#a90e207a22f91430a6459c13684b64342',1,'hermiteInterp(REAL t):&#160;noise_gen.c'],['../noise__gen_8h.html#a90e207a22f91430a6459c13684b64342',1,'hermiteInterp(REAL t):&#160;noise_gen.c']]]
 ];

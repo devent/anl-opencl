@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,10 +45,10 @@
  */
 var searchData=
 [
-  ['a_790',['a',['../structFunc2.html#a60d12b92966750ab59b90d2f771006ac',1,'Func2']]],
-  ['angle_791',['angle',['../structkernel__rotateDomain3__data.html#a1c9b344ad7c65b9af8b9bf6960bdfd9b',1,'kernel_rotateDomain3_data::angle()'],['../structkernel__rotateDomain4__data.html#a8af17a96058a8a86c17cbd9e16203a93',1,'kernel_rotateDomain4_data::angle()']]],
-  ['ax_792',['ax',['../structkernel__rotateDomain3__data.html#ab8bfc18b9107bc4188b57185c0f10ecd',1,'kernel_rotateDomain3_data::ax()'],['../structkernel__rotateDomain4__data.html#ab712b0244d2b6949f790793f27cc6f17',1,'kernel_rotateDomain4_data::ax()']]],
-  ['axis_793',['axis',['../structSVectorOrdering.html#a4e626e681f4dcdbdec76bd5890f89ec2',1,'SVectorOrdering']]],
-  ['ay_794',['ay',['../structkernel__rotateDomain3__data.html#a2320765fe078ad2985387ebdebc7f255',1,'kernel_rotateDomain3_data::ay()'],['../structkernel__rotateDomain4__data.html#abaf7ff4eff0e064e00ef31e4c3b0847c',1,'kernel_rotateDomain4_data::ay()']]],
-  ['az_795',['az',['../structkernel__rotateDomain3__data.html#afaa7b91209e1f4570fb8ba467cc40f3d',1,'kernel_rotateDomain3_data::az()'],['../structkernel__rotateDomain4__data.html#a7313cd688457d15852effb221ff8941b',1,'kernel_rotateDomain4_data::az()']]]
+  ['a_776',['a',['../structFunc2.html#a60d12b92966750ab59b90d2f771006ac',1,'Func2']]],
+  ['angle_777',['angle',['../structkernel__rotateDomain3__data.html#a1c9b344ad7c65b9af8b9bf6960bdfd9b',1,'kernel_rotateDomain3_data::angle()'],['../structkernel__rotateDomain4__data.html#a8af17a96058a8a86c17cbd9e16203a93',1,'kernel_rotateDomain4_data::angle()']]],
+  ['ax_778',['ax',['../structkernel__rotateDomain3__data.html#ab8bfc18b9107bc4188b57185c0f10ecd',1,'kernel_rotateDomain3_data::ax()'],['../structkernel__rotateDomain4__data.html#ab712b0244d2b6949f790793f27cc6f17',1,'kernel_rotateDomain4_data::ax()']]],
+  ['axis_779',['axis',['../structSVectorOrdering.html#a4e626e681f4dcdbdec76bd5890f89ec2',1,'SVectorOrdering']]],
+  ['ay_780',['ay',['../structkernel__rotateDomain3__data.html#a2320765fe078ad2985387ebdebc7f255',1,'kernel_rotateDomain3_data::ay()'],['../structkernel__rotateDomain4__data.html#abaf7ff4eff0e064e00ef31e4c3b0847c',1,'kernel_rotateDomain4_data::ay()']]],
+  ['az_781',['az',['../structkernel__rotateDomain3__data.html#afaa7b91209e1f4570fb8ba467cc40f3d',1,'kernel_rotateDomain3_data::az()'],['../structkernel__rotateDomain4__data.html#a7313cd688457d15852effb221ff8941b',1,'kernel_rotateDomain4_data::az()']]]
 ];

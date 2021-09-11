@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,25 +45,25 @@
  */
 var searchData=
 [
-  ['opencl_5fcellular_5ffunctions_5ftest_2ecpp_560',['opencl_cellular_functions_test.cpp',['../opencl__cellular__functions__test_8cpp.html',1,'']]],
-  ['opencl_5fcombinecolor_5ftest_2ecpp_561',['opencl_combineColor_test.cpp',['../opencl__combineColor__test_8cpp.html',1,'']]],
-  ['opencl_5fcpp_5ftest_2ecpp_562',['opencl_cpp_test.cpp',['../opencl__cpp__test_8cpp.html',1,'']]],
-  ['opencl_5fheightmap_5fexample_5ftest_2ecpp_563',['opencl_heightmap_example_test.cpp',['../opencl__heightmap__example__test_8cpp.html',1,'']]],
-  ['opencl_5fmap2d_5ftest_2ecpp_564',['opencl_map2D_test.cpp',['../opencl__map2D__test_8cpp.html',1,'']]],
-  ['opencl_5fnoise2d_5ffunctions_5ftest_2ecpp_565',['opencl_noise2D_functions_test.cpp',['../opencl__noise2D__functions__test_8cpp.html',1,'']]],
-  ['opencl_5fnoise3d_5ffunctions_5ftest_2ecpp_566',['opencl_noise3D_functions_test.cpp',['../opencl__noise3D__functions__test_8cpp.html',1,'']]],
-  ['opencl_5fnoise4d_5ffunctions_5ftest_2ecpp_567',['opencl_noise4D_functions_test.cpp',['../opencl__noise4D__functions__test_8cpp.html',1,'']]],
-  ['opencl_5fnoise6d_5ffunctions_5ftest_2ecpp_568',['opencl_noise6D_functions_test.cpp',['../opencl__noise6D__functions__test_8cpp.html',1,'']]],
-  ['opencl_5fsimplebillow_5ftest_2ecpp_569',['opencl_simpleBillow_test.cpp',['../opencl__simpleBillow__test_8cpp.html',1,'']]],
-  ['opencl_5fsimplebillowlayer_5ftest_2ecpp_570',['opencl_simpleBillowLayer_test.cpp',['../opencl__simpleBillowLayer__test_8cpp.html',1,'']]],
-  ['opencl_5fsimplefbm_5ftest_2ecpp_571',['opencl_simplefBm_test.cpp',['../opencl__simplefBm__test_8cpp.html',1,'']]],
-  ['opencl_5fsimplefractallayer_5ftest_2ecpp_572',['opencl_simpleFractalLayer_test.cpp',['../opencl__simpleFractalLayer__test_8cpp.html',1,'']]],
-  ['opencl_5fsimpleridgedlayer_5ftest_2ecpp_573',['opencl_simpleRidgedLayer_test.cpp',['../opencl__simpleRidgedLayer__test_8cpp.html',1,'']]],
-  ['opencl_5fsimpleridgedmultifractal_5ftest_2ecpp_574',['opencl_simpleRidgedMultifractal_test.cpp',['../opencl__simpleRidgedMultifractal__test_8cpp.html',1,'']]],
-  ['opencl_5futils_2ec_575',['opencl_utils.c',['../opencl__utils_8c.html',1,'']]],
-  ['opencl_5futils_2eh_576',['opencl_utils.h',['../opencl__utils_8h.html',1,'']]],
-  ['openclcontext_2ecpp_577',['OpenCLContext.cpp',['../OpenCLContext_8cpp.html',1,'']]],
-  ['openclcontext_2eh_578',['OpenCLContext.h',['../OpenCLContext_8h.html',1,'']]],
-  ['opencltestfixture_2ecpp_579',['OpenCLTestFixture.cpp',['../OpenCLTestFixture_8cpp.html',1,'']]],
-  ['opencltestfixture_2eh_580',['OpenCLTestFixture.h',['../OpenCLTestFixture_8h.html',1,'']]]
+  ['opencl_5fcellular_5ffunctions_5ftest_2ecpp_548',['opencl_cellular_functions_test.cpp',['../opencl__cellular__functions__test_8cpp.html',1,'']]],
+  ['opencl_5fcombinecolor_5ftest_2ecpp_549',['opencl_combineColor_test.cpp',['../opencl__combineColor__test_8cpp.html',1,'']]],
+  ['opencl_5fcpp_5ftest_2ecpp_550',['opencl_cpp_test.cpp',['../opencl__cpp__test_8cpp.html',1,'']]],
+  ['opencl_5fheightmap_5fexample_5ftest_2ecpp_551',['opencl_heightmap_example_test.cpp',['../opencl__heightmap__example__test_8cpp.html',1,'']]],
+  ['opencl_5fmap2d_5ftest_2ecpp_552',['opencl_map2D_test.cpp',['../opencl__map2D__test_8cpp.html',1,'']]],
+  ['opencl_5fnoise2d_5ffunctions_5ftest_2ecpp_553',['opencl_noise2D_functions_test.cpp',['../opencl__noise2D__functions__test_8cpp.html',1,'']]],
+  ['opencl_5fnoise3d_5ffunctions_5ftest_2ecpp_554',['opencl_noise3D_functions_test.cpp',['../opencl__noise3D__functions__test_8cpp.html',1,'']]],
+  ['opencl_5fnoise4d_5ffunctions_5ftest_2ecpp_555',['opencl_noise4D_functions_test.cpp',['../opencl__noise4D__functions__test_8cpp.html',1,'']]],
+  ['opencl_5fnoise6d_5ffunctions_5ftest_2ecpp_556',['opencl_noise6D_functions_test.cpp',['../opencl__noise6D__functions__test_8cpp.html',1,'']]],
+  ['opencl_5fsimplebillow_5ftest_2ecpp_557',['opencl_simpleBillow_test.cpp',['../opencl__simpleBillow__test_8cpp.html',1,'']]],
+  ['opencl_5fsimplebillowlayer_5ftest_2ecpp_558',['opencl_simpleBillowLayer_test.cpp',['../opencl__simpleBillowLayer__test_8cpp.html',1,'']]],
+  ['opencl_5fsimplefbm_5ftest_2ecpp_559',['opencl_simplefBm_test.cpp',['../opencl__simplefBm__test_8cpp.html',1,'']]],
+  ['opencl_5fsimplefractallayer_5ftest_2ecpp_560',['opencl_simpleFractalLayer_test.cpp',['../opencl__simpleFractalLayer__test_8cpp.html',1,'']]],
+  ['opencl_5fsimpleridgedlayer_5ftest_2ecpp_561',['opencl_simpleRidgedLayer_test.cpp',['../opencl__simpleRidgedLayer__test_8cpp.html',1,'']]],
+  ['opencl_5fsimpleridgedmultifractal_5ftest_2ecpp_562',['opencl_simpleRidgedMultifractal_test.cpp',['../opencl__simpleRidgedMultifractal__test_8cpp.html',1,'']]],
+  ['opencl_5futils_2ec_563',['opencl_utils.c',['../opencl__utils_8c.html',1,'']]],
+  ['opencl_5futils_2eh_564',['opencl_utils.h',['../opencl__utils_8h.html',1,'']]],
+  ['openclcontext_2ecpp_565',['OpenCLContext.cpp',['../OpenCLContext_8cpp.html',1,'']]],
+  ['openclcontext_2eh_566',['OpenCLContext.h',['../OpenCLContext_8h.html',1,'']]],
+  ['opencltestfixture_2ecpp_567',['OpenCLTestFixture.cpp',['../OpenCLTestFixture_8cpp.html',1,'']]],
+  ['opencltestfixture_2eh_568',['OpenCLTestFixture.h',['../OpenCLTestFixture_8h.html',1,'']]]
 ];

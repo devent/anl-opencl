@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core
+ * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,13 +45,13 @@
  */
 var searchData=
 [
-  ['nointerp_5fparams_498',['noInterp_params',['../classnoInterp__params.html',1,'']]],
-  ['noise_5fcell_5ffunc2_5fparams_499',['noise_cell_func2_params',['../classnoise__cell__func2__params.html',1,'']]],
-  ['noise_5fcell_5ffunc3_5fparams_500',['noise_cell_func3_params',['../classnoise__cell__func3__params.html',1,'']]],
-  ['noise_5fcell_5ffunc4_5fparams_501',['noise_cell_func4_params',['../classnoise__cell__func4__params.html',1,'']]],
-  ['noise_5fcell_5ffunc6_5fparams_502',['noise_cell_func6_params',['../classnoise__cell__func6__params.html',1,'']]],
-  ['noise_5ffunc2_5fparams_503',['noise_func2_params',['../classnoise__func2__params.html',1,'']]],
-  ['noise_5ffunc3_5fparams_504',['noise_func3_params',['../classnoise__func3__params.html',1,'']]],
-  ['noise_5ffunc4_5fparams_505',['noise_func4_params',['../classnoise__func4__params.html',1,'']]],
-  ['noise_5ffunc6_5fparams_506',['noise_func6_params',['../classnoise__func6__params.html',1,'']]]
+  ['nointerp_5fparams_490',['noInterp_params',['../classnoInterp__params.html',1,'']]],
+  ['noise_5fcell_5ffunc2_5fparams_491',['noise_cell_func2_params',['../classnoise__cell__func2__params.html',1,'']]],
+  ['noise_5fcell_5ffunc3_5fparams_492',['noise_cell_func3_params',['../classnoise__cell__func3__params.html',1,'']]],
+  ['noise_5fcell_5ffunc4_5fparams_493',['noise_cell_func4_params',['../classnoise__cell__func4__params.html',1,'']]],
+  ['noise_5fcell_5ffunc6_5fparams_494',['noise_cell_func6_params',['../classnoise__cell__func6__params.html',1,'']]],
+  ['noise_5ffunc2_5fparams_495',['noise_func2_params',['../classnoise__func2__params.html',1,'']]],
+  ['noise_5ffunc3_5fparams_496',['noise_func3_params',['../classnoise__func3__params.html',1,'']]],
+  ['noise_5ffunc4_5fparams_497',['noise_func4_params',['../classnoise__func4__params.html',1,'']]],
+  ['noise_5ffunc6_5fparams_498',['noise_func6_params',['../classnoise__func6__params.html',1,'']]]
 ];
