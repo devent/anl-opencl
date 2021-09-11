@@ -1,0 +1,158 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{index_autotoc_md0}{}\doxysection{Introduction}\label{index_autotoc_md0}
+The project is a rework of the Accidental-\/\+Noise Josua Tippetts\textquotesingle{} C++ library in Open\+CL. A\+N\+L-\/\+O\+P\+E\+N\+CL will be used in a Java application via the Aparapi library at a later stage. The C code in {\ttfamily src/main/cpp} can be compiled into a Open\+CL kernel and to be used to generate random noise like in the original Accidental-\/\+Noise library. There are tests for both the C and Open\+CL kernels in {\ttfamily src/test/cpp}.\hypertarget{index_autotoc_md1}{}\doxysection{Examples}\label{index_autotoc_md1}
+There are examples for each noise function in {\ttfamily src/test/cpp}.\hypertarget{index_autotoc_md2}{}\doxysubsection{combine\+R\+G\+B\+A\+\_\+simple\+Billow}\label{index_autotoc_md2}
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{combineRGBA_simpleBillow.png}
+\doxyfigcaption{combine\+R\+G\+B\+A\+\_\+simple\+Billow}
+\end{DoxyImage}
+  
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include <noise\_gen.h>}
+\DoxyCodeLine{\#include <kernel.h>}
+\DoxyCodeLine{}
+\DoxyCodeLine{kernel void combineRGBA\_simpleBillow(}
+\DoxyCodeLine{global float3 *input,}
+\DoxyCodeLine{global float4 *output}
+\DoxyCodeLine{) \{}
+\DoxyCodeLine{    int id0 = get\_global\_id(0);}
+\DoxyCodeLine{    kiss09\_state srnd;}
+\DoxyCodeLine{    kiss09\_seed(\&srnd, 200);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    input[id0] = scaleDomain(input[id0], 5.0f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    float bm = simpleBillow3(input[id0], value\_noise3D, 200, linearInterp, random\_kiss09, \&srnd, 1, 0.125, true);}
+\DoxyCodeLine{    float r = bm * 0.5 + 0.5;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    bm = simpleBillow3(input[id0], value\_noise3D, 2000, linearInterp, random\_kiss09, \&srnd, 1, 0.125, true);}
+\DoxyCodeLine{    float g = bm * 0.5 + 0.5;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    bm = simpleBillow3(input[id0], value\_noise3D, 4000, linearInterp, random\_kiss09, \&srnd, 1, 0.125, true);}
+\DoxyCodeLine{    float b = bm * 0.5 + 0.5;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    output[id0] = combineRGBA(r, g, b, 1.0);}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{cellular\+\_\+function3D}\label{index_autotoc_md3}
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{cellular_function3D_distEuclid.png}
+\doxyfigcaption{cellular\+\_\+function3D}
+\end{DoxyImage}
+  
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include <noise\_gen.h>}
+\DoxyCodeLine{\#include <kernel.h>}
+\DoxyCodeLine{}
+\DoxyCodeLine{REAL f[] = \{ 10, 5, 2.5, 1.25 \};}
+\DoxyCodeLine{REAL disp[] = \{ 100, 50, 25, 10 \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{kernel void cellular\_function3D\_distEuclid(}
+\DoxyCodeLine{global vector3 *input,}
+\DoxyCodeLine{global REAL *output}
+\DoxyCodeLine{) \{}
+\DoxyCodeLine{    int id0 = get\_global\_id(0);}
+\DoxyCodeLine{    output[id0] = cellular\_function3D(input[id0], 200, f, disp, distEuclid3);}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysection{Features}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysubsection{Higher dimensions noise functions}\label{index_autotoc_md5}
+All noise functions and utilities functions are available for the dimensions
+
+
+\begin{DoxyItemize}
+\item 2D and vector2 type,
+\item 3D and vector3 type,
+\item 4D and vector4 type,
+\item 6D and vector8 type.
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysubsection{Both 32-\/bit and 64-\/bit floating-\/point supported}\label{index_autotoc_md6}
+The code can be used for both 32-\/bit and 64-\/bit floating-\/point numbers using the precompiler flag {\ttfamily A\+N\+L\+O\+P\+E\+N\+C\+L\+\_\+\+U\+S\+E\+\_\+\+D\+O\+U\+B\+LE} and the types {\ttfamily R\+E\+AL}, {\ttfamily vector2}, {\ttfamily vector3}, {\ttfamily vector4} and {\ttfamily vector8}. Although, it makes little to no difference using 64-\/bit floating-\/point to generate the noise for the end result.\hypertarget{index_autotoc_md7}{}\doxysubsection{Bundles the bstatcomp/\+Random\+C\+L to be used in Open\+C\+L kernel}\label{index_autotoc_md7}
+Bundles the bstatcomp/\+Random\+CL for generating random numbers in the Open\+CL kernel.
+
+\href{https://github.com/bstatcomp/RandomCL}{\texttt{ https\+://github.\+com/bstatcomp/\+Random\+CL}}\hypertarget{index_autotoc_md8}{}\doxysubsection{Code can be used in a C program or Open\+C\+L kernel}\label{index_autotoc_md8}
+Using the clang vector extension it is possible to use the same code in a C/\+C++ program or in a Open\+CL kernel. That enables me to test the code via Google-\/\+Test framework before it is used in a Open\+CL kernel. The precompiler flag {\ttfamily A\+N\+L\+O\+P\+E\+N\+C\+L\+\_\+\+U\+S\+E\+\_\+\+O\+P\+E\+N\+CL} is set if the code is compiled for a Open\+CL kernel.
+
+\href{https://clang.llvm.org/docs/LanguageExtensions.html\#vectors-and-extended-vectors}{\texttt{ https\+://clang.\+llvm.\+org/docs/\+Language\+Extensions.\+html\#vectors-\/and-\/extended-\/vectors}}\hypertarget{index_autotoc_md9}{}\doxysubsection{Library can be pre-\/build for Open\+C\+L kernel}\label{index_autotoc_md9}
+The A\+N\+L-\/\+O\+P\+E\+N\+CL code can be bundled and pre-\/build as a Open\+CL library.\hypertarget{index_autotoc_md10}{}\doxysection{License}\label{index_autotoc_md10}
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http:www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http:accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+:accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}

@@ -1,0 +1,162 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{classOpenCL__Context__Fixture}{}\doxysection{Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture Class Reference}
+\label{classOpenCL__Context__Fixture}\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+
+
+{\ttfamily \#include $<$Open\+C\+L\+Test\+Fixture.\+h$>$}
+
+
+
+Inheritance diagram for Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classOpenCL__Context__Fixture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classOpenCL__Context__Fixture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ std\+::vector$<$ float $>$ $>$ \mbox{\hyperlink{classOpenCL__Context__Fixture_a8be3eac1ff82f62ac9d53ab2c428bdcd}{output}}
+\item 
+std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classOpenCL__Context__Fixture_a407d5681d3da5dff9b15a2d1d392e028}{output\+Buffer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ \mbox{\hyperlink{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}{logger}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classOpenCL__Context__Fixture_a5159fb8661813804639a569340d88538}{Set\+Up}} ()
+\item 
+virtual void \mbox{\hyperlink{classOpenCL__Context__Fixture_a4ee63db291ba5d9085c87477b3c724cd}{Tear\+Down}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classOpenCL__Context__Fixture_a8ebfa0f4ad96ff27eaf562fe7e3374a2}{run\+Kernel}} (cl\+::\+Program \&kernel)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classOpenCL__Context__Fixture_a478977abb27d97d3ddb29164acbfce84}{Set\+Up\+Test\+Suite}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a8ebfa0f4ad96ff27eaf562fe7e3374a2}\label{classOpenCL__Context__Fixture_a8ebfa0f4ad96ff27eaf562fe7e3374a2}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!runKernel@{runKernel}}
+\index{runKernel@{runKernel}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{runKernel()}{runKernel()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::run\+Kernel (\begin{DoxyParamCaption}\item[{cl\+::\+Program \&}]{kernel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classvalue__color__noise3D__fixture_a2654b7f843ff85ce6e548fe86d3c685a}{value\+\_\+color\+\_\+noise3\+D\+\_\+fixture}}, \mbox{\hyperlink{classvalue__noise3D__fixture_aa880c7f5a549e01018fa165eddc446e6}{value\+\_\+noise3\+D\+\_\+fixture}}, and \mbox{\hyperlink{classvalue__map2D__fixture_a44d571172331dc82b345f267aee0b9a3}{value\+\_\+map2\+D\+\_\+fixture}}.
+
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a5159fb8661813804639a569340d88538}\label{classOpenCL__Context__Fixture_a5159fb8661813804639a569340d88538}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!SetUp@{SetUp}}
+\index{SetUp@{SetUp}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{SetUp()}{SetUp()}}
+{\footnotesize\ttfamily void Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::\+Set\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a478977abb27d97d3ddb29164acbfce84}\label{classOpenCL__Context__Fixture_a478977abb27d97d3ddb29164acbfce84}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!SetUpTestSuite@{SetUpTestSuite}}
+\index{SetUpTestSuite@{SetUpTestSuite}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{SetUpTestSuite()}{SetUpTestSuite()}}
+{\footnotesize\ttfamily void Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::\+Set\+Up\+Test\+Suite (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a4ee63db291ba5d9085c87477b3c724cd}\label{classOpenCL__Context__Fixture_a4ee63db291ba5d9085c87477b3c724cd}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!TearDown@{TearDown}}
+\index{TearDown@{TearDown}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{TearDown()}{TearDown()}}
+{\footnotesize\ttfamily void Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::\+Tear\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}\label{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!logger@{logger}}
+\index{logger@{logger}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ spdlog\+::logger $>$ Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::logger\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= []() -\/> std::shared\_ptr<spdlog::logger> \{}
+\DoxyCodeLine{    \mbox{\hyperlink{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}{logger}} = spdlog::stderr\_color\_mt(\textcolor{stringliteral}{"OpenCL\_Context\_Fixture"}, spdlog::color\_mode::automatic);}
+\DoxyCodeLine{    \mbox{\hyperlink{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}{logger}}-\/>set\_level(spdlog::level::trace);}
+\DoxyCodeLine{    \mbox{\hyperlink{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}{logger}}-\/>flush\_on(spdlog::level::err);}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \mbox{\hyperlink{classOpenCL__Context__Fixture_aa25bdf8e634a268313a7ed4df418be94}{logger}};}
+\DoxyCodeLine{\}()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a8be3eac1ff82f62ac9d53ab2c428bdcd}\label{classOpenCL__Context__Fixture_a8be3eac1ff82f62ac9d53ab2c428bdcd}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!output@{output}}
+\index{output@{output}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$std\+::vector$<$float$>$ $>$ Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::output}
+
+\mbox{\Hypertarget{classOpenCL__Context__Fixture_a407d5681d3da5dff9b15a2d1d392e028}\label{classOpenCL__Context__Fixture_a407d5681d3da5dff9b15a2d1d392e028}} 
+\index{OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}!outputBuffer@{outputBuffer}}
+\index{outputBuffer@{outputBuffer}!OpenCL\_Context\_Fixture@{OpenCL\_Context\_Fixture}}
+\doxysubsubsection{\texorpdfstring{outputBuffer}{outputBuffer}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture\+::output\+Buffer}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+target/classes/\mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}}\item 
+target/classes/\mbox{\hyperlink{target_2classes_2OpenCLTestFixture_8cpp}{Open\+C\+L\+Test\+Fixture.\+cpp}}\end{DoxyCompactItemize}

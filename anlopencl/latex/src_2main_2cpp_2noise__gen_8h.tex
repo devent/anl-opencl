@@ -1,0 +1,1093 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{src_2main_2cpp_2noise__gen_8h}{}\doxysection{src/main/cpp/noise\+\_\+gen.h File Reference}
+\label{src_2main_2cpp_2noise__gen_8h}\index{src/main/cpp/noise\_gen.h@{src/main/cpp/noise\_gen.h}}
+
+
+Contains the definitions of the noise generator functions.  
+
+
+{\ttfamily \#include \char`\"{}opencl\+\_\+utils.\+h\char`\"{}}\newline
+Include dependency graph for noise\+\_\+gen.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{src_2main_2cpp_2noise__gen_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{src_2main_2cpp_2noise__gen_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}) (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}})
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ae1a958908a866448562f3b93ca3d6d4a}{noise\+\_\+func2}}) (vector2, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}) (vector3, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}) (vector4, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}) (vector8, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}{dist\+\_\+func2}}) (vector2, vector2)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_aa4c6afafffa49b473219cd6ea788b6ef}{dist\+\_\+func3}}) (vector3, vector3)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ac2a7e2036b3f017db0e18dacdf2ae207}{dist\+\_\+func4}}) (vector4, vector4)
+\item 
+typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_afa3348fc8dc75aaf5697939d2cc1ae7a}{dist\+\_\+func6}}) (vector8, vector8)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}{no\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}{linear\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a90e207a22f91430a6459c13684b64342}{hermite\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a2db335ae978be4c1d69ea188d9d1da33}{quintic\+Interp}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} t)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a7a984556fcefb5cc3b36a74441480c0b}{dist\+Euclid2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_af3ff81622f97ac62bd9feccce5f34af5}{dist\+Euclid3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ad22eaf40088594968c336d1ab6089617}{dist\+Euclid4}} (vector4 a, vector4 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a5a311d8e02b7489a4b199fa0c63161c6}{dist\+Euclid6}} (vector8 a, vector8 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4e171ef0a8931d0ca4554553a3535c7e}{dist\+Manhattan2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}{dist\+Manhattan3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a89f9146f0358df8328fcd11b07a345f5}{dist\+Manhattan4}} (vector4 a, vector4 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_aff23a11c4ea2e5b13d2cc848863fa59e}{dist\+Manhattan6}} (vector8 a, vector8 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a0e144707658ef5ee26304e320c82960b}{dist\+Greatest\+Axis2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a3b13e3a789fa95006164fa3ec1eacdbe}{dist\+Greatest\+Axis3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ab1cdde7b16ee9b2b871d6e44834b514e}{dist\+Greatest\+Axis4}} (vector4 a, vector4 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_aea80e75e16b18421de612aa20835102c}{dist\+Greatest\+Axis6}} (vector8 a, vector8 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a7e7ca978e25594e6c652405f6da7e392}{dist\+Least\+Axis2}} (vector2 a, vector2 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4530b3e17b43660a39cb94c286aa3260}{dist\+Least\+Axis3}} (vector3 a, vector3 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a237532c935cd335aba4b9f3d7520aba1}{dist\+Least\+Axis4}} (vector4 a, vector4 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a930f6785caf587173f6b7e99fe287d96}{dist\+Least\+Axis6}} (vector8 a, vector8 b)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4f0fabd7f7236d8e43549b820d72b136}{value\+\_\+noise2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}{value\+\_\+noise3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a73e27d58f9390919852cb156d1c9e694}{value\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a86bd00be6179a8c07bf3218123247d08}{value\+\_\+noise6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a27d82cb0e0eab6eed363c1577630c680}{gradient\+\_\+noise2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}{gradient\+\_\+noise3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a692552643c90c9d20db633a93a8c26d1}{gradient\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4cb7193526bdcb0cc71817c534797b8d}{gradient\+\_\+noise6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a357824a9e11c3b802a24a65f13c7c231}{gradval\+\_\+noise2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}{gradval\+\_\+noise3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}{gradval\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a4cd84b71acf2d942bef7ccc576b50303}{gradval\+\_\+noise6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a8a101e4f59c63b09f8994108fbed4598}{white\+\_\+noise2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}{white\+\_\+noise3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}{white\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_aff51e13b7a73d323dd941401f26ec1f5}{white\+\_\+noise6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a617aa1e7db88ba18d89376d779fc23df}{simplex\+\_\+noise2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a5502241504ae04803a56284b736dd647}{simplex\+\_\+noise3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}{simplex\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ad813f9fb8f63f5289996f9e2693b2e79}{new\+\_\+simplex\+\_\+noise4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a7635d8e6fdc14d5cfc1e5e9b99736213}{simplex\+\_\+noise6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a78e39d5ae5f8f407b801e52378506641}{cellular\+\_\+function2D}} (vector2 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{target_2classes_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}{dist\+\_\+func2}} distance)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a8bd69a6cdfc92e737c345459bbb07c8d}{cellular\+\_\+function3D}} (vector3 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{target_2classes_2noise__gen_8h_aa4c6afafffa49b473219cd6ea788b6ef}{dist\+\_\+func3}} distance)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_ac7e12402569dc29e751f48a635819735}{cellular\+\_\+function4D}} (vector4 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{target_2classes_2noise__gen_8h_ac2a7e2036b3f017db0e18dacdf2ae207}{dist\+\_\+func4}} distance)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_a33bf2e113696b3c0ee8adff94250d340}{cellular\+\_\+function6D}} (vector8 \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, uint seed, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$f, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$disp, \mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_afa3348fc8dc75aaf5697939d2cc1ae7a}{dist\+\_\+func6}} distance)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the definitions of the noise generator functions. 
+
+\begin{DoxyAuthor}{Author}
+Erwin Müller 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Jul 26, 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}\label{src_2main_2cpp_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}} 
+\index{noise\_gen.h@{noise\_gen.h}!dist\_func2@{dist\_func2}}
+\index{dist\_func2@{dist\_func2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{dist\_func2}{dist\_func2}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ dist\+\_\+func2) (vector2, vector2)}
+
+The 2D distance function. 
+\begin{DoxyItemize}
+\item dist\+Euclid2 
+\item dist\+Manhattan2 
+\item dist\+Greatest\+Axis2 
+\item dist\+Least\+Axis2 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_aa4c6afafffa49b473219cd6ea788b6ef}\label{src_2main_2cpp_2noise__gen_8h_aa4c6afafffa49b473219cd6ea788b6ef}} 
+\index{noise\_gen.h@{noise\_gen.h}!dist\_func3@{dist\_func3}}
+\index{dist\_func3@{dist\_func3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{dist\_func3}{dist\_func3}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ dist\+\_\+func3) (vector3, vector3)}
+
+The 3D distance function. 
+\begin{DoxyItemize}
+\item dist\+Euclid3 
+\item dist\+Manhattan3 
+\item dist\+Greatest\+Axis3 
+\item dist\+Least\+Axis3 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ac2a7e2036b3f017db0e18dacdf2ae207}\label{src_2main_2cpp_2noise__gen_8h_ac2a7e2036b3f017db0e18dacdf2ae207}} 
+\index{noise\_gen.h@{noise\_gen.h}!dist\_func4@{dist\_func4}}
+\index{dist\_func4@{dist\_func4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{dist\_func4}{dist\_func4}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ dist\+\_\+func4) (vector4, vector4)}
+
+The 4D distance function. 
+\begin{DoxyItemize}
+\item dist\+Euclid4 
+\item dist\+Manhattan4 
+\item dist\+Greatest\+Axis4 
+\item dist\+Least\+Axis4 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_afa3348fc8dc75aaf5697939d2cc1ae7a}\label{src_2main_2cpp_2noise__gen_8h_afa3348fc8dc75aaf5697939d2cc1ae7a}} 
+\index{noise\_gen.h@{noise\_gen.h}!dist\_func6@{dist\_func6}}
+\index{dist\_func6@{dist\_func6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{dist\_func6}{dist\_func6}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ dist\+\_\+func6) (vector8, vector8)}
+
+The 6D distance function. 
+\begin{DoxyItemize}
+\item dist\+Euclid6 
+\item dist\+Manhattan6 
+\item dist\+Greatest\+Axis6 
+\item dist\+Least\+Axis6 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}\label{src_2main_2cpp_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}} 
+\index{noise\_gen.h@{noise\_gen.h}!interp\_func@{interp\_func}}
+\index{interp\_func@{interp\_func}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{interp\_func}{interp\_func}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ interp\+\_\+func) (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}})}
+
+The interpolation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ae1a958908a866448562f3b93ca3d6d4a}\label{src_2main_2cpp_2noise__gen_8h_ae1a958908a866448562f3b93ca3d6d4a}} 
+\index{noise\_gen.h@{noise\_gen.h}!noise\_func2@{noise\_func2}}
+\index{noise\_func2@{noise\_func2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{noise\_func2}{noise\_func2}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ noise\+\_\+func2) (vector2, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})}
+
+The 2D noise function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise2D 
+\item gradient\+\_\+noise2D 
+\item gradval\+\_\+noise2D 
+\item white\+\_\+noise2D 
+\item simplex\+\_\+noise2D 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}\label{src_2main_2cpp_2noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}} 
+\index{noise\_gen.h@{noise\_gen.h}!noise\_func3@{noise\_func3}}
+\index{noise\_func3@{noise\_func3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{noise\_func3}{noise\_func3}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ noise\+\_\+func3) (vector3, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})}
+
+The 3D noise function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a00610948178966f56cee5130d99ae1fc}\label{src_2main_2cpp_2noise__gen_8h_a00610948178966f56cee5130d99ae1fc}} 
+\index{noise\_gen.h@{noise\_gen.h}!noise\_func4@{noise\_func4}}
+\index{noise\_func4@{noise\_func4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{noise\_func4}{noise\_func4}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ noise\+\_\+func4) (vector4, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})}
+
+The 4D noise function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}\label{src_2main_2cpp_2noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}} 
+\index{noise\_gen.h@{noise\_gen.h}!noise\_func6@{noise\_func6}}
+\index{noise\_func6@{noise\_func6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{noise\_func6}{noise\_func6}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}($\ast$ noise\+\_\+func6) (vector8, uint, \mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}})}
+
+The 6D noise function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a78e39d5ae5f8f407b801e52378506641}\label{src_2main_2cpp_2noise__gen_8h_a78e39d5ae5f8f407b801e52378506641}} 
+\index{noise\_gen.h@{noise\_gen.h}!cellular\_function2D@{cellular\_function2D}}
+\index{cellular\_function2D@{cellular\_function2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{cellular\_function2D()}{cellular\_function2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} cellular\+\_\+function2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_ae6e3caf76f341ad3792a7a026f878a7e}{dist\+\_\+func2}}}]{distance }\end{DoxyParamCaption})}
+
+Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em f} & a real number array containing exactly 4 frequencies. \\
+\hline
+{\em disp} & a real number array containing exactly 4 points of displacement. \\
+\hline
+{\em distance} & the dist\+\_\+func2 function calculating the distance\+: 
+\begin{DoxyItemize}
+\item dist\+Euclid2 
+\item dist\+Manhattan2 
+\item dist\+Greatest\+Axis2 
+\item dist\+Least\+Axis2 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a8bd69a6cdfc92e737c345459bbb07c8d}\label{src_2main_2cpp_2noise__gen_8h_a8bd69a6cdfc92e737c345459bbb07c8d}} 
+\index{noise\_gen.h@{noise\_gen.h}!cellular\_function3D@{cellular\_function3D}}
+\index{cellular\_function3D@{cellular\_function3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{cellular\_function3D()}{cellular\_function3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} cellular\+\_\+function3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_aa4c6afafffa49b473219cd6ea788b6ef}{dist\+\_\+func3}}}]{distance }\end{DoxyParamCaption})}
+
+Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em f} & a real number array containing exactly 4 frequencies. \\
+\hline
+{\em disp} & a real number array containing exactly 4 points of displacement. \\
+\hline
+{\em distance} & the dist\+\_\+func2 function calculating the distance\+: 
+\begin{DoxyItemize}
+\item dist\+Euclid3 
+\item dist\+Manhattan3 
+\item dist\+Greatest\+Axis3 
+\item dist\+Least\+Axis3 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ac7e12402569dc29e751f48a635819735}\label{src_2main_2cpp_2noise__gen_8h_ac7e12402569dc29e751f48a635819735}} 
+\index{noise\_gen.h@{noise\_gen.h}!cellular\_function4D@{cellular\_function4D}}
+\index{cellular\_function4D@{cellular\_function4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{cellular\_function4D()}{cellular\_function4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} cellular\+\_\+function4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_ac2a7e2036b3f017db0e18dacdf2ae207}{dist\+\_\+func4}}}]{distance }\end{DoxyParamCaption})}
+
+Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em f} & a real number array containing exactly 4 frequencies. \\
+\hline
+{\em disp} & a real number array containing exactly 4 points of displacement. \\
+\hline
+{\em distance} & the dist\+\_\+func2 function calculating the distance\+: 
+\begin{DoxyItemize}
+\item dist\+Euclid4 
+\item dist\+Manhattan4 
+\item dist\+Greatest\+Axis4 
+\item dist\+Least\+Axis4 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a33bf2e113696b3c0ee8adff94250d340}\label{src_2main_2cpp_2noise__gen_8h_a33bf2e113696b3c0ee8adff94250d340}} 
+\index{noise\_gen.h@{noise\_gen.h}!cellular\_function6D@{cellular\_function6D}}
+\index{cellular\_function6D@{cellular\_function6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{cellular\_function6D()}{cellular\_function6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} cellular\+\_\+function6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{f,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{disp,  }\item[{\mbox{\hyperlink{src_2main_2cpp_2noise__gen_8h_afa3348fc8dc75aaf5697939d2cc1ae7a}{dist\+\_\+func6}}}]{distance }\end{DoxyParamCaption})}
+
+Cellular noise functions. Compute distance (for cellular modules) and displacement (for voronoi modules).
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em f} & a real number array containing exactly 4 frequencies. \\
+\hline
+{\em disp} & a real number array containing exactly 4 points of displacement. \\
+\hline
+{\em distance} & the dist\+\_\+func2 function calculating the distance\+: 
+\begin{DoxyItemize}
+\item dist\+Euclid6 
+\item dist\+Manhattan6 
+\item dist\+Greatest\+Axis6 
+\item dist\+Least\+Axis6 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a7a984556fcefb5cc3b36a74441480c0b}\label{src_2main_2cpp_2noise__gen_8h_a7a984556fcefb5cc3b36a74441480c0b}} 
+\index{noise\_gen.h@{noise\_gen.h}!distEuclid2@{distEuclid2}}
+\index{distEuclid2@{distEuclid2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distEuclid2()}{distEuclid2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+Returns the Euclidean distance between two points. $d(a,b) = |a-b|$ \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_af3ff81622f97ac62bd9feccce5f34af5}\label{src_2main_2cpp_2noise__gen_8h_af3ff81622f97ac62bd9feccce5f34af5}} 
+\index{noise\_gen.h@{noise\_gen.h}!distEuclid3@{distEuclid3}}
+\index{distEuclid3@{distEuclid3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distEuclid3()}{distEuclid3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+Returns the Euclidean distance between two points. $d(a,b) = |a-b|$ \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ad22eaf40088594968c336d1ab6089617}\label{src_2main_2cpp_2noise__gen_8h_ad22eaf40088594968c336d1ab6089617}} 
+\index{noise\_gen.h@{noise\_gen.h}!distEuclid4@{distEuclid4}}
+\index{distEuclid4@{distEuclid4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distEuclid4()}{distEuclid4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid4 (\begin{DoxyParamCaption}\item[{vector4}]{a,  }\item[{vector4}]{b }\end{DoxyParamCaption})}
+
+Returns the Euclidean distance between two points. $d(a,b) = |a-b|$ \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a5a311d8e02b7489a4b199fa0c63161c6}\label{src_2main_2cpp_2noise__gen_8h_a5a311d8e02b7489a4b199fa0c63161c6}} 
+\index{noise\_gen.h@{noise\_gen.h}!distEuclid6@{distEuclid6}}
+\index{distEuclid6@{distEuclid6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distEuclid6()}{distEuclid6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Euclid6 (\begin{DoxyParamCaption}\item[{vector8}]{a,  }\item[{vector8}]{b }\end{DoxyParamCaption})}
+
+Returns the Euclidean distance between two points. $d(a,b) = |a-b|$ \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a0e144707658ef5ee26304e320c82960b}\label{src_2main_2cpp_2noise__gen_8h_a0e144707658ef5ee26304e320c82960b}} 
+\index{noise\_gen.h@{noise\_gen.h}!distGreatestAxis2@{distGreatestAxis2}}
+\index{distGreatestAxis2@{distGreatestAxis2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis2()}{distGreatestAxis2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the greatest distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a3b13e3a789fa95006164fa3ec1eacdbe}\label{src_2main_2cpp_2noise__gen_8h_a3b13e3a789fa95006164fa3ec1eacdbe}} 
+\index{noise\_gen.h@{noise\_gen.h}!distGreatestAxis3@{distGreatestAxis3}}
+\index{distGreatestAxis3@{distGreatestAxis3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis3()}{distGreatestAxis3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the greatest distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ab1cdde7b16ee9b2b871d6e44834b514e}\label{src_2main_2cpp_2noise__gen_8h_ab1cdde7b16ee9b2b871d6e44834b514e}} 
+\index{noise\_gen.h@{noise\_gen.h}!distGreatestAxis4@{distGreatestAxis4}}
+\index{distGreatestAxis4@{distGreatestAxis4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis4()}{distGreatestAxis4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis4 (\begin{DoxyParamCaption}\item[{vector4}]{a,  }\item[{vector4}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the greatest distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_aea80e75e16b18421de612aa20835102c}\label{src_2main_2cpp_2noise__gen_8h_aea80e75e16b18421de612aa20835102c}} 
+\index{noise\_gen.h@{noise\_gen.h}!distGreatestAxis6@{distGreatestAxis6}}
+\index{distGreatestAxis6@{distGreatestAxis6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distGreatestAxis6()}{distGreatestAxis6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Greatest\+Axis6 (\begin{DoxyParamCaption}\item[{vector8}]{a,  }\item[{vector8}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the greatest distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a7e7ca978e25594e6c652405f6da7e392}\label{src_2main_2cpp_2noise__gen_8h_a7e7ca978e25594e6c652405f6da7e392}} 
+\index{noise\_gen.h@{noise\_gen.h}!distLeastAxis2@{distLeastAxis2}}
+\index{distLeastAxis2@{distLeastAxis2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis2()}{distLeastAxis2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the least distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4530b3e17b43660a39cb94c286aa3260}\label{src_2main_2cpp_2noise__gen_8h_a4530b3e17b43660a39cb94c286aa3260}} 
+\index{noise\_gen.h@{noise\_gen.h}!distLeastAxis3@{distLeastAxis3}}
+\index{distLeastAxis3@{distLeastAxis3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis3()}{distLeastAxis3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the least distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a237532c935cd335aba4b9f3d7520aba1}\label{src_2main_2cpp_2noise__gen_8h_a237532c935cd335aba4b9f3d7520aba1}} 
+\index{noise\_gen.h@{noise\_gen.h}!distLeastAxis4@{distLeastAxis4}}
+\index{distLeastAxis4@{distLeastAxis4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis4()}{distLeastAxis4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis4 (\begin{DoxyParamCaption}\item[{vector4}]{a,  }\item[{vector4}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the least distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a930f6785caf587173f6b7e99fe287d96}\label{src_2main_2cpp_2noise__gen_8h_a930f6785caf587173f6b7e99fe287d96}} 
+\index{noise\_gen.h@{noise\_gen.h}!distLeastAxis6@{distLeastAxis6}}
+\index{distLeastAxis6@{distLeastAxis6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distLeastAxis6()}{distLeastAxis6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Least\+Axis6 (\begin{DoxyParamCaption}\item[{vector8}]{a,  }\item[{vector8}]{b }\end{DoxyParamCaption})}
+
+Returns the distance between two points on the axis that have the least distance. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4e171ef0a8931d0ca4554553a3535c7e}\label{src_2main_2cpp_2noise__gen_8h_a4e171ef0a8931d0ca4554553a3535c7e}} 
+\index{noise\_gen.h@{noise\_gen.h}!distManhattan2@{distManhattan2}}
+\index{distManhattan2@{distManhattan2}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distManhattan2()}{distManhattan2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan2 (\begin{DoxyParamCaption}\item[{vector2}]{a,  }\item[{vector2}]{b }\end{DoxyParamCaption})}
+
+Returns the Manhattan distance between two points.
+
+\begin{quote}
+A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates. \href{https://en.wikipedia.org/wiki/Taxicab_geometry}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Taxicab\+\_\+geometry}} \end{quote}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}\label{src_2main_2cpp_2noise__gen_8h_a7cbdfc4442d32e14a1dfe0fc6c3d6f88}} 
+\index{noise\_gen.h@{noise\_gen.h}!distManhattan3@{distManhattan3}}
+\index{distManhattan3@{distManhattan3}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distManhattan3()}{distManhattan3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan3 (\begin{DoxyParamCaption}\item[{vector3}]{a,  }\item[{vector3}]{b }\end{DoxyParamCaption})}
+
+Returns the Manhattan distance between two points.
+
+\begin{quote}
+A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates. \href{https://en.wikipedia.org/wiki/Taxicab_geometry}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Taxicab\+\_\+geometry}} \end{quote}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a89f9146f0358df8328fcd11b07a345f5}\label{src_2main_2cpp_2noise__gen_8h_a89f9146f0358df8328fcd11b07a345f5}} 
+\index{noise\_gen.h@{noise\_gen.h}!distManhattan4@{distManhattan4}}
+\index{distManhattan4@{distManhattan4}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distManhattan4()}{distManhattan4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan4 (\begin{DoxyParamCaption}\item[{vector4}]{a,  }\item[{vector4}]{b }\end{DoxyParamCaption})}
+
+Returns the Manhattan distance between two points.
+
+\begin{quote}
+A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates. \href{https://en.wikipedia.org/wiki/Taxicab_geometry}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Taxicab\+\_\+geometry}} \end{quote}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_aff23a11c4ea2e5b13d2cc848863fa59e}\label{src_2main_2cpp_2noise__gen_8h_aff23a11c4ea2e5b13d2cc848863fa59e}} 
+\index{noise\_gen.h@{noise\_gen.h}!distManhattan6@{distManhattan6}}
+\index{distManhattan6@{distManhattan6}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{distManhattan6()}{distManhattan6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dist\+Manhattan6 (\begin{DoxyParamCaption}\item[{vector8}]{a,  }\item[{vector8}]{b }\end{DoxyParamCaption})}
+
+Returns the Manhattan distance between two points.
+
+\begin{quote}
+A taxicab geometry is a form of geometry in which the usual distance function or metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the sum of the absolute differences of their Cartesian coordinates. \href{https://en.wikipedia.org/wiki/Taxicab_geometry}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Taxicab\+\_\+geometry}} \end{quote}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a27d82cb0e0eab6eed363c1577630c680}\label{src_2main_2cpp_2noise__gen_8h_a27d82cb0e0eab6eed363c1577630c680}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradient\_noise2D@{gradient\_noise2D}}
+\index{gradient\_noise2D@{gradient\_noise2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise2D()}{gradient\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Gradient noise functions.
+
+\begin{quote}
+Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}\label{src_2main_2cpp_2noise__gen_8h_a41c498f8ee9881d9dadd4a601013fd96}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradient\_noise3D@{gradient\_noise3D}}
+\index{gradient\_noise3D@{gradient\_noise3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise3D()}{gradient\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Gradient noise functions.
+
+\begin{quote}
+Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a692552643c90c9d20db633a93a8c26d1}\label{src_2main_2cpp_2noise__gen_8h_a692552643c90c9d20db633a93a8c26d1}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradient\_noise4D@{gradient\_noise4D}}
+\index{gradient\_noise4D@{gradient\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise4D()}{gradient\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Gradient noise functions.
+
+\begin{quote}
+Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4cb7193526bdcb0cc71817c534797b8d}\label{src_2main_2cpp_2noise__gen_8h_a4cb7193526bdcb0cc71817c534797b8d}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradient\_noise6D@{gradient\_noise6D}}
+\index{gradient\_noise6D@{gradient\_noise6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradient\_noise6D()}{gradient\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradient\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Gradient noise functions.
+
+\begin{quote}
+Gradient noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of a creation of a lattice of random (or typically pseudorandom) gradients, dot products of which are then interpolated to obtain values in between the lattices. An artifact of some implementations of this noise is that the returned value at the lattice points is 0. Unlike the value noise, gradient noise has more energy in the high frequencies. \href{https://en.wikipedia.org/wiki/Gradient_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Gradient\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a357824a9e11c3b802a24a65f13c7c231}\label{src_2main_2cpp_2noise__gen_8h_a357824a9e11c3b802a24a65f13c7c231}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradval\_noise2D@{gradval\_noise2D}}
+\index{gradval\_noise2D@{gradval\_noise2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradval\_noise2D()}{gradval\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}\label{src_2main_2cpp_2noise__gen_8h_a584469ce3feb6a138ddf0920419bcc1b}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradval\_noise3D@{gradval\_noise3D}}
+\index{gradval\_noise3D@{gradval\_noise3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradval\_noise3D()}{gradval\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}\label{src_2main_2cpp_2noise__gen_8h_a9241f5ea6bb690ea3b8d81d6209fa7f9}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradval\_noise4D@{gradval\_noise4D}}
+\index{gradval\_noise4D@{gradval\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradval\_noise4D()}{gradval\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4cd84b71acf2d942bef7ccc576b50303}\label{src_2main_2cpp_2noise__gen_8h_a4cd84b71acf2d942bef7ccc576b50303}} 
+\index{noise\_gen.h@{noise\_gen.h}!gradval\_noise6D@{gradval\_noise6D}}
+\index{gradval\_noise6D@{gradval\_noise6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{gradval\_noise6D()}{gradval\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} gradval\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Combined value and gradient noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a90e207a22f91430a6459c13684b64342}\label{src_2main_2cpp_2noise__gen_8h_a90e207a22f91430a6459c13684b64342}} 
+\index{noise\_gen.h@{noise\_gen.h}!hermiteInterp@{hermiteInterp}}
+\index{hermiteInterp@{hermiteInterp}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{hermiteInterp()}{hermiteInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} hermite\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+Hermite interpolation. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}\label{src_2main_2cpp_2noise__gen_8h_af7751d6bf317b367835b605c3584abd0}} 
+\index{noise\_gen.h@{noise\_gen.h}!linearInterp@{linearInterp}}
+\index{linearInterp@{linearInterp}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{linearInterp()}{linearInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} linear\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+Linear interpolation, i.\+e. returns t. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ad813f9fb8f63f5289996f9e2693b2e79}\label{src_2main_2cpp_2noise__gen_8h_ad813f9fb8f63f5289996f9e2693b2e79}} 
+\index{noise\_gen.h@{noise\_gen.h}!new\_simplex\_noise4D@{new\_simplex\_noise4D}}
+\index{new\_simplex\_noise4D@{new\_simplex\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{new\_simplex\_noise4D()}{new\_simplex\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} new\+\_\+simplex\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. {\bfseries{In my tests the output have gray lines artifacts.}} \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}\label{src_2main_2cpp_2noise__gen_8h_a03160b7e757d3bd0cd071c27b07307c1}} 
+\index{noise\_gen.h@{noise\_gen.h}!noInterp@{noInterp}}
+\index{noInterp@{noInterp}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{noInterp()}{noInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} no\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+No interpolation, i.\+e. returns 0.
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a2db335ae978be4c1d69ea188d9d1da33}\label{src_2main_2cpp_2noise__gen_8h_a2db335ae978be4c1d69ea188d9d1da33}} 
+\index{noise\_gen.h@{noise\_gen.h}!quinticInterp@{quinticInterp}}
+\index{quinticInterp@{quinticInterp}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{quinticInterp()}{quinticInterp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} quintic\+Interp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{t }\end{DoxyParamCaption})}
+
+Quintic interpolation. \mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a617aa1e7db88ba18d89376d779fc23df}\label{src_2main_2cpp_2noise__gen_8h_a617aa1e7db88ba18d89376d779fc23df}} 
+\index{noise\_gen.h@{noise\_gen.h}!simplex\_noise2D@{simplex\_noise2D}}
+\index{simplex\_noise2D@{simplex\_noise2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise2D()}{simplex\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a5502241504ae04803a56284b736dd647}\label{src_2main_2cpp_2noise__gen_8h_a5502241504ae04803a56284b736dd647}} 
+\index{noise\_gen.h@{noise\_gen.h}!simplex\_noise3D@{simplex\_noise3D}}
+\index{simplex\_noise3D@{simplex\_noise3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise3D()}{simplex\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}\label{src_2main_2cpp_2noise__gen_8h_ac36c0eef802bee29164e91aa5e8d7b0a}} 
+\index{noise\_gen.h@{noise\_gen.h}!simplex\_noise4D@{simplex\_noise4D}}
+\index{simplex\_noise4D@{simplex\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise4D()}{simplex\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a7635d8e6fdc14d5cfc1e5e9b99736213}\label{src_2main_2cpp_2noise__gen_8h_a7635d8e6fdc14d5cfc1e5e9b99736213}} 
+\index{noise\_gen.h@{noise\_gen.h}!simplex\_noise6D@{simplex\_noise6D}}
+\index{simplex\_noise6D@{simplex\_noise6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{simplex\_noise6D()}{simplex\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplex\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Simplex noise functions. \begin{quote}
+Simplex noise is a method for constructing an n-\/dimensional noise function comparable to Perlin noise (\char`\"{}classic\char`\"{} noise) but with fewer directional artifacts and, in higher dimensions, a lower computational overhead. \href{https://en.wikipedia.org/wiki/Simplex_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Simplex\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a4f0fabd7f7236d8e43549b820d72b136}\label{src_2main_2cpp_2noise__gen_8h_a4f0fabd7f7236d8e43549b820d72b136}} 
+\index{noise\_gen.h@{noise\_gen.h}!value\_noise2D@{value\_noise2D}}
+\index{value\_noise2D@{value\_noise2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{value\_noise2D()}{value\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Value noise functions.
+
+\begin{quote}
+Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}\label{src_2main_2cpp_2noise__gen_8h_a93aa4eb6ab956dbe1b94f39ea4ddb5d9}} 
+\index{noise\_gen.h@{noise\_gen.h}!value\_noise3D@{value\_noise3D}}
+\index{value\_noise3D@{value\_noise3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{value\_noise3D()}{value\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Value noise functions.
+
+\begin{quote}
+Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a73e27d58f9390919852cb156d1c9e694}\label{src_2main_2cpp_2noise__gen_8h_a73e27d58f9390919852cb156d1c9e694}} 
+\index{noise\_gen.h@{noise\_gen.h}!value\_noise4D@{value\_noise4D}}
+\index{value\_noise4D@{value\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{value\_noise4D()}{value\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Value noise functions.
+
+\begin{quote}
+Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a86bd00be6179a8c07bf3218123247d08}\label{src_2main_2cpp_2noise__gen_8h_a86bd00be6179a8c07bf3218123247d08}} 
+\index{noise\_gen.h@{noise\_gen.h}!value\_noise6D@{value\_noise6D}}
+\index{value\_noise6D@{value\_noise6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{value\_noise6D()}{value\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} value\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+Value noise functions.
+
+\begin{quote}
+Value noise is a type of noise commonly used as a procedural texture primitive in computer graphics. This method consists of the creation of a lattice of points which are assigned random values. The noise function then returns the interpolated number based on the values of the surrounding lattice points. \href{https://en.wikipedia.org/wiki/Value_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Value\+\_\+noise}} \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & the interpolation function\+: 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a8a101e4f59c63b09f8994108fbed4598}\label{src_2main_2cpp_2noise__gen_8h_a8a101e4f59c63b09f8994108fbed4598}} 
+\index{noise\_gen.h@{noise\_gen.h}!white\_noise2D@{white\_noise2D}}
+\index{white\_noise2D@{white\_noise2D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{white\_noise2D()}{white\_noise2D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise2D (\begin{DoxyParamCaption}\item[{vector2}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+White noise functions.
+
+\begin{quote}
+In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector2 (x,y) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}\label{src_2main_2cpp_2noise__gen_8h_a74d0f4e546c12e108592c93154f6aa37}} 
+\index{noise\_gen.h@{noise\_gen.h}!white\_noise3D@{white\_noise3D}}
+\index{white\_noise3D@{white\_noise3D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{white\_noise3D()}{white\_noise3D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise3D (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+White noise functions.
+
+\begin{quote}
+In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}\label{src_2main_2cpp_2noise__gen_8h_a2a38ce8ddcbd88cea585747da7a63228}} 
+\index{noise\_gen.h@{noise\_gen.h}!white\_noise4D@{white\_noise4D}}
+\index{white\_noise4D@{white\_noise4D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{white\_noise4D()}{white\_noise4D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise4D (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+White noise functions.
+
+\begin{quote}
+In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{src_2main_2cpp_2noise__gen_8h_aff51e13b7a73d323dd941401f26ec1f5}\label{src_2main_2cpp_2noise__gen_8h_aff51e13b7a73d323dd941401f26ec1f5}} 
+\index{noise\_gen.h@{noise\_gen.h}!white\_noise6D@{white\_noise6D}}
+\index{white\_noise6D@{white\_noise6D}!noise\_gen.h@{noise\_gen.h}}
+\doxysubsubsection{\texorpdfstring{white\_noise6D()}{white\_noise6D()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} white\+\_\+noise6D (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{target_2classes_2noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp }\end{DoxyParamCaption})}
+
+White noise functions.
+
+\begin{quote}
+In signal processing, white noise is a random signal having equal intensity at different frequencies, giving it a constant power spectral density. \href{https://en.wikipedia.org/wiki/White_noise}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+White\+\_\+noise}} \end{quote}
+
+
+The interpolation function parameter is not used. The interpolation function parameter is only for compatibility with the other noise functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinates. \\
+\hline
+{\em seed} & the uint random number seed. \\
+\hline
+{\em interp} & not used. \\
+\hline
+\end{DoxyParams}

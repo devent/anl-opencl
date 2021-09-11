@@ -1,5 +1,5 @@
 MKDIR   := mkdir -p
-RMDIR   := rd /S /Q
+RMDIR   := rm -rf
 CC      := clang
 OBJ     := ./OpenCL/obj
 INCLUDE := ./src/main/cpp

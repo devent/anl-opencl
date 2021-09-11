@@ -1,0 +1,228 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: Core is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{target_2classes_2kernel_8h}{}\doxysection{target/classes/kernel.h File Reference}
+\label{target_2classes_2kernel_8h}\index{target/classes/kernel.h@{target/classes/kernel.h}}
+{\ttfamily \#include $<$opencl\+\_\+utils.\+h$>$}\newline
+Include dependency graph for kernel.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{target_2classes_2kernel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{target_2classes_2kernel_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector3 $\ast$ \mbox{\hyperlink{target_2classes_2kernel_8h_a9a79e8368316765c430c584061360fc5}{rotate\+Domain3}} (vector3 $\ast$src, size\+\_\+t index, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_ae4fc1c1bef1bb6873330d9b251b5a5f4}{x2}} (vector2 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_aff08c575f5ac78e46f35fc2dc7a81e40}{y2}} (vector2 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a439894ef3565b9cf43a9be98a774066a}{x3}} (vector3 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_abfd755080fefee4c769d994836ab2f5f}{y3}} (vector3 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a8452bac9952afb83cd3c5fa5a520cbe8}{z3}} (vector3 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a87e89d9cfa51bed341938a8994593530}{x4}} (vector4 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_aa475748304b952ae72d5d6a114448f4a}{y4}} (vector4 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a5503657ec1aab79e401c755d6d9beed0}{z4}} (vector4 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_afa15dc71950fd9abf7cb40c38a86f327}{w4}} (vector4 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a7d977db004fe838bc84b32428aa5816c}{x8}} (vector8 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a0ac15d012b0323397cb6fca8277742b3}{y8}} (vector8 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_ac20686159a76d55032ede2b692220b6c}{z8}} (vector8 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a41f84795c1a939bed3e358e3f3c3cc08}{w8}} (vector8 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a5237412fe9df542c7355e10a79b00b18}{u8}} (vector8 $\ast$coord)
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{target_2classes_2kernel_8h_a1e9f6da605f0dfb838676c696c8a5889}{v8}} (vector8 $\ast$coord)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a9a79e8368316765c430c584061360fc5}\label{target_2classes_2kernel_8h_a9a79e8368316765c430c584061360fc5}} 
+\index{kernel.h@{kernel.h}!rotateDomain3@{rotateDomain3}}
+\index{rotateDomain3@{rotateDomain3}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{rotateDomain3()}{rotateDomain3()}}
+{\footnotesize\ttfamily vector3$\ast$ rotate\+Domain3 (\begin{DoxyParamCaption}\item[{vector3 $\ast$}]{src,  }\item[{size\+\_\+t}]{index,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{target_2classes_2kernel_8h_a5237412fe9df542c7355e10a79b00b18}\label{target_2classes_2kernel_8h_a5237412fe9df542c7355e10a79b00b18}} 
+\index{kernel.h@{kernel.h}!u8@{u8}}
+\index{u8@{u8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{u8()}{u8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} u8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a1e9f6da605f0dfb838676c696c8a5889}\label{target_2classes_2kernel_8h_a1e9f6da605f0dfb838676c696c8a5889}} 
+\index{kernel.h@{kernel.h}!v8@{v8}}
+\index{v8@{v8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{v8()}{v8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} v8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_afa15dc71950fd9abf7cb40c38a86f327}\label{target_2classes_2kernel_8h_afa15dc71950fd9abf7cb40c38a86f327}} 
+\index{kernel.h@{kernel.h}!w4@{w4}}
+\index{w4@{w4}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{w4()}{w4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} w4 (\begin{DoxyParamCaption}\item[{vector4 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a41f84795c1a939bed3e358e3f3c3cc08}\label{target_2classes_2kernel_8h_a41f84795c1a939bed3e358e3f3c3cc08}} 
+\index{kernel.h@{kernel.h}!w8@{w8}}
+\index{w8@{w8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{w8()}{w8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} w8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_ae4fc1c1bef1bb6873330d9b251b5a5f4}\label{target_2classes_2kernel_8h_ae4fc1c1bef1bb6873330d9b251b5a5f4}} 
+\index{kernel.h@{kernel.h}!x2@{x2}}
+\index{x2@{x2}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{x2()}{x2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} x2 (\begin{DoxyParamCaption}\item[{vector2 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a439894ef3565b9cf43a9be98a774066a}\label{target_2classes_2kernel_8h_a439894ef3565b9cf43a9be98a774066a}} 
+\index{kernel.h@{kernel.h}!x3@{x3}}
+\index{x3@{x3}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{x3()}{x3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} x3 (\begin{DoxyParamCaption}\item[{vector3 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a87e89d9cfa51bed341938a8994593530}\label{target_2classes_2kernel_8h_a87e89d9cfa51bed341938a8994593530}} 
+\index{kernel.h@{kernel.h}!x4@{x4}}
+\index{x4@{x4}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{x4()}{x4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} x4 (\begin{DoxyParamCaption}\item[{vector4 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a7d977db004fe838bc84b32428aa5816c}\label{target_2classes_2kernel_8h_a7d977db004fe838bc84b32428aa5816c}} 
+\index{kernel.h@{kernel.h}!x8@{x8}}
+\index{x8@{x8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{x8()}{x8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} x8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_aff08c575f5ac78e46f35fc2dc7a81e40}\label{target_2classes_2kernel_8h_aff08c575f5ac78e46f35fc2dc7a81e40}} 
+\index{kernel.h@{kernel.h}!y2@{y2}}
+\index{y2@{y2}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{y2()}{y2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} y2 (\begin{DoxyParamCaption}\item[{vector2 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_abfd755080fefee4c769d994836ab2f5f}\label{target_2classes_2kernel_8h_abfd755080fefee4c769d994836ab2f5f}} 
+\index{kernel.h@{kernel.h}!y3@{y3}}
+\index{y3@{y3}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{y3()}{y3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} y3 (\begin{DoxyParamCaption}\item[{vector3 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_aa475748304b952ae72d5d6a114448f4a}\label{target_2classes_2kernel_8h_aa475748304b952ae72d5d6a114448f4a}} 
+\index{kernel.h@{kernel.h}!y4@{y4}}
+\index{y4@{y4}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{y4()}{y4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} y4 (\begin{DoxyParamCaption}\item[{vector4 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a0ac15d012b0323397cb6fca8277742b3}\label{target_2classes_2kernel_8h_a0ac15d012b0323397cb6fca8277742b3}} 
+\index{kernel.h@{kernel.h}!y8@{y8}}
+\index{y8@{y8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{y8()}{y8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} y8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a8452bac9952afb83cd3c5fa5a520cbe8}\label{target_2classes_2kernel_8h_a8452bac9952afb83cd3c5fa5a520cbe8}} 
+\index{kernel.h@{kernel.h}!z3@{z3}}
+\index{z3@{z3}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{z3()}{z3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} z3 (\begin{DoxyParamCaption}\item[{vector3 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_a5503657ec1aab79e401c755d6d9beed0}\label{target_2classes_2kernel_8h_a5503657ec1aab79e401c755d6d9beed0}} 
+\index{kernel.h@{kernel.h}!z4@{z4}}
+\index{z4@{z4}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{z4()}{z4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} z4 (\begin{DoxyParamCaption}\item[{vector4 $\ast$}]{coord }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2kernel_8h_ac20686159a76d55032ede2b692220b6c}\label{target_2classes_2kernel_8h_ac20686159a76d55032ede2b692220b6c}} 
+\index{kernel.h@{kernel.h}!z8@{z8}}
+\index{z8@{z8}!kernel.h@{kernel.h}}
+\doxysubsubsection{\texorpdfstring{z8()}{z8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} z8 (\begin{DoxyParamCaption}\item[{vector8 $\ast$}]{coord }\end{DoxyParamCaption})}
+
