@@ -43,7 +43,7 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl;
+package com.anrisoftware.anlopencl.aparapi;
 
 import static com.sudoplay.joise.noise.Util.clamp;
 import static org.hamcrest.MatcherAssert.assertThat;

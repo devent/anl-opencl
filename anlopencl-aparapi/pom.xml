@@ -57,9 +57,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>anlopencl-core</artifactId>
-    <name>ANL-OpenCL :: Core</name>
-    <description>Implements the Accidental Noise Library OpenCL rework.</description>
+    <artifactId>anlopencl-aparapi</artifactId>
+    <name>ANL-OpenCL :: Aparapi</name>
+    <description>Uses the OpenCL rework of Accidental Noise Library with Aparapi.</description>
     <inceptionYear>2021</inceptionYear>
 
     <properties>
