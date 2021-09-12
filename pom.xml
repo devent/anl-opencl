@@ -66,7 +66,8 @@
     <inceptionYear>2021</inceptionYear>
 
     <modules>
-        <module>anlopencl</module>
+        <module>anlopencl-aparapi</module>
+        <module>anlopencl-opencl</module>
     </modules>
 
     <licenses>

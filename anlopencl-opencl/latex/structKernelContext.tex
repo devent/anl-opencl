@@ -1,0 +1,118 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{structKernelContext}{}\doxysection{Kernel\+Context Struct Reference}
+\label{structKernelContext}\index{KernelContext@{KernelContext}}
+
+
+{\ttfamily \#include $<$Open\+C\+L\+Test\+Fixture.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structKernelContext_a0c2949e52c4f33f1b050b0d1d27a312d}{Kernel\+Context}} (std\+::string \mbox{\hyperlink{structKernelContext_aead6c718332be3246027bd5cef8b9c1d}{kernel}}, std\+::string \mbox{\hyperlink{structKernelContext_a1827dee3cfbb89f8230a3d0829228a2e}{source}}, size\+\_\+t \mbox{\hyperlink{structKernelContext_a4cf17df972687b9c9a825b0358ebfd3b}{image\+Width}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structKernelContext_aead6c718332be3246027bd5cef8b9c1d}{kernel}}
+\item 
+std\+::string \mbox{\hyperlink{structKernelContext_a1827dee3cfbb89f8230a3d0829228a2e}{source}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structKernelContext_a4cf17df972687b9c9a825b0358ebfd3b}{image\+Width}} = 1024
+\item 
+size\+\_\+t \mbox{\hyperlink{structKernelContext_ab9dfb69c156a7ea97823d77b3a3d9b40}{image\+Height}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structKernelContext_a65bb86204880289e92e849b419b24773}{image\+Size}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{structKernelContext}{Kernel\+Context}} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structKernelContext_a0c2949e52c4f33f1b050b0d1d27a312d}\label{structKernelContext_a0c2949e52c4f33f1b050b0d1d27a312d}} 
+\index{KernelContext@{KernelContext}!KernelContext@{KernelContext}}
+\index{KernelContext@{KernelContext}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{KernelContext()}{KernelContext()}}
+{\footnotesize\ttfamily Kernel\+Context\+::\+Kernel\+Context (\begin{DoxyParamCaption}\item[{std\+::string}]{kernel,  }\item[{std\+::string}]{source,  }\item[{size\+\_\+t}]{image\+Width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structKernelContext_ab9dfb69c156a7ea97823d77b3a3d9b40}\label{structKernelContext_ab9dfb69c156a7ea97823d77b3a3d9b40}} 
+\index{KernelContext@{KernelContext}!imageHeight@{imageHeight}}
+\index{imageHeight@{imageHeight}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{imageHeight}{imageHeight}}
+{\footnotesize\ttfamily size\+\_\+t Kernel\+Context\+::image\+Height}
+
+\mbox{\Hypertarget{structKernelContext_a65bb86204880289e92e849b419b24773}\label{structKernelContext_a65bb86204880289e92e849b419b24773}} 
+\index{KernelContext@{KernelContext}!imageSize@{imageSize}}
+\index{imageSize@{imageSize}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{imageSize}{imageSize}}
+{\footnotesize\ttfamily size\+\_\+t Kernel\+Context\+::image\+Size}
+
+\mbox{\Hypertarget{structKernelContext_a4cf17df972687b9c9a825b0358ebfd3b}\label{structKernelContext_a4cf17df972687b9c9a825b0358ebfd3b}} 
+\index{KernelContext@{KernelContext}!imageWidth@{imageWidth}}
+\index{imageWidth@{imageWidth}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{imageWidth}{imageWidth}}
+{\footnotesize\ttfamily size\+\_\+t Kernel\+Context\+::image\+Width = 1024}
+
+\mbox{\Hypertarget{structKernelContext_aead6c718332be3246027bd5cef8b9c1d}\label{structKernelContext_aead6c718332be3246027bd5cef8b9c1d}} 
+\index{KernelContext@{KernelContext}!kernel@{kernel}}
+\index{kernel@{kernel}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{kernel}{kernel}}
+{\footnotesize\ttfamily std\+::string Kernel\+Context\+::kernel}
+
+\mbox{\Hypertarget{structKernelContext_a1827dee3cfbb89f8230a3d0829228a2e}\label{structKernelContext_a1827dee3cfbb89f8230a3d0829228a2e}} 
+\index{KernelContext@{KernelContext}!source@{source}}
+\index{source@{source}!KernelContext@{KernelContext}}
+\doxysubsubsection{\texorpdfstring{source}{source}}
+{\footnotesize\ttfamily std\+::string Kernel\+Context\+::source}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/test/cpp/\mbox{\hyperlink{OpenCLTestFixture_8h}{Open\+C\+L\+Test\+Fixture.\+h}}\end{DoxyCompactItemize}

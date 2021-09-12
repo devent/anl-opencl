@@ -1,0 +1,283 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{target_2classes_2imaging_8c}{}\doxysection{target/classes/imaging.c File Reference}
+\label{target_2classes_2imaging_8c}\index{target/classes/imaging.c@{target/classes/imaging.c}}
+{\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
+Include dependency graph for imaging.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{target_2classes_2imaging_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} \mbox{\hyperlink{target_2classes_2imaging_8c_a66939ac0d2d8c9431fa350653dc6e409}{create\+\_\+ranges\+\_\+default}} ()
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_ae8677daaf2dccd585789522e6fc93050}{calc\+\_\+seamless\+\_\+none}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_ad64f959e00351c88626fcfd707d88119}{calc\+\_\+seamless\+\_\+x}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_a83f066c48a3478f516cf698d89a05462}{calc\+\_\+seamless\+\_\+y}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_ae6a3e60685920c36a80319650ed23bae}{calc\+\_\+seamless\+\_\+z}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_aadf8745cb0638657c8090eb92db1b7e2}{calc\+\_\+seamless\+\_\+xy}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_ae32ab1fd23f64dc7c16634147722e10a}{calc\+\_\+seamless\+\_\+xz}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_afe8f33f968b64eb90e30e8e2e693ce25}{calc\+\_\+seamless\+\_\+yz}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void \mbox{\hyperlink{target_2classes_2imaging_8c_a52a1f1ffcbbe0643c97769a7fae022df}{calc\+\_\+seamless\+\_\+xyz}} (void $\ast$out, int index, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a1639ceac21a52f021d566fc1448b0207}{x}}, size\+\_\+t \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_ab10692e2286f905fbf79e48907023fef}{y}}, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} p, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} q, struct \mbox{\hyperlink{structSChunk}{S\+Chunk}} chunk, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges)
+\item 
+void $\ast$ \mbox{\hyperlink{target_2classes_2imaging_8c_a4de0f11acc6acd335a391eddbe374991}{map2\+D\+Chunk}} (void $\ast$vargp)
+\item 
+void $\ast$ \mbox{\hyperlink{target_2classes_2imaging_8c_a40521ba78123080ff67b4e9a0ce68e8d}{map2D}} (void $\ast$out, \mbox{\hyperlink{target_2classes_2imaging_8h_afc89ba8862372eae4213f989a3e4d102}{calc\+\_\+seamless}} \mbox{\hyperlink{target_2classes_2imaging_8h_afc89ba8862372eae4213f989a3e4d102}{calc\+\_\+seamless}}, struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} ranges, size\+\_\+t width, size\+\_\+t height, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{src_2main_2cpp_2kernel_8h_a0de3a6926aecbecf7a6c072916440013}{z}})
+\item 
+\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$ \mbox{\hyperlink{target_2classes_2imaging_8c_a25d399c2fefa9b0f403fc604012e1e52}{scale\+To\+Range}} (\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$data, size\+\_\+t count, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} min, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} max, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} low, \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} high)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_ae8677daaf2dccd585789522e6fc93050}\label{target_2classes_2imaging_8c_ae8677daaf2dccd585789522e6fc93050}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_none@{calc\_seamless\_none}}
+\index{calc\_seamless\_none@{calc\_seamless\_none}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_none()}{calc\_seamless\_none()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+none (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have no seamless mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector3. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_ad64f959e00351c88626fcfd707d88119}\label{target_2classes_2imaging_8c_ad64f959e00351c88626fcfd707d88119}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_x@{calc\_seamless\_x}}
+\index{calc\_seamless\_x@{calc\_seamless\_x}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_x()}{calc\_seamless\_x()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+x (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the X-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector4. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_aadf8745cb0638657c8090eb92db1b7e2}\label{target_2classes_2imaging_8c_aadf8745cb0638657c8090eb92db1b7e2}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_xy@{calc\_seamless\_xy}}
+\index{calc\_seamless\_xy@{calc\_seamless\_xy}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_xy()}{calc\_seamless\_xy()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+xy (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the X-\/\+Y-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector8. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_a52a1f1ffcbbe0643c97769a7fae022df}\label{target_2classes_2imaging_8c_a52a1f1ffcbbe0643c97769a7fae022df}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_xyz@{calc\_seamless\_xyz}}
+\index{calc\_seamless\_xyz@{calc\_seamless\_xyz}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_xyz()}{calc\_seamless\_xyz()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+xyz (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the X-\/\+Y-\/\+Z-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector8. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_ae32ab1fd23f64dc7c16634147722e10a}\label{target_2classes_2imaging_8c_ae32ab1fd23f64dc7c16634147722e10a}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_xz@{calc\_seamless\_xz}}
+\index{calc\_seamless\_xz@{calc\_seamless\_xz}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_xz()}{calc\_seamless\_xz()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+xz (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the X-\/\+Z-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector8. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_a83f066c48a3478f516cf698d89a05462}\label{target_2classes_2imaging_8c_a83f066c48a3478f516cf698d89a05462}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_y@{calc\_seamless\_y}}
+\index{calc\_seamless\_y@{calc\_seamless\_y}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_y()}{calc\_seamless\_y()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+y (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the Y-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector4. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_afe8f33f968b64eb90e30e8e2e693ce25}\label{target_2classes_2imaging_8c_afe8f33f968b64eb90e30e8e2e693ce25}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_yz@{calc\_seamless\_yz}}
+\index{calc\_seamless\_yz@{calc\_seamless\_yz}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_yz()}{calc\_seamless\_yz()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+yz (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the Y-\/\+Z-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector8. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_ae6a3e60685920c36a80319650ed23bae}\label{target_2classes_2imaging_8c_ae6a3e60685920c36a80319650ed23bae}} 
+\index{imaging.c@{imaging.c}!calc\_seamless\_z@{calc\_seamless\_z}}
+\index{calc\_seamless\_z@{calc\_seamless\_z}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{calc\_seamless\_z()}{calc\_seamless\_z()}}
+{\footnotesize\ttfamily void calc\+\_\+seamless\+\_\+z (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{int}]{index,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{p,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{q,  }\item[{struct \mbox{\hyperlink{structSChunk}{S\+Chunk}}}]{chunk,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges }\end{DoxyParamCaption})}
+
+Use with map2D to have seamless along the Z-\/axis mapping ranges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vector4. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_a66939ac0d2d8c9431fa350653dc6e409}\label{target_2classes_2imaging_8c_a66939ac0d2d8c9431fa350653dc6e409}} 
+\index{imaging.c@{imaging.c}!create\_ranges\_default@{create\_ranges\_default}}
+\index{create\_ranges\_default@{create\_ranges\_default}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{create\_ranges\_default()}{create\_ranges\_default()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}} create\+\_\+ranges\+\_\+default (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}} Released as open-\/source under the Apache License, Version 2.\+0.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2021 Erwin Müller \href{mailto:erwin@muellerpublic.de}{\texttt{ erwin@muellerpublic.\+de}}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb} http://www.apache.org/licenses/LICENSE-2.0
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+\DoxyHorRuler{0}
+ A\+N\+L-\/\+Open\+CL \+:: Core is a derivative work based on Josua Tippetts\textquotesingle{} C++ library\+: \href{http://accidentalnoise.sourceforge.net/index.html}{\texttt{ http\+://accidentalnoise.\+sourceforge.\+net/index.\+html}}
+
+\DoxyHorRuler{0}
+
+
+Copyright (C) 2011 Joshua Tippetts
+
+This software is provided \textquotesingle{}as-\/is\textquotesingle{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
+
+
+\begin{DoxyEnumerate}
+\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+\item This notice may not be removed or altered from any source distribution. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{target_2classes_2imaging_8c_a40521ba78123080ff67b4e9a0ce68e8d}\label{target_2classes_2imaging_8c_a40521ba78123080ff67b4e9a0ce68e8d}} 
+\index{imaging.c@{imaging.c}!map2D@{map2D}}
+\index{map2D@{map2D}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{map2D()}{map2D()}}
+{\footnotesize\ttfamily void$\ast$ map2D (\begin{DoxyParamCaption}\item[{void $\ast$}]{out,  }\item[{\mbox{\hyperlink{target_2classes_2imaging_8h_afc89ba8862372eae4213f989a3e4d102}{calc\+\_\+seamless}}}]{calc\+\_\+seamless,  }\item[{struct \mbox{\hyperlink{structSMappingRanges}{S\+Mapping\+Ranges}}}]{ranges,  }\item[{size\+\_\+t}]{width,  }\item[{size\+\_\+t}]{height,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{z }\end{DoxyParamCaption})}
+
+Creates the mapping ranges for the width and height. Different seamless functions are supported. 
+\begin{DoxyParams}{Parameters}
+{\em out} & a pointer to an array of vectors with the correct dimension. 
+\begin{DoxyItemize}
+\item calc\+\_\+seamless\+\_\+none\+: vector3 
+\item calc\+\_\+seamless\+\_\+x\+: vector4 
+\item calc\+\_\+seamless\+\_\+y\+: vector4 
+\item calc\+\_\+seamless\+\_\+z\+: vector4 
+\item calc\+\_\+seamless\+\_\+xy\+: vector8 
+\item calc\+\_\+seamless\+\_\+xz\+: vector8 
+\item calc\+\_\+seamless\+\_\+yz\+: vector8 
+\item calc\+\_\+seamless\+\_\+xyz\+: vector8 
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{target_2classes_2imaging_8c_a4de0f11acc6acd335a391eddbe374991}\label{target_2classes_2imaging_8c_a4de0f11acc6acd335a391eddbe374991}} 
+\index{imaging.c@{imaging.c}!map2DChunk@{map2DChunk}}
+\index{map2DChunk@{map2DChunk}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{map2DChunk()}{map2DChunk()}}
+{\footnotesize\ttfamily void$\ast$ map2\+D\+Chunk (\begin{DoxyParamCaption}\item[{void $\ast$}]{vargp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{target_2classes_2imaging_8c_a25d399c2fefa9b0f403fc604012e1e52}\label{target_2classes_2imaging_8c_a25d399c2fefa9b0f403fc604012e1e52}} 
+\index{imaging.c@{imaging.c}!scaleToRange@{scaleToRange}}
+\index{scaleToRange@{scaleToRange}!imaging.c@{imaging.c}}
+\doxysubsubsection{\texorpdfstring{scaleToRange()}{scaleToRange()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}$\ast$ scale\+To\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $\ast$}]{data,  }\item[{size\+\_\+t}]{count,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{min,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{max,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{low,  }\item[{\mbox{\hyperlink{target_2classes_2opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{high }\end{DoxyParamCaption})}
+
+Scales the values in data to the range between low and high. The data is modified by this function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the R\+E\+AL type data that contains {\ttfamily count} elements. \\
+\hline
+{\em count} & the count of the elements in the data. \\
+\hline
+{\em min} & the minimum value of the data in all dimensions. \\
+\hline
+{\em max} & the minimum value of the data in all dimensions. \\
+\hline
+{\em low} & the low value of the range. \\
+\hline
+{\em high} & the high value of the range. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the scaled data. 
+\end{DoxyReturn}

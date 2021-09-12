@@ -1,0 +1,159 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{OpenCLTestFixture_8h}{}\doxysection{src/test/cpp/\+Open\+C\+L\+Test\+Fixture.h File Reference}
+\label{OpenCLTestFixture_8h}\index{src/test/cpp/OpenCLTestFixture.h@{src/test/cpp/OpenCLTestFixture.h}}
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$opencv2/core.\+hpp$>$}\newline
+{\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Context.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}opencl\+\_\+utils.\+h\char`\"{}}\newline
+Include dependency graph for Open\+C\+L\+Test\+Fixture.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{OpenCLTestFixture_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{OpenCLTestFixture_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}
+\item 
+class \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture}{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture}}
+\item 
+class \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}
+\item 
+class \mbox{\hyperlink{classOpenCL__Context__SVM__Fixture}{Open\+C\+L\+\_\+\+Context\+\_\+\+S\+V\+M\+\_\+\+Fixture}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\item 
+\#define \mbox{\hyperlink{OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}{G\+R\+E\+Y\+\_\+\+CV}}~C\+V\+\_\+32F
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\using \mbox{\hyperlink{OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} = std\+::vector$<$ T, cl\+::\+S\+V\+M\+Allocator$<$ \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{OpenCLTestFixture_8h_a7a0b685afca5d5fabe0bbfa1cdea6fb1}{mkpath}} (const char $\ast$dir, mode\+\_\+t mode=S\+\_\+\+I\+R\+W\+XU$\vert$S\+\_\+\+I\+R\+W\+XG$\vert$S\+\_\+\+I\+R\+O\+TH$\vert$S\+\_\+\+I\+X\+O\+TH)
+\item 
+std\+::string \mbox{\hyperlink{OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}{mat\+\_\+to\+\_\+s}} (cv\+::\+Mat \&m)
+\item 
+{\footnotesize template$<$typename T $>$ }\\cl\+\_\+int \mbox{\hyperlink{OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}{copy}} (const cl\+::\+Command\+Queue \&queue, const cl\+::\+Buffer \&buffer, std\+::vector$<$ T $>$ \&target)
+\item 
+{\footnotesize template$<$typename T $>$ }\\cl\+\_\+int \mbox{\hyperlink{OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}{copy}} (const cl\+::\+Buffer \&buffer, std\+::vector$<$ T $>$ \&target)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}\label{OpenCLTestFixture_8h_ae7c96c1469662004d842704e2ff076fb}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+\index{CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
+
+\mbox{\Hypertarget{OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}\label{OpenCLTestFixture_8h_a291505abc861853f88d5bbfc6e6a534d}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!GREY\_CV@{GREY\_CV}}
+\index{GREY\_CV@{GREY\_CV}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{GREY\_CV}{GREY\_CV}}
+{\footnotesize\ttfamily \#define G\+R\+E\+Y\+\_\+\+CV~C\+V\+\_\+32F}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}\label{OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}}
+\index{coarse\_float\_svm\_vector@{coarse\_float\_svm\_vector}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{coarse\_float\_svm\_vector}{coarse\_float\_svm\_vector}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+using \mbox{\hyperlink{OpenCLTestFixture_8h_a44712ae5ff6c167d122c0e2b103ec3f7}{coarse\+\_\+float\+\_\+svm\+\_\+vector}} =  std\+::vector$<$T, cl\+::\+S\+V\+M\+Allocator$<$\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}, cl\+::\+S\+V\+M\+Trait\+Coarse$<$$>$ $>$$>$}
+
+S\+VM vector for float elements. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}\label{OpenCLTestFixture_8h_a3474fc106dde4c53503b98a5b2e352eb}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!copy@{copy}}
+\index{copy@{copy}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+cl\+\_\+int copy (\begin{DoxyParamCaption}\item[{const cl\+::\+Buffer \&}]{buffer,  }\item[{std\+::vector$<$ T $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Blocking copy operation between iterators and a buffer. Device to Host. Uses default command queue. Uses memcpy. \mbox{\Hypertarget{OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}\label{OpenCLTestFixture_8h_a222380752fa338ee88e20c71059c1a62}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!copy@{copy}}
+\index{copy@{copy}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+cl\+\_\+int copy (\begin{DoxyParamCaption}\item[{const cl\+::\+Command\+Queue \&}]{queue,  }\item[{const cl\+::\+Buffer \&}]{buffer,  }\item[{std\+::vector$<$ T $>$ \&}]{target }\end{DoxyParamCaption})}
+
+Blocking copy operation between iterators and a buffer. Device to Host. Uses specified queue. Uses memcpy. \mbox{\Hypertarget{OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}\label{OpenCLTestFixture_8h_ae345400e08783040cbcfcc150dd82d84}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!mat\_to\_s@{mat\_to\_s}}
+\index{mat\_to\_s@{mat\_to\_s}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{mat\_to\_s()}{mat\_to\_s()}}
+{\footnotesize\ttfamily std\+::string mat\+\_\+to\+\_\+s (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{m }\end{DoxyParamCaption})}
+
+Outputs the matrix as string. \mbox{\Hypertarget{OpenCLTestFixture_8h_a7a0b685afca5d5fabe0bbfa1cdea6fb1}\label{OpenCLTestFixture_8h_a7a0b685afca5d5fabe0bbfa1cdea6fb1}} 
+\index{OpenCLTestFixture.h@{OpenCLTestFixture.h}!mkpath@{mkpath}}
+\index{mkpath@{mkpath}!OpenCLTestFixture.h@{OpenCLTestFixture.h}}
+\doxysubsubsection{\texorpdfstring{mkpath()}{mkpath()}}
+{\footnotesize\ttfamily int mkpath (\begin{DoxyParamCaption}\item[{const char $\ast$}]{dir,  }\item[{mode\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+Creates the directory if it does not exist.
+
+Taken from \href{https://stackoverflow.com/questions/2336242/recursive-mkdir-system-call-on-unix}{\texttt{ https\+://stackoverflow.\+com/questions/2336242/recursive-\/mkdir-\/system-\/call-\/on-\/unix}} 

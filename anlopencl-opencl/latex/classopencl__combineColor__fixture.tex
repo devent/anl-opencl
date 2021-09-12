@@ -1,0 +1,157 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{classopencl__combineColor__fixture}{}\doxysection{opencl\+\_\+combine\+Color\+\_\+fixture Class Reference}
+\label{classopencl__combineColor__fixture}\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+
+
+Inheritance diagram for opencl\+\_\+combine\+Color\+\_\+fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classopencl__combineColor__fixture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for opencl\+\_\+combine\+Color\+\_\+fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classopencl__combineColor__fixture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classopencl__combineColor__fixture_a83206c1d640e43baef78db305bd2d4d6}{setup\+Input}} ()
+\item 
+virtual std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__combineColor__fixture_a10f43444983e4316664e218e04ac668e}{get\+Input\+Buffer}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classopencl__combineColor__fixture_ac256d525869d5b6d9cd12e0e1b69ddb6}{get\+Color\+Channels}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classopencl__combineColor__fixture_a84df23e4e7723ed3d44fc62c1b12729a}{run\+Kernel}} (cl\+::\+Program \&kernel)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ std\+::vector$<$ \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $>$ $>$ \mbox{\hyperlink{classopencl__combineColor__fixture_a336ab1e2c41be7d6658db579c1ed98d5}{input}}
+\item 
+std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__combineColor__fixture_afda5726b4ccd3e0977f206ff4b7eb6cc}{input\+Buffer}}
+\item 
+const std\+::string \mbox{\hyperlink{classopencl__combineColor__fixture_ad6100d0e476d07293815442b3ef9f6c7}{out\+\_\+dir}} = \char`\"{}out/combine\+Color/\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classopencl__combineColor__fixture}{opencl\+\_\+combine\+Color\+\_\+fixture}} 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classopencl__combineColor__fixture_ac256d525869d5b6d9cd12e0e1b69ddb6}\label{classopencl__combineColor__fixture_ac256d525869d5b6d9cd12e0e1b69ddb6}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!getColorChannels@{getColorChannels}}
+\index{getColorChannels@{getColorChannels}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{getColorChannels()}{getColorChannels()}}
+{\footnotesize\ttfamily virtual size\+\_\+t opencl\+\_\+combine\+Color\+\_\+fixture\+::get\+Color\+Channels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Returns color channels of the output buffer. Defaults to 1. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a552b74373854a067ab89b213b2b99a3f}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classopencl__combineColor__fixture_a10f43444983e4316664e218e04ac668e}\label{classopencl__combineColor__fixture_a10f43444983e4316664e218e04ac668e}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!getInputBuffer@{getInputBuffer}}
+\index{getInputBuffer@{getInputBuffer}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{getInputBuffer()}{getInputBuffer()}}
+{\footnotesize\ttfamily virtual std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+combine\+Color\+\_\+fixture\+::get\+Input\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Returns the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a5450f0a53d4e7772ff83170a5eb606dc}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classopencl__combineColor__fixture_a84df23e4e7723ed3d44fc62c1b12729a}\label{classopencl__combineColor__fixture_a84df23e4e7723ed3d44fc62c1b12729a}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!runKernel@{runKernel}}
+\index{runKernel@{runKernel}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{runKernel()}{runKernel()}}
+{\footnotesize\ttfamily virtual size\+\_\+t opencl\+\_\+combine\+Color\+\_\+fixture\+::run\+Kernel (\begin{DoxyParamCaption}\item[{cl\+::\+Program \&}]{kernel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Runs the kernel. 
+
+Implements \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classopencl__combineColor__fixture_a83206c1d640e43baef78db305bd2d4d6}\label{classopencl__combineColor__fixture_a83206c1d640e43baef78db305bd2d4d6}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!setupInput@{setupInput}}
+\index{setupInput@{setupInput}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{setupInput()}{setupInput()}}
+{\footnotesize\ttfamily void opencl\+\_\+combine\+Color\+\_\+fixture\+::setup\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Setups the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a46e836e9c0bb0692873801f5cb0b8e02}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classopencl__combineColor__fixture_a336ab1e2c41be7d6658db579c1ed98d5}\label{classopencl__combineColor__fixture_a336ab1e2c41be7d6658db579c1ed98d5}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!input@{input}}
+\index{input@{input}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{input}{input}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$std\+::vector$<$\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}$>$ $>$ opencl\+\_\+combine\+Color\+\_\+fixture\+::input\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classopencl__combineColor__fixture_afda5726b4ccd3e0977f206ff4b7eb6cc}\label{classopencl__combineColor__fixture_afda5726b4ccd3e0977f206ff4b7eb6cc}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!inputBuffer@{inputBuffer}}
+\index{inputBuffer@{inputBuffer}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{inputBuffer}{inputBuffer}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+combine\+Color\+\_\+fixture\+::input\+Buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classopencl__combineColor__fixture_ad6100d0e476d07293815442b3ef9f6c7}\label{classopencl__combineColor__fixture_ad6100d0e476d07293815442b3ef9f6c7}} 
+\index{opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}!out\_dir@{out\_dir}}
+\index{out\_dir@{out\_dir}!opencl\_combineColor\_fixture@{opencl\_combineColor\_fixture}}
+\doxysubsubsection{\texorpdfstring{out\_dir}{out\_dir}}
+{\footnotesize\ttfamily const std\+::string opencl\+\_\+combine\+Color\+\_\+fixture\+::out\+\_\+dir = \char`\"{}out/combine\+Color/\char`\"{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/test/cpp/\mbox{\hyperlink{opencl__combineColor__test_8cpp}{opencl\+\_\+combine\+Color\+\_\+test.\+cpp}}\end{DoxyCompactItemize}

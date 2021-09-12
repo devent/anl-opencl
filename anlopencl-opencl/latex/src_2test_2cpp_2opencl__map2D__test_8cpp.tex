@@ -1,0 +1,118 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{src_2test_2cpp_2opencl__map2D__test_8cpp}{}\doxysection{src/test/cpp/opencl\+\_\+map2\+D\+\_\+test.cpp File Reference}
+\label{src_2test_2cpp_2opencl__map2D__test_8cpp}\index{src/test/cpp/opencl\_map2D\_test.cpp@{src/test/cpp/opencl\_map2D\_test.cpp}}
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include $<$bits/stdc++.\+h$>$}\newline
+{\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/sinks/stdout\+\_\+color\+\_\+sinks.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Test\+Fixture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}opencl\+\_\+utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
+Include dependency graph for opencl\+\_\+map2\+D\+\_\+test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2test_2cpp_2opencl__map2D__test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvalue__map2D__default__fixture}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{src_2test_2cpp_2opencl__map2D__test_8cpp_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{src_2test_2cpp_2opencl__map2D__test_8cpp_ab849dd3515adc7adee730a75f6ade023}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classvalue__map2D__default__fixture}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}, show\+\_\+image)
+\item 
+\mbox{\hyperlink{src_2test_2cpp_2opencl__map2D__test_8cpp_a60d77d83e797634c8ac5af31483abc48}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+map2\+D\+\_\+test, \mbox{\hyperlink{classvalue__map2D__default__fixture}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}opencl\+\_\+map2\+D\+\_\+default\+\_\+test\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/opencl\+\_\+map2\+D\+\_\+test.\+cl\char`\"{}), size)))
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const size\+\_\+t \mbox{\hyperlink{src_2test_2cpp_2opencl__map2D__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}{size}} = pow(2, 3)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2opencl__map2D__test_8cpp_ae7c96c1469662004d842704e2ff076fb}\label{src_2test_2cpp_2opencl__map2D__test_8cpp_ae7c96c1469662004d842704e2ff076fb}} 
+\index{opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}!CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+\index{CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}!opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2opencl__map2D__test_8cpp_a60d77d83e797634c8ac5af31483abc48}\label{src_2test_2cpp_2opencl__map2D__test_8cpp_a60d77d83e797634c8ac5af31483abc48}} 
+\index{opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+map2\+D\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classvalue__map2D__default__fixture}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}opencl\+\_\+map2\+D\+\_\+default\+\_\+test\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/opencl\+\_\+map2\+D\+\_\+test.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2test_2cpp_2opencl__map2D__test_8cpp_ab849dd3515adc7adee730a75f6ade023}\label{src_2test_2cpp_2opencl__map2D__test_8cpp_ab849dd3515adc7adee730a75f6ade023}} 
+\index{opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classvalue__map2D__default__fixture}{value\+\_\+map2\+D\+\_\+default\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{src_2test_2cpp_2opencl__map2D__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}\label{src_2test_2cpp_2opencl__map2D__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}} 
+\index{opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}!size@{size}}
+\index{size@{size}!opencl\_map2D\_test.cpp@{opencl\_map2D\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily const size\+\_\+t size = pow(2, 3)}
+

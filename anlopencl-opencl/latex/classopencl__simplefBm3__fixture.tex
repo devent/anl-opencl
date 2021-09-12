@@ -1,0 +1,145 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{classopencl__simplefBm3__fixture}{}\doxysection{opencl\+\_\+simplef\+Bm3\+\_\+fixture Class Reference}
+\label{classopencl__simplefBm3__fixture}\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+
+
+Inheritance diagram for opencl\+\_\+simplef\+Bm3\+\_\+fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classopencl__simplefBm3__fixture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for opencl\+\_\+simplef\+Bm3\+\_\+fixture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classopencl__simplefBm3__fixture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classopencl__simplefBm3__fixture_ab1882d6a3b5eb3543d3273e00426c2ba}{setup\+Input}} ()
+\item 
+virtual std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__simplefBm3__fixture_a399917aae0cc10869638d2f34b32679a}{get\+Input\+Buffer}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classopencl__simplefBm3__fixture_a62f416171e413965f261f285b9b7f1b7}{run\+Kernel}} (cl\+::\+Program \&kernel)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ std\+::vector$<$ \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} $>$ $>$ \mbox{\hyperlink{classopencl__simplefBm3__fixture_a400918dc7d43221047100cc63aba28cd}{input}}
+\item 
+std\+::shared\+\_\+ptr$<$ cl\+::\+Buffer $>$ \mbox{\hyperlink{classopencl__simplefBm3__fixture_af1fcfedddc2fb6d17195eba7e8d87448}{input\+Buffer}}
+\item 
+const std\+::string \mbox{\hyperlink{classopencl__simplefBm3__fixture_a99dafd81dfd95af5bf3936efcb22c48d}{out\+\_\+dir}} = \char`\"{}out/\mbox{\hyperlink{kernel_8h_aa0acf24081cf076e68d2b420dc391f8f}{simple\+Billow\+Layer3}}/\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classopencl__simplefBm3__fixture}{opencl\+\_\+simplef\+Bm3\+\_\+fixture}} 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_a399917aae0cc10869638d2f34b32679a}\label{classopencl__simplefBm3__fixture_a399917aae0cc10869638d2f34b32679a}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!getInputBuffer@{getInputBuffer}}
+\index{getInputBuffer@{getInputBuffer}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{getInputBuffer()}{getInputBuffer()}}
+{\footnotesize\ttfamily virtual std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::get\+Input\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Returns the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a5450f0a53d4e7772ff83170a5eb606dc}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_a62f416171e413965f261f285b9b7f1b7}\label{classopencl__simplefBm3__fixture_a62f416171e413965f261f285b9b7f1b7}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!runKernel@{runKernel}}
+\index{runKernel@{runKernel}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{runKernel()}{runKernel()}}
+{\footnotesize\ttfamily virtual size\+\_\+t opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::run\+Kernel (\begin{DoxyParamCaption}\item[{cl\+::\+Program \&}]{kernel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Runs the kernel. 
+
+Implements \mbox{\hyperlink{classAbstract__OpenCL__Context__Fixture_ac81e04aaabbdf2b798517d94d4b55dfe}{Abstract\+\_\+\+Open\+C\+L\+\_\+\+Context\+\_\+\+Fixture}}.
+
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_ab1882d6a3b5eb3543d3273e00426c2ba}\label{classopencl__simplefBm3__fixture_ab1882d6a3b5eb3543d3273e00426c2ba}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!setupInput@{setupInput}}
+\index{setupInput@{setupInput}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{setupInput()}{setupInput()}}
+{\footnotesize\ttfamily void opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::setup\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Setups the input buffer for the common\+Run\+Kernel(cl\+::\+Program) function. 
+
+Reimplemented from \mbox{\hyperlink{classOpenCL__Context__Buffer__Fixture_a46e836e9c0bb0692873801f5cb0b8e02}{Open\+C\+L\+\_\+\+Context\+\_\+\+Buffer\+\_\+\+Fixture}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_a400918dc7d43221047100cc63aba28cd}\label{classopencl__simplefBm3__fixture_a400918dc7d43221047100cc63aba28cd}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!input@{input}}
+\index{input@{input}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{input}{input}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$std\+::vector$<$\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}$>$ $>$ opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::input\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_af1fcfedddc2fb6d17195eba7e8d87448}\label{classopencl__simplefBm3__fixture_af1fcfedddc2fb6d17195eba7e8d87448}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!inputBuffer@{inputBuffer}}
+\index{inputBuffer@{inputBuffer}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{inputBuffer}{inputBuffer}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$cl\+::\+Buffer$>$ opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::input\+Buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classopencl__simplefBm3__fixture_a99dafd81dfd95af5bf3936efcb22c48d}\label{classopencl__simplefBm3__fixture_a99dafd81dfd95af5bf3936efcb22c48d}} 
+\index{opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}!out\_dir@{out\_dir}}
+\index{out\_dir@{out\_dir}!opencl\_simplefBm3\_fixture@{opencl\_simplefBm3\_fixture}}
+\doxysubsubsection{\texorpdfstring{out\_dir}{out\_dir}}
+{\footnotesize\ttfamily const std\+::string opencl\+\_\+simplef\+Bm3\+\_\+fixture\+::out\+\_\+dir = \char`\"{}out/\mbox{\hyperlink{kernel_8h_aa0acf24081cf076e68d2b420dc391f8f}{simple\+Billow\+Layer3}}/\char`\"{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/test/cpp/\mbox{\hyperlink{opencl__simplefBm__test_8cpp}{opencl\+\_\+simplef\+Bm\+\_\+test.\+cpp}}\end{DoxyCompactItemize}

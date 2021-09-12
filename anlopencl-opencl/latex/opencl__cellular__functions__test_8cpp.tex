@@ -1,0 +1,206 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{opencl__cellular__functions__test_8cpp}{}\doxysection{src/test/cpp/opencl\+\_\+cellular\+\_\+functions\+\_\+test.cpp File Reference}
+\label{opencl__cellular__functions__test_8cpp}\index{src/test/cpp/opencl\_cellular\_functions\_test.cpp@{src/test/cpp/opencl\_cellular\_functions\_test.cpp}}
+{\ttfamily \#include $<$C\+L/opencl.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}Open\+C\+L\+Test\+Fixture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}imaging.\+h\char`\"{}}\newline
+Include dependency graph for opencl\+\_\+cellular\+\_\+functions\+\_\+test.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{opencl__cellular__functions__test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}
+\item 
+class \mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}
+\item 
+class \mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}
+\item 
+class \mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ae7c96c1469662004d842704e2ff076fb}{C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a927fd7c6472be2f40aa32547cfb70308}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}, show\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ab2630b454ed33f07577f12f81855f80c}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}, save\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ac2fa429e4985245d246b521388dc8907}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+cellular\+\_\+function2\+D\+\_\+test, \mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size)))
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_aef8dbbe7813ae34ac39b9f7737bf0642}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}, show\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_adc39a8d83f64b1f4d0935ae587caeaad}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}, save\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a979e2beeaa1c5b16dbbe062dc7bcbc24}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+cellular\+\_\+function3\+D\+\_\+test, \mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size)))
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a66e1bfc5184ca9f6a652da58c05d6ec1}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}, show\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ab5b57dd773ca99faca25b4b35b7f56e7}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}, save\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_afbcc1fe09d5907174d9d116907fd25b6}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+cellular\+\_\+function4\+D\+\_\+test, \mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size)))
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a3ea8ce755eac61a6a89dfee5dd7724a4}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}, show\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ae2775080a6a23e6fce2cc01f62d516ba}{T\+E\+S\+T\+\_\+P}} (\mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}, save\+\_\+image)
+\item 
+\mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a84ed4871192032bede8d7fa4c9c73acc}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P}} (opencl\+\_\+cellular\+\_\+function6\+D\+\_\+test, \mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}, Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size)))
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const size\+\_\+t \mbox{\hyperlink{opencl__cellular__functions__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}{size}} = pow(2, 10)
+\item 
+const std\+::string \mbox{\hyperlink{opencl__cellular__functions__test_8cpp_ae33e8dfb0caf028738d602c4c8bb8e50}{out\+\_\+dir}} = \char`\"{}out/cellular\+\_\+functions/\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ae7c96c1469662004d842704e2ff076fb}\label{opencl__cellular__functions__test_8cpp_ae7c96c1469662004d842704e2ff076fb}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+\index{CL\_HPP\_ENABLE\_EXCEPTIONS@{CL\_HPP\_ENABLE\_EXCEPTIONS}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{CL\_HPP\_ENABLE\_EXCEPTIONS}{CL\_HPP\_ENABLE\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+P\+P\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+NS}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ac2fa429e4985245d246b521388dc8907}\label{opencl__cellular__functions__test_8cpp_ac2fa429e4985245d246b521388dc8907}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function2\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions2\+D.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function2\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a979e2beeaa1c5b16dbbe062dc7bcbc24}\label{opencl__cellular__functions__test_8cpp_a979e2beeaa1c5b16dbbe062dc7bcbc24}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function3\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions3\+D.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function3\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_afbcc1fe09d5907174d9d116907fd25b6}\label{opencl__cellular__functions__test_8cpp_afbcc1fe09d5907174d9d116907fd25b6}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function4\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions4\+D.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function4\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a84ed4871192032bede8d7fa4c9c73acc}\label{opencl__cellular__functions__test_8cpp_a84ed4871192032bede8d7fa4c9c73acc}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P()}{INSTANTIATE\_TEST\_SUITE\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+P (\begin{DoxyParamCaption}\item[{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+test}]{,  }\item[{\mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}}]{,  }\item[{Values(\mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Euclid\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Manhattan\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Greatest\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size), \mbox{\hyperlink{structKernelContext}{Kernel\+Context}}(\char`\"{}cellular\+\_\+function6\+D\+\_\+dist\+Least\+Axis\char`\"{}, read\+File(\char`\"{}src/test/cpp/kernels/cellular\+\_\+functions6\+D.\+cl\char`\"{}), size))}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function6\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ab2630b454ed33f07577f12f81855f80c}\label{opencl__cellular__functions__test_8cpp_ab2630b454ed33f07577f12f81855f80c}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}}]{,  }\item[{save\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function2\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture-\/save\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a927fd7c6472be2f40aa32547cfb70308}\label{opencl__cellular__functions__test_8cpp_a927fd7c6472be2f40aa32547cfb70308}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function2D__fixture}{opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function2\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function2\+D\+\_\+fixture-\/show\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_adc39a8d83f64b1f4d0935ae587caeaad}\label{opencl__cellular__functions__test_8cpp_adc39a8d83f64b1f4d0935ae587caeaad}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}}]{,  }\item[{save\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function3\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture-\/save\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_aef8dbbe7813ae34ac39b9f7737bf0642}\label{opencl__cellular__functions__test_8cpp_aef8dbbe7813ae34ac39b9f7737bf0642}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function3D__fixture}{opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function3\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function3\+D\+\_\+fixture-\/show\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ab5b57dd773ca99faca25b4b35b7f56e7}\label{opencl__cellular__functions__test_8cpp_ab5b57dd773ca99faca25b4b35b7f56e7}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}}]{,  }\item[{save\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function4\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture-\/save\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a66e1bfc5184ca9f6a652da58c05d6ec1}\label{opencl__cellular__functions__test_8cpp_a66e1bfc5184ca9f6a652da58c05d6ec1}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function4D__fixture}{opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function4\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function4\+D\+\_\+fixture-\/show\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ae2775080a6a23e6fce2cc01f62d516ba}\label{opencl__cellular__functions__test_8cpp_ae2775080a6a23e6fce2cc01f62d516ba}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}}]{,  }\item[{save\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function6\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture-\/save\+\_\+image \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a3ea8ce755eac61a6a89dfee5dd7724a4}\label{opencl__cellular__functions__test_8cpp_a3ea8ce755eac61a6a89dfee5dd7724a4}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_P()}{TEST\_P()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classopencl__cellular__function6D__fixture}{opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture}}}]{,  }\item[{show\+\_\+image}]{ }\end{DoxyParamCaption})}
+
+opencl\+\_\+cellular\+\_\+function6\+D\+\_\+test-\/opencl\+\_\+cellular\+\_\+function6\+D\+\_\+fixture-\/show\+\_\+image 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_ae33e8dfb0caf028738d602c4c8bb8e50}\label{opencl__cellular__functions__test_8cpp_ae33e8dfb0caf028738d602c4c8bb8e50}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!out\_dir@{out\_dir}}
+\index{out\_dir@{out\_dir}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{out\_dir}{out\_dir}}
+{\footnotesize\ttfamily const std\+::string out\+\_\+dir = \char`\"{}out/cellular\+\_\+functions/\char`\"{}}
+
+Output directory. \mbox{\Hypertarget{opencl__cellular__functions__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}\label{opencl__cellular__functions__test_8cpp_a685609860d73ccd0d45ada287ab9ab5f}} 
+\index{opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}!size@{size}}
+\index{size@{size}!opencl\_cellular\_functions\_test.cpp@{opencl\_cellular\_functions\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily const size\+\_\+t size = pow(2, 10)}
+
+Width x Height of the generated image. 

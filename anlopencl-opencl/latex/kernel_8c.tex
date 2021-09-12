@@ -1,0 +1,925 @@
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+% Released as open-source under the Apache License, Version 2.0.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL
+% ****************************************************************************
+%
+% Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%      http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% ****************************************************************************
+% ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+% http://accidentalnoise.sourceforge.net/index.html
+% ****************************************************************************
+%
+% Copyright (C) 2011 Joshua Tippetts
+%
+%   This software is provided 'as-is', without any express or implied
+%   warranty.  In no event will the authors be held liable for any damages
+%   arising from the use of this software.
+%
+%   Permission is granted to anyone to use this software for any purpose,
+%   including commercial applications, and to alter it and redistribute it
+%   freely, subject to the following restrictions:
+%
+%   1. The origin of this software must not be misrepresented; you must not
+%      claim that you wrote the original software. If you use this software
+%      in a product, an acknowledgment in the product documentation would be
+%      appreciated but is not required.
+%   2. Altered source versions must be plainly marked as such, and must not be
+%      misrepresented as being the original software.
+%   3. This notice may not be removed or altered from any source distribution.
+
+\hypertarget{kernel_8c}{}\doxysection{src/main/cpp/kernel.c File Reference}
+\label{kernel_8c}\index{src/main/cpp/kernel.c@{src/main/cpp/kernel.c}}
+{\ttfamily \#include \char`\"{}kernel.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+Include dependency graph for kernel.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{kernel_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{kernel_8c_a41b778e063d82afd7b2a73551da8e5f7}{rotate\+Domain}} (\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} dest\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} src\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+vector3 \mbox{\hyperlink{kernel_8c_acf1209cb6bb227dba75938640aad4283}{rotate\+Domain3}} (vector3 src, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+vector4 \mbox{\hyperlink{kernel_8c_a2b675d039b735a22620b075636737062}{rotate\+Domain4}} (vector4 src, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+vector8 \mbox{\hyperlink{kernel_8c_aa424f4e10cc0a9a80e19f229e8ffed4f}{rotate\+Domain6}} (vector8 src, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+vector4 \mbox{\hyperlink{kernel_8c_ab62f713739b1bf2100661281acf2fabe}{combine\+R\+G\+BA}} (\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} r, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} g, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} b, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} a)
+\item 
+vector4 \mbox{\hyperlink{kernel_8c_af315658772033aca35f6f6adedc9f688}{combine\+H\+S\+VA}} (\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} h, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} s, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} a)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_aa6473efc432cfee3c4b8adaea2bd9b94}{simple\+Fractal\+Layer3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_adc1da409b8cdbeb59a2bec1f21d2ec08}{simple\+Fractal\+Layer4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a991e10e473869c245a39995732ff9d95}{simple\+Fractal\+Layer6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a6dc97b9e69ac0fb9577ccfaf46547d61}{simple\+Ridged\+Layer3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a7faedc2dc2134c546a13c61c8ffcbd78}{simple\+Ridged\+Layer4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a7e37ad4f5a7bfbf85c174819f7c17ab9}{simple\+Ridged\+Layer6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_aa0acf24081cf076e68d2b420dc391f8f}{simple\+Billow\+Layer3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a4cc66ad164825838949fc86422dc9251}{simple\+Billow\+Layer4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_afed1fafa2dcadc8d835d027236edd7ce}{simple\+Billow\+Layer6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerscale, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} layerfreq, bool rot, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} angle, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ax, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} ay, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} az)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_ab82de3a6119f185f898f786f16a21e37}{simplef\+Bm3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a2107ecbc9124e176b620b234e64f5006}{simplef\+Bm4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a9d838bf02acbb0c0208c9df4f8d973f6}{simplef\+Bm6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a2b5fc3c54c393ccc0a4304e3f7143830}{simple\+Ridged\+Multifractal3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a80fd5c91e6a6b565db5afad2d7a6063e}{simple\+Ridged\+Multifractal4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_aca6687a831d5b809bda97722f5b62f02}{simple\+Ridged\+Multifractal6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a582e0a7a6d6279c75f70a3a22a82581e}{simple\+Billow3}} (vector3 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_aa65a18fd5c0576e21c6c7107bbe835ab}{simple\+Billow4}} (vector4 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\item 
+\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} \mbox{\hyperlink{kernel_8c_a34fe638e85327a3f2c2dae6f222e0001}{simple\+Billow6}} (vector8 \mbox{\hyperlink{kernel_8h_ae580e0f1aa527e7c362f7b08bf836b4c}{v}}, \mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}} basistype, uint seed, \mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}} interp, \mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}} rnd, void $\ast$srnd, uint numoctaves, \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} frequency, bool rot)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{kernel_8c_af315658772033aca35f6f6adedc9f688}\label{kernel_8c_af315658772033aca35f6f6adedc9f688}} 
+\index{kernel.c@{kernel.c}!combineHSVA@{combineHSVA}}
+\index{combineHSVA@{combineHSVA}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{combineHSVA()}{combineHSVA()}}
+{\footnotesize\ttfamily vector4 combine\+H\+S\+VA (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{h,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{s,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{v,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{a }\end{DoxyParamCaption})}
+
+Combines the H\+S\+VA values. \mbox{\Hypertarget{kernel_8c_ab62f713739b1bf2100661281acf2fabe}\label{kernel_8c_ab62f713739b1bf2100661281acf2fabe}} 
+\index{kernel.c@{kernel.c}!combineRGBA@{combineRGBA}}
+\index{combineRGBA@{combineRGBA}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{combineRGBA()}{combineRGBA()}}
+{\footnotesize\ttfamily vector4 combine\+R\+G\+BA (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{r,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{g,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{b,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{a }\end{DoxyParamCaption})}
+
+Combines the R\+G\+BA values. \mbox{\Hypertarget{kernel_8c_a41b778e063d82afd7b2a73551da8e5f7}\label{kernel_8c_a41b778e063d82afd7b2a73551da8e5f7}} 
+\index{kernel.c@{kernel.c}!rotateDomain@{rotateDomain}}
+\index{rotateDomain@{rotateDomain}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{rotateDomain()}{rotateDomain()}}
+{\footnotesize\ttfamily void rotate\+Domain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{dest\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{src\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kernel_8c_acf1209cb6bb227dba75938640aad4283}\label{kernel_8c_acf1209cb6bb227dba75938640aad4283}} 
+\index{kernel.c@{kernel.c}!rotateDomain3@{rotateDomain3}}
+\index{rotateDomain3@{rotateDomain3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{rotateDomain3()}{rotateDomain3()}}
+{\footnotesize\ttfamily vector3 rotate\+Domain3 (\begin{DoxyParamCaption}\item[{vector3}]{src,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Rotates the source coordinates by the angle over the rotation axis. 
+\begin{DoxyParams}{Parameters}
+{\em src} & the source vector3 (x,y,z). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rotated vector3 (x\textquotesingle{},y\textquotesingle{},z\textquotesingle{}). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{kernel_8c_a2b675d039b735a22620b075636737062}\label{kernel_8c_a2b675d039b735a22620b075636737062}} 
+\index{kernel.c@{kernel.c}!rotateDomain4@{rotateDomain4}}
+\index{rotateDomain4@{rotateDomain4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{rotateDomain4()}{rotateDomain4()}}
+{\footnotesize\ttfamily vector4 rotate\+Domain4 (\begin{DoxyParamCaption}\item[{vector4}]{src,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Rotates the source coordinates by the angle over the rotation axis. 
+\begin{DoxyParams}{Parameters}
+{\em src} & the source vector4 (x,y,z,w). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rotated vector4 (x\textquotesingle{},y\textquotesingle{},z\textquotesingle{},w). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{kernel_8c_aa424f4e10cc0a9a80e19f229e8ffed4f}\label{kernel_8c_aa424f4e10cc0a9a80e19f229e8ffed4f}} 
+\index{kernel.c@{kernel.c}!rotateDomain6@{rotateDomain6}}
+\index{rotateDomain6@{rotateDomain6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{rotateDomain6()}{rotateDomain6()}}
+{\footnotesize\ttfamily vector8 rotate\+Domain6 (\begin{DoxyParamCaption}\item[{vector8}]{src,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Rotates the source coordinates by the angle over the rotation axis. 
+\begin{DoxyParams}{Parameters}
+{\em src} & the source vector8 (x,y,z,w,u,v). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rotated vector8 (x\textquotesingle{},y\textquotesingle{},z\textquotesingle{},w,u,v). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{kernel_8c_a582e0a7a6d6279c75f70a3a22a82581e}\label{kernel_8c_a582e0a7a6d6279c75f70a3a22a82581e}} 
+\index{kernel.c@{kernel.c}!simpleBillow3@{simpleBillow3}}
+\index{simpleBillow3@{simpleBillow3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillow3()}{simpleBillow3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns billow (cloud-\/like, lumpy) fractal value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_aa65a18fd5c0576e21c6c7107bbe835ab}\label{kernel_8c_aa65a18fd5c0576e21c6c7107bbe835ab}} 
+\index{kernel.c@{kernel.c}!simpleBillow4@{simpleBillow4}}
+\index{simpleBillow4@{simpleBillow4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillow4()}{simpleBillow4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns billow (cloud-\/like, lumpy) fractal value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a34fe638e85327a3f2c2dae6f222e0001}\label{kernel_8c_a34fe638e85327a3f2c2dae6f222e0001}} 
+\index{kernel.c@{kernel.c}!simpleBillow6@{simpleBillow6}}
+\index{simpleBillow6@{simpleBillow6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillow6()}{simpleBillow6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns billow (cloud-\/like, lumpy) fractal value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_aa0acf24081cf076e68d2b420dc391f8f}\label{kernel_8c_aa0acf24081cf076e68d2b420dc391f8f}} 
+\index{kernel.c@{kernel.c}!simpleBillowLayer3@{simpleBillowLayer3}}
+\index{simpleBillowLayer3@{simpleBillowLayer3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillowLayer3()}{simpleBillowLayer3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow\+Layer3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple billow layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a4cc66ad164825838949fc86422dc9251}\label{kernel_8c_a4cc66ad164825838949fc86422dc9251}} 
+\index{kernel.c@{kernel.c}!simpleBillowLayer4@{simpleBillowLayer4}}
+\index{simpleBillowLayer4@{simpleBillowLayer4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillowLayer4()}{simpleBillowLayer4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow\+Layer4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple billow layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_afed1fafa2dcadc8d835d027236edd7ce}\label{kernel_8c_afed1fafa2dcadc8d835d027236edd7ce}} 
+\index{kernel.c@{kernel.c}!simpleBillowLayer6@{simpleBillowLayer6}}
+\index{simpleBillowLayer6@{simpleBillowLayer6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleBillowLayer6()}{simpleBillowLayer6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Billow\+Layer6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple billow layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_ab82de3a6119f185f898f786f16a21e37}\label{kernel_8c_ab82de3a6119f185f898f786f16a21e37}} 
+\index{kernel.c@{kernel.c}!simplefBm3@{simplefBm3}}
+\index{simplefBm3@{simplefBm3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simplefBm3()}{simplefBm3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplef\+Bm3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns fractional brownian motion value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a2107ecbc9124e176b620b234e64f5006}\label{kernel_8c_a2107ecbc9124e176b620b234e64f5006}} 
+\index{kernel.c@{kernel.c}!simplefBm4@{simplefBm4}}
+\index{simplefBm4@{simplefBm4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simplefBm4()}{simplefBm4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplef\+Bm4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns fractional brownian motion value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a9d838bf02acbb0c0208c9df4f8d973f6}\label{kernel_8c_a9d838bf02acbb0c0208c9df4f8d973f6}} 
+\index{kernel.c@{kernel.c}!simplefBm6@{simplefBm6}}
+\index{simplefBm6@{simplefBm6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simplefBm6()}{simplefBm6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simplef\+Bm6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns fractional brownian motion value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_aa6473efc432cfee3c4b8adaea2bd9b94}\label{kernel_8c_aa6473efc432cfee3c4b8adaea2bd9b94}} 
+\index{kernel.c@{kernel.c}!simpleFractalLayer3@{simpleFractalLayer3}}
+\index{simpleFractalLayer3@{simpleFractalLayer3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleFractalLayer3()}{simpleFractalLayer3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Fractal\+Layer3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple fractal layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_adc1da409b8cdbeb59a2bec1f21d2ec08}\label{kernel_8c_adc1da409b8cdbeb59a2bec1f21d2ec08}} 
+\index{kernel.c@{kernel.c}!simpleFractalLayer4@{simpleFractalLayer4}}
+\index{simpleFractalLayer4@{simpleFractalLayer4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleFractalLayer4()}{simpleFractalLayer4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Fractal\+Layer4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple fractal layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a991e10e473869c245a39995732ff9d95}\label{kernel_8c_a991e10e473869c245a39995732ff9d95}} 
+\index{kernel.c@{kernel.c}!simpleFractalLayer6@{simpleFractalLayer6}}
+\index{simpleFractalLayer6@{simpleFractalLayer6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleFractalLayer6()}{simpleFractalLayer6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Fractal\+Layer6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple fractal layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,v,u) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a6dc97b9e69ac0fb9577ccfaf46547d61}\label{kernel_8c_a6dc97b9e69ac0fb9577ccfaf46547d61}} 
+\index{kernel.c@{kernel.c}!simpleRidgedLayer3@{simpleRidgedLayer3}}
+\index{simpleRidgedLayer3@{simpleRidgedLayer3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedLayer3()}{simpleRidgedLayer3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Layer3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple ridged layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a7faedc2dc2134c546a13c61c8ffcbd78}\label{kernel_8c_a7faedc2dc2134c546a13c61c8ffcbd78}} 
+\index{kernel.c@{kernel.c}!simpleRidgedLayer4@{simpleRidgedLayer4}}
+\index{simpleRidgedLayer4@{simpleRidgedLayer4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedLayer4()}{simpleRidgedLayer4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Layer4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple ridged layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a7e37ad4f5a7bfbf85c174819f7c17ab9}\label{kernel_8c_a7e37ad4f5a7bfbf85c174819f7c17ab9}} 
+\index{kernel.c@{kernel.c}!simpleRidgedLayer6@{simpleRidgedLayer6}}
+\index{simpleRidgedLayer6@{simpleRidgedLayer6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedLayer6()}{simpleRidgedLayer6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Layer6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerscale,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{layerfreq,  }\item[{bool}]{rot,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{angle,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ax,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{ay,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{az }\end{DoxyParamCaption})}
+
+Returns simple ridged layer value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em layerscale} & the scaling of the layer. \\
+\hline
+{\em layerfreq} & the frequency of the layer. \\
+\hline
+{\em rot} & set to true to rotate the layer by the angle and rotation axis. \\
+\hline
+{\em angle} & the rotation angle in radians. \\
+\hline
+{\em ax} & the rotation vector x component. \\
+\hline
+{\em ay} & the rotation vector y component. \\
+\hline
+{\em az} & the rotation vector z component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a2b5fc3c54c393ccc0a4304e3f7143830}\label{kernel_8c_a2b5fc3c54c393ccc0a4304e3f7143830}} 
+\index{kernel.c@{kernel.c}!simpleRidgedMultifractal3@{simpleRidgedMultifractal3}}
+\index{simpleRidgedMultifractal3@{simpleRidgedMultifractal3}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedMultifractal3()}{simpleRidgedMultifractal3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Multifractal3 (\begin{DoxyParamCaption}\item[{vector3}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a4a6105af0f7e79ec01461072d6d3f17b}{noise\+\_\+func3}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns ridged-\/multifractal noise value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector3 (x,y,z) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func3 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise3D 
+\item gradient\+\_\+noise3D 
+\item gradval\+\_\+noise3D 
+\item white\+\_\+noise3D 
+\item simplex\+\_\+noise3D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_a80fd5c91e6a6b565db5afad2d7a6063e}\label{kernel_8c_a80fd5c91e6a6b565db5afad2d7a6063e}} 
+\index{kernel.c@{kernel.c}!simpleRidgedMultifractal4@{simpleRidgedMultifractal4}}
+\index{simpleRidgedMultifractal4@{simpleRidgedMultifractal4}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedMultifractal4()}{simpleRidgedMultifractal4()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Multifractal4 (\begin{DoxyParamCaption}\item[{vector4}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a00610948178966f56cee5130d99ae1fc}{noise\+\_\+func4}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns ridged-\/multifractal noise value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector4 (x,y,z,w) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func4 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise4D 
+\item gradient\+\_\+noise4D 
+\item gradval\+\_\+noise4D 
+\item white\+\_\+noise4D 
+\item simplex\+\_\+noise4D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{kernel_8c_aca6687a831d5b809bda97722f5b62f02}\label{kernel_8c_aca6687a831d5b809bda97722f5b62f02}} 
+\index{kernel.c@{kernel.c}!simpleRidgedMultifractal6@{simpleRidgedMultifractal6}}
+\index{simpleRidgedMultifractal6@{simpleRidgedMultifractal6}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{simpleRidgedMultifractal6()}{simpleRidgedMultifractal6()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}} simple\+Ridged\+Multifractal6 (\begin{DoxyParamCaption}\item[{vector8}]{v,  }\item[{\mbox{\hyperlink{noise__gen_8h_a06cdc609fdd49ab6f06b2eb6442e7248}{noise\+\_\+func6}}}]{basistype,  }\item[{uint}]{seed,  }\item[{\mbox{\hyperlink{noise__gen_8h_acad64853244634beaddcb3f86362fff5}{interp\+\_\+func}}}]{interp,  }\item[{\mbox{\hyperlink{kernel_8h_ad6f1ec76f08cd234c2f6af71bfe1545a}{random\+\_\+func}}}]{rnd,  }\item[{void $\ast$}]{srnd,  }\item[{uint}]{numoctaves,  }\item[{\mbox{\hyperlink{opencl__utils_8h_a4b654506f18b8bfd61ad2a29a7e38c25}{R\+E\+AL}}}]{frequency,  }\item[{bool}]{rot }\end{DoxyParamCaption})}
+
+Returns ridged-\/multifractal noise value for the coordinate. 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector8 (x,y,z,w,u,v) coordinate. \\
+\hline
+{\em basistype} & the noise\+\_\+func6 basis noise generation function. 
+\begin{DoxyItemize}
+\item value\+\_\+noise6D 
+\item gradient\+\_\+noise6D 
+\item gradval\+\_\+noise6D 
+\item white\+\_\+noise6D 
+\item simplex\+\_\+noise6D 
+\end{DoxyItemize}\\
+\hline
+{\em seed} & the uint seed for the noise generation function. \\
+\hline
+{\em interp} & the interpolation function for the noise generation function. 
+\begin{DoxyItemize}
+\item no\+Interp 
+\item linear\+Interp 
+\item hermite\+Interp 
+\item quintic\+Interp 
+\end{DoxyItemize}\\
+\hline
+{\em numoctaves} & the number of octaves. \\
+\hline
+{\em frequency} & the frequency. \\
+\hline
+{\em rnd} & the random\+\_\+func to return random values. \\
+\hline
+{\em srnd} & the random generator state. \\
+\hline
+{\em rot} & set to true to rotate the layers by a random value. \\
+\hline
+\end{DoxyParams}
