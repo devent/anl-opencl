@@ -89,6 +89,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Own Modules -->
+        <dependency>
+            <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-opencl</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- Compile -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -114,6 +121,14 @@
         <dependency>
             <groupId>com.aparapi</groupId>
             <artifactId>aparapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 

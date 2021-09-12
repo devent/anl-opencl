@@ -66,7 +66,17 @@
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
     </properties>
 
-    <dependencies>
-    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/cpp</directory>
+                <includes>
+                    <include>**/*.c</include>
+                    <include>**/*.h</include>
+                    <include>**/*.cl</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
 </project>
