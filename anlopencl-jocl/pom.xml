@@ -57,9 +57,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>anlopencl-aparapi</artifactId>
-    <name>ANL-OpenCL :: Aparapi</name>
-    <description>Uses the OpenCL rework of Accidental Noise Library with Aparapi.</description>
+    <artifactId>anlopencl-jocl</artifactId>
+    <name>ANL-OpenCL :: JOCL</name>
+    <description>Wrapper to compile and run ANL-OpenCL kernels using JOCL.</description>
     <inceptionYear>2021</inceptionYear>
 
     <properties>
@@ -95,6 +95,11 @@
             <artifactId>anlopencl-opencl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.easycl</groupId>
+            <artifactId>easycl-jocl</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!-- Compile -->
         <dependency>
@@ -119,8 +124,9 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.aparapi</groupId>
-            <artifactId>aparapi</artifactId>
+            <groupId>org.jocl</groupId>
+            <artifactId>jocl</artifactId>
+            <version>2.0.4</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
