@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL
+ * ANL-OpenCL :: JME3 - App
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,51 +43,24 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.anlkernel;
+package com.anrisoftware.anlopencl.jmeapp.actors;
 
-import java.util.Map;
+import org.eclipse.collections.api.map.ImmutableMap;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 
-/**
- * Provides the appended ANL-OpenCL sources.
- *
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
- */
-public class LibSourcesProvider implements Provider<String> {
+import akka.actor.typed.ActorRef;
+import javafx.scene.layout.Region;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
-    private final String sources;
+@RequiredArgsConstructor
+@ToString
+public class InitialStateMessage extends Message {
 
-    @Inject
-    public LibSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
-    }
+    public final Object controller;
 
-    private String appendSources(Map<String, String> sources) {
-        var s = new StringBuilder();
-        s.append(sources.get("opencl_utils.h"));
-        s.append(sources.get("opencl_utils.c"));
-        s.append(sources.get("qsort.h"));
-        s.append(sources.get("qsort.c"));
-        s.append(sources.get("utility.h"));
-        s.append(sources.get("utility.c"));
-        s.append(sources.get("hashing.h"));
-        s.append(sources.get("hashing.c"));
-        s.append(sources.get("noise_lut.h"));
-        s.append(sources.get("noise_lut.c"));
-        s.append(sources.get("noise_gen.h"));
-        s.append(sources.get("noise_gen.c"));
-        s.append(sources.get("imaging.h"));
-        s.append(sources.get("imaging.c"));
-        s.append(sources.get("kernel.h"));
-        s.append(sources.get("kernel.c"));
-        return s.toString();
-    }
+    public final Region root;
 
-    @Override
-    public String get() {
-        return sources;
-    }
-
+    public final ImmutableMap<String, ActorRef<Message>> actors;
 }

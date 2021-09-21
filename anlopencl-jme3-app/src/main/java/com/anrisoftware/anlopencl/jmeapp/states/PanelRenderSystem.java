@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL
+ * ANL-OpenCL :: JME3 - App
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,51 +43,48 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.anlkernel;
-
-import java.util.Map;
+package com.anrisoftware.anlopencl.jmeapp.states;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
+
+import com.anrisoftware.anlopencl.jmeapp.components.PanelComponent;
+import com.anrisoftware.anlopencl.jmeapp.messages.MainWindowResizedMessage;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IntervalIteratingSystem;
+import com.jme3.renderer.Camera;
 
 /**
- * Provides the appended ANL-OpenCL sources.
+ * Updates the main panel.
  *
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @author Erwin Müller {@literal <erwin@muellerpublic.de}
  */
-public class LibSourcesProvider implements Provider<String> {
+public class PanelRenderSystem extends IntervalIteratingSystem {
 
-    private final String sources;
+    private final Camera camera;
+
+    private int panelWidth;
+
+    private int panelHeight;
 
     @Inject
-    public LibSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
-    }
-
-    private String appendSources(Map<String, String> sources) {
-        var s = new StringBuilder();
-        s.append(sources.get("opencl_utils.h"));
-        s.append(sources.get("opencl_utils.c"));
-        s.append(sources.get("qsort.h"));
-        s.append(sources.get("qsort.c"));
-        s.append(sources.get("utility.h"));
-        s.append(sources.get("utility.c"));
-        s.append(sources.get("hashing.h"));
-        s.append(sources.get("hashing.c"));
-        s.append(sources.get("noise_lut.h"));
-        s.append(sources.get("noise_lut.c"));
-        s.append(sources.get("noise_gen.h"));
-        s.append(sources.get("noise_gen.c"));
-        s.append(sources.get("imaging.h"));
-        s.append(sources.get("imaging.c"));
-        s.append(sources.get("kernel.h"));
-        s.append(sources.get("kernel.c"));
-        return s.toString();
+    public PanelRenderSystem(Camera camera) {
+        super(Family.all(PanelComponent.class).get(), 0.33f);
+        this.camera = camera;
+        this.panelWidth = camera.getWidth();
+        this.panelHeight = camera.getHeight();
     }
 
     @Override
-    public String get() {
-        return sources;
+    protected void processEntity(Entity entity) {
+        int camWidth = camera.getWidth();
+        int camHeight = camera.getHeight();
+        if (panelWidth != camWidth || panelHeight != camHeight) {
+            this.panelWidth = camWidth;
+            this.panelHeight = camHeight;
+            var actor = PanelComponent.m.get(entity).actor;
+            actor.tell(new MainWindowResizedMessage(camWidth, camHeight));
+        }
     }
 
 }

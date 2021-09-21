@@ -4,7 +4,7 @@
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
-    ANL-OpenCL :: JOCL
+    ANL-OpenCL :: JME3 - App
     ****************************************************************************
 
     Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -22,7 +22,7 @@
     limitations under the License.
 
     ****************************************************************************
-    ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+    ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
     http://accidentalnoise.sourceforge.net/index.html
     ****************************************************************************
 
@@ -57,13 +57,16 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>anlopencl-jocl</artifactId>
-    <name>ANL-OpenCL :: JOCL</name>
-    <description>Wrapper to compile and run ANL-OpenCL kernels using JOCL.</description>
+    <artifactId>anlopencl-jme3-app</artifactId>
+    <name>ANL-OpenCL :: JME3 - App</name>
+    <description>JMonkeyEngine 3 application.</description>
     <inceptionYear>2021</inceptionYear>
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
+        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
+        <project.custom.jmh.version>1.32</project.custom.jmh.version>
+        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
     </properties>
 
     <dependencies>
@@ -124,11 +127,6 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jocl</groupId>
-            <artifactId>jocl</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
@@ -136,6 +134,102 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-core</artifactId>
+            <version>${project.custom.jme3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-desktop</artifactId>
+            <version>${project.custom.jme3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-lwjgl3</artifactId>
+            <version>${project.custom.jme3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayfella</groupId>
+            <artifactId>jme-jfx-11</artifactId>
+            <version>1.1.5.dwarfhustle-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${project.custom.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${project.custom.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${project.custom.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${project.custom.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${project.custom.javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.badlogicgames.ashley</groupId>
+            <artifactId>ashley</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor-typed_${scala.binary.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.collections</groupId>
+            <artifactId>eclipse-collections-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.collections</groupId>
+            <artifactId>eclipse-collections</artifactId>
+        </dependency>
+
+        <!-- Resources -->
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-images</artifactId>
+            <version>${project.custom.anrisoftware.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-api</artifactId>
+            <version>${project.custom.anrisoftware.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-getbundle</artifactId>
+            <version>${project.custom.anrisoftware.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-texts</artifactId>
+            <version>${project.custom.anrisoftware.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-binary</artifactId>
+            <version>${project.custom.anrisoftware.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
