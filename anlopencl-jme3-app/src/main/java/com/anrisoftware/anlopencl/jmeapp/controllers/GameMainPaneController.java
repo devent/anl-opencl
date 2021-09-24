@@ -22,6 +22,9 @@ import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,9 +37,53 @@ import lombok.extern.slf4j.Slf4j;
 public class GameMainPaneController {
 
     @FXML
-    public AnchorPane mainPanel;
+    public AnchorPane rootPane;
+
+    @FXML
+    public SplitPane splitMain;
+
+    @FXML
+    public Accordion inputAccordion;
+
+    @FXML
+    public TitledPane kernelInputsPane;
+
+    @FXML
+    public TitledPane imageInputsPane;
+
+    @FXML
+    public TitledPane fileInputsPane;
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
+        setupSplitMain(np);
+        setupInputAccordion(np);
+    }
+
+    private void setupSplitMain(ObservableGameMainPaneProperties np) {
+        splitMain.setDividerPosition(0, np.splitMainPosition.get());
+        splitMain.getDividers().get(0).positionProperty().bindBidirectional(np.splitMainPosition);
+    }
+
+    private void setupInputAccordion(ObservableGameMainPaneProperties np) {
+        updateLastExpandedPane(np.lastExpandedPane.get());
+        inputAccordion.expandedPaneProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                np.lastExpandedPane.set(nv.getId());
+            }
+        });
+        np.lastExpandedPane.addListener((o, ov, nv) -> {
+            updateLastExpandedPane(nv);
+        });
+    }
+
+    private void updateLastExpandedPane(String id) {
+        var list = inputAccordion.getPanes().filtered((n) -> n.getId().equals(id));
+        if (list.size() > 0) {
+            var pane = list.get(0);
+            inputAccordion.setExpandedPane(pane);
+        } else {
+            log.error("No panels in noiseAccordion matching {}", id);
+        }
     }
 
 }

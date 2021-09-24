@@ -28,6 +28,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -85,6 +86,8 @@ public class MainPanelsUiTest extends SimpleApplication {
         this.engine = new Engine();
         this.injector = parent.createChildInjector(new MainPanelsUiModules(), new MainPanelsUiTestModule(this));
         this.actor = injector.getInstance(ActorSystemProvider.class);
+        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.load();
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
@@ -97,6 +100,8 @@ public class MainPanelsUiTest extends SimpleApplication {
 
     @Override
     public void stop() {
+        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.save();
         actor.get().tell(new ShutdownMessage());
         super.stop();
     }
