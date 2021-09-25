@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL
+ * ANL-OpenCL :: JME3 - App
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,51 +43,51 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.anlkernel;
-
-import java.util.Map;
+package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import javax.inject.Singleton;
+
+import com.anrisoftware.anlopencl.jmeapp.actors.MainActor.MainActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+
+import akka.actor.typed.ActorRef;
+import akka.actor.typed.ActorSystem;
+import akka.actor.typed.javadsl.Behaviors;
 
 /**
- * Provides the appended ANL-OpenCL sources.
+ * Provides the Akka actors system. It will create an actor system with the
+ * {@link MainActor} actor.
  *
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @author Erwin Müller
  */
-public class LibSourcesProvider implements Provider<String> {
+@Singleton
+public class ActorSystemProvider implements Provider<ActorRef<Message>> {
 
-    private final String sources;
+    private final ActorSystem<Message> actors;
+
+    private MainActor mainActor;
 
     @Inject
-    public LibSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
+    public ActorSystemProvider(MainActorFactory mainFactory) {
+        this.actors = ActorSystem.create(Behaviors.setup((context) -> {
+            mainActor = mainFactory.create(context);
+            return mainActor;
+        }), "dwarf");
     }
 
-    private String appendSources(Map<String, String> sources) {
-        var s = new StringBuilder();
-        s.append(sources.get("opencl_utils.h"));
-        s.append(sources.get("opencl_utils.c"));
-        s.append(sources.get("qsort.h"));
-        s.append(sources.get("qsort.c"));
-        s.append(sources.get("utility.h"));
-        s.append(sources.get("utility.c"));
-        s.append(sources.get("hashing.h"));
-        s.append(sources.get("hashing.c"));
-        s.append(sources.get("noise_lut.h"));
-        s.append(sources.get("noise_lut.c"));
-        s.append(sources.get("noise_gen.h"));
-        s.append(sources.get("noise_gen.c"));
-        s.append(sources.get("imaging.h"));
-        s.append(sources.get("imaging.c"));
-        s.append(sources.get("kernel.h"));
-        s.append(sources.get("kernel.c"));
-        return s.toString();
+    public MainActor getMainActor() {
+        return mainActor;
+    }
+
+    public ActorSystem<Message> getActorSystem() {
+        return actors;
     }
 
     @Override
-    public String get() {
-        return sources;
+    public ActorRef<Message> get() {
+        return actors;
     }
 
 }
