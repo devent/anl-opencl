@@ -26,6 +26,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,7 +47,10 @@ public class GameMainPaneController {
     public Accordion inputAccordion;
 
     @FXML
-    public TitledPane kernelInputsPane;
+    public TitledPane kernelInputsTitledPane;
+
+    @FXML
+    public BorderPane kernelTextFieldPane;
 
     @FXML
     public TitledPane imageInputsPane;
@@ -55,8 +59,14 @@ public class GameMainPaneController {
     public TitledPane fileInputsPane;
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
+        setupKerneltextField();
         setupSplitMain(np);
         setupInputAccordion(np);
+    }
+
+    private void setupKerneltextField() {
+        var editor = new OpenCLKeywordsEditor();
+        kernelTextFieldPane.setCenter(editor.getCodeArea());
     }
 
     private void setupSplitMain(ObservableGameMainPaneProperties np) {

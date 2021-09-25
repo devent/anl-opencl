@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,13 +13,9 @@
             <Accordion id="inputAccordion" fx:id="inputAccordion" prefHeight="400.0" prefWidth="209.0">
               <panes>
                 <TitledPane id="kernelInputsPane" fx:id="kernelInputsPane" animated="false" text="Kernel">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane layoutX="-1.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
+                     <content>
+                        <BorderPane id="kernelTextFieldPane" fx:id="kernelTextFieldPane" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
                 </TitledPane>
                 <TitledPane id="imageInputsPane" fx:id="imageInputsPane" animated="false" text="Image">
                   <content>
