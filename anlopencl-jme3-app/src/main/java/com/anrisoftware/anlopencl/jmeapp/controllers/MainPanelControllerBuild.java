@@ -45,6 +45,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -81,20 +83,22 @@ public class MainPanelControllerBuild {
     private GlobalKeys globalKeys;
 
     public CompletableFuture<MainPanelControllerResult> setupUi(Executor executor, String mainUiResource,
-            String additionalCss) {
+            String... additionalCss) {
         return CompletableFuture.supplyAsync(() -> {
             return setupGui0(mainUiResource, additionalCss);
         }, executor);
     }
 
     @SneakyThrows
-    private MainPanelControllerResult setupGui0(String mainUiResource, String additionalCss) {
+    private MainPanelControllerResult setupGui0(String mainUiResource, String... additionalCss) {
         log.debug("setupGui0");
         // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
         // 14);
-        String css = getCss();
+        var css = new ArrayList<String>();
+        css.add(getCss());
+        css.addAll(Arrays.asList(additionalCss));
         var task = app.enqueue(() -> {
-            JavaFxUI.initialize(app, css, additionalCss);
+            JavaFxUI.initialize(app, css.toArray(new String[0]));
             return true;
         });
         task.get();

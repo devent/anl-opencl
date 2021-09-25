@@ -104,15 +104,15 @@ public abstract class AbstractMainPanelActor {
 
     public static Behavior<Message> create(Injector injector,
             Class<? extends AbstractMainPanelActorFactory> mainPanelActorFactoryType, String mainUiResource,
-            String additionalCss, Map<String, PanelActorCreator> panelActors) {
+            Map<String, PanelActorCreator> panelActors, String... additionalCss) {
         return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
-            startJavafxBuild(injector, context, mainUiResource, additionalCss, panelActors);
+            startJavafxBuild(injector, context, mainUiResource, panelActors, additionalCss);
             return injector.getInstance(mainPanelActorFactoryType).create(context, stash).start();
         }));
     }
 
     private static void startJavafxBuild(Injector injector, ActorContext<Message> context, String mainUiResource,
-            String additionalCss, Map<String, PanelActorCreator> panelActors) {
+            Map<String, PanelActorCreator> panelActors, String... additionalCss) {
         var javaFxBuild = injector.getInstance(MainPanelControllerBuild.class);
         context.pipeToSelf(javaFxBuild.setupUi(context.getExecutionContext(), mainUiResource, additionalCss),
                 (result, cause) -> {
@@ -137,10 +137,10 @@ public abstract class AbstractMainPanelActor {
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout, int id,
             ServiceKey<Message> key, String name,
             Class<? extends AbstractMainPanelActorFactory> mainPanelActorFactoryType, String mainUiResource,
-            String additionalCss, Map<String, PanelActorCreator> panelActors) {
+            Map<String, PanelActorCreator> panelActors, String... additionalCss) {
         var system = injector.getInstance(ActorSystemProvider.class).getActorSystem();
         return createNamedActor(system, timeout, id, key, name,
-                create(injector, mainPanelActorFactoryType, mainUiResource, additionalCss, panelActors));
+                create(injector, mainPanelActorFactoryType, mainUiResource, panelActors, additionalCss));
     }
 
     @Inject

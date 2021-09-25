@@ -67,10 +67,12 @@ public class MainPanelsUiTest extends SimpleApplication {
 
     public MainPanelsUiTest() {
         super(new StatsAppState(), new DebugKeysAppState(), new ConstantVerifierState());
+        setShowSettings(false);
         var s = new AppSettings(true);
         s.setResizable(true);
         s.setWidth(1024);
         s.setHeight(768);
+        s.setVSync(false);
         setSettings(s);
     }
 

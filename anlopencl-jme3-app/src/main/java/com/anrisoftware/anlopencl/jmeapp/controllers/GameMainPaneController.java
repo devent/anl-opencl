@@ -19,13 +19,16 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.formsfx.model.structure.Group;
+import com.dlsc.formsfx.view.renderer.FormRenderer;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GameMainPaneController {
 
     @FXML
-    public AnchorPane rootPane;
+    public BorderPane rootPane;
 
     @FXML
     public SplitPane splitMain;
@@ -47,26 +50,34 @@ public class GameMainPaneController {
     public Accordion inputAccordion;
 
     @FXML
-    public TitledPane kernelInputsTitledPane;
-
-    @FXML
-    public BorderPane kernelTextFieldPane;
-
-    @FXML
     public TitledPane imageInputsPane;
+
+    @FXML
+    public BorderPane imageFieldsPane;
 
     @FXML
     public TitledPane fileInputsPane;
 
+    private Form loginForm;
+
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
-        setupKerneltextField();
+        setupKernelTextField();
+        setupImagePropertiesFields(np);
         setupSplitMain(np);
         setupInputAccordion(np);
     }
 
-    private void setupKerneltextField() {
+    private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
+        this.loginForm = Form.of(Group.of(//
+                Field.ofIntegerType(np.seed).label("Seed").required("Not empty"), //
+                Field.ofIntegerType(np.width).label("Width").required("Not empty"), //
+                Field.ofIntegerType(np.height).label("Height").required("Not empty")));
+        imageFieldsPane.setTop(new FormRenderer(loginForm));
+    }
+
+    private void setupKernelTextField() {
         var editor = new OpenCLKeywordsEditor();
-        kernelTextFieldPane.setCenter(editor.getCodeArea());
+        imageFieldsPane.setCenter(editor.getCodeArea());
     }
 
     private void setupSplitMain(ObservableGameMainPaneProperties np) {

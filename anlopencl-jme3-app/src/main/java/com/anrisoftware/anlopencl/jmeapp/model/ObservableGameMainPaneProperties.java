@@ -1,8 +1,10 @@
 package com.anrisoftware.anlopencl.jmeapp.model;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -18,6 +20,12 @@ public class ObservableGameMainPaneProperties {
 
         public String lastExpandedPane = "kernelInputsPane";
 
+        public int seed = 0;
+
+        public int width = 1024;
+
+        public int height = 1024;
+
         public String fileName = "";
 
     }
@@ -26,18 +34,30 @@ public class ObservableGameMainPaneProperties {
 
     public final StringProperty lastExpandedPane;
 
+    public final IntegerProperty seed;
+
+    public final IntegerProperty width;
+
+    public final IntegerProperty height;
+
     public final StringProperty fileName;
 
     @SneakyThrows
     public ObservableGameMainPaneProperties(GameMainPaneProperties p) {
         this.splitMainPosition = JavaBeanDoublePropertyBuilder.create().bean(p).name("splitMainPosition").build();
         this.lastExpandedPane = JavaBeanStringPropertyBuilder.create().bean(p).name("lastExpandedPane").build();
+        this.seed = JavaBeanIntegerPropertyBuilder.create().bean(p).name("seed").build();
+        this.width = JavaBeanIntegerPropertyBuilder.create().bean(p).name("width").build();
+        this.height = JavaBeanIntegerPropertyBuilder.create().bean(p).name("height").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
     }
 
     public void copy(GameMainPaneProperties other) {
         splitMainPosition.set(other.splitMainPosition);
         lastExpandedPane.set(other.lastExpandedPane);
+        seed.set(other.seed);
+        width.set(other.width);
+        height.set(other.height);
         fileName.set(other.fileName);
     }
 

@@ -62,7 +62,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
         return AbstractMainPanelActor.create(injector, timeout, ID, KEY, NAME, GameMainPanelActorFactory.class,
-                "/game-main-pane.fxml", "/game-theme.css", panelActors);
+                "/game-main-pane.fxml", panelActors, "/game-theme.css", "/forms-inputs.css", "/opencl-keywords.css");
     }
 
     @Inject

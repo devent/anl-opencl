@@ -214,6 +214,11 @@
             <artifactId>richtextfx</artifactId>
             <version>0.10.6</version>
         </dependency>
+        <dependency>
+          <groupId>com.dlsc.formsfx</groupId>
+          <artifactId>formsfx-core</artifactId>
+          <version>11.3.2</version>
+        </dependency>
 
         <!-- Resources -->
         <dependency>
