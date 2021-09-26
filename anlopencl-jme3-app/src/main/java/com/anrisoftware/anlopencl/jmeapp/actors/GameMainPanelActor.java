@@ -53,7 +53,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     private static final Map<String, PanelActorCreator> panelActors = Maps.mutable.empty();
 
     static {
-        // panelActors.put(PropertiesPanelActor.NAME, PropertiesPanelActor::create);
+        panelActors.put(ToolbarButtonsActor.NAME, ToolbarButtonsActor::create);
     }
 
     public interface GameMainPanelActorFactory extends AbstractMainPanelActorFactory {
@@ -62,7 +62,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
         return AbstractMainPanelActor.create(injector, timeout, ID, KEY, NAME, GameMainPanelActorFactory.class,
-                "/game-main-pane.fxml", panelActors, "/game-theme.css", "/forms-inputs.css", "/opencl-keywords.css");
+                "/game-main-pane.fxml", panelActors, "/game-theme.css",
+                "/forms-inputs.css", "/opencl-keywords.css");
     }
 
     @Inject

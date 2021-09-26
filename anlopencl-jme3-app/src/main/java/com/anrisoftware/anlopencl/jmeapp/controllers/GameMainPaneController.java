@@ -27,6 +27,7 @@ import com.dlsc.formsfx.view.renderer.FormRenderer;
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
@@ -59,6 +60,9 @@ public class GameMainPaneController {
     public TitledPane fileInputsPane;
 
     private Form loginForm;
+
+    @FXML
+    public Button buttonBuild;
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         setupKernelTextField();

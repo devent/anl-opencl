@@ -43,7 +43,7 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
 public enum TextPosition {
 
