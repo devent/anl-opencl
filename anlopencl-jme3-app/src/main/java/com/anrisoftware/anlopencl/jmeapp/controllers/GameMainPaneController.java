@@ -17,6 +17,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import org.fxmisc.richtext.CodeArea;
+
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.dlsc.formsfx.model.structure.Field;
@@ -65,7 +67,7 @@ public class GameMainPaneController {
     public Button buttonBuild;
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
-        setupKernelTextField();
+        setupKernelTextField(np);
         setupImagePropertiesFields(np);
         setupSplitMain(np);
         setupInputAccordion(np);
@@ -79,9 +81,13 @@ public class GameMainPaneController {
         imageFieldsPane.setTop(new FormRenderer(loginForm));
     }
 
-    private void setupKernelTextField() {
+    private void setupKernelTextField(ObservableGameMainPaneProperties np) {
         var editor = new OpenCLKeywordsEditor();
-        imageFieldsPane.setCenter(editor.getCodeArea());
+        CodeArea area = editor.getCodeArea();
+        imageFieldsPane.setCenter(area);
+        area.textProperty().addListener((obs, oldText, newText) -> {
+            np.kernelCode.set(newText);
+        });
     }
 
     private void setupSplitMain(ObservableGameMainPaneProperties np) {

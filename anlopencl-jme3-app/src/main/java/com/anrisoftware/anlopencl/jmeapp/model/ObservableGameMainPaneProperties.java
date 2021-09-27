@@ -26,6 +26,11 @@ public class ObservableGameMainPaneProperties {
 
         public int height = 1024;
 
+        public String kernelCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
+                + "kernel void value_noise2D_noInterp(\n" + "global vector2 *input,\n" + "global REAL *output\n"
+                + ") {\n" + "    int id0 = get_global_id(0);\n"
+                + "    output[id0] = value_noise2D(input[id0], 200, noInterp);\n" + "}\n" + "";
+
         public String fileName = "";
 
     }
@@ -40,6 +45,8 @@ public class ObservableGameMainPaneProperties {
 
     public final IntegerProperty height;
 
+    public final StringProperty kernelCode;
+
     public final StringProperty fileName;
 
     @SneakyThrows
@@ -49,6 +56,7 @@ public class ObservableGameMainPaneProperties {
         this.seed = JavaBeanIntegerPropertyBuilder.create().bean(p).name("seed").build();
         this.width = JavaBeanIntegerPropertyBuilder.create().bean(p).name("width").build();
         this.height = JavaBeanIntegerPropertyBuilder.create().bean(p).name("height").build();
+        this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
     }
 
@@ -58,6 +66,7 @@ public class ObservableGameMainPaneProperties {
         seed.set(other.seed);
         width.set(other.width);
         height.set(other.height);
+        kernelCode.set(other.kernelCode);
         fileName.set(other.fileName);
     }
 
