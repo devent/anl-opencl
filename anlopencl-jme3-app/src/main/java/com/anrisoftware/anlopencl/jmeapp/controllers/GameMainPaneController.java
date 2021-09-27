@@ -32,6 +32,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,6 +67,12 @@ public class GameMainPaneController {
     @FXML
     public Button buttonBuild;
 
+    @FXML
+    public Button buttonQuit;
+
+    @FXML
+    public ToggleButton buttonRun;
+
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         setupKernelTextField(np);
         setupImagePropertiesFields(np);
@@ -84,6 +91,7 @@ public class GameMainPaneController {
     private void setupKernelTextField(ObservableGameMainPaneProperties np) {
         var editor = new OpenCLKeywordsEditor();
         CodeArea area = editor.getCodeArea();
+        area.replaceText(0, 0, np.kernelCode.get());
         imageFieldsPane.setCenter(area);
         area.textProperty().addListener((obs, oldText, newText) -> {
             np.kernelCode.set(newText);

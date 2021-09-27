@@ -42,9 +42,9 @@
       <ToolBar id="toolbarButtons" fx:id="toolbarButtons" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
             <Button id="buttonBuild" fx:id="buttonBuild" mnemonicParsing="false" text="Build" />
-            <ToggleButton mnemonicParsing="false" text="Run" />
+            <ToggleButton id="buttonRun" fx:id="buttonRun" mnemonicParsing="false" text="Run" />
             <Pane HBox.hgrow="ALWAYS" />
-          <Button mnemonicParsing="false" text="Quit" />
+          <Button id="buttonQuit" fx:id="buttonQuit" mnemonicParsing="false" text="Quit" />
         </items>
       </ToolBar>
    </top>

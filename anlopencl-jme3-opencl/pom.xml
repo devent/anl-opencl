@@ -58,16 +58,9 @@
     </parent>
 
     <artifactId>anlopencl-jme3-opencl</artifactId>
-    <name>ANL-OpenCL :: JME3 - App</name>
-    <description>JMonkeyEngine 3 application.</description>
+    <name>ANL-OpenCL :: JME3 - OpenCL</name>
+    <description>JMonkeyEngine 3 OpenCL.</description>
     <inceptionYear>2021</inceptionYear>
-
-    <properties>
-        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
-        <project.custom.jmh.version>1.32</project.custom.jmh.version>
-        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -80,27 +73,11 @@
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sudoplay.joise</groupId>
-            <artifactId>joise</artifactId>
-            <version>1.1.0</version>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Own Modules -->
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-opencl</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.anrisoftware.easycl</groupId>
-            <artifactId>easycl-jocl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -153,98 +130,6 @@
             <groupId>org.jmonkeyengine</groupId>
             <artifactId>jme3-lwjgl3</artifactId>
             <version>${project.custom.jme3.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jayfella</groupId>
-            <artifactId>jme-jfx-11</artifactId>
-            <version>1.1.5.dwarfhustle-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.badlogicgames.ashley</groupId>
-            <artifactId>ashley</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-typed_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.12.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.fxmisc.richtext</groupId>
-            <artifactId>richtextfx</artifactId>
-            <version>0.10.6</version>
-        </dependency>
-        <dependency>
-          <groupId>com.dlsc.formsfx</groupId>
-          <artifactId>formsfx-core</artifactId>
-          <version>11.3.2</version>
-        </dependency>
-
-        <!-- Resources -->
-        <dependency>
-            <groupId>com.anrisoftware.resources</groupId>
-            <artifactId>resources-images</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.anrisoftware.resources</groupId>
-            <artifactId>resources-api</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.anrisoftware.resources</groupId>
-            <artifactId>resources-getbundle</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.anrisoftware.resources</groupId>
-            <artifactId>resources-texts</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.anrisoftware.resources</groupId>
-            <artifactId>resources-binary</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
         </dependency>
 
     </dependencies>

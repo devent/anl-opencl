@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App
+ * ANL-OpenCL :: JOCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,16 +43,51 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jme.opencl;
 
-import lombok.ToString;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
 
 /**
- * Message to build the OpenCL library.
+ * Provides the appended ANL-OpenCL sources.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class BuildMessage extends GuiMessage {
+public class LibSourcesProvider implements Provider<String> {
+
+    private final String sources;
+
+    @Inject
+    public LibSourcesProvider(Map<String, String> sources) {
+        this.sources = appendSources(sources);
+    }
+
+    private String appendSources(Map<String, String> sources) {
+        var s = new StringBuilder();
+        s.append(sources.get("opencl_utils.h"));
+        s.append(sources.get("opencl_utils.c"));
+        s.append(sources.get("qsort.h"));
+        s.append(sources.get("qsort.c"));
+        s.append(sources.get("utility.h"));
+        s.append(sources.get("utility.c"));
+        s.append(sources.get("hashing.h"));
+        s.append(sources.get("hashing.c"));
+        s.append(sources.get("noise_lut.h"));
+        s.append(sources.get("noise_lut.c"));
+        s.append(sources.get("noise_gen.h"));
+        s.append(sources.get("noise_gen.c"));
+        s.append(sources.get("imaging.h"));
+        s.append(sources.get("imaging.c"));
+        s.append(sources.get("kernel.h"));
+        s.append(sources.get("kernel.c"));
+        return s.toString();
+    }
+
+    @Override
+    public String get() {
+        return sources;
+    }
 
 }

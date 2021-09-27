@@ -89,9 +89,6 @@ public class ToolbarButtonsActor {
     private final Images images;
 
     @Inject
-    private Injector injector;
-
-    @Inject
     private GlobalKeys globalKeys;
 
     @Inject
@@ -120,9 +117,11 @@ public class ToolbarButtonsActor {
         log.debug("onInitialState");
         this.controller = (GameMainPaneController) m.controller;
         tellLocalizeControlsSelf(gs);
-        controller.buttonBuild.onActionProperty().addListener((o, ov, nv) -> {
-            System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO
-            globalKeys.runAction(keyMappings.get().get("BUILDINGS_MAPPING"));
+        controller.buttonQuit.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get().get("QUIT_MAPPING"));
+        });
+        controller.buttonBuild.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get().get("BUILD_MAPPING"));
         });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)

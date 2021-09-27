@@ -67,6 +67,7 @@
 
     <modules>
         <module>anlopencl-jme3-app</module>
+        <module>anlopencl-jme3-opencl</module>
         <module>anlopencl-jocl</module>
         <module>anlopencl-opencl</module>
     </modules>
@@ -99,6 +100,9 @@
         <project.custom.globalpom.version>4.6.0-SNAPSHOT</project.custom.globalpom.version>
         <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
         <project.custom.current.year>2021</project.custom.current.year>
+        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
+        <project.custom.jmh.version>1.32</project.custom.jmh.version>
+        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
     </properties>
 
     <dependencyManagement>

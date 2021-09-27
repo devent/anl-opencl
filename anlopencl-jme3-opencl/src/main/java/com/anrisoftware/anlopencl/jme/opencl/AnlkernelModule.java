@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App
+ * ANL-OpenCL :: JOCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,16 +43,25 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jme.opencl;
 
-import lombok.ToString;
+import java.util.Map;
+
+import com.anrisoftware.anlopencl.anlkernel.AnlKernel.AnlKernelFactory;
+import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 /**
- * Message to build the OpenCL library.
- *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @see AnlKernelFactory
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class BuildMessage extends GuiMessage {
+public class AnlkernelModule extends AbstractModule {
 
+    @Override
+    protected void configure() {
+        install(new FactoryModuleBuilder().implement(AnlKernel.class, AnlKernel.class).build(AnlKernelFactory.class));
+        bind(new TypeLiteral<Map<String, String>>() {
+        }).toProvider(SourceResourcesLoader.class).asEagerSingleton();
+    }
 }
