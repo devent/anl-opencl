@@ -43,30 +43,16 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import java.util.Optional;
-
-import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
-import com.jme3.input.controls.KeyTrigger;
-
-import javafx.scene.input.KeyCodeCombination;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@ToString
-@RequiredArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class KeyMapping {
-
-    @EqualsAndHashCode.Include
-    public final String name;
-
-    public final Optional<KeyCodeCombination> code;
-
-    public final Optional<KeyTrigger> trigger;
-
-    public final GuiMessage message;
+/**
+ * Quick game message.
+ *
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ */
+@ToString(callSuper = true)
+public class BuildMessage extends GuiMessage {
 
 }

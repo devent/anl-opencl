@@ -3,6 +3,7 @@ package com.anrisoftware.anlopencl.jmeapp.states;
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProviderModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.MainActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.PaneActorsModule;
+import com.anrisoftware.anlopencl.jmeapp.controllers.ControllersModule;
 import com.anrisoftware.anlopencl.jmeapp.model.ModelModule;
 import com.anrisoftware.resources.binary.internal.binaries.BinariesResourcesModule;
 import com.anrisoftware.resources.binary.internal.maps.BinariesDefaultMapsModule;
@@ -22,6 +23,7 @@ public class MainPanelsUiModules extends AbstractModule {
         install(new EditorGuiStatesModule());
         install(new GuiStatesModule());
         install(new ModelModule());
+        install(new ControllersModule());
         // Resources
         install(new ImagesResourcesModule());
         install(new ResourcesImagesCachedMapModule());

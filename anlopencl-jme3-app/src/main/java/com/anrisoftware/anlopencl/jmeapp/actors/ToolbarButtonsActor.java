@@ -38,7 +38,6 @@ import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
-import com.jme3.app.Application;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
@@ -83,8 +82,6 @@ public class ToolbarButtonsActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, create(injector));
     }
 
-    private final Application app;
-
     private final ActorContext<Message> context;
 
     private final GameSettings gs;
@@ -95,9 +92,6 @@ public class ToolbarButtonsActor {
     private Injector injector;
 
     @Inject
-    private ActorSystemProvider actor;
-
-    @Inject
     private GlobalKeys globalKeys;
 
     @Inject
@@ -106,10 +100,8 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, Application app, GameSettings gs,
-            ImagesFactory images) {
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
         this.context = context;
-        this.app = app;
         this.images = images.create("ButtonsIcons");
         this.gs = gs;
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -128,6 +120,10 @@ public class ToolbarButtonsActor {
         log.debug("onInitialState");
         this.controller = (GameMainPaneController) m.controller;
         tellLocalizeControlsSelf(gs);
+        controller.buttonBuild.onActionProperty().addListener((o, ov, nv) -> {
+            System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO
+            globalKeys.runAction(keyMappings.get().get("BUILDINGS_MAPPING"));
+        });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)
          * -> { System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO if (ov != null &&
