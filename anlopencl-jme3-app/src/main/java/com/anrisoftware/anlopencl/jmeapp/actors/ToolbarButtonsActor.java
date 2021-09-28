@@ -29,6 +29,9 @@ import javax.inject.Inject;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -133,12 +136,33 @@ public class ToolbarButtonsActor {
          */
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+                .onMessage(BuildStartMessage.class, this::onBuildStart)//
+                .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
+                .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(GuiMessage.class, this::onGuiCatchall)//
                 .build();
     }
 
     private void tellLocalizeControlsSelf(GameSettings gs) {
         context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    }
+
+    private Behavior<Message> onBuildStart(BuildStartMessage m) {
+        log.debug("onBuildStart {}", m);
+        setDisableControlButtons(true);
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onBuildFinished(BuildFinishedMessage m) {
+        log.debug("onBuildFinished {}", m);
+        setDisableControlButtons(false);
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onBuildFailed(BuildFailedMessage m) {
+        log.debug("onBuildFailed {}", m);
+        setDisableControlButtons(false);
+        return Behaviors.same();
     }
 
     private Behavior<Message> onGuiCatchall(GuiMessage m) {
@@ -184,6 +208,13 @@ public class ToolbarButtonsActor {
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
                 images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
+    }
+
+    private void setDisableControlButtons(boolean disabled) {
+        runFxThread(() -> {
+            controller.buttonBuild.setDisable(disabled);
+            controller.buttonRun.setDisable(disabled);
+        });
     }
 
 }

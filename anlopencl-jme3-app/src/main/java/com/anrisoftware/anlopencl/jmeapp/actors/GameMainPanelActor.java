@@ -18,6 +18,7 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
+import static java.time.Duration.ofSeconds;
 
 import java.time.Duration;
 import java.util.Map;
@@ -28,19 +29,25 @@ import javax.inject.Inject;
 import org.eclipse.collections.impl.factory.Maps;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.google.inject.Injector;
 
 import akka.actor.typed.ActorRef;
+import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.BehaviorBuilder;
+import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.receptionist.ServiceKey;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Noise main panel actor.
  *
  * @author Erwin Müller
  */
+@Slf4j
 public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
@@ -62,8 +69,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
         return AbstractMainPanelActor.create(injector, timeout, ID, KEY, NAME, GameMainPanelActorFactory.class,
-                "/game-main-pane.fxml", panelActors, "/game-theme.css",
-                "/forms-inputs.css", "/opencl-keywords.css");
+                "/game-main-pane.fxml", panelActors, "/game-theme.css", "/forms-inputs.css", "/opencl-keywords.css");
     }
 
     @Inject
@@ -72,14 +78,42 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     @Inject
     private GameMainPanePropertiesProvider onp;
 
+    @Inject
+    private Injector injector;
+
+    private ActorRef<Message> openclBuildActor;
+
     @Override
     protected BehaviorBuilder<Message> getBehaviorAfterAttachGui() {
         runFxThread(() -> {
             var controller = (GameMainPaneController) initial.controller;
             controller.initializeListeners(actor.get(), onp.get());
         });
+        Duration timeout = Duration.ofSeconds(3);
+        var stage = OpenclBuildActor.create(injector, timeout);
+        stage.whenComplete((response, throwable) -> {
+            if (throwable == null) {
+                openclBuildActor = response;
+            }
+        });
         return super.getBehaviorAfterAttachGui()//
+                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
         ;
+    }
+
+    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
+        log.debug("onBuildClicked {}", m);
+        Duration timeout = ofSeconds(3);
+        context.ask(BuildStartMessage.BuildResponseMessage.class, openclBuildActor, timeout,
+                (ActorRef<BuildStartMessage.BuildResponseMessage> ref) -> new BuildStartMessage(ref),
+                (response, throwable) -> {
+                    if (throwable != null) {
+                        return new BuildStartMessage.BuildFinishedMessage(response);
+                    } else {
+                        return new BuildStartMessage.BuildFailedMessage(throwable);
+                    }
+                });
+        return Behaviors.same();
     }
 
 }

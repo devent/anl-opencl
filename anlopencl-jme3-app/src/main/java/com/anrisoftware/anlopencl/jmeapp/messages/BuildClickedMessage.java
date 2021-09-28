@@ -43,23 +43,16 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.actors;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import com.anrisoftware.anlopencl.jmeapp.actors.MainActor.MainActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.OpenclBuildActor.OpenclBuildActorFactory;
-import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
+import lombok.ToString;
 
 /**
- * @author Erwin Müller
+ * Message that the user clicked the build button.
+ *
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-public class MainActorsModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-        install(new FactoryModuleBuilder().implement(MainActor.class, MainActor.class).build(MainActorFactory.class));
-        install(new FactoryModuleBuilder().implement(OpenclBuildActor.class, OpenclBuildActor.class)
-                .build(OpenclBuildActorFactory.class));
-    }
+@ToString(callSuper = true)
+public class BuildClickedMessage extends GuiMessage {
 
 }

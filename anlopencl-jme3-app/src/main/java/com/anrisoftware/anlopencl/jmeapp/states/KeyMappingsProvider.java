@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import javax.inject.Provider;
 
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
 import com.jme3.input.controls.KeyTrigger;
 
@@ -30,7 +30,7 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
         map.put("QUIT_MAPPING", new KeyMapping("QUIT_MAPPING", Optional.of(new KeyCodeCombination(Q, CONTROL_DOWN)),
                 Optional.of(new KeyTrigger(KEY_Q)), new GameQuitMessage()));
         map.put("BUILD_MAPPING",
-                new KeyMapping("BUILD_MAPPING", Optional.empty(), Optional.empty(), new BuildMessage()));
+                new KeyMapping("BUILD_MAPPING", Optional.empty(), Optional.empty(), new BuildClickedMessage()));
         // done
         map.putAll(commandsButtons);
         this.commandsButtons = Collections.unmodifiableMap(commandsButtons);

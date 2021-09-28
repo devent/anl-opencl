@@ -91,7 +91,7 @@ public class GameMainPaneController {
     private void setupKernelTextField(ObservableGameMainPaneProperties np) {
         var editor = new OpenCLKeywordsEditor();
         CodeArea area = editor.getCodeArea();
-        area.replaceText(0, 0, np.kernelCode.get());
+        area.replaceText(0, area.getLength(), np.kernelCode.get());
         imageFieldsPane.setCenter(area);
         area.textProperty().addListener((obs, oldText, newText) -> {
             np.kernelCode.set(newText);

@@ -45,14 +45,40 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.messages;
 
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+
+import akka.actor.typed.ActorRef;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Message to build the OpenCL library.
+ * Message that the user clicked the build button.
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
 @ToString(callSuper = true)
-public class BuildMessage extends GuiMessage {
+@RequiredArgsConstructor
+public class BuildStartMessage extends Message {
 
+    public final ActorRef<BuildResponseMessage> ref;
+
+    @ToString(callSuper = true)
+    @RequiredArgsConstructor
+    public static class BuildResponseMessage extends Message {
+
+    }
+
+    @ToString(callSuper = true)
+    @RequiredArgsConstructor
+    public static class BuildFinishedMessage extends Message {
+
+        public final BuildResponseMessage response;
+    }
+
+    @ToString(callSuper = true)
+    @RequiredArgsConstructor
+    public static class BuildFailedMessage extends Message {
+
+        public final Throwable cause;
+    }
 }
