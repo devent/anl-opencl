@@ -73,6 +73,12 @@
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-testdata</artifactId>
+            <scope>test</scope>
+            <version>${project.custom.jme3.version}</version>
+        </dependency>
 
         <!-- Own Modules -->
         <dependency>

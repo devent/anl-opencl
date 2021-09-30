@@ -110,13 +110,8 @@ public class AnlKernel implements Runnable {
         var c = context.getOpenCLContext();
         var include = new StringBuilder();
         include.append(String.format("#define %s", "ANLOPENCL_USE_OPENCL"));
-        var p = c.createProgramFromSourceFilesWithInclude(assetManager, include, res);
-        try (var program = (Program) p) {
-            program.compileProgram(options);
-            this.lib = program.linkLibrary();
-        } catch (Exception e) {
-            throw e;
-        }
+        String[] res = {};
+        var p = c.createProgramFromSourceFilesWithInclude(assetManager, include.toString(), res);
     }
 
     private void createHeaders() {

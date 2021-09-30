@@ -52,8 +52,10 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
 
 /**
@@ -82,27 +84,30 @@ public class SourceResourcesLoader {
     private AssetManager assetManager;
 
     public void load() {
-        putResource(assetManager, "opencl_utils.h");
-        putResource(assetManager, "opencl_utils.c");
-        putResource(assetManager, "qsort.h");
-        putResource(assetManager, "qsort.c");
-        putResource(assetManager, "utility.h");
-        putResource(assetManager, "utility.c");
-        putResource(assetManager, "hashing.h");
-        putResource(assetManager, "hashing.c");
-        putResource(assetManager, "noise_lut.h");
-        putResource(assetManager, "noise_lut.c");
-        putResource(assetManager, "noise_gen.h");
-        putResource(assetManager, "noise_gen.c");
-        putResource(assetManager, "imaging.h");
-        putResource(assetManager, "imaging.c");
-        putResource(assetManager, "kernel.h");
-        putResource(assetManager, "kernel.c");
-        putResource(assetManager, "extern/RandomCL/generators/kiss09.cl");
-        putResource(assetManager, "random.cl");
+        assetManager.registerLoader(SourceFileImporter.class, "h", "c", "cl");
+        putResource("opencl_utils.h");
+        putResource("opencl_utils.c");
+        putResource("qsort.h");
+        putResource("qsort.c");
+        putResource("utility.h");
+        putResource("utility.c");
+        putResource("hashing.h");
+        putResource("hashing.c");
+        putResource("noise_lut.h");
+        putResource("noise_lut.c");
+        putResource("noise_gen.h");
+        putResource("noise_gen.c");
+        putResource("imaging.h");
+        putResource("imaging.c");
+        putResource("kernel.h");
+        putResource("kernel.c");
+        putResource("extern/RandomCL/generators/kiss09.cl");
+        putResource("random.cl");
     }
 
-    private void putResource(AssetManager assetManager, String name) {
-        assetManager.loadAsset(name);
+    private void putResource(String name) {
+        String res = String.format("/%s", name);
+        assetManager.loadAssetFromStream(new AssetKey<>(FilenameUtils.getName(name)),
+                getClass().getResourceAsStream(res));
     }
 }

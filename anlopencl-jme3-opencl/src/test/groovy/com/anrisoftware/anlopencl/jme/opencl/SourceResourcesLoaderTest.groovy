@@ -14,8 +14,8 @@ class SourceResourcesLoaderTest {
 
     @Test
     void "load assets"() {
-        def app = new OpenCLApplication();
-        app.start(injector)
+        int key = ("LWJGL".hashCode() ^ "3".hashCode()) & 0xFFF;
+        println key
     }
 
     static Injector injector
