@@ -16,7 +16,7 @@ class SourceResourcesLoaderApp extends SimpleApplication {
         app.start(i)
     }
 
-    SourceResourcesLoader sourceResourcesLoader
+    SourceResourcesProvider sourceResourcesLoader
 
     Injector injector
 
@@ -43,7 +43,7 @@ class SourceResourcesLoaderApp extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        sourceResourcesLoader = injector.getInstance(SourceResourcesLoader)
+        sourceResourcesLoader = injector.getInstance(SourceResourcesProvider)
         sourceResourcesLoader.load()
     }
 }

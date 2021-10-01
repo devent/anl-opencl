@@ -45,20 +45,66 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl;
 
-import com.anrisoftware.anlopencl.jme.opencl.AnlKernel.AnlKernelFactory;
-import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
+import static org.lwjgl.opencl.CL10.clCreateProgramWithSource;
+import static org.lwjgl.system.MemoryStack.stackPush;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.lwjgl.system.MemoryStack;
+
+import com.jme3.opencl.Program;
+import com.jme3.opencl.lwjgl.LwjglContext;
+import com.jme3.opencl.lwjgl.Utils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * @see AnlKernelFactory
+ * Builds the {@link Program}s of the ANL-OpenCL library.
+ *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class AnlkernelModule extends AbstractModule {
+@Slf4j
+public class HeaderProgramsBuilder {
 
-    @Override
-    protected void configure() {
-        install(new FactoryModuleBuilder().implement(AnlKernel.class, AnlKernel.class).build(AnlKernelFactory.class));
-        bind(LibSourcesProvider.class).asEagerSingleton();
-        bind(SourceResourcesProvider.class).asEagerSingleton();
+    private final List<Program> headers;
+
+    private final List<String> headerNames;
+
+    private final Map<String, String> sources;
+
+    @Inject
+    public HeaderProgramsBuilder(Map<String, String> sources) {
+        this.headers = new ArrayList<>();
+        this.headerNames = new ArrayList<>();
+        this.sources = sources;
+    }
+
+    public void createPrograms(LwjglContext context) {
+        try (var stack = stackPush()) {
+            createProgram(stack, context, "opencl_utils.h");
+            createProgram(stack, context, "qsort.h");
+            createProgram(stack, context, "utility.h");
+            createProgram(stack, context, "hashing.h");
+            createProgram(stack, context, "noise_lut.h");
+            createProgram(stack, context, "noise_gen.h");
+            createProgram(stack, context, "imaging.h");
+            createProgram(stack, context, "kernel.h");
+        }
+    }
+
+    private void createProgram(MemoryStack stack, LwjglContext context, String name) {
+        var source = sources.get(name);
+        var err = stack.mallocInt(1);
+        var clprogram = clCreateProgramWithSource(context.getContext(), source, err);
+        var ret = err.get(0);
+        Utils.checkError(ret, "clCreateProgramWithSource");
+        var program = new LwjglProgramEx(clprogram, context);
+        log.debug("Program created '{}': {}", name, clprogram);
+        headers.add(program);
+        headerNames.add(name);
     }
 }

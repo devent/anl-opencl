@@ -45,69 +45,35 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.apache.commons.lang3.Validate.notNull;
-
-import java.io.IOException;
+import java.util.Map;
 
 import javax.inject.Inject;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-
-import com.jme3.asset.AssetKey;
-import com.jme3.asset.AssetManager;
+import javax.inject.Provider;
 
 /**
- * Loads a source from the classpath.
+ * Provides the extra headers that are attached to each ANL-OpenCL kernel.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class SourceResourcesLoader {
+public class KernelExtraSourcesProvider implements Provider<String> {
 
-    /**
-     * Loads the specified source from the classpath.
-     *
-     * @param name the {@link String} name of the source, for example
-     *             <code>hashing.h</code>
-     * @return the {@link String} content of the resource.
-     * @throws IOException if there was an error reading the resource.
-     */
-    public static String loadResource(String name) throws IOException {
-        var resname = String.format("/%s", name);
-        var r = AnlKernel.class.getResource(resname);
-        notNull(r, "Resource '%s' is null", name);
-        return IOUtils.toString(r, UTF_8);
-    }
+    private final String sources;
 
     @Inject
-    private AssetManager assetManager;
-
-    public void load() {
-        assetManager.registerLoader(SourceFileImporter.class, "h", "c", "cl");
-        putResource("opencl_utils.h");
-        putResource("opencl_utils.c");
-        putResource("qsort.h");
-        putResource("qsort.c");
-        putResource("utility.h");
-        putResource("utility.c");
-        putResource("hashing.h");
-        putResource("hashing.c");
-        putResource("noise_lut.h");
-        putResource("noise_lut.c");
-        putResource("noise_gen.h");
-        putResource("noise_gen.c");
-        putResource("imaging.h");
-        putResource("imaging.c");
-        putResource("kernel.h");
-        putResource("kernel.c");
-        putResource("extern/RandomCL/generators/kiss09.cl");
-        putResource("random.cl");
+    public KernelExtraSourcesProvider(Map<String, String> sources) {
+        this.sources = appendSources(sources);
     }
 
-    private void putResource(String name) {
-        String res = String.format("/%s", name);
-        assetManager.loadAssetFromStream(new AssetKey<>(FilenameUtils.getName(name)),
-                getClass().getResourceAsStream(res));
+    private String appendSources(Map<String, String> sources) {
+        var s = new StringBuilder();
+        s.append(sources.get("kiss09.cl"));
+        s.append(sources.get("random.cl"));
+        return s.toString();
     }
+
+    @Override
+    public String get() {
+        return sources;
+    }
+
 }
