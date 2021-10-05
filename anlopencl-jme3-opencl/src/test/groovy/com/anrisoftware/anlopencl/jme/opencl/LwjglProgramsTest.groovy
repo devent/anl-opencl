@@ -13,6 +13,8 @@ import org.lwjgl.PointerBuffer
 import org.lwjgl.system.MemoryStack
 
 import com.jme3.opencl.KernelCompilationException
+import com.jme3.opencl.Program
+import com.jme3.opencl.ProgramCache
 import com.jme3.opencl.lwjgl.LwjglContext
 import com.jme3.opencl.lwjgl.LwjglDevice
 import com.jme3.opencl.lwjgl.LwjglPlatform
@@ -33,6 +35,10 @@ class LwjglProgramsTest {
     LwjglContext context
 
     @Test
+    void "program get device"() {
+    }
+
+    @Test
     void "create header programs"() {
         def sources = new SourceResourcesProvider()
         def programsBuilder = new HeaderProgramsBuilder(sources.get())
@@ -43,25 +49,32 @@ class LwjglProgramsTest {
 
     @Test
     void "compile program with headers"() {
-        def stack = stackPush()
         def sources = new SourceResourcesProvider()
         def libSources = new LibSourcesProvider(sources.get());
         def extraSources = new KernelExtraSourcesProvider(sources.get())
-        def lprogram = null
-        stack.withCloseable {
-            def err = stack.mallocInt(1)
-            def clprogram = clCreateProgramWithSource(clcontext, libSources.get(), err)
-            log.debug("Program created: {}", clprogram)
-            checkCLError(err.get(0))
-            def program = new LwjglProgramEx(clprogram, context)
-            program.compile("-DANLOPENCL_USE_OPENCL", null, null, null)
-            lprogram = program.link("-create-library")
-            log.debug("Library linked: {}", lprogram)
-        }
-        stack = stackPush()
-        stack.withCloseable {
-            def err = stack.mallocInt(1)
-            def clprogram = clCreateProgramWithSource(clcontext, """
+        def lprogramLib = null
+        def err = MemoryStack.stackMallocInt(1)
+
+        def clprogramLib = clCreateProgramWithSource(clcontext, libSources.get(), err)
+        log.debug("Program created: {}", clprogramLib)
+        checkCLError(err.get(0))
+
+        def programLib = new LwjglProgramEx(clprogramLib, context)
+        programLib.compile("-DANLOPENCL_USE_OPENCL", null, null, null)
+        lprogramLib = LwjglProgramEx.link(context, "-create-library", programLib)
+        log.debug("Library linked: {}", lprogramLib)
+
+        def programCache = new ProgramCache(context);
+        def cacheID = getClass().getName() + ".compile-program-with-headers";
+        programCache.saveToCache(cacheID, programLib);
+        def lprogramFromCache = programCache.loadFromCache(cacheID);
+        log.debug("Library program from cache: {}", lprogramFromCache)
+
+        def kiss09cl = sources.get().get("kiss09.cl")
+        def randomcl = sources.get().get("random.cl")
+        def clprogramKernel = clCreateProgramWithSource(clcontext, """
+${kiss09cl}
+${randomcl}
 #include <opencl_utils.h>
 #include <noise_gen.h>
 #include <kernel.h>
@@ -74,17 +87,24 @@ global REAL *output
     output[id0] = value_noise2D(input[id0], 200, noInterp);
 }
 """, err)
-            log.debug("Program created: {}", clprogram)
-            checkCLError(err.get(0))
-            def headersBuilder = new HeaderProgramsBuilder(sources.get())
-            headersBuilder.createPrograms(context)
-            def program = new LwjglProgramEx(clprogram, context)
-            try {
-                program.compile("-DANLOPENCL_USE_OPENCL", headersBuilder.headers, headersBuilder.headerNames, null)
-            } catch (KernelCompilationException e) {
-                log.error("Error compile {}", e.log)
-                throw e
-            }
+        log.debug("Kernel program created: {}", clprogramKernel)
+        checkCLError(err.get(0))
+        def headersBuilder = new HeaderProgramsBuilder(sources.get())
+        headersBuilder.createPrograms(context)
+        def programKernel = new LwjglProgramEx(clprogramKernel, context)
+        try {
+            programKernel.compile("-DANLOPENCL_USE_OPENCL", headersBuilder.headers, headersBuilder.headerNames)
+            log.debug("Kernel program compiled: {}", programKernel)
+        } catch (KernelCompilationException e) {
+            log.error("Error compile {}", e.log)
+            throw e
+        }
+        try {
+            def lprogramKernel = LwjglProgramEx.link(context, "", [lprogramLib, programKernel] as Program[])
+            log.debug("Kernel program linked: {}", lprogramKernel)
+        } catch (KernelCompilationException e) {
+            log.error("Error link {}", e.log)
+            throw e
         }
     }
 
@@ -99,42 +119,33 @@ global REAL *output
     }
 
     static long createPlatform() {
-        MemoryStack stack = stackPush()
-        stack.withCloseable {
-            def platforms = stack.mallocPointer(1)
-            checkCLError(clGetPlatformIDs(platforms, null));
-            if (platforms.get(0) == 0) {
-                throw new RuntimeException("No OpenCL platforms found.");
-            }
-            def platform = platforms.get(0)
-            return platform;
+        def platforms = stackMallocPointer(1)
+        checkCLError(clGetPlatformIDs(platforms, null));
+        if (platforms.get(0) == 0) {
+            throw new RuntimeException("No OpenCL platforms found.");
         }
+        def platform = platforms.get(0)
+        return platform;
     }
 
     static long createDevice(long platform) {
-        MemoryStack stack = stackPush()
-        stack.withCloseable {
-            def devices = stack.mallocPointer(1)
-            checkCLError(clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, devices, null));
-            if (devices.get(0) == 0) {
-                throw new RuntimeException("No GPU device found.");
-            }
-            def device = devices.get(0)
-            return device;
+        def devices = stackMallocPointer(1)
+        checkCLError(clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, devices, null));
+        if (devices.get(0) == 0) {
+            throw new RuntimeException("No GPU device found.");
         }
+        def device = devices.get(0)
+        return device;
     }
 
     static long createContext(long device) {
-        MemoryStack stack = stackPush()
-        stack.withCloseable {
-            def err = stack.mallocInt(1)
-            def context = clCreateContext((PointerBuffer)null, device, null, 0, err)
-            checkCLError(err.get(0))
-            if (context == 0) {
-                throw new RuntimeException("No GPU device found.");
-            }
-            return context;
+        def err = stackMallocInt(1)
+        def context = clCreateContext((PointerBuffer)null, device, null, 0, err)
+        checkCLError(err.get(0))
+        if (context == 0) {
+            throw new RuntimeException("No GPU device found.");
         }
+        return context;
     }
 
     static void checkCLError(IntBuffer errcode) {

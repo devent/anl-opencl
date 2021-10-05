@@ -103,6 +103,7 @@
         <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
         <project.custom.jmh.version>1.32</project.custom.jmh.version>
         <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
+        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +117,13 @@
                 <groupId>com.aparapi</groupId>
                 <artifactId>aparapi</artifactId>
                 <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-bom</artifactId>
+                <version>${project.custom.lwjgl.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

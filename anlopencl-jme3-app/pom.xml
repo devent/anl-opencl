@@ -57,7 +57,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>anlopencl-jme3-opencl</artifactId>
+    <artifactId>anlopencl-jme3-app</artifactId>
     <name>ANL-OpenCL :: JME3 - App</name>
     <description>JMonkeyEngine 3 application.</description>
     <inceptionYear>2021</inceptionYear>

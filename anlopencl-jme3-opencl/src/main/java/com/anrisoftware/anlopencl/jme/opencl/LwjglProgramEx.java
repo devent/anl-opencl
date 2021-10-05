@@ -1,7 +1,19 @@
 package com.anrisoftware.anlopencl.jme.opencl;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.lwjgl.PointerBuffer.create;
+import static org.lwjgl.opencl.CL10.CL_PROGRAM_BUILD_LOG;
+import static org.lwjgl.opencl.CL10.CL_PROGRAM_DEVICES;
+import static org.lwjgl.opencl.CL10.clGetProgramBuildInfo;
+import static org.lwjgl.opencl.CL10.clGetProgramInfo;
+import static org.lwjgl.system.MemoryStack.stackASCII;
+import static org.lwjgl.system.MemoryStack.stackMallocInt;
+import static org.lwjgl.system.MemoryStack.stackMallocLong;
+import static org.lwjgl.system.MemoryStack.stackMallocPointer;
+import static org.lwjgl.system.MemoryUtil.memAddress;
+import static org.lwjgl.system.MemoryUtil.memByteBuffer;
+
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -10,6 +22,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.opencl.CL10;
 import org.lwjgl.opencl.CL12;
+import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
 import com.jme3.opencl.Device;
@@ -59,12 +72,10 @@ public class LwjglProgramEx extends LwjglProgram {
         }
         PointerBuffer headersList = null;
         if (headers != null && headers.length > 0) {
-            System.out.println(Arrays.toString(headers));
             headersList = createBuffer((d) -> ((LwjglProgram) d).getProgram(), headers);
         }
         PointerBuffer headerNamesList = null;
         if (headerNames != null && headerNames.length > 0) {
-            System.out.println(Arrays.toString(headerNames));
             headerNamesList = createBuffer(headerNames);
         }
         int ret = CL12.clCompileProgram(getProgram(), deviceList, options, headersList, headerNamesList, null, 0);
@@ -82,28 +93,37 @@ public class LwjglProgramEx extends LwjglProgram {
         }
     }
 
-    public Program link(Device... devices) throws KernelCompilationException {
-        return link("", devices);
+    public static Program link(LwjglContext context, String options, Program program, Device... devices)
+            throws KernelCompilationException {
+        return link(context, options, new Program[] { program }, devices);
     }
 
-    public Program link(String options, Device... devices) throws KernelCompilationException {
+    public static Program link(LwjglContext context, String options, Program[] programs, Device... devices)
+            throws KernelCompilationException {
         PointerBuffer deviceList = null;
         if (devices != null && devices.length > 0) {
             deviceList = createBuffer((d) -> ((LwjglDevice) d).getDevice(), devices);
         }
-        // var ret = BufferUtils.createIntBuffer(1);
-        long lprogram = CL12.clLinkProgram(context.getContext(), deviceList, options, getProgram(), null, 0);
-        if (lprogram == 0) {
-            log.error("Unable to compile program {}", this);
+        isTrue(programs.length > 0, "No programs given.");
+        PointerBuffer programList = null;
+        programList = createBuffer((p) -> ((LwjglProgram) p).getProgram(), programs);
+        var err = stackMallocInt(1);
+        long lprogram = CL12.clLinkProgram(context.getContext(), deviceList, options, programList, null, 0, err);
+        if (err.get(0) != CL10.CL_SUCCESS) {
+            log.warn("Unable to link program {}", programs[0]);
+            if (err.get(0) == CL12.CL_LINK_PROGRAM_FAILURE) {
+                throw new KernelCompilationException("Failed to link program", err.get(0), "");
+            } else {
+                Utils.checkError(err.get(0), "clLinkProgram");
+            }
         } else {
-            log.info("Program compiled {}", this);
+            log.info("Program linked {}", programs[0]);
         }
         return new LwjglProgramEx(lprogram, context);
     }
 
     private static <T> PointerBuffer createBuffer(Function<T, Long> pointer, T[] list) {
-        var p = PointerBuffer.allocateDirect(list.length);
-        p.rewind();
+        var p = stackMallocPointer(list.length);
         for (T d : list) {
             p.put(pointer.apply(d));
         }
@@ -112,40 +132,34 @@ public class LwjglProgramEx extends LwjglProgram {
     }
 
     private static PointerBuffer createBuffer(String[] list) {
-        var p = PointerBuffer.allocateDirect(list.length);
-        p.rewind();
+        var p = stackMallocPointer(list.length);
         for (String s : list) {
-            var bytes = s.getBytes();
-            var buffer = BufferUtils.createByteBuffer(s.length());
-            buffer.rewind();
-            buffer.put(bytes);
-            buffer.flip();
-            p.put(MemoryUtil.memAddress(buffer));
+            var buffer = stackASCII(s, true);
+            p.put(memAddress(buffer));
         }
         p.flip();
         return p;
     }
 
     private long getDevice() {
-        Utils.pointerBuffers[0].rewind();
-        int ret = CL10.clGetProgramInfo(getProgram(), CL10.CL_PROGRAM_DEVICES, (ByteBuffer) null,
-                Utils.pointerBuffers[0]);
+        var size = MemoryStack.stackMallocInt(1);
+        int ret = clGetProgramInfo(getProgram(), CL_PROGRAM_DEVICES, (ByteBuffer) null, create(memAddress(size), 1));
         Utils.checkError(ret, "clGetProgramInfo");
-        int count = (int) Utils.pointerBuffers[0].get(0);
-        final ByteBuffer buffer = BufferUtils.createByteBuffer(count);
-        ret = CL10.clGetProgramInfo(getProgram(), CL10.CL_PROGRAM_DEVICES, buffer, null);
+        int count = size.get(0);
+        var buffer = memByteBuffer(stackMallocLong(count));
+        ret = clGetProgramInfo(getProgram(), CL_PROGRAM_DEVICES, buffer, null);
         Utils.checkError(ret, "clGetProgramInfo");
         return buffer.getLong(0);
     }
 
     private String getBuildLog(long device) {
         Utils.pointerBuffers[0].rewind();
-        int ret = CL10.clGetProgramBuildInfo(getProgram(), device, CL10.CL_PROGRAM_BUILD_LOG, (ByteBuffer) null,
+        int ret = clGetProgramBuildInfo(getProgram(), device, CL_PROGRAM_BUILD_LOG, (ByteBuffer) null,
                 Utils.pointerBuffers[0]);
         Utils.checkError(ret, "clGetProgramBuildInfo");
         int count = (int) Utils.pointerBuffers[0].get(0);
         final ByteBuffer buffer = BufferUtils.createByteBuffer(count);
-        ret = CL10.clGetProgramBuildInfo(getProgram(), device, CL10.CL_PROGRAM_BUILD_LOG, buffer, null);
+        ret = clGetProgramBuildInfo(getProgram(), device, CL_PROGRAM_BUILD_LOG, buffer, null);
         Utils.checkError(ret, "clGetProgramBuildInfo");
         return MemoryUtil.memASCII(buffer);
     }
