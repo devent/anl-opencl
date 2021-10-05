@@ -60,8 +60,8 @@ public class KernelExtraSourcesProvider implements Provider<String> {
     private final String sources;
 
     @Inject
-    public KernelExtraSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
+    public KernelExtraSourcesProvider(SourceResourcesProvider sources) {
+        this.sources = appendSources(sources.get());
     }
 
     private String appendSources(Map<String, String> sources) {

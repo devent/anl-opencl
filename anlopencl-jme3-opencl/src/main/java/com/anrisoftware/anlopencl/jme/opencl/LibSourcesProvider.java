@@ -60,8 +60,8 @@ public class LibSourcesProvider implements Provider<String> {
     private final String sources;
 
     @Inject
-    public LibSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
+    public LibSourcesProvider(SourceResourcesProvider sources) {
+        this.sources = appendSources(sources.get());
     }
 
     private String appendSources(Map<String, String> sources) {

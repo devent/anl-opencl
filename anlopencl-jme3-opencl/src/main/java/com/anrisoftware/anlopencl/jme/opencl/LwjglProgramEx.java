@@ -84,6 +84,7 @@ public class LwjglProgramEx extends LwjglProgram {
             if (ret == CL10.CL_BUILD_PROGRAM_FAILURE) {
                 var device = getDevice();
                 var buildLog = getBuildLog(device);
+                log.error("Unable to compile program {}: {}", this, buildLog);
                 throw new KernelCompilationException("Failed to build program", ret, buildLog);
             } else {
                 Utils.checkError(ret, "clBuildProgram");

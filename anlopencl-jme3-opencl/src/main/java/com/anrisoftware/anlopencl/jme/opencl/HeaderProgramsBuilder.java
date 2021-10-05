@@ -77,10 +77,18 @@ public class HeaderProgramsBuilder {
     private final Map<String, String> sources;
 
     @Inject
-    public HeaderProgramsBuilder(Map<String, String> sources) {
+    public HeaderProgramsBuilder(SourceResourcesProvider sources) {
         this.headers = new ArrayList<>();
         this.headerNames = new ArrayList<>();
-        this.sources = sources;
+        this.sources = sources.get();
+    }
+
+    public List<Program> getHeaders() {
+        return headers;
+    }
+
+    public List<String> getHeaderNames() {
+        return headerNames;
     }
 
     public void createPrograms(LwjglContext context) {

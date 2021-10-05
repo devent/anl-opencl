@@ -60,5 +60,6 @@ public class AnlkernelModule extends AbstractModule {
         install(new FactoryModuleBuilder().implement(AnlKernel.class, AnlKernel.class).build(AnlKernelFactory.class));
         bind(LibSourcesProvider.class).asEagerSingleton();
         bind(SourceResourcesProvider.class).asEagerSingleton();
+        bind(HeaderProgramsBuilder.class).asEagerSingleton();
     }
 }

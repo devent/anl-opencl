@@ -45,16 +45,26 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl;
 
-import java.util.ArrayList;
-import java.util.Map;
+import static org.lwjgl.opencl.CL10.CL_SUCCESS;
+import static org.lwjgl.opencl.CL10.clCreateProgramWithSource;
+import static org.lwjgl.system.MemoryStack.stackMallocInt;
+
+import java.nio.IntBuffer;
 
 import javax.inject.Inject;
 
-import com.jme3.asset.AssetManager;
+import com.google.inject.assistedinject.Assisted;
+import com.jme3.opencl.CommandQueue;
+import com.jme3.opencl.Event;
+import com.jme3.opencl.Kernel;
+import com.jme3.opencl.Kernel.WorkSize;
 import com.jme3.opencl.Program;
-import com.jme3.system.JmeContext;
+import com.jme3.opencl.lwjgl.LwjglContext;
 
-public class AnlKernel implements Runnable {
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class AnlKernel {
 
     private static final String ANLOPENCL_USE_OPENCL = "-DANLOPENCL_USE_OPENCL";
 
@@ -62,26 +72,46 @@ public class AnlKernel implements Runnable {
 
     public interface AnlKernelFactory {
 
-        AnlKernel create(JmeContext context);
+        AnlKernel create(LwjglContext context);
     }
 
     @Inject
-    private JmeContext context;
-
-    @Inject
-    private AssetManager assetManager;
-
-    @Inject
-    private Map<String, String> sources;
+    @Assisted
+    private LwjglContext context;
 
     @Inject
     private LibSourcesProvider libSources;
 
+    @Inject
+    private KernelExtraSourcesProvider kernelExtraSources;
+
+    @Inject
+    private HeaderProgramsBuilder headersBuilder;
+
     private String options;
+
+    private Program lprogramLib;
+
+    private Kernel kernel;
+
+    private Program lprogramKernel;
 
     @Inject
     public AnlKernel() {
         this.options = ANLOPENCL_USE_OPENCL;
+    }
+
+    public Event run1(CommandQueue queue, WorkSize globalWorkSize, Object... args) {
+        return kernel.Run1(queue, globalWorkSize, args);
+    }
+
+    public Event run2(CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize, Object... args) {
+        return kernel.Run2(queue, globalWorkSize, workGroupSize, args);
+    }
+
+    public void createKernel(String name) {
+        kernel = lprogramKernel.createKernel(name).register();
+        log.debug("Kernel created {}", kernel);
     }
 
     public void setUseDouble(boolean useDouble) {
@@ -89,50 +119,49 @@ public class AnlKernel implements Runnable {
     }
 
     public void compileKernel(String kernelSource) throws Exception {
-        var c = context.getOpenCLContext();
-        var source = new StringBuilder(kernelSource);
-        source.append(sources.get("kiss09.cl"));
-        source.append(sources.get("random.cl"));
-        var program = c.createProgramFromSourceCode(source.toString());
-        program.build();
-        var p = programFactory.create(context, source.toString());
-        var program = (Program) p;
-        program.compileProgram(options, headers);
-        this.program = program;
+        var clc = context.getContext();
+        var source = new StringBuilder();
+        var err = stackMallocInt(1);
+        source.append(kernelExtraSources.get());
+        source.append(kernelSource);
+        var clprogramKernel = clCreateProgramWithSource(clc, source.toString(), err);
+        log.debug("Kernel program created: {}", clprogramKernel);
+        checkCLError(err.get(0));
+        var programKernel = new LwjglProgramEx(clprogramKernel, context);
+        programKernel.compile(options, headersBuilder.getHeaders(), headersBuilder.getHeaderNames());
+        log.debug("Kernel program compiled: {}", programKernel);
+        this.lprogramKernel = LwjglProgramEx.link(context, "", new Program[] { lprogramLib, programKernel });
+        log.debug("Kernel program linked: {}", lprogramKernel);
     }
 
     public void buildLib() throws Exception {
-        createHeaders();
         createLib();
+        buildHeaders();
     }
 
-    private void createLib() throws Exception {
-        var c = context.getOpenCLContext();
-        var include = new StringBuilder();
-        include.append(String.format("#define %s", "ANLOPENCL_USE_OPENCL"));
-        String[] res = {};
-        var p = c.createProgramFromSourceFilesWithInclude(assetManager, include.toString(), res);
+    private void buildHeaders() {
+        headersBuilder.createPrograms(context);
     }
 
-    private void createHeaders() {
-        headers = new ArrayList<>();
-        putHeader("opencl_utils.h");
-        putHeader("qsort.h");
-        putHeader("utility.h");
-        putHeader("hashing.h");
-        putHeader("noise_lut.h");
-        putHeader("noise_gen.h");
-        putHeader("imaging.h");
-        putHeader("kernel.h");
+    private void createLib() {
+        var clc = context.getContext();
+        var err = stackMallocInt(1);
+        var clprogramLib = clCreateProgramWithSource(clc, libSources.get(), err);
+        log.debug("Program created: {}", clprogramLib);
+        checkCLError(err.get(0));
+        var programLib = new LwjglProgramEx(clprogramLib, context);
+        programLib.compile(options);
+        this.lprogramLib = programLib;
     }
 
-    private void putHeader(String name) {
-        headers.add(programFactory.create(context, sources.get(name), name));
+    static void checkCLError(IntBuffer errcode) {
+        checkCLError(errcode.get(errcode.position()));
     }
 
-    @Override
-    public void run() {
-
+    static void checkCLError(int errcode) {
+        if (errcode != CL_SUCCESS) {
+            throw new RuntimeException(String.format("OpenCL error [%d]", errcode));
+        }
     }
 
 }
