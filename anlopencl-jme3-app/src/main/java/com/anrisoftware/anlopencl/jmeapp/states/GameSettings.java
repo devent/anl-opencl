@@ -48,6 +48,7 @@ package com.anrisoftware.anlopencl.jmeapp.states;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import com.anrisoftware.anlopencl.jmeapp.messages.TextPosition;
 import com.anrisoftware.resources.images.external.IconSize;
 
 import javafx.beans.property.DoubleProperty;

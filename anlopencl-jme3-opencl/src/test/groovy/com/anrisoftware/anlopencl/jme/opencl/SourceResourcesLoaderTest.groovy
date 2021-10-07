@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App
+ * ANL-OpenCL :: JME3 - OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,17 +43,30 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jme.opencl
 
-public enum TextPosition {
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 
-    NONE,
+import com.google.inject.Guice
+import com.google.inject.Injector
 
-    LEFT,
+/**
+ * @see SourceResourcesProvider
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
+class SourceResourcesLoaderTest {
 
-    RIGHT,
+    @Test
+    void "load assets"() {
+        int key = ("LWJGL".hashCode() ^ "3".hashCode()) & 0xFFF;
+        println key
+    }
 
-    TOP,
+    static Injector injector
 
-    BOTTOM
+    @BeforeAll
+    static void setup() {
+        injector = Guice.createInjector()
+    }
 }

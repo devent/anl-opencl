@@ -6,6 +6,11 @@
     -fx-background-color: transparent;
 }
 
+.accordion {
+    -fx-background-color: transparent;
+}
+
 #splitMain {
     -fx-background-color: transparent;
+
 }

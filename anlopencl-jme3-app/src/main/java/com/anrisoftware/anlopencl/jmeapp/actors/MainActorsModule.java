@@ -46,6 +46,7 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.MainActor.MainActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.OpenclBuildActor.OpenclBuildActorFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
@@ -57,6 +58,8 @@ public class MainActorsModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new FactoryModuleBuilder().implement(MainActor.class, MainActor.class).build(MainActorFactory.class));
+        install(new FactoryModuleBuilder().implement(OpenclBuildActor.class, OpenclBuildActor.class)
+                .build(OpenclBuildActorFactory.class));
     }
 
 }

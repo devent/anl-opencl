@@ -27,6 +27,7 @@
 	</root>
 
 	<logger name="com.anrisoftware" level="ERROR" />
+	<logger name="com.anrisoftware.easycl" level="ALL" />
 	<logger name="com.anrisoftware.anlopencl" level="ALL" />
 
 </configuration>

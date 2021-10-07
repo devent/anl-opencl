@@ -45,6 +45,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
+import java.util.Optional;
+
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.jme3.input.controls.KeyTrigger;
 
@@ -61,9 +63,9 @@ public class KeyMapping {
     @EqualsAndHashCode.Include
     public final String name;
 
-    public final KeyCodeCombination code;
+    public final Optional<KeyCodeCombination> code;
 
-    public final KeyTrigger trigger;
+    public final Optional<KeyTrigger> trigger;
 
     public final GuiMessage message;
 

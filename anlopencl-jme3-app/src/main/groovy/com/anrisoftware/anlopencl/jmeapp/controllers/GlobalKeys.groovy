@@ -122,14 +122,14 @@ class GlobalKeys implements ActionListener {
 
     void setupControls(Scene scene) {
         def acc = scene.accelerators
-        keyMappings.each { k, m ->
-            acc.put m.code, { runInJmeThread({ runAction(m) }) }
+        keyMappings.values().find { it.code.present }.each { m ->
+            acc.put m.code.get(), { runInJmeThread({ runAction(m) }) }
         }
     }
 
     void initKeys() {
-        inputManager.addListener(this, keyMappings.values().inject([]) { l, v ->
-            inputManager.addMapping(v.name, v.trigger)
+        inputManager.addListener(this, keyMappings.values().find { it.trigger.present }.inject([]) { l, v ->
+            inputManager.addMapping(v.name, v.trigger.get())
             l << v.name
         } as String[])
         inputManager.addListener(this, jmeMappings.values().inject([]) { l, v ->
@@ -150,12 +150,14 @@ class GlobalKeys implements ActionListener {
         }
         def mapping = keyMappings[name]
         def code = mapping.code
-        if (code.control != ModifierValue.ANY) {
-            if (code.control == ModifierValue.DOWN && !controlDown) {
-                return;
-            }
-            if (code.control == ModifierValue.UP && controlDown) {
-                return;
+        if (code.present) {
+            if (code.get().control != ModifierValue.ANY) {
+                if (code.get().control == ModifierValue.DOWN && !controlDown) {
+                    return;
+                }
+                if (code.get().control == ModifierValue.UP && controlDown) {
+                    return;
+                }
             }
         }
         runAction(mapping)
