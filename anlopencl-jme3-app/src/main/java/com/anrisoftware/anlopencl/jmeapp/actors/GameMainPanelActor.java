@@ -97,7 +97,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
         return AbstractMainPanelActor.create(injector, timeout, ID, KEY, NAME, GameMainPanelActorFactory.class,
-                "/game-main-pane.fxml", panelActors, "/game-theme.css", "/forms-inputs.css", "/opencl-keywords.css");
+                "/game-main-pane.fxml", panelActors, "/modena_dark.css", "/forms-inputs.css",
+                "/opencl-keywords-dark-wombat.css");
     }
 
     @Inject
@@ -136,8 +137,10 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 (ActorRef<BuildStartMessage.BuildResponseMessage> ref) -> new BuildStartMessage(ref),
                 (response, throwable) -> {
                     if (throwable != null) {
+                        log.debug("Returning BuildFinishedMessage");
                         return new BuildStartMessage.BuildFinishedMessage(response);
                     } else {
+                        log.debug("Returning BuildFailedMessage");
                         return new BuildStartMessage.BuildFailedMessage(throwable);
                     }
                 });

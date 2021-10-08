@@ -89,12 +89,12 @@
         <!-- Own Modules -->
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
-            <artifactId>anlopencl-jocl</artifactId>
+            <artifactId>anlopencl-jme3-opencl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.anrisoftware.easycl</groupId>
-            <artifactId>easycl-jocl</artifactId>
+            <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-opencl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -153,6 +153,11 @@
             <groupId>com.jayfella</groupId>
             <artifactId>jme-jfx-11</artifactId>
             <version>1.1.5.dwarfhustle-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.raumzeitfalle.fx</groupId>
+            <artifactId>scenic-view</artifactId>
+            <version>11.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>

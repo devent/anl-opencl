@@ -1,0 +1,49 @@
+.caret {
+	-fx-fill: #242424;
+	-fx-stroke: #f6f3e8;
+}
+.code-area {
+	-fx-background-color: #242424;
+}
+.paragraph-box:has-caret {
+	-fx-background-color: #656565;
+}
+.text {
+    -fx-fill: #f6f3e8;
+}
+.lineno {
+    -fx-fill: #656565;
+	-fx-background-color: #242424;
+}
+.keyword {
+    -fx-fill: #8ac6f2;
+    -fx-font-weight: bold;
+}
+.semicolon {
+    -fx-font-weight: bold;
+}
+.paren {
+    -fx-fill: #f6f3e8;
+    -fx-font-weight: bold;
+}
+.bracket {
+    -fx-fill: #f3f6ee;
+    -fx-font-weight: bold;
+}
+.brace {
+    -fx-fill: #f6f3e8;
+    -fx-font-weight: bold;
+}
+.string {
+    -fx-fill: #95e454;
+}
+.number {
+    -fx-fill: #f08080;
+}
+.comment {
+	-fx-fill: #99968b;
+}
+
+.prep {
+	-fx-fill: #cae682;
+}

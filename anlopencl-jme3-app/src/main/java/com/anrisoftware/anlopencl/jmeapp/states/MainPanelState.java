@@ -47,6 +47,8 @@ package com.anrisoftware.anlopencl.jmeapp.states;
 
 import javax.inject.Inject;
 
+import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
+import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.badlogic.ashley.core.Engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
@@ -67,10 +69,12 @@ public class MainPanelState extends BaseAppState {
     @Inject
     private PanelRenderSystem panelRenderSystem;
 
+    @Inject
+    private ActorSystemProvider actor;
+
     @Override
     protected void initialize(Application app) {
         log.debug("initialize");
-        // app.stateManager.attach(statusPanelUi)
     }
 
     @Override
@@ -87,6 +91,7 @@ public class MainPanelState extends BaseAppState {
     protected void onDisable() {
         log.debug("onDisable");
         engine.removeSystem(panelRenderSystem);
+        actor.get().tell(new ShutdownMessage());
     }
 
 }

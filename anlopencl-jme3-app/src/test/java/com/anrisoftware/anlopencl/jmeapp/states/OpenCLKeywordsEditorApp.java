@@ -46,6 +46,7 @@
 package com.anrisoftware.anlopencl.jmeapp.states;
 
 import org.fxmisc.flowless.VirtualizedScrollPane;
+//import org.scenicview.ScenicView;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.OpenCLKeywordsEditor;
 
@@ -64,10 +65,14 @@ public class OpenCLKeywordsEditorApp extends Application {
     public void start(Stage primaryStage) {
         var codeArea = new OpenCLKeywordsEditor().getCodeArea();
         Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-        scene.getStylesheets().add(OpenCLKeywordsEditorApp.class.getResource("/opencl-keywords.css").toExternalForm());
+        scene.getStylesheets()
+                .add(OpenCLKeywordsEditorApp.class.getResource("/modena_dark.css").toExternalForm());
+        scene.getStylesheets()
+                .add(OpenCLKeywordsEditorApp.class.getResource("/opencl-keywords-dark-wombat.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Java Keywords Async Demo");
         primaryStage.show();
+        // ScenicView.show(scene);
     }
 
     @Override

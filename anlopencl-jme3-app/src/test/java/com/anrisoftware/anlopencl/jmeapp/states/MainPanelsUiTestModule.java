@@ -50,6 +50,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.jme3.app.Application;
 import com.jme3.input.InputManager;
+import com.jme3.opencl.lwjgl.LwjglContext;
 import com.jme3.renderer.Camera;
 
 import lombok.RequiredArgsConstructor;
@@ -79,4 +80,8 @@ public class MainPanelsUiTestModule extends AbstractModule {
         return owner.engine;
     }
 
+    @Provides
+    public LwjglContext getOpenCLContext() {
+        return (LwjglContext) owner.getContext().getOpenCLContext();
+    }
 }

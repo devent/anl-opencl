@@ -101,6 +101,7 @@ public class MainPanelsUiTest extends SimpleApplication {
         s.setWidth(1024);
         s.setHeight(768);
         s.setVSync(false);
+        s.setOpenCLSupport(true);
         setSettings(s);
     }
 

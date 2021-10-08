@@ -87,13 +87,14 @@ public class OpenCLKeywordsEditor {
             "local" };
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
-    private static final String PREP_PATTERN = "\\#[^\\n]*|";
+    private static final String PREP_PATTERN = "\\#[^\\n]*";
     private static final String PAREN_PATTERN = "\\(|\\)";
     private static final String BRACE_PATTERN = "\\{|\\}";
     private static final String BRACKET_PATTERN = "\\[|\\]";
     private static final String SEMICOLON_PATTERN = "\\;";
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
-    private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+    private static final String COMMENT_PATTERN = "//[^\\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+    private static final String NUMBER_PATTERN = "\\b[0-9]*\\b";
 
     private static final Pattern PATTERN = Pattern.compile( //
             "(?<KEYWORD>" + KEYWORD_PATTERN + ")" //
@@ -103,13 +104,14 @@ public class OpenCLKeywordsEditor {
                     + "|(?<BRACKET>" + BRACKET_PATTERN + ")" //
                     + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")" //
                     + "|(?<STRING>" + STRING_PATTERN + ")" //
+                    + "|(?<NUMBER>" + NUMBER_PATTERN + ")" //
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")" //
     );
 
     private static final String sampleCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
             + "kernel void value_noise2D_noInterp(\n" + "global vector2 *input,\n" + "global REAL *output\n" + ") {\n"
-            + "    int id0 = get_global_id(0);\n" + "    output[id0] = value_noise2D(input[id0], 200, noInterp);\n"
-            + "}\n" + "";
+            + "    int id0 = get_global_id(0);\n" + "    printf(\"id=%d\\n\", id0);\n" + "    // a comment\n"
+            + "    output[id0] = value_noise2D(input[id0], 200, noInterp);\n" + "}\n" + "";
 
     private CodeArea codeArea;
 
@@ -171,9 +173,11 @@ public class OpenCLKeywordsEditor {
                             : matcher.group("BRACE") != null ? "brace"
                                     : matcher.group("BRACKET") != null ? "bracket"
                                             : matcher.group("SEMICOLON") != null ? "semicolon"
-                                                    : matcher.group("STRING") != null ? "string"
-                                                            : matcher.group("COMMENT") != null ? "comment"
-                                                                    : matcher.group("PREP") != null ? "prep" : null;
+                                                    : matcher.group("NUMBER") != null ? "number"
+                                                            : matcher.group("STRING") != null ? "string"
+                                                                    : matcher.group("COMMENT") != null ? "comment"
+                                                                            : matcher.group("PREP") != null ? "prep"
+                                                                                    : null;
             /* never happens */ assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());

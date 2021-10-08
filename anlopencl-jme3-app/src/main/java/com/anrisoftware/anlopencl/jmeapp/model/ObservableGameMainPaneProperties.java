@@ -45,7 +45,7 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.model;
 
-import com.anrisoftware.anlopencl.anlkernel.AnlKernel;
+import com.anrisoftware.anlopencl.jme.opencl.AnlKernel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javafx.beans.property.DoubleProperty;

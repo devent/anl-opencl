@@ -45,13 +45,12 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
-import com.anrisoftware.anlopencl.anlkernel.AnlkernelModule;
+import com.anrisoftware.anlopencl.jme.opencl.AnlkernelModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProviderModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.MainActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.PaneActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.controllers.ControllersModule;
 import com.anrisoftware.anlopencl.jmeapp.model.ModelModule;
-import com.anrisoftware.easycl.corejocl.JoclModule;
 import com.anrisoftware.resources.binary.internal.binaries.BinariesResourcesModule;
 import com.anrisoftware.resources.binary.internal.maps.BinariesDefaultMapsModule;
 import com.anrisoftware.resources.images.internal.images.ImagesResourcesModule;
@@ -73,7 +72,6 @@ public class MainPanelsUiModules extends AbstractModule {
         install(new ControllersModule());
         // OpenCL
         install(new AnlkernelModule());
-        install(new JoclModule());
         // Resources
         install(new ImagesResourcesModule());
         install(new ResourcesImagesCachedMapModule());

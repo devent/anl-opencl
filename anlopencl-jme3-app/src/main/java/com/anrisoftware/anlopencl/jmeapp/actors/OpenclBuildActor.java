@@ -48,18 +48,18 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
 
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.function.Supplier;
 
 import javax.inject.Inject;
 
-import org.jocl.cl_context;
-
-import com.anrisoftware.anlopencl.anlkernel.AnlKernel.AnlKernelFactory;
+import com.anrisoftware.anlopencl.jme.opencl.AnlKernel.AnlKernelFactory;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
+import com.jme3.opencl.lwjgl.LwjglContext;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
@@ -94,13 +94,13 @@ public class OpenclBuildActor {
     @ToString(callSuper = true)
     private static class InitialStateMessage extends Message {
 
-        public final Supplier<cl_context> clcontext;
+        public final LwjglContext context;
 
     }
 
     @RequiredArgsConstructor
     @ToString(callSuper = true)
-    private static class SetupUiErrorMessage extends Message {
+    private static class SetupErrorMessage extends Message {
 
         public final Throwable cause;
 
@@ -114,14 +114,19 @@ public class OpenclBuildActor {
     }
 
     private static void createClContext(Injector injector, ActorContext<Message> context) {
-        var javaFxBuild = injector.getInstance(CLContextBuild.class);
-        context.pipeToSelf(javaFxBuild.createClContext(context.getExecutionContext()), (result, cause) -> {
+        context.pipeToSelf(createClContext0(injector), (result, cause) -> {
             if (cause == null) {
+                System.out.println(result);
                 return new InitialStateMessage(result);
             } else {
-                return new SetupUiErrorMessage(cause);
+                return new SetupErrorMessage(cause);
             }
         });
+    }
+
+    private static CompletionStage<LwjglContext> createClContext0(Injector injector) {
+        System.out.println(injector.getInstance(LwjglContext.class));
+        return CompletableFuture.completedStage(injector.getInstance(LwjglContext.class));
     }
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
@@ -158,8 +163,15 @@ public class OpenclBuildActor {
 
     private Behavior<Message> onInitialState(InitialStateMessage m) {
         log.debug("onInitialState");
-        gmpp.get().kernel.set(anlKernelFactory.create(m.clcontext));
+        gmpp.get().kernel.set(anlKernelFactory.create(m.context));
         return Behaviors.receive(Message.class)//
+                .onMessage(BuildStartMessage.class, this::onBuildStart)//
                 .build();
     }
+
+    private Behavior<Message> onBuildStart(BuildStartMessage m) {
+        log.debug("onBuildStart: {}", m);
+        return Behaviors.same();
+    }
+
 }
