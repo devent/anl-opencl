@@ -46,7 +46,6 @@
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
 import org.fxmisc.richtext.CodeArea;
-import org.scenicview.ScenicView;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
@@ -54,7 +53,6 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.jayfella.jme.jfx.JavaFxUI;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
@@ -108,9 +106,9 @@ public class GameMainPaneController {
         setupImagePropertiesFields(np);
         setupSplitMain(np);
         setupInputAccordion(np);
-        JavaFxUtil.runFxThread(() -> {
-            ScenicView.show(JavaFxUI.getInstance().getScene());
-        });
+        // JavaFxUtil.runFxThread(() -> {
+        // ScenicView.show(JavaFxUI.getInstance().getScene());
+        // });
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {

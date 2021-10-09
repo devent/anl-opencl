@@ -111,7 +111,7 @@ public class HeaderProgramsBuilder {
         var ret = err.get(0);
         Utils.checkError(ret, "clCreateProgramWithSource");
         var program = new LwjglProgramEx(clprogram, context);
-        log.debug("Program created '{}': {} {}", name, clprogram);
+        log.debug("Program created '{}': {}", name, clprogram);
         headers.add(program);
         headerNames.add(name);
     }

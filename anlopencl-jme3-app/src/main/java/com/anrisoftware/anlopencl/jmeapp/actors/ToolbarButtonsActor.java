@@ -57,7 +57,7 @@ import javax.inject.Inject;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
@@ -164,7 +164,7 @@ public class ToolbarButtonsActor {
          */
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .onMessage(BuildStartMessage.class, this::onBuildStart)//
+                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(GuiMessage.class, this::onGuiCatchall)//
@@ -175,8 +175,8 @@ public class ToolbarButtonsActor {
         context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
     }
 
-    private Behavior<Message> onBuildStart(BuildStartMessage m) {
-        log.debug("onBuildStart {}", m);
+    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
+        log.debug("onBuildClicked {}", m);
         setDisableControlButtons(true);
         return Behaviors.same();
     }

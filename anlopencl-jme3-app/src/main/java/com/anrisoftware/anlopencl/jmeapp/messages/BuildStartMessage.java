@@ -70,14 +70,13 @@ public class BuildStartMessage extends Message {
 
     @ToString(callSuper = true)
     @RequiredArgsConstructor
-    public static class BuildFinishedMessage extends Message {
+    public static class BuildFinishedMessage extends BuildResponseMessage {
 
-        public final BuildResponseMessage response;
     }
 
     @ToString(callSuper = true)
     @RequiredArgsConstructor
-    public static class BuildFailedMessage extends Message {
+    public static class BuildFailedMessage extends BuildResponseMessage {
 
         public final Throwable cause;
     }

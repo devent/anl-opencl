@@ -96,9 +96,12 @@ public class AnlKernel {
 
     private Program lprogramKernel;
 
+    private boolean buildLibFinish;
+
     @Inject
     public AnlKernel() {
         this.options = ANLOPENCL_USE_OPENCL;
+        this.buildLibFinish = false;
     }
 
     public Event run1(CommandQueue queue, WorkSize globalWorkSize, Object... args) {
@@ -137,6 +140,11 @@ public class AnlKernel {
     public void buildLib() throws Exception {
         createLib();
         buildHeaders();
+        this.buildLibFinish = true;
+    }
+
+    public boolean isBuildLibFinish() {
+        return buildLibFinish;
     }
 
     private void buildHeaders() {

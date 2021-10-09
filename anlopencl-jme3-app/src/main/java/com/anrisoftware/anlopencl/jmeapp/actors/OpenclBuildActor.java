@@ -55,6 +55,8 @@ import javax.inject.Inject;
 
 import com.anrisoftware.anlopencl.jme.opencl.AnlKernel.AnlKernelFactory;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.google.inject.Injector;
@@ -171,6 +173,17 @@ public class OpenclBuildActor {
 
     private Behavior<Message> onBuildStart(BuildStartMessage m) {
         log.debug("onBuildStart: {}", m);
+        System.out.println(gmpp.get().kernelCode.get());
+        try {
+            var kernel = gmpp.get().kernel.get();
+            if (!kernel.isBuildLibFinish()) {
+                kernel.buildLib();
+            }
+            m.ref.tell(new BuildFinishedMessage());
+        } catch (Exception e) {
+            m.ref.tell(new BuildFailedMessage(e));
+            log.error("Error build kernel library", e);
+        }
         return Behaviors.same();
     }
 

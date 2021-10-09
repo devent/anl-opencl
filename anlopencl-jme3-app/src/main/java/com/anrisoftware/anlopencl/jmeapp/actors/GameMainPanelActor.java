@@ -59,6 +59,8 @@ import org.eclipse.collections.impl.factory.Maps;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.google.inject.Injector;
@@ -132,19 +134,34 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
         log.debug("onBuildClicked {}", m);
-        Duration timeout = ofSeconds(3);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        Duration timeout = ofSeconds(10);
         context.ask(BuildStartMessage.BuildResponseMessage.class, openclBuildActor, timeout,
                 (ActorRef<BuildStartMessage.BuildResponseMessage> ref) -> new BuildStartMessage(ref),
                 (response, throwable) -> {
-                    if (throwable != null) {
+                    if (throwable == null) {
                         log.debug("Returning BuildFinishedMessage");
-                        return new BuildStartMessage.BuildFinishedMessage(response);
+                        return new BuildStartMessage.BuildFinishedMessage();
                     } else {
                         log.debug("Returning BuildFailedMessage");
                         return new BuildStartMessage.BuildFailedMessage(throwable);
                     }
                 });
+        return super.getBehaviorAfterAttachGui()//
+                .onMessage(BuildStartMessage.BuildFinishedMessage.class, this::onBuildFinished)//
+                .onMessage(BuildStartMessage.BuildFailedMessage.class, this::onBuildFailed)//
+                .build();
+    }
+
+    private Behavior<Message> onBuildFinished(BuildFinishedMessage m) {
+        log.debug("onBuildFinished {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
         return Behaviors.same();
     }
 
+    private Behavior<Message> onBuildFailed(BuildFailedMessage m) {
+        log.debug("onBuildFailed {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        return Behaviors.same();
+    }
 }
