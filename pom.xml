@@ -66,7 +66,9 @@
     <inceptionYear>2021</inceptionYear>
 
     <modules>
-        <module>anlopencl-jme3-app</module>
+        <module>anlopencl-jme3-app-core</module>
+        <module>anlopencl-jme3-app-javafx</module>
+        <module>anlopencl-jme3-app-model</module>
         <module>anlopencl-jme3-opencl</module>
         <module>anlopencl-jocl</module>
         <module>anlopencl-opencl</module>
