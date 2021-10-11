@@ -58,6 +58,8 @@ import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
@@ -101,11 +103,19 @@ public class GameMainPaneController {
     @FXML
     public ToggleButton buttonRun;
 
+    @FXML
+    public Label statusLabel;
+
+    @FXML
+    public ProgressIndicator statusProgress;
+
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         setupKernelTextField(np);
         setupImagePropertiesFields(np);
         setupSplitMain(np);
         setupInputAccordion(np);
+        statusProgress.setProgress(0);
+        statusProgress.setVisible(false);
         // JavaFxUtil.runFxThread(() -> {
         // ScenicView.show(JavaFxUI.getInstance().getScene());
         // });

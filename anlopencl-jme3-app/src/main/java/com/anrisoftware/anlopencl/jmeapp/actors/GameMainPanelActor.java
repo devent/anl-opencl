@@ -68,7 +68,6 @@ import com.google.inject.Injector;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.BehaviorBuilder;
-import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.receptionist.ServiceKey;
 import lombok.extern.slf4j.Slf4j;
 
@@ -91,6 +90,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     static {
         panelActors.put(ToolbarButtonsActor.NAME, ToolbarButtonsActor::create);
+        panelActors.put(StatusBarActor.NAME, StatusBarActor::create);
     }
 
     public interface GameMainPanelActorFactory extends AbstractMainPanelActorFactory {
@@ -127,9 +127,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 openclBuildActor = response;
             }
         });
-        return super.getBehaviorAfterAttachGui()//
-                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
-        ;
+        return getDefaultBehavior();
     }
 
     private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
@@ -155,13 +153,22 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private Behavior<Message> onBuildFinished(BuildFinishedMessage m) {
         log.debug("onBuildFinished {}", m);
+        initial.actors.get(StatusBarActor.NAME).tell(m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        return Behaviors.same();
+        return getDefaultBehavior().build();
     }
 
     private Behavior<Message> onBuildFailed(BuildFailedMessage m) {
         log.debug("onBuildFailed {}", m);
+        initial.actors.get(StatusBarActor.NAME).tell(m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        return Behaviors.same();
+        return getDefaultBehavior().build();
     }
+
+    private BehaviorBuilder<Message> getDefaultBehavior() {
+        return super.getBehaviorAfterAttachGui()//
+                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
+        ;
+    }
+
 }

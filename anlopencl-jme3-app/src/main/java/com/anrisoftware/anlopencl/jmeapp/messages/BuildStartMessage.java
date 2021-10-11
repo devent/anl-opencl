@@ -56,25 +56,25 @@ import lombok.ToString;
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-@ToString(callSuper = true)
+@ToString
 @RequiredArgsConstructor
 public class BuildStartMessage extends Message {
 
     public final ActorRef<BuildResponseMessage> ref;
 
-    @ToString(callSuper = true)
+    @ToString
     @RequiredArgsConstructor
     public static class BuildResponseMessage extends Message {
 
     }
 
-    @ToString(callSuper = true)
+    @ToString
     @RequiredArgsConstructor
     public static class BuildFinishedMessage extends BuildResponseMessage {
 
     }
 
-    @ToString(callSuper = true)
+    @ToString
     @RequiredArgsConstructor
     public static class BuildFailedMessage extends BuildResponseMessage {
 
