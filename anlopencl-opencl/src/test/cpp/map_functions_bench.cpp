@@ -73,11 +73,11 @@ static void map2D_seamless_none_bench(benchmark::State &state) {
 
 // Register the function as a benchmark
 BENCHMARK(map2D_seamless_none_bench)->
-#ifdef USE_THREAD
+#ifdef ANLOPENCL_USE_THREAD
 		Name("map2D_seamless_none-THREAD")
 #else
 		Name("map2D_seamless_none-NO-THREAD")
-#endif // USE_THREAD
+#endif // ANLOPENCL_USE_THREAD
 		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
 static void map2D_seamless_x_bench(benchmark::State &state) {
@@ -95,11 +95,11 @@ static void map2D_seamless_x_bench(benchmark::State &state) {
 
 // Register the function as a benchmark
 BENCHMARK(map2D_seamless_x_bench)->
-#ifdef USE_THREAD
+#ifdef ANLOPENCL_USE_THREAD
 		Name("map2D_seamless_x-THREAD")
 #else
 		Name("map2D_seamless_x-NO-THREAD")
-#endif // USE_THREAD
+#endif // ANLOPENCL_USE_THREAD
 		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
 static void map2D_seamless_xy_bench(benchmark::State &state) {
@@ -117,11 +117,11 @@ static void map2D_seamless_xy_bench(benchmark::State &state) {
 
 // Register the function as a benchmark
 BENCHMARK(map2D_seamless_xy_bench)->
-#ifdef USE_THREAD
+#ifdef ANLOPENCL_USE_THREAD
 		Name("map2D_seamless_xy-THREAD")
 #else
 		Name("map2D_seamless_xy-NO-THREAD")
-#endif // USE_THREAD
+#endif // ANLOPENCL_USE_THREAD
 		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
 static void map2D_seamless_xyz_bench(benchmark::State &state) {
@@ -139,11 +139,11 @@ static void map2D_seamless_xyz_bench(benchmark::State &state) {
 
 // Register the function as a benchmark
 BENCHMARK(map2D_seamless_xyz_bench)->
-#ifdef USE_THREAD
+#ifdef ANLOPENCL_USE_THREAD
 		Name("map2D_seamless_xyz-THREAD")
 #else
 		Name("map2D_seamless_xyz-NO-THREAD")
-#endif // USE_THREAD
+#endif // ANLOPENCL_USE_THREAD
 		->Repetitions(4)->Unit(benchmark::kMillisecond)->RangeMultiplier(8)->Range(8, 8<<10);
 
 TEST(map2D_bench, seamless) {

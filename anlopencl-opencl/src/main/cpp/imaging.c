@@ -143,10 +143,9 @@ void calc_seamless_y(void *out, int index, size_t x, size_t y, REAL p,
 
 void calc_seamless_z(void *out, int index, size_t x, size_t y, REAL p,
 		REAL q, struct SChunk chunk, struct SMappingRanges ranges) {
-	REAL dx, dy, dz, r, zval;
+	REAL dx, dz, r, zval;
 	vector4* v = ((vector4*) (out));
 	dx = ranges.mapx1 - ranges.mapx0;
-	dy = ranges.mapy1 - ranges.mapy0;
 	dz = ranges.loopz1 - ranges.loopz0;
 	v[index].x = ranges.mapx0 + p * dx;
 	v[index].y = ranges.mapy0 + p * dx;
