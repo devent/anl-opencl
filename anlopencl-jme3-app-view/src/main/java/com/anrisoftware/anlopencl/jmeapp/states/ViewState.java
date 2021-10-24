@@ -67,7 +67,7 @@ public class ViewState extends BaseAppState {
     private Engine engine;
 
     @Inject
-    private PanelRenderSystem panelRenderSystem;
+    private NoiseImageSystem panelRenderSystem;
 
     @Inject
     private ActorSystemProvider actor;

@@ -55,11 +55,11 @@ import com.badlogic.ashley.systems.IntervalIteratingSystem;
 import com.jme3.renderer.Camera;
 
 /**
- * Updates the main panel.
+ * Updates the noise image.
  *
  * @author Erwin Müller {@literal <erwin@muellerpublic.de}
  */
-public class PanelRenderSystem extends IntervalIteratingSystem {
+public class NoiseImageSystem extends IntervalIteratingSystem {
 
     private final Camera camera;
 
@@ -68,7 +68,7 @@ public class PanelRenderSystem extends IntervalIteratingSystem {
     private int panelHeight;
 
     @Inject
-    public PanelRenderSystem(Camera camera) {
+    public NoiseImageSystem(Camera camera) {
         super(Family.all(ImageComponent.class).get(), 0.33f);
         this.camera = camera;
         this.panelWidth = camera.getWidth();

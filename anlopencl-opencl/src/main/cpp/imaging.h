@@ -62,18 +62,7 @@ extern "C" {
 #include <opencl_utils.h>
 #endif // ANLOPENCL_USE_OPENCL
 
-enum EMappingModes {
-	SEAMLESS_NONE,
-	SEAMLESS_X,
-	SEAMLESS_Y,
-	SEAMLESS_Z,
-	SEAMLESS_XY,
-	SEAMLESS_XZ,
-	SEAMLESS_YZ,
-	SEAMLESS_XYZ
-};
-
-struct SMappingRanges {
+struct __attribute__ ((packed)) SMappingRanges {
 	REAL mapx0, mapy0, mapz0, mapx1, mapy1, mapz1;
 	REAL loopx0, loopy0, loopz0, loopx1, loopy1, loopz1;
 };

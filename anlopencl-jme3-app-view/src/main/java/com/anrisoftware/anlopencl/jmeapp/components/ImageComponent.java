@@ -45,6 +45,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.components;
 
+import com.anrisoftware.anlopencl.MappingRanges;
+import com.anrisoftware.anlopencl.SeamlessCalc.SeamlessMode;
 import com.anrisoftware.anlopencl.jme.opencl.AnlKernel;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
@@ -58,9 +60,15 @@ public class ImageComponent implements Component {
 
     public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
 
-    public AnlKernel kernel;
+    public final AnlKernel kernel;
 
     public final int width;
 
     public final int height;
+
+    public final MappingRanges ranges;
+
+    public final SeamlessMode seamless;
+
+    public final float z;
 }

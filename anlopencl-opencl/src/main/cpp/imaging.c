@@ -235,7 +235,7 @@ void* map2DChunk(void *vargp) {
 			int index = chunk.chunkyoffset * chunk.height + y * chunk.width + x;
 			REAL p = (REAL) x / (REAL) (chunk.width);
 			REAL q = (REAL) realy / (REAL) (chunk.height);
-			chunk.calc_seamless(chunk.out, index, 3, y, p, q, chunk, ranges);
+			chunk.calc_seamless(chunk.out, index, x, y, p, q, chunk, ranges);
 		}
 	}
 	return NULL;

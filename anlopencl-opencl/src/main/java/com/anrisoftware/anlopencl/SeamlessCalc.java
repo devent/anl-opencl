@@ -50,11 +50,68 @@ import static java.lang.Math.sin;
 
 import java.nio.FloatBuffer;
 
+/**
+ * {@link FunctionalInterface} to calculate the coordinates for a seamless mode.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
+@FunctionalInterface
 public interface SeamlessCalc {
 
+    /**
+     * Calculates the coordinates and stored them in the output buffer.
+     *
+     * @param out the output {@link FloatBuffer} for the calculated coordinates.
+     */
     void call(FloatBuffer out, int index, int x, int y, float p, float q, Chunk chunk, MappingRanges ranges);
 
+    /**
+     * Pre-calculated value of pi*2.
+     */
     public static float PI2 = 2.0f * 3.141592f;
+
+    /**
+     * Enumerates the seamless modes. Returns the {@link SeamlessCalc} and the
+     * number of dimension for the output buffer.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    public enum SeamlessMode {
+
+        NONE(SeamlessCalc.seamlessNone, 3),
+
+        X(SeamlessCalc.seamlessX, 4),
+
+        Y(SeamlessCalc.seamlessY, 4),
+
+        Z(SeamlessCalc.seamlessZ, 4),
+
+        XY(SeamlessCalc.seamlessXy, 8),
+
+        XZ(SeamlessCalc.seamlessXz, 8),
+
+        YZ(SeamlessCalc.seamlessYz, 8),
+
+        XYZ(SeamlessCalc.seamlessXyz, 8),
+
+        ;
+
+        /**
+         * The {@link SeamlessCalc}.
+         */
+        public final SeamlessCalc seamless;
+
+        /**
+         * The number of dimension for the output buffer.
+         */
+        public final int dim;
+
+        private SeamlessMode(SeamlessCalc seamless, int dim) {
+            this.seamless = seamless;
+            this.dim = dim;
+        }
+
+    }
 
     /**
      * Returns a {@link SeamlessCalc} that calculates the seamless none mode. Needs
