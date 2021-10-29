@@ -43,16 +43,17 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.view.states;
 
 import javax.inject.Inject;
 
-import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
-import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
 import com.badlogic.ashley.core.Engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 
+import akka.actor.typed.ActorRef;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -61,16 +62,23 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller
  */
 @Slf4j
-public class ViewState extends BaseAppState {
+public class ViewAppState extends BaseAppState {
 
     @Inject
     private Engine engine;
 
     @Inject
-    private NoiseImageSystem panelRenderSystem;
+    private NoiseImageSystem noiseImageSystem;
 
-    @Inject
-    private ActorSystemProvider actor;
+    private ActorRef<Message> actor;
+
+    public ViewAppState() {
+        super(ViewAppState.class.getSimpleName());
+    }
+
+    public void setActor(ActorRef<Message> actor) {
+        this.actor = actor;
+    }
 
     @Override
     protected void initialize(Application app) {
@@ -84,14 +92,15 @@ public class ViewState extends BaseAppState {
     @Override
     protected void onEnable() {
         log.debug("onEnable");
-        engine.addSystem(panelRenderSystem);
+        noiseImageSystem.createTexture();
+        engine.addSystem(noiseImageSystem);
+        actor.tell(new AttachViewAppStateDoneMessage());
     }
 
     @Override
     protected void onDisable() {
         log.debug("onDisable");
-        engine.removeSystem(panelRenderSystem);
-        actor.get().tell(new ShutdownMessage());
+        engine.removeSystem(noiseImageSystem);
     }
 
 }

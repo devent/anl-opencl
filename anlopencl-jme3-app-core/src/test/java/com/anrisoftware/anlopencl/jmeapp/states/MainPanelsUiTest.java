@@ -57,6 +57,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFini
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -126,6 +127,11 @@ public class MainPanelsUiTest extends SimpleApplication {
             result.whenComplete((ret1, ex1) -> {
                 inputManager.deleteMapping(INPUT_MAPPING_EXIT);
             });
+        });
+        ViewActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
+            if (ex != null) {
+                log.error("ViewActor error", ex);
+            }
         });
     }
 

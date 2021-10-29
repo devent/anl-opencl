@@ -26,6 +26,11 @@
                               <BorderPane id="imageFieldsPane" fx:id="imageFieldsPane" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                       </TitledPane>
+                        <TitledPane id="mappingdInputsPane" fx:id="mappingInputsPane" animated="false" text="Mapping">
+                           <content>
+                              <BorderPane id="mappingFieldsPane" fx:id="mappingFieldsPane" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
                       <TitledPane id="fileInputsPane" fx:id="fileInputsPane" animated="false" text="File">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />

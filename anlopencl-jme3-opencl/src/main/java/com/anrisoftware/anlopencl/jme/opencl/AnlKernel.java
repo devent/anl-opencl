@@ -108,8 +108,16 @@ public class AnlKernel {
         return kernel.Run1(queue, globalWorkSize, args);
     }
 
+    public void run1NoEvent(CommandQueue queue, WorkSize globalWorkSize, Object... args) {
+        kernel.Run1NoEvent(queue, globalWorkSize, args);
+    }
+
     public Event run2(CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize, Object... args) {
         return kernel.Run2(queue, globalWorkSize, workGroupSize, args);
+    }
+
+    public void run2NoEvent(CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize, Object... args) {
+        kernel.Run2NoEvent(queue, globalWorkSize, workGroupSize, args);
     }
 
     public void createKernel(String name) {

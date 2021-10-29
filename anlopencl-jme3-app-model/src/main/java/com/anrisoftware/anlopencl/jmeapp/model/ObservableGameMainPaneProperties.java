@@ -52,6 +52,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanDoubleProperty;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
@@ -76,6 +79,24 @@ public class ObservableGameMainPaneProperties {
 
         public int height = 1024;
 
+        public double z = 0.0;
+
+        public int dim = 2;
+
+        public double mapx0 = -1;
+
+        public double mapy0 = -1;
+
+        public double mapz0 = 0;
+
+        public double mapx1 = 1;
+
+        public double mapy1 = 1;
+
+        public double mapz1 = 1;
+
+        public boolean map3d = false;
+
         public String kernelCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
                 + "kernel void value_noise2D_noInterp(\n" + "global vector2 *input,\n" + "global REAL *output\n"
                 + ") {\n" + "    int id0 = get_global_id(0);\n"
@@ -98,11 +119,29 @@ public class ObservableGameMainPaneProperties {
 
     public final IntegerProperty height;
 
+    public final IntegerProperty dim;
+
+    public final DoubleProperty mapx0;
+
+    public final DoubleProperty mapy0;
+
+    public final DoubleProperty mapz0;
+
+    public final DoubleProperty mapx1;
+
+    public final DoubleProperty mapy1;
+
+    public final DoubleProperty mapz1;
+
     public final StringProperty kernelCode;
 
     public final ObjectProperty<AnlKernel> kernel;
 
     public final StringProperty fileName;
+
+    public final JavaBeanDoubleProperty z;
+
+    public final JavaBeanBooleanProperty map3d;
 
     @SuppressWarnings("unchecked")
     @SneakyThrows
@@ -112,6 +151,15 @@ public class ObservableGameMainPaneProperties {
         this.seed = JavaBeanIntegerPropertyBuilder.create().bean(p).name("seed").build();
         this.width = JavaBeanIntegerPropertyBuilder.create().bean(p).name("width").build();
         this.height = JavaBeanIntegerPropertyBuilder.create().bean(p).name("height").build();
+        this.z = JavaBeanDoublePropertyBuilder.create().bean(p).name("z").build();
+        this.dim = JavaBeanIntegerPropertyBuilder.create().bean(p).name("dim").build();
+        this.mapx0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapx0").build();
+        this.mapy0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapy0").build();
+        this.mapz0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapz0").build();
+        this.mapx1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapx1").build();
+        this.mapy1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapy1").build();
+        this.mapz1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapz1").build();
+        this.map3d = JavaBeanBooleanPropertyBuilder.create().bean(p).name("map3d").build();
         this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
         this.kernel = JavaBeanObjectPropertyBuilder.create().bean(p).name("kernel").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
@@ -123,6 +171,15 @@ public class ObservableGameMainPaneProperties {
         seed.set(other.seed);
         width.set(other.width);
         height.set(other.height);
+        z.set(other.z);
+        dim.set(other.dim);
+        mapx0.set(other.mapx0);
+        mapy0.set(other.mapy0);
+        mapz0.set(other.mapz0);
+        mapx1.set(other.mapx1);
+        mapy1.set(other.mapy1);
+        mapz1.set(other.mapz1);
+        map3d.set(other.map3d);
         kernelCode.set(other.kernelCode);
         kernel.set(other.kernel);
         fileName.set(other.fileName);

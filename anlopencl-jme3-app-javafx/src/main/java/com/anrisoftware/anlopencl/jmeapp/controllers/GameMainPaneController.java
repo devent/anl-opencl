@@ -90,9 +90,15 @@ public class GameMainPaneController {
     public BorderPane imageFieldsPane;
 
     @FXML
+    public TitledPane map2dInputsPane;
+
+    @FXML
+    public BorderPane mappingFieldsPane;
+
+    @FXML
     public TitledPane fileInputsPane;
 
-    private Form loginForm;
+    public Form imageForm;
 
     @FXML
     public Button buttonBuild;
@@ -109,6 +115,8 @@ public class GameMainPaneController {
     @FXML
     public ProgressIndicator statusProgress;
 
+    public Form mappingForm;
+
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         setupKernelTextField(np);
         setupImagePropertiesFields(np);
@@ -122,11 +130,34 @@ public class GameMainPaneController {
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
-        this.loginForm = Form.of(Group.of(//
+        this.imageForm = Form.of(Group.of(//
                 Field.ofIntegerType(np.seed).label("Seed").required("Not empty"), //
                 Field.ofIntegerType(np.width).label("Width").required("Not empty"), //
-                Field.ofIntegerType(np.height).label("Height").required("Not empty")));
-        imageFieldsPane.setTop(new FormRenderer(loginForm));
+                Field.ofIntegerType(np.height).label("Height").required("Not empty"), //
+                Field.ofDoubleType(np.z).label("Z").required("Not empty"), //
+                Field.ofIntegerType(np.dim).label("Dimension").required("Not empty") //
+        ));
+        imageFieldsPane.setTop(new FormRenderer(imageForm));
+        var map3dField = Field.ofBooleanType(np.map3d).label("Map 3D");
+        var z0Field = Field.ofDoubleType(np.mapz0).label("z0").required("Not empty");
+        z0Field.getRenderer().setDisable(!np.map3d.get());
+        var z1Field = Field.ofDoubleType(np.mapz1).label("z1").required("Not empty");
+        z1Field.getRenderer().setDisable(!np.map3d.get());
+        map3dField.changedProperty().addListener((observable, oldValue, newValue) -> {
+            z0Field.getRenderer().setDisable(!newValue);
+            z1Field.getRenderer().setDisable(!newValue);
+        });
+        this.mappingForm = Form.of(Group.of(//
+                Field.ofDoubleType(np.mapx0).label("x0").required("Not empty"), //
+                Field.ofDoubleType(np.mapx1).label("x1").required("Not empty"), //
+                Field.ofDoubleType(np.mapy0).label("y0").required("Not empty"), //
+                Field.ofDoubleType(np.mapy1).label("y1").required("Not empty") //
+        ), Group.of(//
+                map3dField, //
+                z0Field, //
+                z1Field //
+        ));
+        mappingFieldsPane.setTop(new FormRenderer(mappingForm));
     }
 
     private void setupKernelTextField(ObservableGameMainPaneProperties np) {

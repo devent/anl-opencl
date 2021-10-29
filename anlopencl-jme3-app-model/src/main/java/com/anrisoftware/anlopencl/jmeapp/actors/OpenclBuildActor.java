@@ -96,7 +96,7 @@ public class OpenclBuildActor {
     @ToString(callSuper = true)
     private static class InitialStateMessage extends Message {
 
-        public final LwjglContext context;
+        public final com.jme3.opencl.Context context;
 
     }
 
@@ -125,9 +125,8 @@ public class OpenclBuildActor {
         });
     }
 
-    private static CompletionStage<LwjglContext> createClContext0(Injector injector) {
-        System.out.println(injector.getInstance(LwjglContext.class));
-        return CompletableFuture.completedStage(injector.getInstance(LwjglContext.class));
+    private static CompletionStage<com.jme3.opencl.Context> createClContext0(Injector injector) {
+        return CompletableFuture.completedStage(injector.getInstance(com.jme3.opencl.Context.class));
     }
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
@@ -164,7 +163,7 @@ public class OpenclBuildActor {
 
     private Behavior<Message> onInitialState(InitialStateMessage m) {
         log.debug("onInitialState");
-        gmpp.get().kernel.set(anlKernelFactory.create(m.context));
+        gmpp.get().kernel.set(anlKernelFactory.create((LwjglContext) m.context));
         return Behaviors.receive(Message.class)//
                 .onMessage(BuildStartMessage.class, this::onBuildStart)//
                 .build();

@@ -43,48 +43,21 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.view.states;
 
-import javax.inject.Inject;
-
-import com.anrisoftware.anlopencl.jmeapp.components.ImageComponent;
-import com.anrisoftware.anlopencl.jmeapp.messages.MainWindowResizedMessage;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IntervalIteratingSystem;
-import com.jme3.renderer.Camera;
+import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageQuad.NoiseImageQuadFactory;
+import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 /**
- * Updates the noise image.
- *
- * @author Erwin Müller {@literal <erwin@muellerpublic.de}
+ * @see NoiseImageQuadFactory
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class NoiseImageSystem extends IntervalIteratingSystem {
-
-    private final Camera camera;
-
-    private int panelWidth;
-
-    private int panelHeight;
-
-    @Inject
-    public NoiseImageSystem(Camera camera) {
-        super(Family.all(ImageComponent.class).get(), 0.33f);
-        this.camera = camera;
-        this.panelWidth = camera.getWidth();
-        this.panelHeight = camera.getHeight();
-    }
+public class ViewStatesModule extends AbstractModule {
 
     @Override
-    protected void processEntity(Entity entity) {
-        int camWidth = camera.getWidth();
-        int camHeight = camera.getHeight();
-        if (panelWidth != camWidth || panelHeight != camHeight) {
-            this.panelWidth = camWidth;
-            this.panelHeight = camHeight;
-            var actor = ImageComponent.m.get(entity).actor;
-            actor.tell(new MainWindowResizedMessage(camWidth, camHeight));
-        }
+    protected void configure() {
+        install(new FactoryModuleBuilder().implement(NoiseImageQuad.class, NoiseImageQuad.class)
+                .build(NoiseImageQuadFactory.class));
     }
-
 }

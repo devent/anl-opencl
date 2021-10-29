@@ -51,6 +51,8 @@ import com.anrisoftware.anlopencl.jmeapp.actors.MainActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.actors.PaneActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.controllers.ControllersModule;
 import com.anrisoftware.anlopencl.jmeapp.model.ModelModule;
+import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActorsModule;
+import com.anrisoftware.anlopencl.jmeapp.view.states.ViewStatesModule;
 import com.anrisoftware.resources.binary.internal.binaries.BinariesResourcesModule;
 import com.anrisoftware.resources.binary.internal.maps.BinariesDefaultMapsModule;
 import com.anrisoftware.resources.images.internal.images.ImagesResourcesModule;
@@ -59,6 +61,10 @@ import com.anrisoftware.resources.images.internal.scaling.ResourcesSmoothScaling
 import com.anrisoftware.resources.texts.internal.texts.TextsResourcesDefaultModule;
 import com.google.inject.AbstractModule;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class MainPanelsUiModules extends AbstractModule {
 
     @Override
@@ -70,6 +76,8 @@ public class MainPanelsUiModules extends AbstractModule {
         install(new GuiStatesModule());
         install(new ModelModule());
         install(new ControllersModule());
+        install(new ViewActorsModule());
+        install(new ViewStatesModule());
         // OpenCL
         install(new AnlkernelModule());
         // Resources

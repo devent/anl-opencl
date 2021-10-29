@@ -99,6 +99,11 @@
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-jme3-app-view</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-opencl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

@@ -142,8 +142,7 @@ global float *output
 
     @Test
     void "map2D kernel"() {
-        def stack = MemoryStack.stackPush()
-        stack.withCloseable { s ->
+        MemoryStack.stackPush().withCloseable { s ->
             def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
             anlKernel.buildLib()
             anlKernel.compileKernel("""
@@ -156,9 +155,7 @@ const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_F
 const int dim = sizeof(vector3) / sizeof(float);
 
 kernel void map2d_image(
-global void* ranges,
-int width,
-int height,
+global struct SMappingRanges *ranges,
 float z,
 global float *coord,
 write_only image2d_t output,
@@ -171,8 +168,7 @@ global unsigned char *doutput
     int w = get_global_size(0);
     int h = get_global_size(1);
     if (l0 == 0) {
-        struct SMappingRanges mranges = *(struct SMappingRanges*)(ranges);
-        map2D(coord, calc_seamless_none, mranges, width, height, z);
+        map2D(coord, calc_seamless_none, *ranges, w, h, z);
     }
     int i = (g0 * w + g1) * dim;
     //printf("[map2d_image] %d (%d,%d) g=(%d,%d) l=(%d,%d) coord=%f,%f,%f\\n", i, w, h, g0, g1, l0, l1, coord[i], coord[i+1], coord[i+2]);
@@ -193,22 +189,8 @@ global unsigned char *doutput
             int width = 4
             int height = 4
             float z = 99
-            def ranges = s.mallocFloat(12)
-            ranges.put(-1) // mapx0
-            ranges.put(-1) // mapy0
-            ranges.put(-1) // mapz0
-            ranges.put(1) // mapx1
-            ranges.put(1) // mapy1
-            ranges.put(1) // mapz1
-            ranges.put(-1) // loopx0
-            ranges.put(-1) // loopy0
-            ranges.put(-1) // loopz0
-            ranges.put(1) // loopx1
-            ranges.put(1) // loopy1
-            ranges.put(1) // loopz1
-            ranges.flip()
-            def rangesb = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, ranges, err))
-            checkCLError(err.get(0))
+            def ranges = MappingRanges.createWithBuffer(s)
+            def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
             int size = width * height
             def format = CLImageFormat.malloc(s)
             format.image_channel_order(CL_RGBA)
@@ -222,7 +204,7 @@ global unsigned char *doutput
             def doutputb = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, doutput, err))
             checkCLError(err.get(0))
             def work = new WorkSize(width, height)
-            def event = anlKernel.run1(queue, work, rangesb, width, height, z, coordb, output, doutputb)
+            def event = anlKernel.run1(queue, work, rangesb, z, coordb, output, doutputb)
             event.waitForFinished()
 
             def doutputbb = doutputb.map(queue, doutput.limit(), 0, MappingAccess.MAP_READ_ONLY)

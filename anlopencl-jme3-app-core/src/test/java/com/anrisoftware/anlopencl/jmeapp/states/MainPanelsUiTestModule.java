@@ -49,12 +49,16 @@ import com.badlogic.ashley.core.Engine;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.jme3.app.Application;
+import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
-import com.jme3.opencl.lwjgl.LwjglContext;
 import com.jme3.renderer.Camera;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @RequiredArgsConstructor
 public class MainPanelsUiTestModule extends AbstractModule {
 
@@ -71,6 +75,11 @@ public class MainPanelsUiTestModule extends AbstractModule {
     }
 
     @Provides
+    public AssetManager getAssetManager() {
+        return owner.getAssetManager();
+    }
+
+    @Provides
     public Camera getCamera() {
         return owner.getCamera();
     }
@@ -81,7 +90,7 @@ public class MainPanelsUiTestModule extends AbstractModule {
     }
 
     @Provides
-    public LwjglContext getOpenCLContext() {
-        return (LwjglContext) owner.getContext().getOpenCLContext();
+    public com.jme3.opencl.Context getOpenCLContext() {
+        return owner.getContext().getOpenCLContext();
     }
 }
