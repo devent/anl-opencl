@@ -52,6 +52,7 @@ import static org.lwjgl.opencl.CL10.clCreateBuffer;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
@@ -97,6 +98,7 @@ public class NoiseImageSystem extends IntervalSystem {
     private NoiseImageQuadFactory noiseImageQuadFactory;
 
     @Inject
+    @Named("pivotNode")
     private Node pivotNode;
 
     private final Context context;
@@ -159,7 +161,7 @@ public class NoiseImageSystem extends IntervalSystem {
     private void createNoiseImageQuad(Entity entity) {
         log.debug("createNoiseImageQuad {}", entity);
         var c = ImageComponent.m.get(entity);
-        var quad = noiseImageQuadFactory.create(c, tex);
+        var quad = noiseImageQuadFactory.create(c);
         noiseImageQuads.put(entity, quad);
         pivotNode.attachChild(quad.getPic());
     }
@@ -218,4 +220,5 @@ public class NoiseImageSystem extends IntervalSystem {
             gmpp.kernel.get().run1NoEvent(queue, work, ranges.getClBuffer(s, clcontext), z, coord, texCL);
         }
     }
+
 }

@@ -11,29 +11,32 @@ import com.jme3.ui.Picture;
 public class NoiseImageQuad {
 
     public interface NoiseImageQuadFactory {
-        NoiseImageQuad create(ImageComponent c, Texture2D tex);
+        NoiseImageQuad create(ImageComponent c);
     }
-
-    private final Texture2D tex;
 
     private final Picture pic;
 
+    private final Texture2D unsetTex;
+
+    private final AssetManager assetManager;
+
     @Inject
-    public NoiseImageQuad(AssetManager assetManager, @Assisted ImageComponent c, @Assisted Texture2D tex) {
+    public NoiseImageQuad(AssetManager assetManager, @Assisted ImageComponent c) {
         this.pic = new Picture("");
-        this.tex = tex;
-        pic.setTexture(assetManager, tex, true);
+        this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
+        this.assetManager = assetManager;
+        pic.setTexture(assetManager, unsetTex, true);
         pic.setPosition(0, 0);
         pic.setWidth(c.width);
         pic.setHeight(c.height);
     }
 
-    public Picture getPic() {
-        return pic;
+    public void setTex(Texture2D tex) {
+        pic.setTexture(assetManager, tex, true);
     }
 
-    public Texture2D getTex() {
-        return tex;
+    public Picture getPic() {
+        return pic;
     }
 
 }

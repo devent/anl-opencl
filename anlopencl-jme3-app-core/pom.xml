@@ -89,6 +89,11 @@
         <!-- Own Modules -->
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-jme3-app-assets</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-javafx</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

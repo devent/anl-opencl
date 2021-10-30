@@ -152,30 +152,30 @@ global float *output
 #include <kernel.h>
 
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;
-const int dim = sizeof(vector3) / sizeof(float);
 
 kernel void map2d_image(
 global struct SMappingRanges *ranges,
-float z,
+const float z,
+const int dim,
 global float *coord,
 write_only image2d_t output,
 global unsigned char *doutput
 ) {
-    int g0 = get_global_id(0);
-    int g1 = get_global_id(1);
-    int l0 = get_local_id(0);
-    int l1 = get_local_id(1);
-    int w = get_global_size(0);
-    int h = get_global_size(1);
+    const int g0 = get_global_id(0);
+    const int g1 = get_global_id(1);
+    const int l0 = get_local_id(0);
+    const int l1 = get_local_id(1);
+    const int w = get_global_size(0);
+    const int h = get_global_size(1);
     if (l0 == 0) {
         map2D(coord, calc_seamless_none, *ranges, w, h, z);
     }
-    int i = (g0 * w + g1) * dim;
+    const int i = (g0 * w + g1) * dim;
     //printf("[map2d_image] %d (%d,%d) g=(%d,%d) l=(%d,%d) coord=%f,%f,%f\\n", i, w, h, g0, g1, l0, l1, coord[i], coord[i+1], coord[i+2]);
-    float a = 0.5;
-    float r = value_noise3D(coord[i], 200, noInterp);
-    float g = value_noise3D(coord[i], 200, noInterp);
-    float b = value_noise3D(coord[i], 200, noInterp);
+    const float a = 0.5;
+    const float r = value_noise3D(coord[i], 200, noInterp);
+    const float g = value_noise3D(coord[i], 200, noInterp);
+    const float b = value_noise3D(coord[i], 200, noInterp);
     write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
     doutput[(g1 * 4 + g0) * 4 + 0] = r * 256;
     doutput[(g1 * 4 + g0) * 4 + 1] = g * 256;
@@ -189,6 +189,7 @@ global unsigned char *doutput
             int width = 4
             int height = 4
             float z = 99
+            int dim = vector3_size
             def ranges = MappingRanges.createWithBuffer(s)
             def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
             int size = width * height
@@ -204,7 +205,7 @@ global unsigned char *doutput
             def doutputb = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, doutput, err))
             checkCLError(err.get(0))
             def work = new WorkSize(width, height)
-            def event = anlKernel.run1(queue, work, rangesb, z, coordb, output, doutputb)
+            def event = anlKernel.run1(queue, work, rangesb, z, dim, coordb, output, doutputb)
             event.waitForFinished()
 
             def doutputbb = doutputb.map(queue, doutput.limit(), 0, MappingAccess.MAP_READ_ONLY)

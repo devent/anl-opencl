@@ -132,7 +132,7 @@ public class ViewActor {
     private Behavior<Message> onAttachViewAppStateDone(AttachViewAppStateDoneMessage m) {
         log.debug("onAttachViewAppStateDone");
         app.enqueue(() -> {
-            var entity = engine.createEntity().add(new ImageComponent(1024, 1024));
+            var entity = engine.createEntity().add(new ImageComponent(10, 10));
             engine.addEntity(entity);
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//

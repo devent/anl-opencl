@@ -46,12 +46,17 @@
 package com.anrisoftware.anlopencl.jmeapp.view.states;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
 import com.badlogic.ashley.core.Engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.scene.Node;
 
 import akka.actor.typed.ActorRef;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +74,16 @@ public class ViewAppState extends BaseAppState {
 
     @Inject
     private NoiseImageSystem noiseImageSystem;
+
+    @Inject
+    private CoordAxisDebugShape coordAxisDebugShape;
+
+    @Inject
+    @Named("pivotNode")
+    private Node pivotNode;
+
+    @Inject
+    private Camera cam;
 
     private ActorRef<Message> actor;
 
@@ -92,6 +107,10 @@ public class ViewAppState extends BaseAppState {
     @Override
     protected void onEnable() {
         log.debug("onEnable");
+        cam.setParallelProjection(true);
+        cam.setLocation(new Vector3f(-0.021643113f, 0.035976667f, 15.217747f));
+        cam.setRotation(new Quaternion(-4.8154507E-6f, 0.9999911f, 0.0012241602f, 0.004027171f));
+        pivotNode.attachChild(coordAxisDebugShape.getNode());
         noiseImageSystem.createTexture();
         engine.addSystem(noiseImageSystem);
         actor.tell(new AttachViewAppStateDoneMessage());

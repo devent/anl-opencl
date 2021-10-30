@@ -63,9 +63,17 @@ import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.ToString;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 public class ObservableGameMainPaneProperties {
 
+    /**
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
     @Data
     public static class GameMainPaneProperties {
 
@@ -97,10 +105,35 @@ public class ObservableGameMainPaneProperties {
 
         public boolean map3d = false;
 
-        public String kernelCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
-                + "kernel void value_noise2D_noInterp(\n" + "global vector2 *input,\n" + "global REAL *output\n"
-                + ") {\n" + "    int id0 = get_global_id(0);\n"
-                + "    output[id0] = value_noise2D(input[id0], 200, noInterp);\n" + "}\n" + "";
+        // @formatter:off
+        public String kernelCode = "#include <opencl_utils.h>\n"
+                + "#include <noise_gen.h>\n"
+                + "#include <imaging.h>\n"
+                + "#include <kernel.h>\n"
+                + "\n"
+                + "kernel void map2d_image(\n"
+                + "global struct SMappingRanges *ranges,\n"
+                + "const float z,\n"
+                + "const int dim,\n"
+                + "global float *coord,\n"
+                + "write_only image2d_t output,\n"
+                + ") {\n"
+                + "    const int g0 = get_global_id(0);\n"
+                + "    const int g1 = get_global_id(1);\n"
+                + "    const int w = get_global_size(0);\n"
+                + "    const int h = get_global_size(1);\n"
+                + "    if (l0 == get_local_id(0)) {\n"
+                + "        map2D(coord, calc_seamless_none, *ranges, w, h, z);\n"
+                + "    }\n"
+                + "    const int i = (g0 * w + g1) * dim;\n"
+                + "    const float a = 0.5;\n"
+                + "    const float r = value_noise3D(coord[i], 200, noInterp);\n"
+                + "    const float g = value_noise3D(coord[i], 200, noInterp);\n"
+                + "    const float b = value_noise3D(coord[i], 200, noInterp);\n"
+                + "    write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));\n"
+                + "}\n"
+                + "";
+        // @formatter:on
 
         public String fileName = "";
 
