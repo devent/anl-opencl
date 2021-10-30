@@ -1,0 +1,21 @@
+#rootPane {
+    -fx-background-color: transparent;
+}
+
+#rightMain {
+    -fx-background-color: transparent;
+}
+
+.accordion {
+    -fx-background-color: transparent;
+}
+
+#splitMain {
+    -fx-background-color: transparent;
+
+}
+
+#statusProgress {
+    -fx-pref-width: 26;
+	-fx-pref-height: 26;
+}
