@@ -169,7 +169,7 @@ public class NoiseImageSystem extends IntervalSystem {
     private void removeNoiseImageQuad(Entity entity) {
         log.debug("removeNoiseImageQuad {}", entity);
         var quad = noiseImageQuads.remove(entity);
-        pivotNode.attachChild(quad.getPic());
+        pivotNode.detachChild(quad.getPic());
     }
 
     @Override

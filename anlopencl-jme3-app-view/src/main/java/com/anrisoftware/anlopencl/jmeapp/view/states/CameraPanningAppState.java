@@ -124,7 +124,7 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
         switch (name) {
         case ZOOM_IN_MAPPING:
             if (checkZoomAllowed(m)) {
-                boundMove(oldpos.x - newpos.x, newpos.y - oldpos.y, m);
+                boundMove(oldpos.x - newpos.x, oldpos.y - newpos.y, m);
             }
             return;
         case ZOOM_OUT_MAPPING:

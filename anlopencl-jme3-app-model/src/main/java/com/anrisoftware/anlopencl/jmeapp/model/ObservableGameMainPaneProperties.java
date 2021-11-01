@@ -47,6 +47,8 @@ package com.anrisoftware.anlopencl.jmeapp.model;
 
 import com.anrisoftware.anlopencl.jme.opencl.AnlKernel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -255,4 +257,11 @@ public class ObservableGameMainPaneProperties {
         fileName.set(other.fileName);
     }
 
+    public Vector3f getCameraPos() {
+        return new Vector3f(cameraPosX.get(), cameraPosY.get(), cameraPosZ.get());
+    }
+
+    public Quaternion getCameraRot() {
+        return new Quaternion(cameraRotX.get(), cameraRotY.get(), cameraRotZ.get(), cameraRotW.get());
+    }
 }

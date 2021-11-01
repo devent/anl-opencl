@@ -115,6 +115,7 @@ public class MainPanelsUiTest extends SimpleApplication {
     @SneakyThrows
     public void simpleInitApp() {
         log.debug("simpleInitApp");
+        // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
         this.engine = new Engine();
         this.injector = parent.createChildInjector(new MainPanelsUiModules(), new MainPanelsUiTestModule(this));
         this.actor = injector.getInstance(ActorSystemProvider.class);
