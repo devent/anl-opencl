@@ -56,6 +56,8 @@ import javafx.beans.property.adapter.JavaBeanBooleanProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanDoubleProperty;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanFloatProperty;
+import javafx.beans.property.adapter.JavaBeanFloatPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
@@ -104,6 +106,20 @@ public class ObservableGameMainPaneProperties {
         public double mapz1 = 1;
 
         public boolean map3d = false;
+
+        public float cameraPosX = 0.002901543f;
+
+        public float cameraPosY = -0.013370683f;
+
+        public float cameraPosZ = 28.217747f;
+
+        public float cameraRotX = -4.8154507E-6f;
+
+        public float cameraRotY = 0.9999911f;
+
+        public float cameraRotZ = 0.0012241602f;
+
+        public float cameraRotW = 0.004027171f;
 
         // @formatter:off
         public String kernelCode = "#include <opencl_utils.h>\n"
@@ -176,6 +192,20 @@ public class ObservableGameMainPaneProperties {
 
     public final JavaBeanBooleanProperty map3d;
 
+    public final JavaBeanFloatProperty cameraPosX;
+
+    public final JavaBeanFloatProperty cameraPosY;
+
+    public final JavaBeanFloatProperty cameraPosZ;
+
+    public final JavaBeanFloatProperty cameraRotX;
+
+    public final JavaBeanFloatProperty cameraRotY;
+
+    public final JavaBeanFloatProperty cameraRotZ;
+
+    public final JavaBeanFloatProperty cameraRotW;
+
     @SuppressWarnings("unchecked")
     @SneakyThrows
     public ObservableGameMainPaneProperties(GameMainPaneProperties p) {
@@ -196,6 +226,13 @@ public class ObservableGameMainPaneProperties {
         this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
         this.kernel = JavaBeanObjectPropertyBuilder.create().bean(p).name("kernel").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
+        this.cameraPosX = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraPosX").build();
+        this.cameraPosY = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraPosY").build();
+        this.cameraPosZ = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraPosZ").build();
+        this.cameraRotX = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotX").build();
+        this.cameraRotY = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotY").build();
+        this.cameraRotZ = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotZ").build();
+        this.cameraRotW = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotW").build();
     }
 
     public void copy(GameMainPaneProperties other) {

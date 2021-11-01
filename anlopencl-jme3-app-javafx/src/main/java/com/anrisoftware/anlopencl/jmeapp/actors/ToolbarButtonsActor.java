@@ -154,6 +154,9 @@ public class ToolbarButtonsActor {
         controller.buttonBuild.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get().get("BUILD_MAPPING"));
         });
+        controller.resetCameraButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get().get("RESET_CAMERA_MAPPING"));
+        });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)
          * -> { System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO if (ov != null &&

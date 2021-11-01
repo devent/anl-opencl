@@ -45,7 +45,9 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
+import static com.jme3.input.KeyInput.KEY_F10;
 import static com.jme3.input.KeyInput.KEY_Q;
+import static javafx.scene.input.KeyCode.F10;
 import static javafx.scene.input.KeyCode.Q;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
@@ -58,10 +60,15 @@ import javax.inject.Provider;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.jme3.input.controls.KeyTrigger;
 
 import javafx.scene.input.KeyCodeCombination;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
 
     private final Map<String, KeyMapping> map;
@@ -76,6 +83,9 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
                 Optional.of(new KeyTrigger(KEY_Q)), new GameQuitMessage()));
         map.put("BUILD_MAPPING",
                 new KeyMapping("BUILD_MAPPING", Optional.empty(), Optional.empty(), new BuildClickedMessage()));
+        // camera
+        map.put("RESET_CAMERA_MAPPING", new KeyMapping("RESET_CAMERA_MAPPING", Optional.of(new KeyCodeCombination(F10)),
+                Optional.of(new KeyTrigger(KEY_F10)), new ResetCameraMessage()));
         // done
         map.putAll(commandsButtons);
         this.commandsButtons = Collections.unmodifiableMap(commandsButtons);

@@ -49,6 +49,7 @@ import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThre
 import static java.time.Duration.ofSeconds;
 
 import java.time.Duration;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
@@ -63,6 +64,9 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.resources.images.external.IconSize;
+import com.anrisoftware.resources.images.external.Images;
+import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 
 import akka.actor.typed.ActorRef;
@@ -103,6 +107,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 "/opencl-keywords-dark-wombat.css");
     }
 
+    private final Images images;
+
     @Inject
     private ActorSystemProvider actor;
 
@@ -114,10 +120,16 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private ActorRef<Message> openclBuildActor;
 
+    @Inject
+    public GameMainPanelActor(ImagesFactory imagesFactory) {
+        images = imagesFactory.create(GameMainPanelActor.class.getSimpleName());
+    }
+
     @Override
     protected BehaviorBuilder<Message> getBehaviorAfterAttachGui() {
         runFxThread(() -> {
             var controller = (GameMainPaneController) initial.controller;
+            controller.updateLocale(Locale.US, images, IconSize.SMALL);
             controller.initializeListeners(actor.get(), onp.get());
         });
         Duration timeout = Duration.ofSeconds(3);

@@ -26,8 +26,10 @@ import javax.inject.Inject;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
+import com.anrisoftware.anlopencl.jmeapp.view.states.CameraPanningAppState;
 import com.anrisoftware.anlopencl.jmeapp.view.states.ViewAppState;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Injector;
@@ -100,6 +102,9 @@ public class ViewActor {
     @Inject
     private Engine engine;
 
+    @Inject
+    private CameraPanningAppState cameraPanningAppState;
+
     /**
      * Attaches the {@link ViewAppState}. Returns a new behavior that responds to:
      * <ul>
@@ -111,6 +116,9 @@ public class ViewActor {
             viewAppState.setActor(context.getSelf());
             if (!app.getStateManager().hasState(viewAppState.getId())) {
                 app.getStateManager().attach(viewAppState);
+            }
+            if (!app.getStateManager().hasState(cameraPanningAppState.getId())) {
+                app.getStateManager().attach(cameraPanningAppState);
             }
         });
         return Behaviors.receive(Message.class)//
@@ -136,7 +144,15 @@ public class ViewActor {
             engine.addEntity(entity);
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//
-                .build());
+                .onMessage(ResetCameraMessage.class, this::onResetCamera).build());
+    }
+
+    private Behavior<Message> onResetCamera(ResetCameraMessage m) {
+        log.debug("onResetCamera {}", m);
+        app.enqueue(() -> {
+            cameraPanningAppState.resetCamera();
+        });
+        return Behaviors.same();
     }
 
 }

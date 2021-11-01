@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Core
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Core is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -43,83 +43,16 @@
  *      misrepresented as being the original software.
  *   3. This notice may not be removed or altered from any source distribution.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.states;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
-import com.badlogic.ashley.core.Engine;
-import com.jme3.app.Application;
-import com.jme3.app.state.BaseAppState;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
-
-import akka.actor.typed.ActorRef;
-import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 
 /**
+ * Reset the camera message.
  *
- *
- * @author Erwin Müller
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-@Slf4j
-public class ViewAppState extends BaseAppState {
-
-    @Inject
-    private Engine engine;
-
-    @Inject
-    private NoiseImageSystem noiseImageSystem;
-
-    @Inject
-    private CoordAxisDebugShape coordAxisDebugShape;
-
-    @Inject
-    @Named("pivotNode")
-    private Node pivotNode;
-
-    @Inject
-    private Camera cam;
-
-    private ActorRef<Message> actor;
-
-    public ViewAppState() {
-        super(ViewAppState.class.getSimpleName());
-    }
-
-    public void setActor(ActorRef<Message> actor) {
-        this.actor = actor;
-    }
-
-    @Override
-    protected void initialize(Application app) {
-        log.debug("initialize");
-    }
-
-    @Override
-    protected void cleanup(Application app) {
-    }
-
-    @Override
-    protected void onEnable() {
-        log.debug("onEnable");
-        cam.setParallelProjection(false);
-        cam.setLocation(new Vector3f(0.002901543f, -0.013370683f, 28.217747f));
-        cam.setRotation(new Quaternion(-4.8154507E-6f, 0.9999911f, 0.0012241602f, 0.004027171f));
-        pivotNode.attachChild(coordAxisDebugShape.getNode());
-        noiseImageSystem.createTexture();
-        engine.addSystem(noiseImageSystem);
-        actor.tell(new AttachViewAppStateDoneMessage());
-    }
-
-    @Override
-    protected void onDisable() {
-        log.debug("onDisable");
-        engine.removeSystem(noiseImageSystem);
-    }
+@ToString(callSuper = true)
+public class ResetCameraMessage extends GuiMessage {
 
 }

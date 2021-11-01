@@ -45,10 +45,17 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static javafx.embed.swing.SwingFXUtils.toFXImage;
+
+import java.util.Locale;
+
 import org.fxmisc.richtext.CodeArea;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.anrisoftware.resources.images.external.IconSize;
+import com.anrisoftware.resources.images.external.Images;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
@@ -63,6 +70,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.slf4j.Slf4j;
 
@@ -110,12 +118,21 @@ public class GameMainPaneController {
     public ToggleButton buttonRun;
 
     @FXML
+    public Button resetCameraButton;
+
+    @FXML
     public Label statusLabel;
 
     @FXML
     public ProgressIndicator statusProgress;
 
     public Form mappingForm;
+
+    public void updateLocale(Locale locale, Images images, IconSize iconSize) {
+        resetCameraButton.setGraphic(new ImageView(toFXImage(
+                images.getResource("resetCameraButton", locale, iconSize).getBufferedImage(TYPE_INT_ARGB), null)));
+        resetCameraButton.setText(null);
+    }
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         setupKernelTextField(np);
