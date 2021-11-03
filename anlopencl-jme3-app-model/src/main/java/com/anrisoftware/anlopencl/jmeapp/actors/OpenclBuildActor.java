@@ -171,11 +171,17 @@ public class OpenclBuildActor {
 
     private Behavior<Message> onBuildStart(BuildStartMessage m) {
         log.debug("onBuildStart: {}", m);
-        System.out.println(gmpp.get().kernelCode.get());
         try {
             var kernel = gmpp.get().kernel.get();
             if (!kernel.isBuildLibFinish()) {
                 kernel.buildLib();
+            }
+            if (!kernel.isCompileFinish()) {
+                kernel.compileKernel(gmpp.get().kernelCode.get());
+            }
+            String name = gmpp.get().kernelName.get();
+            if (!kernel.isCreatedKernel(name)) {
+                kernel.createKernel(name);
             }
             m.ref.tell(new BuildFinishedMessage());
         } catch (Exception e) {

@@ -68,6 +68,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
@@ -126,6 +127,12 @@ public class GameMainPaneController {
     @FXML
     public ProgressIndicator statusProgress;
 
+    @FXML
+    public TitledPane buildLogsPane;
+
+    @FXML
+    public TextArea buildLogsText;
+
     public Form mappingForm;
 
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
@@ -148,6 +155,7 @@ public class GameMainPaneController {
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
         this.imageForm = Form.of(Group.of(//
+                Field.ofStringType(np.kernelName).label("Name").required("Not empty"), //
                 Field.ofIntegerType(np.seed).label("Seed").required("Not empty"), //
                 Field.ofIntegerType(np.width).label("Width").required("Not empty"), //
                 Field.ofIntegerType(np.height).label("Height").required("Not empty"), //

@@ -120,7 +120,6 @@ public class ViewAppState extends BaseAppState {
         cam.setLocation(gp.getCameraPos());
         cam.setRotation(gp.getCameraRot());
         pivotNode.attachChild(coordAxisDebugShape.getNode());
-        noiseImageSystem.createTexture();
         engine.addSystem(noiseImageSystem);
         actor.tell(new AttachViewAppStateDoneMessage());
         pivotNode.addLight(light);

@@ -45,10 +45,6 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.view.states;
 
-import static com.jme3.texture.Image.Format.RGBA8;
-import static org.lwjgl.opencl.CL10.CL_MEM_READ_WRITE;
-import static org.lwjgl.opencl.CL10.clCreateBuffer;
-
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -57,26 +53,21 @@ import javax.inject.Named;
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
-import com.anrisoftware.anlopencl.jme.opencl.LwjglUtils;
 import com.anrisoftware.anlopencl.jme.opencl.MappingRanges;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.KernelComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageQuad.NoiseImageQuadFactory;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IntervalSystem;
+import com.badlogic.ashley.systems.IntervalIteratingSystem;
 import com.jme3.opencl.CommandQueue;
-import com.jme3.opencl.Context;
-import com.jme3.opencl.Image;
 import com.jme3.opencl.Kernel;
-import com.jme3.opencl.MemoryAccess;
-import com.jme3.opencl.lwjgl.LwjglBuffer;
 import com.jme3.opencl.lwjgl.LwjglContext;
 import com.jme3.scene.Node;
-import com.jme3.texture.Texture2D;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,7 +77,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller {@literal <erwin@muellerpublic.de}
  */
 @Slf4j
-public class NoiseImageSystem extends IntervalSystem {
+public class NoiseImageSystem extends IntervalIteratingSystem {
 
     private static final Family FAMILY = Family.one(ImageComponent.class).get();
 
@@ -101,43 +92,20 @@ public class NoiseImageSystem extends IntervalSystem {
     @Named("pivotNode")
     private Node pivotNode;
 
-    private final Context context;
-
-    private Texture2D tex;
-
-    private LwjglBuffer coord;
-
-    private Image texCL;
+    private final LwjglContext context;
 
     private final CommandQueue queue;
-
-    private boolean imageBoundOpenCL;
 
     private final long clcontext;
 
     @Inject
     public NoiseImageSystem(GameMainPanePropertiesProvider onp, com.jme3.opencl.Context context) {
-        super(0.33f);
+        super(FAMILY, 1f);
         this.gmpp = onp.get();
         this.noiseImageQuads = Maps.mutable.empty();
-        this.context = context;
-        this.clcontext = ((LwjglContext) context).getContext();
-        this.imageBoundOpenCL = false;
+        this.context = (LwjglContext) context;
+        this.clcontext = this.context.getContext();
         this.queue = context.createQueue().register();
-    }
-
-    public void createTexture() {
-        log.debug("createTexture");
-        int width = gmpp.width.get();
-        int height = gmpp.height.get();
-        int dim = gmpp.dim.get();
-        tex = new Texture2D(width, height, 1, RGBA8);
-        try (var s = MemoryStack.stackPush()) {
-            var err = s.mallocInt(1);
-            long size = width * height * dim;
-            coord = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_READ_WRITE, size, err));
-            LwjglUtils.checkCLError(err);
-        }
     }
 
     @Override
@@ -173,52 +141,58 @@ public class NoiseImageSystem extends IntervalSystem {
     }
 
     @Override
-    protected void updateInterval() {
-        if (!imageBoundOpenCL) {
-            bindTextureToImage();
-        }
-        if (imageBoundOpenCL) {
-            updateOpenCL();
+    protected void processEntity(Entity entity) {
+        if (KernelComponent.m.has(entity)) {
+            var kc = KernelComponent.m.get(entity);
+            var imageQuad = noiseImageQuads.get(entity);
+            if (!imageQuad.isTextureSet()) {
+                imageQuad.setTex(kc.tex);
+            }
+            if (imageQuad.isTextureUploaded() && !imageQuad.isImageBoundOpenCL()) {
+                imageQuad.bindTextureToImage();
+            }
+            if (imageQuad.isImageBoundOpenCL()) {
+                runKernel(kc, imageQuad);
+            }
         }
     }
 
-    /**
-     * Bind the texture to OpenCL after the texture was uploaded to OpenGL.
-     */
-    public void bindTextureToImage() {
-        if (texCL != null) {
-            texCL.release();
-        }
-        if (tex.getImage().getId() == -1) {
-            return;
-        }
-        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY).register();
-        imageBoundOpenCL = true;
-    }
-
-    /**
-     * Runs the kernel.
-     */
-    public void updateOpenCL() {
-        texCL.acquireImageForSharingNoEvent(queue);
-        runKernel();
-        texCL.releaseImageForSharingNoEvent(queue);
-    }
-
-    private void runKernel() {
+    private void runKernel(KernelComponent kc, NoiseImageQuad imageQuad) {
         try (var s = MemoryStack.stackPush()) {
             var ranges = MappingRanges.createWithBuffer(s);
             if (gmpp.map3d.get()) {
-                ranges.setMap3D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
-                        (float) gmpp.mapy1.get(), (float) gmpp.mapz0.get(), (float) gmpp.mapz1.get());
+                setMap3D(ranges);
             } else {
-                ranges.setMap2D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
-                        (float) gmpp.mapy1.get());
+                setMap2D(ranges);
             }
             var work = new Kernel.WorkSize(gmpp.width.get(), gmpp.height.get());
             float z = (float) gmpp.z.get();
-            gmpp.kernel.get().run1NoEvent(queue, work, ranges.getClBuffer(s, clcontext), z, coord, texCL);
+            int dim = gmpp.dim.get();
+            String name = gmpp.kernelName.get();
+            System.err.printf("work:%s z:%f dim:%d name:%s%n", work, z, dim, name); // TODO
+            try {
+                log.trace("acquiring image for sharing");
+                imageQuad.getTexCL().acquireImageForSharingNoEvent(queue);
+                log.trace("running kernel");
+                long rangesb = ranges.getClBuffer(s, clcontext);
+                // gmpp.kernel.get().run1NoEvent(name, queue, work, rangesb, z, dim, kc.coord,
+                // imageQuad.getTexCL());
+                log.trace("releasing image for sharing");
+                imageQuad.getTexCL().releaseImageForSharingNoEvent(queue);
+            } catch (Exception e) {
+                log.error("Error run kernel", e);
+            }
         }
+    }
+
+    private void setMap2D(MappingRanges ranges) {
+        ranges.setMap2D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
+                (float) gmpp.mapy1.get());
+    }
+
+    private void setMap3D(MappingRanges ranges) {
+        ranges.setMap3D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
+                (float) gmpp.mapy1.get(), (float) gmpp.mapz0.get(), (float) gmpp.mapz1.get());
     }
 
 }

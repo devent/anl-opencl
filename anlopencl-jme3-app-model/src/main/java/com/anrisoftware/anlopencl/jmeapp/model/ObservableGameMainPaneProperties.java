@@ -85,6 +85,10 @@ public class ObservableGameMainPaneProperties {
 
         public String lastExpandedPane = "kernelInputsPane";
 
+        public String kernelName = "map2d_image";
+
+        public String kernelLog = "";
+
         public int seed = 0;
 
         public int width = 1024;
@@ -184,7 +188,11 @@ public class ObservableGameMainPaneProperties {
 
     public final DoubleProperty mapz1;
 
+    public final StringProperty kernelName;
+
     public final StringProperty kernelCode;
+
+    public final StringProperty kernelLog;
 
     public final ObjectProperty<AnlKernel> kernel;
 
@@ -225,7 +233,9 @@ public class ObservableGameMainPaneProperties {
         this.mapy1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapy1").build();
         this.mapz1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapz1").build();
         this.map3d = JavaBeanBooleanPropertyBuilder.create().bean(p).name("map3d").build();
+        this.kernelName = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelName").build();
         this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
+        this.kernelLog = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelLog").build();
         this.kernel = JavaBeanObjectPropertyBuilder.create().bean(p).name("kernel").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
         this.cameraPosX = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraPosX").build();
@@ -252,8 +262,10 @@ public class ObservableGameMainPaneProperties {
         mapy1.set(other.mapy1);
         mapz1.set(other.mapz1);
         map3d.set(other.map3d);
+        kernelName.set(other.kernelName);
         kernelCode.set(other.kernelCode);
         kernel.set(other.kernel);
+        kernelLog.set(other.kernelLog);
         fileName.set(other.fileName);
     }
 

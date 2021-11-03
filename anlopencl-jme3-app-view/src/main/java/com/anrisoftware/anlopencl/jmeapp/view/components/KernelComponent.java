@@ -47,17 +47,20 @@ package com.anrisoftware.anlopencl.jmeapp.view.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
+import com.jme3.opencl.lwjgl.LwjglBuffer;
+import com.jme3.texture.Texture2D;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @ToString
 @RequiredArgsConstructor
-public class ImageComponent implements Component {
+public class KernelComponent implements Component {
 
-    public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+    public static final ComponentMapper<KernelComponent> m = ComponentMapper.getFor(KernelComponent.class);
 
-    public final int width;
+    public final Texture2D tex;
 
-    public final int height;
+    public final LwjglBuffer coord;
+
 }

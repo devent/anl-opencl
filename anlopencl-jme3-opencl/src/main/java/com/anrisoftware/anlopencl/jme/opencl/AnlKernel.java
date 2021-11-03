@@ -50,8 +50,11 @@ import static org.lwjgl.opencl.CL10.clCreateProgramWithSource;
 import static org.lwjgl.system.MemoryStack.stackMallocInt;
 
 import java.nio.IntBuffer;
+import java.util.Map;
 
 import javax.inject.Inject;
+
+import org.eclipse.collections.impl.factory.Maps;
 
 import com.google.inject.assistedinject.Assisted;
 import com.jme3.opencl.CommandQueue;
@@ -75,6 +78,8 @@ public class AnlKernel {
         AnlKernel create(LwjglContext context);
     }
 
+    private final Map<String, Kernel> kernels;
+
     @Inject
     @Assisted
     private LwjglContext context;
@@ -92,37 +97,46 @@ public class AnlKernel {
 
     private Program lprogramLib;
 
-    private Kernel kernel;
-
     private Program lprogramKernel;
 
     private boolean buildLibFinish;
 
+    private boolean compileFinish;
+
     @Inject
     public AnlKernel() {
+        this.kernels = Maps.mutable.empty();
         this.options = ANLOPENCL_USE_OPENCL;
         this.buildLibFinish = false;
+        this.compileFinish = false;
     }
 
-    public Event run1(CommandQueue queue, WorkSize globalWorkSize, Object... args) {
-        return kernel.Run1(queue, globalWorkSize, args);
+    public Event run1(String name, CommandQueue queue, WorkSize globalWorkSize, Object... args) {
+        return kernels.get(name).Run1(queue, globalWorkSize, args);
     }
 
-    public void run1NoEvent(CommandQueue queue, WorkSize globalWorkSize, Object... args) {
-        kernel.Run1NoEvent(queue, globalWorkSize, args);
+    public void run1NoEvent(String name, CommandQueue queue, WorkSize globalWorkSize, Object... args) {
+        kernels.get(name).Run1NoEvent(queue, globalWorkSize, args);
     }
 
-    public Event run2(CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize, Object... args) {
-        return kernel.Run2(queue, globalWorkSize, workGroupSize, args);
+    public Event run2(String name, CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize,
+            Object... args) {
+        return kernels.get(name).Run2(queue, globalWorkSize, workGroupSize, args);
     }
 
-    public void run2NoEvent(CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize, Object... args) {
-        kernel.Run2NoEvent(queue, globalWorkSize, workGroupSize, args);
+    public void run2NoEvent(String name, CommandQueue queue, WorkSize globalWorkSize, WorkSize workGroupSize,
+            Object... args) {
+        kernels.get(name).Run2NoEvent(queue, globalWorkSize, workGroupSize, args);
     }
 
     public void createKernel(String name) {
-        kernel = lprogramKernel.createKernel(name).register();
+        var kernel = lprogramKernel.createKernel(name).register();
+        kernels.put(name, kernel);
         log.debug("Kernel created {}", kernel);
+    }
+
+    public boolean isCreatedKernel(String name) {
+        return kernels.containsKey(name);
     }
 
     public void setUseDouble(boolean useDouble) {
@@ -143,6 +157,11 @@ public class AnlKernel {
         log.debug("Kernel program compiled: {}", programKernel);
         this.lprogramKernel = LwjglProgramEx.link(context, "", new Program[] { lprogramLib, programKernel });
         log.debug("Kernel program linked: {}", lprogramKernel);
+        this.compileFinish = true;
+    }
+
+    public boolean isCompileFinish() {
+        return compileFinish;
     }
 
     public void buildLib() throws Exception {

@@ -68,6 +68,7 @@ import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
+import com.jme3.opencl.KernelCompilationException;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
@@ -149,12 +150,15 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         context.ask(BuildStartMessage.BuildResponseMessage.class, openclBuildActor, timeout,
                 (ActorRef<BuildStartMessage.BuildResponseMessage> ref) -> new BuildStartMessage(ref),
                 (response, throwable) -> {
-                    if (throwable == null) {
-                        log.debug("Returning BuildFinishedMessage");
-                        return new BuildStartMessage.BuildFinishedMessage();
-                    } else {
+                    if (throwable != null) {
                         log.debug("Returning BuildFailedMessage");
                         return new BuildStartMessage.BuildFailedMessage(throwable);
+                    } else if (response instanceof BuildStartMessage.BuildFailedMessage) {
+                        log.debug("Returning BuildFailedMessage");
+                        return response;
+                    } else {
+                        log.debug("Returning BuildFinishedMessage");
+                        return response;
                     }
                 });
         return super.getBehaviorAfterAttachGui()//
@@ -165,15 +169,28 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private Behavior<Message> onBuildFinished(BuildFinishedMessage m) {
         log.debug("onBuildFinished {}", m);
-        initial.actors.get(StatusBarActor.NAME).tell(m);
-        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        actor.get().tell(m);
+        forwardMessage(m);
+        runFxThread(() -> {
+            var controller = (GameMainPaneController) initial.controller;
+            onp.get().kernelLog.set(null);
+            controller.buildLogsText.setText(null);
+        });
         return getDefaultBehavior().build();
     }
 
     private Behavior<Message> onBuildFailed(BuildFailedMessage m) {
         log.debug("onBuildFailed {}", m);
-        initial.actors.get(StatusBarActor.NAME).tell(m);
-        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        actor.get().tell(m);
+        forwardMessage(m);
+        runFxThread(() -> {
+            var controller = (GameMainPaneController) initial.controller;
+            if (m.cause instanceof KernelCompilationException) {
+                var ex = (KernelCompilationException) m.cause;
+                onp.get().kernelLog.set(ex.getLog());
+                controller.buildLogsText.setText(ex.getLog());
+            }
+        });
         return getDefaultBehavior().build();
     }
 
@@ -181,6 +198,12 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
         ;
+    }
+
+    private void forwardMessage(Message m) {
+        initial.actors.forEach((a) -> {
+            a.tell(m);
+        });
     }
 
 }

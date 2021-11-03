@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
@@ -36,6 +38,15 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>
                       </TitledPane>
+                        <TitledPane id="buildLogsPane" fx:id="buildLogsPane" prefHeight="200.0" prefWidth="200.0" text="Build Logs">
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <TextArea id="buildLogsText" fx:id="buildLogsText" editable="false" />
+                                 </content>
+                              </ScrollPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
 		          <BorderPane id="rightMain" fx:id="rightMain" prefHeight="200.0" prefWidth="200.0" />
