@@ -46,11 +46,16 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor.GameMainPanelActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.ImageFieldsPaneActor.ImageFieldsPaneActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.StatusBarActor.StatusBarActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ToolbarButtonsActor.ToolbarButtonsActorFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class PaneActorsModule extends AbstractModule {
 
     @Override
@@ -61,5 +66,7 @@ public class PaneActorsModule extends AbstractModule {
                 .build(ToolbarButtonsActorFactory.class));
         install(new FactoryModuleBuilder().implement(StatusBarActor.class, StatusBarActor.class)
                 .build(StatusBarActorFactory.class));
+        install(new FactoryModuleBuilder().implement(ImageFieldsPaneActor.class, ImageFieldsPaneActor.class)
+                .build(ImageFieldsPaneActorFactory.class));
     }
 }

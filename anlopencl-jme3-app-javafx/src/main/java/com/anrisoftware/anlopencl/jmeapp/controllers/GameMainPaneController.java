@@ -50,8 +50,6 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.util.Locale;
 
-import org.fxmisc.richtext.CodeArea;
-
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
@@ -73,6 +71,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -96,7 +95,10 @@ public class GameMainPaneController {
     public TitledPane imageInputsPane;
 
     @FXML
-    public BorderPane imageFieldsPane;
+    public Pane imageFieldsPane;
+
+    @FXML
+    public ImageFieldsPaneController imageFieldsPaneController;
 
     @FXML
     public TitledPane map2dInputsPane;
@@ -106,8 +108,6 @@ public class GameMainPaneController {
 
     @FXML
     public TitledPane fileInputsPane;
-
-    public Form imageForm;
 
     @FXML
     public Button buttonBuild;
@@ -142,7 +142,7 @@ public class GameMainPaneController {
     }
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
-        setupKernelTextField(np);
+        log.debug("initializeListeners");
         setupImagePropertiesFields(np);
         setupSplitMain(np);
         setupInputAccordion(np);
@@ -154,15 +154,6 @@ public class GameMainPaneController {
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
-        this.imageForm = Form.of(Group.of(//
-                Field.ofStringType(np.kernelName).label("Name").required("Not empty"), //
-                Field.ofIntegerType(np.seed).label("Seed").required("Not empty"), //
-                Field.ofIntegerType(np.width).label("Width").required("Not empty"), //
-                Field.ofIntegerType(np.height).label("Height").required("Not empty"), //
-                Field.ofDoubleType(np.z).label("Z").required("Not empty"), //
-                Field.ofIntegerType(np.dim).label("Dimension").required("Not empty") //
-        ));
-        imageFieldsPane.setTop(new FormRenderer(imageForm));
         var map3dField = Field.ofBooleanType(np.map3d).label("Map 3D");
         var z0Field = Field.ofDoubleType(np.mapz0).label("z0").required("Not empty");
         z0Field.getRenderer().setDisable(!np.map3d.get());
@@ -183,16 +174,6 @@ public class GameMainPaneController {
                 z1Field //
         ));
         mappingFieldsPane.setTop(new FormRenderer(mappingForm));
-    }
-
-    private void setupKernelTextField(ObservableGameMainPaneProperties np) {
-        var editor = new OpenCLKeywordsEditor();
-        CodeArea area = editor.getCodeArea();
-        area.replaceText(0, area.getLength(), np.kernelCode.get());
-        imageFieldsPane.setCenter(area);
-        area.textProperty().addListener((obs, oldText, newText) -> {
-            np.kernelCode.set(newText);
-        });
     }
 
     private void setupSplitMain(ObservableGameMainPaneProperties np) {

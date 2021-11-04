@@ -54,6 +54,10 @@ import javafx.scene.layout.Region;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @RequiredArgsConstructor
 @ToString
 public class InitialStateMessage extends Message {

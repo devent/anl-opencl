@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="310.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.ImageFieldsPaneController">
+  <top>
+    <AnchorPane BorderPane.alignment="CENTER">
+      <children>
+        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          </rowConstraints>
+          <children>
+            <Label id="nameLabel" fx:id="nameLabel" text="Name:" />
+            <TextField id="nameField" fx:id="nameField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+            <Label id="seedLabel" fx:id="seedLabel" text="Seed:" GridPane.rowIndex="1" />
+            <TextField id="seedField" fx:id="seedField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            <Label id="widthLabel" fx:id="widthLabel" text="Width:" GridPane.rowIndex="2" />
+            <Spinner id="widthField" fx:id="widthField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+            <Label id="heightLabel" fx:id="heightLabel" text="Height:" GridPane.rowIndex="3" />
+            <Spinner id="heightField" fx:id="heightField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+            <Label id="zLabel" fx:id="zLabel" text="Z:" GridPane.rowIndex="4" />
+            <TextField id="zField" fx:id="zField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+            <Label id="dimensionLabel" fx:id="dimensionLabel" text="Dimension:" GridPane.rowIndex="5" />
+            <Spinner id="dimensionField" fx:id="dimensionField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+            <Label text="Code:" GridPane.rowIndex="6" />
+          </children>
+        </GridPane>
+      </children>
+    </AnchorPane>
+  </top>
+  <center>
+    <AnchorPane id="kernelCodePane" fx:id="kernelCodePane" BorderPane.alignment="CENTER">
+    </AnchorPane>
+  </center>
+</BorderPane>

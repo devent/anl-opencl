@@ -47,6 +47,10 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import javafx.scene.layout.Pane;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public interface MainPanelController {
 
     Pane getMainPanel();

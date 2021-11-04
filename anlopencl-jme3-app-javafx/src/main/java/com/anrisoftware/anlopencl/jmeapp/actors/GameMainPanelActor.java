@@ -96,6 +96,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     static {
         panelActors.put(ToolbarButtonsActor.NAME, ToolbarButtonsActor::create);
         panelActors.put(StatusBarActor.NAME, StatusBarActor::create);
+        panelActors.put(ImageFieldsPaneActor.NAME, ImageFieldsPaneActor::create);
     }
 
     public interface GameMainPanelActorFactory extends AbstractMainPanelActorFactory {
