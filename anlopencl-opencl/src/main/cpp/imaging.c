@@ -65,46 +65,61 @@
 
 struct SMappingRanges create_ranges_default() {
 	struct SMappingRanges r;
-	r.mapx0 = r.mapy0 = r.mapz0 = r.loopx0 = r.loopy0 = r.loopz0 = -1;
-	r.mapx1 = r.mapy1 = r.mapz1 = r.loopx1 = r.loopy1 = r.loopz1 = 1;
+    set_ranges_default(&r);
 	return r;
+}
+
+struct SMappingRanges set_ranges_default(struct SMappingRanges *const r) {
+	r->mapx0 = r->mapy0 = r->mapz0 = r->loopx0 = r->loopy0 = r->loopz0 = -1;
+	r->mapx1 = r->mapy1 = r->mapz1 = r->loopx1 = r->loopy1 = r->loopz1 = 1;
+	return *r;
 }
 
 struct SMappingRanges create_ranges_map2D(REAL x0, REAL x1, REAL y0, REAL y1) {
 	struct SMappingRanges r;
-	r.mapx0 = x0;
-	r.mapx1 = x1;
-	r.mapy0 = y0;
-	r.mapy1 = y1;
-	r.mapz0 = 0;
-	r.mapz1 = 0;
-
-	r.loopx0 = x0;
-	r.loopx1 = x1;
-	r.loopy0 = y0;
-	r.loopy1 = y1;
-	r.loopz0 = 1;
-	r.loopz1 = 1;
+    set_ranges_map2D(&r, x0, x1, y0, y1);
 	return r;
+}
+
+struct SMappingRanges set_ranges_map2D(struct SMappingRanges *const r, REAL x0, REAL x1, REAL y0, REAL y1) {
+	r->mapx0 = x0;
+	r->mapx1 = x1;
+	r->mapy0 = y0;
+	r->mapy1 = y1;
+	r->mapz0 = 0;
+	r->mapz1 = 0;
+
+	r->loopx0 = x0;
+	r->loopx1 = x1;
+	r->loopy0 = y0;
+	r->loopy1 = y1;
+	r->loopz0 = 1;
+	r->loopz1 = 1;
+	return *r;
 }
 
 struct SMappingRanges create_ranges_map3D(REAL x0, REAL x1, REAL y0, REAL y1,
 		REAL z0, REAL z1) {
 	struct SMappingRanges r;
-	r.mapx0 = x0;
-	r.mapx1 = x1;
-	r.mapy0 = y0;
-	r.mapy1 = y1;
-	r.mapz0 = z0;
-	r.mapz1 = z1;
-
-	r.loopx0 = x0;
-	r.loopx1 = x1;
-	r.loopy0 = y0;
-	r.loopy1 = y1;
-	r.loopz0 = z0;
-	r.loopz1 = z1;
+    set_ranges_map3D(&r, x0, x1, y0, y1, z0, z1);
 	return r;
+}
+
+struct SMappingRanges set_ranges_map3D(struct SMappingRanges *const r, REAL x0, REAL x1, REAL y0, REAL y1, REAL z0, REAL z1) {
+	r->mapx0 = x0;
+	r->mapx1 = x1;
+	r->mapy0 = y0;
+	r->mapy1 = y1;
+	r->mapz0 = z0;
+	r->mapz1 = z1;
+
+	r->loopx0 = x0;
+	r->loopx1 = x1;
+	r->loopy0 = y0;
+	r->loopy1 = y1;
+	r->loopz0 = z0;
+	r->loopz1 = z1;
+	return *r;
 }
 
 void calc_seamless_none(void *out, int index, size_t x, size_t y, REAL p,

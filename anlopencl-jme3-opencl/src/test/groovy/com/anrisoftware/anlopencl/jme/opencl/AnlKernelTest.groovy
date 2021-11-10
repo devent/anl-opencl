@@ -95,7 +95,7 @@ class AnlKernelTest {
     void "build compile kernel"() {
         def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
         anlKernel.buildLib()
-        anlKernel.compileKernel("""
+        anlKernel.compileProgram("""
 #include <opencl_utils.h>
 #include <noise_gen.h>
 #include <kernel.h>
@@ -145,11 +145,13 @@ global float *output
         MemoryStack.stackPush().withCloseable { s ->
             def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
             anlKernel.buildLib()
-            anlKernel.compileKernel("""
+            anlKernel.compileProgram("""
 #include <opencl_utils.h>
 #include <noise_gen.h>
 #include <imaging.h>
 #include <kernel.h>
+
+#define a2vector3(a, i) ((vector3)(a[i], a[i+1], a[i+2]))
 
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;
 
@@ -173,9 +175,9 @@ global unsigned char *doutput
     const int i = (g0 * w + g1) * dim;
     //printf("[map2d_image] %d (%d,%d) g=(%d,%d) l=(%d,%d) coord=%f,%f,%f\\n", i, w, h, g0, g1, l0, l1, coord[i], coord[i+1], coord[i+2]);
     const float a = 0.5;
-    const float r = value_noise3D(coord[i], 200, noInterp);
-    const float g = value_noise3D(coord[i], 200, noInterp);
-    const float b = value_noise3D(coord[i], 200, noInterp);
+    const float r = value_noise3D(a2vector3(coord, i), 200, noInterp);
+    const float g = r;
+    const float b = r;
     write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
     doutput[(g1 * 4 + g0) * 4 + 0] = r * 256;
     doutput[(g1 * 4 + g0) * 4 + 1] = g * 256;
@@ -186,11 +188,11 @@ global unsigned char *doutput
 """)
             anlKernel.createKernel("map2d_image")
             def err = s.mallocInt(1)
-            int width = 4
-            int height = 4
+            int width = 2
+            int height = 2
             float z = 99
             int dim = vector3_size
-            def ranges = MappingRanges.createWithBuffer(s)
+            def ranges = MappingRanges.createWithBuffer(s).setDefault()
             def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
             int size = width * height
             def format = CLImageFormat.malloc(s)
@@ -205,7 +207,7 @@ global unsigned char *doutput
             def doutputb = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, doutput, err))
             checkCLError(err.get(0))
             def work = new WorkSize(width, height)
-            def event = anlKernel.run1(queue, work, rangesb, z, dim, coordb, output, doutputb)
+            def event = anlKernel.run1("map2d_image", queue, work, rangesb, z, dim, coordb, output, doutputb)
             event.waitForFinished()
 
             def doutputbb = doutputb.map(queue, doutput.limit(), 0, MappingAccess.MAP_READ_ONLY)
@@ -235,6 +237,197 @@ global unsigned char *doutput
                     int b = (x + y * height) * 4 + 3
                     println "($a,$r,$g,$b ${out.get(a)&0xFF}/${out.get(r)&0xFF}/${out.get(g)&0xFF}/${out.get(b)&0xFF})"
                 }
+            }
+        }
+    }
+
+    @Test
+    void "map2D kernel vector3"() {
+        MemoryStack.stackPush().withCloseable { s ->
+            def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
+            int width = 8
+            int height = 8
+            anlKernel.buildLib()
+            anlKernel.compileProgram("""
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;
+
+global vector3 const coord[$width * $height];
+
+kernel void map2d_image(
+global struct SMappingRanges *ranges,
+const float z,
+const int dim,
+write_only image2d_t output
+) {
+    const size_t g0 = get_global_id(0);
+    const size_t g1 = get_global_id(1);
+    const size_t w = get_global_size(0);
+    const size_t h = get_global_size(1);
+/*    printf("group:%ld,%ld global:%ld,%ld size:%ld,%ld local:%ld,%ld size:%ld,%ld\\n",
+get_group_id(0),get_group_id(1),
+g0,g1,
+w,h,
+get_local_id(0),get_local_id(1),
+get_local_size(0),get_local_size(1));*/
+    if (get_local_id(0) == 0) {
+        //printf("map2D -- vector3=%d \\n", sizeof(vector3)/sizeof(float));
+        map2D(coord, calc_seamless_none, *ranges, w, h, z);
+        //for (int i = 0; i < w*h; ++i) {
+            //printf("coord = %f/%f/%f\\n"coord[i].x,coord[i].y,coord[i].z);
+        //}
+    }
+    const int i = (g0 * w + g1);
+    const float a = 0.5;
+    const float r = value_noise3D(coord[i], 200, noInterp);
+    const float g = r;
+    const float b = r;
+    write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
+    printf("%d coord = %f/%f/%f %f/%f/%f/%f\\n",i,coord[i].x,coord[i].y,coord[i].z,r,g,b,a);
+}
+""")
+            anlKernel.createKernel("map2d_image")
+            def err = s.mallocInt(1)
+            float z = 99
+            int dim = vector3_size
+            def ranges = MappingRanges.createWithBuffer(s).setDefault()
+            def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
+            int size = width * height
+            def format = CLImageFormat.calloc(s)
+            format.image_channel_order(CL_RGBA)
+            format.image_channel_data_type(CL_UNORM_INT8)
+            def image = BufferUtils.createShortBuffer(size * channel_size)
+            def output = new LwjglImage(clCreateImage2D(clcontext, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, format, width, height, 0, image, err));
+            checkCLError(err.get(0))
+            def global = new WorkSize(width, height)
+            def local = new WorkSize(2, 2)
+            def event = anlKernel.run2("map2d_image", queue, global, local, rangesb, z, dim, output)
+            //def event = anlKernel.run1("map2d_image", queue, global, rangesb, z, dim, output)
+            event.waitForFinished()
+
+            def out = BufferUtils.createByteBuffer(size * channel_size)
+            BufferUtils.zeroBuffer(out)
+            output.readImage(queue, out, [0, 0, 0] as long[], [width, height, 1] as long[], 0, 0)
+            println output.getWidth()
+            println output.getHeight()
+            println output.rowPitch
+            println output.slicePitch
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    int a = (x + y * height) * 4
+                    int r = (x + y * height) * 4 + 1
+                    int g = (x + y * height) * 4 + 2
+                    int b = (x + y * height) * 4 + 3
+                    //println "($a,$r,$g,$b ${out.get(a)&0xFF}/${out.get(r)&0xFF}/${out.get(g)&0xFF}/${out.get(b)&0xFF})"
+                }
+            }
+        }
+    }
+
+    @Test
+    void "map2D kernel split coordinates"() {
+        MemoryStack.stackPush().withCloseable { s ->
+            def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
+            int width = 8
+            int height = 8
+            int localSize = 2
+            anlKernel.buildLib()
+            anlKernel.compileProgram("""
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+kernel void map2d_image(
+global struct SMappingRanges *g_ranges,
+const float c_z,
+const int c_dim,
+write_only image2d_t output
+) {
+    const size_t g0 = get_global_id(0);
+    const size_t g1 = get_global_id(1);
+    const size_t w = get_global_size(0);
+    const size_t h = get_global_size(1);
+    const size_t l0 = get_local_id(0);
+    const size_t l1 = get_local_id(1);
+    const size_t lw = get_local_size(0);
+    const size_t lh = get_local_size(1);
+    local vector3 coord[$localSize * $localSize];
+    local struct SMappingRanges ranges;
+    if (l0 == 0 && l1 == 0) {
+        const REAL sw = (g_ranges->mapx1 - g_ranges->mapx0) / w;
+        const REAL sh = (g_ranges->mapy1 - g_ranges->mapy0) / h;
+printf("%f %f [%f/%f - %f/%f]\\n",sw,sh,g_ranges->mapx0,g_ranges->mapx1,g_ranges->mapy0,g_ranges->mapy1);
+        const REAL x0 = g_ranges->mapx0 + g0 * sw;
+        const REAL x1 = g_ranges->mapx0 + g0 * sw + sw * lw;
+        const REAL y0 = g_ranges->mapy0 + g1 * sh;
+        const REAL y1 = g_ranges->mapy0 + g1 * sh + sh * lh;
+        set_ranges_map2D(&ranges, x0, x1, y0, y1);
+        printf("group:%ld=%ld global:%ld=%ld size:%ld=%ld local:%ld=%ld size:%ld=%ld [%f/%f - %f/%f]\\n",
+get_group_id(0),get_group_id(1),
+g0,g1,
+w,h,
+get_local_id(0),get_local_id(1),
+get_local_size(0),get_local_size(1),
+x0,
+x1,
+y0,
+y1);
+        map2D(coord, calc_seamless_none, ranges, lw, lh, c_z);
+        for (int i = 0; i < lw*lh; ++i) {
+            printf("%ld,%ld coord = %f/%f/%f\\n", g0,g1,coord[i].x,coord[i].y,coord[i].z);
+        }
+    }
+    work_group_barrier(CLK_LOCAL_MEM_FENCE);
+    const int i = (l0 + l1 * lh);
+    printf("%ld,%ld %ld coord = %f/%f/%f\\n", g0,g1,i,coord[i].x,coord[i].y,coord[i].z);
+    const float a = 0.5;
+    const float r = value_noise3D(coord[i], 200, noInterp);
+    const float g = r;
+    const float b = r;
+    write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
+    //printf("%d coord = %f/%f/%f %f/%f/%f/%f\\n",i,coord[i].x,coord[i].y,coord[i].z,r,g,b,a);
+}
+""")
+            anlKernel.createKernel("map2d_image")
+            def err = s.mallocInt(1)
+            float z = 99
+            int dim = vector3_size
+            def ranges = MappingRanges.createWithBuffer(s).setDefault()
+            def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
+            int size = width * height
+            def format = CLImageFormat.calloc(s)
+            format.image_channel_order(CL_RGBA)
+            format.image_channel_data_type(CL_UNORM_INT8)
+            def image = BufferUtils.createShortBuffer(size * channel_size)
+            def output = new LwjglImage(clCreateImage2D(clcontext, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, format, width, height, 0, image, err));
+            checkCLError(err.get(0))
+            def global = new WorkSize(width, height)
+            def local = new WorkSize(2, 2)
+            def event = anlKernel.run2("map2d_image", queue, global, local, rangesb, z, dim, output)
+            //def event = anlKernel.run1("map2d_image", queue, global, rangesb, z, dim, output)
+            event.waitForFinished()
+
+            def out = BufferUtils.createByteBuffer(size * channel_size)
+            BufferUtils.zeroBuffer(out)
+            output.readImage(queue, out, [0, 0, 0] as long[], [width, height, 1] as long[], 0, 0)
+            println output.getWidth()
+            println output.getHeight()
+            println output.rowPitch
+            println output.slicePitch
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    int a = (x + y * height) * 4
+                    int r = (x + y * height) * 4 + 1
+                    int g = (x + y * height) * 4 + 2
+                    int b = (x + y * height) * 4 + 3
+                    print "($a,$r,$g,$b ${out.get(a)&0xFF}/${out.get(r)&0xFF}/${out.get(g)&0xFF}/${out.get(b)&0xFF})"
+                }
+                println()
             }
         }
     }

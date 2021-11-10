@@ -74,6 +74,26 @@ REAL radians(REAL degrees);
 REAL clamp(REAL v, REAL l, REAL h);
 #endif // ANLOPENCL_USE_OPENCL
 
+/**
+ * Converts an array to a vector2.
+ */
+#define a2vector2(a, i) ((vector2)(a[i], a[i+1]))
+
+/**
+ * Converts an array to a vector3.
+ */
+#define a2vector3(a, i) ((vector3)(a[i], a[i+1], a[i+2]))
+
+/**
+ * Converts an array to a vector4.
+ */
+#define a2vector4(a, i) ((vector4)(a[i], a[i+1], a[i+2], a[i+3]))
+
+/**
+ * Converts an array to a vector8.
+ */
+#define a2vector8(a, i) ((vector8)(a[i], a[i+1], a[i+2], a[i+3], a[i+4], a[i+5], a[i+6], a[i+7]))
+
 REAL lerp(REAL t, REAL a, REAL b);
 
 bool isPowerOf2(unsigned int n);
