@@ -168,6 +168,7 @@ public class ImageFieldsPaneController {
         area.replaceText(0, area.getLength(), np.kernelCode.get());
         area.textProperty().addListener((obs, oldText, newText) -> {
             np.kernelCode.set(newText);
+            np.codeLastChange.set(System.currentTimeMillis());
         });
         kernelCodePane.getChildren().add(area);
         AnchorPane.setBottomAnchor(area, 0.0);

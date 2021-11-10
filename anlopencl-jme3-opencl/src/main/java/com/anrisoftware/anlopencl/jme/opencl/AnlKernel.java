@@ -55,6 +55,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.collections.impl.factory.Maps;
+import org.lwjgl.system.MemoryStack;
 
 import com.google.inject.assistedinject.Assisted;
 import com.jme3.opencl.CommandQueue;
@@ -130,37 +131,55 @@ public class AnlKernel {
     }
 
     public void createKernel(String name) {
-        var kernel = lprogramKernel.createKernel(name).register();
+        var kernel = lprogramKernel.createKernel(name);
         kernels.put(name, kernel);
         log.debug("Kernel created {}", kernel);
     }
 
-    public boolean isCreatedKernel(String name) {
+    public boolean isKernelCreated(String name) {
         return kernels.containsKey(name);
+    }
+
+    public void releaseKernel(String name) {
+        var kernel = kernels.remove(name);
+        if (kernel != null) {
+            log.debug("Release kernel {}", name);
+            kernel.release();
+        }
     }
 
     public void setUseDouble(boolean useDouble) {
         this.options = useDouble ? ANLOPENCL_USE_OPENCL + " " + ANLOPENCL_USE_DOUBLE : ANLOPENCL_USE_OPENCL;
     }
 
-    public void compileKernel(String kernelSource) throws Exception {
-        var clc = context.getContext();
-        var source = new StringBuilder();
-        var err = stackMallocInt(1);
-        source.append(kernelExtraSources.get());
-        source.append(kernelSource);
-        var clprogramKernel = clCreateProgramWithSource(clc, source.toString(), err);
-        log.debug("Kernel program created: {}", clprogramKernel);
-        checkCLError(err.get(0));
-        var programKernel = new LwjglProgramEx(clprogramKernel, context);
-        programKernel.compile(options, headersBuilder.getHeaders(), headersBuilder.getHeaderNames());
-        log.debug("Kernel program compiled: {}", programKernel);
-        this.lprogramKernel = LwjglProgramEx.link(context, "", new Program[] { lprogramLib, programKernel });
-        log.debug("Kernel program linked: {}", lprogramKernel);
-        this.compileFinish = true;
+    public void compileProgram(String kernelSource) throws Exception {
+        try (var s = MemoryStack.stackPush()) {
+            var clc = context.getContext();
+            var source = new StringBuilder();
+            var err = s.mallocInt(1);
+            source.append(kernelExtraSources.get());
+            source.append(kernelSource);
+            var clprogramKernel = clCreateProgramWithSource(clc, source.toString(), err);
+            log.debug("Kernel program created: {}", clprogramKernel);
+            checkCLError(err.get(0));
+            var programKernel = new LwjglProgramEx(clprogramKernel, context);
+            programKernel.compile(options, headersBuilder.getHeaders(), headersBuilder.getHeaderNames());
+            log.debug("Kernel program compiled: {}", programKernel);
+            this.lprogramKernel = LwjglProgramEx.link(context, "", new Program[] { lprogramLib, programKernel });
+            log.debug("Kernel program linked: {}", lprogramKernel);
+            this.compileFinish = true;
+        }
     }
 
-    public boolean isCompileFinish() {
+    public void releaseProgram() {
+        if (compileFinish) {
+            log.debug("Release kernel program");
+            lprogramKernel.release();
+            this.compileFinish = false;
+        }
+    }
+
+    public boolean isProgramCompiled() {
         return compileFinish;
     }
 
@@ -186,7 +205,7 @@ public class AnlKernel {
         checkCLError(err.get(0));
         var programLib = new LwjglProgramEx(clprogramLib, context);
         programLib.compile(options);
-        this.lprogramLib = programLib;
+        this.lprogramLib = programLib.register();
     }
 
     static void checkCLError(IntBuffer errcode) {

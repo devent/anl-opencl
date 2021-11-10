@@ -172,15 +172,24 @@ public class OpenclBuildActor {
     private Behavior<Message> onBuildStart(BuildStartMessage m) {
         log.debug("onBuildStart: {}", m);
         try {
-            var kernel = gmpp.get().kernel.get();
+            var gmp = gmpp.get();
+            var kernel = gmp.kernel.get();
             if (!kernel.isBuildLibFinish()) {
                 kernel.buildLib();
             }
-            if (!kernel.isCompileFinish()) {
-                kernel.compileKernel(gmpp.get().kernelCode.get());
+            String name = gmp.kernelName.get();
+            boolean needRebuild = gmp.codeLastCompiled.get() < gmp.codeLastChange.get();
+            if (needRebuild) {
+                kernel.releaseProgram();
             }
-            String name = gmpp.get().kernelName.get();
-            if (!kernel.isCreatedKernel(name)) {
+            if (!kernel.isProgramCompiled()) {
+                kernel.compileProgram(gmp.kernelCode.get());
+                gmp.codeLastCompiled.set(System.currentTimeMillis());
+            }
+            if (needRebuild) {
+                kernel.releaseKernel(name);
+            }
+            if (!kernel.isKernelCreated(name)) {
                 kernel.createKernel(name);
             }
             m.ref.tell(new BuildFinishedMessage());

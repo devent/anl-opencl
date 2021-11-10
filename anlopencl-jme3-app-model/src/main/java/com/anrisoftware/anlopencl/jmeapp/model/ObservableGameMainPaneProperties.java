@@ -51,7 +51,9 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanProperty;
@@ -61,6 +63,7 @@ import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanFloatProperty;
 import javafx.beans.property.adapter.JavaBeanFloatPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanLongPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import lombok.Data;
@@ -99,17 +102,17 @@ public class ObservableGameMainPaneProperties {
 
         public int dim = 2;
 
-        public double mapx0 = -1;
+        public float mapx0 = -1;
 
-        public double mapy0 = -1;
+        public float mapy0 = -1;
 
-        public double mapz0 = 0;
+        public float mapz0 = 0;
 
-        public double mapx1 = 1;
+        public float mapx1 = 1;
 
-        public double mapy1 = 1;
+        public float mapy1 = 1;
 
-        public double mapz1 = 1;
+        public float mapz1 = 1;
 
         public boolean map3d = false;
 
@@ -157,6 +160,10 @@ public class ObservableGameMainPaneProperties {
                 + "";
         // @formatter:on
 
+        public long codeLastChange = 0;
+
+        public long codeLastCompiled = 0;
+
         public String fileName = "";
 
         @JsonIgnore
@@ -176,21 +183,25 @@ public class ObservableGameMainPaneProperties {
 
     public final IntegerProperty dim;
 
-    public final DoubleProperty mapx0;
+    public final FloatProperty mapx0;
 
-    public final DoubleProperty mapy0;
+    public final FloatProperty mapy0;
 
-    public final DoubleProperty mapz0;
+    public final FloatProperty mapz0;
 
-    public final DoubleProperty mapx1;
+    public final FloatProperty mapx1;
 
-    public final DoubleProperty mapy1;
+    public final FloatProperty mapy1;
 
-    public final DoubleProperty mapz1;
+    public final FloatProperty mapz1;
 
     public final StringProperty kernelName;
 
     public final StringProperty kernelCode;
+
+    public final LongProperty codeLastChange;
+
+    public final LongProperty codeLastCompiled;
 
     public final StringProperty kernelLog;
 
@@ -226,15 +237,17 @@ public class ObservableGameMainPaneProperties {
         this.height = JavaBeanIntegerPropertyBuilder.create().bean(p).name("height").build();
         this.z = JavaBeanDoublePropertyBuilder.create().bean(p).name("z").build();
         this.dim = JavaBeanIntegerPropertyBuilder.create().bean(p).name("dim").build();
-        this.mapx0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapx0").build();
-        this.mapy0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapy0").build();
-        this.mapz0 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapz0").build();
-        this.mapx1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapx1").build();
-        this.mapy1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapy1").build();
-        this.mapz1 = JavaBeanDoublePropertyBuilder.create().bean(p).name("mapz1").build();
+        this.mapx0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapx0").build();
+        this.mapy0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapy0").build();
+        this.mapz0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapz0").build();
+        this.mapx1 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapx1").build();
+        this.mapy1 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapy1").build();
+        this.mapz1 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapz1").build();
         this.map3d = JavaBeanBooleanPropertyBuilder.create().bean(p).name("map3d").build();
         this.kernelName = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelName").build();
         this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
+        this.codeLastChange = JavaBeanLongPropertyBuilder.create().bean(p).name("codeLastChange").build();
+        this.codeLastCompiled = JavaBeanLongPropertyBuilder.create().bean(p).name("codeLastCompiled").build();
         this.kernelLog = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelLog").build();
         this.kernel = JavaBeanObjectPropertyBuilder.create().bean(p).name("kernel").build();
         this.fileName = JavaBeanStringPropertyBuilder.create().bean(p).name("fileName").build();
@@ -264,6 +277,8 @@ public class ObservableGameMainPaneProperties {
         map3d.set(other.map3d);
         kernelName.set(other.kernelName);
         kernelCode.set(other.kernelCode);
+        codeLastChange.set(other.codeLastChange);
+        codeLastCompiled.set(other.codeLastCompiled);
         kernel.set(other.kernel);
         kernelLog.set(other.kernelLog);
         fileName.set(other.fileName);

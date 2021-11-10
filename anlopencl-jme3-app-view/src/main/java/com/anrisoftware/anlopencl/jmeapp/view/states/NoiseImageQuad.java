@@ -57,6 +57,15 @@ public class NoiseImageQuad {
         pic.setHeight(c.height);
     }
 
+    public void setNotSetTexture(boolean b) {
+        if (b) {
+            pic.setTexture(assetManager, unsetTex, true);
+            texCL.release();
+            textureSet = false;
+            imageBoundOpenCL = false;
+        }
+    }
+
     public boolean isTextureSet() {
         return textureSet;
     }
@@ -79,7 +88,7 @@ public class NoiseImageQuad {
      * Bind the texture to OpenCL after the texture was uploaded to OpenGL.
      */
     public void bindTextureToImage() {
-        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY).register();
+        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY);
         imageBoundOpenCL = true;
     }
 

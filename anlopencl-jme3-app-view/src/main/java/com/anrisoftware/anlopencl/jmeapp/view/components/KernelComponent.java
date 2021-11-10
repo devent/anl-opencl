@@ -61,6 +61,9 @@ public class KernelComponent implements Component {
 
     public final Texture2D tex;
 
+    public final LwjglBuffer ranges;
+
     public final LwjglBuffer coord;
 
+    public boolean kernelRun = false;
 }

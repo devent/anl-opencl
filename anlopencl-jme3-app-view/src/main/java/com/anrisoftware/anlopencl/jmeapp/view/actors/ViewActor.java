@@ -23,15 +23,16 @@ import static org.lwjgl.opencl.CL10.CL_MEM_READ_WRITE;
 import static org.lwjgl.opencl.CL10.clCreateBuffer;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 
-import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
 import com.anrisoftware.anlopencl.jme.opencl.LwjglUtils;
+import com.anrisoftware.anlopencl.jme.opencl.MappingRanges;
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -101,11 +102,11 @@ public class ViewActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, ViewActor.create(injector));
     }
 
-    private final ObservableGameMainPaneProperties gp;
+    private final ObservableGameMainPaneProperties gmpp;
 
     private final LwjglContext clContext;
 
-    private final List<Entity> noiseImageEntities;
+    private final Map<String, Entity> noiseImageEntities;
 
     @Assisted
     @Inject
@@ -129,9 +130,9 @@ public class ViewActor {
 
     @Inject
     public ViewActor(GameMainPanePropertiesProvider gpp, com.jme3.opencl.Context openclContext) {
-        this.gp = gpp.get();
+        this.gmpp = gpp.get();
         this.clContext = (LwjglContext) openclContext;
-        this.noiseImageEntities = Lists.mutable.empty();
+        this.noiseImageEntities = Maps.mutable.empty();
     }
 
     /**
@@ -170,7 +171,7 @@ public class ViewActor {
         log.debug("onAttachViewAppStateDone");
         app.enqueue(() -> {
             var entity = engine.createEntity().add(new ImageComponent(10, 10));
-            noiseImageEntities.add(entity);
+            noiseImageEntities.put(gmpp.kernelName.get(), entity);
             engine.addEntity(entity);
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//
@@ -190,25 +191,49 @@ public class ViewActor {
     private Behavior<Message> onBuildFinished(BuildFinishedMessage m) {
         log.debug("onBuildFinished {}", m);
         app.enqueue(() -> {
-            createTexture();
+            updateTexture();
         });
         return Behaviors.same();
     }
 
-    private void createTexture() {
-        log.debug("createTexture");
+    private void updateTexture() {
+        log.debug("updateTexture");
+        var entity = noiseImageEntities.get(gmpp.kernelName.get());
+        if (KernelComponent.m.has(entity)) {
+            var kc = entity.remove(KernelComponent.class);
+            kc.tex.getImage().dispose();
+            kc.coord.release();
+            kc.ranges.release();
+        }
         try (var s = MemoryStack.stackPush()) {
-            int width = gp.width.get();
-            int height = gp.height.get();
-            int dim = gp.dim.get();
+            int width = gmpp.width.get();
+            int height = gmpp.height.get();
+            int dim = gmpp.dim.get();
             var tex = new Texture2D(width, height, 1, RGBA8);
             var err = s.mallocInt(1);
             long size = width * height * dim;
             var coord = new LwjglBuffer(clCreateBuffer(clContext.getContext(), CL_MEM_READ_WRITE, size, err));
             LwjglUtils.checkCLError(err);
-            var entity = noiseImageEntities.get(0);
-            entity.add(new KernelComponent(tex, coord));
+            var ranges = MappingRanges.createWithBuffer(s);
+            if (gmpp.map3d.get()) {
+                setMap3D(ranges);
+            } else {
+                setMap2D(ranges);
+            }
+            var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
+            entity.add(new KernelComponent(tex, rangesb, coord));
         }
+    }
+
+    private void setMap2D(MappingRanges ranges) {
+        System.err.printf("[setMap2D] - %f/%f %f/%f%n", gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(),
+                gmpp.mapy1.get()); // TODO
+        ranges.setMap2D(gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(), gmpp.mapy1.get());
+    }
+
+    private void setMap3D(MappingRanges ranges) {
+        ranges.setMap3D(gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(), gmpp.mapy1.get(), gmpp.mapz0.get(),
+                gmpp.mapz1.get());
     }
 
 }

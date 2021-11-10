@@ -53,7 +53,6 @@ import javax.inject.Named;
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
-import com.anrisoftware.anlopencl.jme.opencl.MappingRanges;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
@@ -66,7 +65,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IntervalIteratingSystem;
 import com.jme3.opencl.CommandQueue;
 import com.jme3.opencl.Kernel;
-import com.jme3.opencl.lwjgl.LwjglContext;
 import com.jme3.scene.Node;
 
 import lombok.extern.slf4j.Slf4j;
@@ -92,19 +90,13 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     @Named("pivotNode")
     private Node pivotNode;
 
-    private final LwjglContext context;
-
     private final CommandQueue queue;
-
-    private final long clcontext;
 
     @Inject
     public NoiseImageSystem(GameMainPanePropertiesProvider onp, com.jme3.opencl.Context context) {
         super(FAMILY, 1f);
         this.gmpp = onp.get();
         this.noiseImageQuads = Maps.mutable.empty();
-        this.context = (LwjglContext) context;
-        this.clcontext = this.context.getContext();
         this.queue = context.createQueue().register();
     }
 
@@ -132,6 +124,11 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         var quad = noiseImageQuadFactory.create(c);
         noiseImageQuads.put(entity, quad);
         pivotNode.attachChild(quad.getPic());
+        entity.componentRemoved.add((signal, object) -> {
+            if (!KernelComponent.m.has(object)) {
+                quad.setNotSetTexture(true);
+            }
+        });
     }
 
     private void removeNoiseImageQuad(Entity entity) {
@@ -151,20 +148,15 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
             if (imageQuad.isTextureUploaded() && !imageQuad.isImageBoundOpenCL()) {
                 imageQuad.bindTextureToImage();
             }
-            if (imageQuad.isImageBoundOpenCL()) {
+            if (imageQuad.isImageBoundOpenCL() && !kc.kernelRun) {
                 runKernel(kc, imageQuad);
+                kc.kernelRun = true;
             }
         }
     }
 
     private void runKernel(KernelComponent kc, NoiseImageQuad imageQuad) {
         try (var s = MemoryStack.stackPush()) {
-            var ranges = MappingRanges.createWithBuffer(s);
-            if (gmpp.map3d.get()) {
-                setMap3D(ranges);
-            } else {
-                setMap2D(ranges);
-            }
             var work = new Kernel.WorkSize(gmpp.width.get(), gmpp.height.get());
             float z = (float) gmpp.z.get();
             int dim = gmpp.dim.get();
@@ -174,25 +166,13 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
                 log.trace("acquiring image for sharing");
                 imageQuad.getTexCL().acquireImageForSharingNoEvent(queue);
                 log.trace("running kernel");
-                long rangesb = ranges.getClBuffer(s, clcontext);
-                // gmpp.kernel.get().run1NoEvent(name, queue, work, rangesb, z, dim, kc.coord,
-                // imageQuad.getTexCL());
+                gmpp.kernel.get().run1NoEvent(name, queue, work, kc.ranges, z, dim, kc.coord, imageQuad.getTexCL());
                 log.trace("releasing image for sharing");
                 imageQuad.getTexCL().releaseImageForSharingNoEvent(queue);
             } catch (Exception e) {
                 log.error("Error run kernel", e);
             }
         }
-    }
-
-    private void setMap2D(MappingRanges ranges) {
-        ranges.setMap2D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
-                (float) gmpp.mapy1.get());
-    }
-
-    private void setMap3D(MappingRanges ranges) {
-        ranges.setMap3D((float) gmpp.mapx0.get(), (float) gmpp.mapx1.get(), (float) gmpp.mapy0.get(),
-                (float) gmpp.mapy1.get(), (float) gmpp.mapz0.get(), (float) gmpp.mapz1.get());
     }
 
 }

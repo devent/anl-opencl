@@ -54,10 +54,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.formsfx.model.structure.Group;
-import com.dlsc.formsfx.view.renderer.FormRenderer;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
@@ -154,26 +151,6 @@ public class GameMainPaneController {
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
-        var map3dField = Field.ofBooleanType(np.map3d).label("Map 3D");
-        var z0Field = Field.ofDoubleType(np.mapz0).label("z0").required("Not empty");
-        z0Field.getRenderer().setDisable(!np.map3d.get());
-        var z1Field = Field.ofDoubleType(np.mapz1).label("z1").required("Not empty");
-        z1Field.getRenderer().setDisable(!np.map3d.get());
-        map3dField.changedProperty().addListener((observable, oldValue, newValue) -> {
-            z0Field.getRenderer().setDisable(!newValue);
-            z1Field.getRenderer().setDisable(!newValue);
-        });
-        this.mappingForm = Form.of(Group.of(//
-                Field.ofDoubleType(np.mapx0).label("x0").required("Not empty"), //
-                Field.ofDoubleType(np.mapx1).label("x1").required("Not empty"), //
-                Field.ofDoubleType(np.mapy0).label("y0").required("Not empty"), //
-                Field.ofDoubleType(np.mapy1).label("y1").required("Not empty") //
-        ), Group.of(//
-                map3dField, //
-                z0Field, //
-                z1Field //
-        ));
-        mappingFieldsPane.setTop(new FormRenderer(mappingForm));
     }
 
     private void setupSplitMain(ObservableGameMainPaneProperties np) {
