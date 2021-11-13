@@ -19,8 +19,6 @@ package com.anrisoftware.anlopencl.jmeapp.view.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
 import static com.jme3.texture.Image.Format.RGBA8;
-import static org.lwjgl.opencl.CL10.CL_MEM_READ_WRITE;
-import static org.lwjgl.opencl.CL10.clCreateBuffer;
 
 import java.time.Duration;
 import java.util.Map;
@@ -31,7 +29,6 @@ import javax.inject.Inject;
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
-import com.anrisoftware.anlopencl.jme.opencl.LwjglUtils;
 import com.anrisoftware.anlopencl.jme.opencl.MappingRanges;
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
@@ -202,18 +199,12 @@ public class ViewActor {
         if (KernelComponent.m.has(entity)) {
             var kc = entity.remove(KernelComponent.class);
             kc.tex.getImage().dispose();
-            kc.coord.release();
             kc.ranges.release();
         }
         try (var s = MemoryStack.stackPush()) {
             int width = gmpp.width.get();
             int height = gmpp.height.get();
-            int dim = gmpp.dim.get();
             var tex = new Texture2D(width, height, 1, RGBA8);
-            var err = s.mallocInt(1);
-            long size = width * height * dim;
-            var coord = new LwjglBuffer(clCreateBuffer(clContext.getContext(), CL_MEM_READ_WRITE, size, err));
-            LwjglUtils.checkCLError(err);
             var ranges = MappingRanges.createWithBuffer(s);
             if (gmpp.map3d.get()) {
                 setMap3D(ranges);
@@ -221,13 +212,11 @@ public class ViewActor {
                 setMap2D(ranges);
             }
             var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
-            entity.add(new KernelComponent(tex, rangesb, coord));
+            entity.add(new KernelComponent(tex, rangesb));
         }
     }
 
     private void setMap2D(MappingRanges ranges) {
-        System.err.printf("[setMap2D] - %f/%f %f/%f%n", gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(),
-                gmpp.mapy1.get()); // TODO
         ranges.setMap2D(gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(), gmpp.mapy1.get());
     }
 

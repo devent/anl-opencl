@@ -45,15 +45,18 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.lwjgl.opencl.CL10.CL_SUCCESS;
 import static org.lwjgl.opencl.CL10.clCreateProgramWithSource;
 import static org.lwjgl.system.MemoryStack.stackMallocInt;
 
+import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
@@ -65,6 +68,8 @@ import com.jme3.opencl.Kernel.WorkSize;
 import com.jme3.opencl.Program;
 import com.jme3.opencl.lwjgl.LwjglContext;
 
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -73,6 +78,16 @@ public class AnlKernel {
     private static final String ANLOPENCL_USE_OPENCL = "-DANLOPENCL_USE_OPENCL";
 
     private static final String ANLOPENCL_USE_DOUBLE = "-DANLOPENCL_USE_DOUBLE";
+
+    private static String insert_localMapRange;
+
+    static {
+        try {
+            insert_localMapRange = IOUtils.toString(AnlKernel.class.getResource("insert_local_map_range.txt"), UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public interface AnlKernelFactory {
 
@@ -150,6 +165,18 @@ public class AnlKernel {
 
     public void setUseDouble(boolean useDouble) {
         this.options = useDouble ? ANLOPENCL_USE_OPENCL + " " + ANLOPENCL_USE_DOUBLE : ANLOPENCL_USE_OPENCL;
+    }
+
+    public void compileProgram(String kernelSource, Map<String, Object> variables) throws Exception {
+        var binding = new Binding(variables);
+        var shell = new GroovyShell(binding);
+        var processedSource = shell.evaluate(insert_localMapRange).toString();
+        variables.put("insert_localMapRange", processedSource);
+        var b = new StringBuilder();
+        b.append("\"\"\"");
+        b.append(kernelSource);
+        b.append("\"\"\"");
+        compileProgram(shell.evaluate(b.toString()).toString());
     }
 
     public void compileProgram(String kernelSource) throws Exception {

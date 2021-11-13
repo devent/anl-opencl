@@ -158,15 +158,12 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     private void runKernel(KernelComponent kc, NoiseImageQuad imageQuad) {
         try (var s = MemoryStack.stackPush()) {
             var work = new Kernel.WorkSize(gmpp.width.get(), gmpp.height.get());
-            float z = (float) gmpp.z.get();
-            int dim = gmpp.dim.get();
             String name = gmpp.kernelName.get();
-            System.err.printf("work:%s z:%f dim:%d name:%s%n", work, z, dim, name); // TODO
             try {
                 log.trace("acquiring image for sharing");
                 imageQuad.getTexCL().acquireImageForSharingNoEvent(queue);
                 log.trace("running kernel");
-                gmpp.kernel.get().run1NoEvent(name, queue, work, kc.ranges, z, dim, kc.coord, imageQuad.getTexCL());
+                gmpp.kernel.get().run1NoEvent(name, queue, work, kc.ranges, imageQuad.getTexCL());
                 log.trace("releasing image for sharing");
                 imageQuad.getTexCL().releaseImageForSharingNoEvent(queue);
             } catch (Exception e) {

@@ -48,10 +48,13 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
+
+import org.eclipse.collections.impl.factory.Maps;
 
 import com.anrisoftware.anlopencl.jme.opencl.AnlKernel.AnlKernelFactory;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
@@ -183,7 +186,10 @@ public class OpenclBuildActor {
                 kernel.releaseProgram();
             }
             if (!kernel.isProgramCompiled()) {
-                kernel.compileProgram(gmp.kernelCode.get());
+                Map<String, Object> vars = Maps.mutable.empty();
+                vars.put("localSize", Math.min(32, gmp.width.get() / 2));
+                vars.put("z", gmp.z.get());
+                kernel.compileProgram(gmp.kernelCode.get(), vars);
                 gmp.codeLastCompiled.set(System.currentTimeMillis());
             }
             if (needRebuild) {

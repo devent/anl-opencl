@@ -190,7 +190,7 @@ global unsigned char *doutput
             def err = s.mallocInt(1)
             int width = 2
             int height = 2
-            float z = 99
+            float z = 0
             int dim = vector3_size
             def ranges = MappingRanges.createWithBuffer(s).setDefault()
             def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
@@ -409,6 +409,72 @@ y1);
             def global = new WorkSize(width, height)
             def local = new WorkSize(2, 2)
             def event = anlKernel.run2("map2d_image", queue, global, local, rangesb, z, dim, output)
+            //def event = anlKernel.run1("map2d_image", queue, global, rangesb, z, dim, output)
+            event.waitForFinished()
+
+            def out = BufferUtils.createByteBuffer(size * channel_size)
+            BufferUtils.zeroBuffer(out)
+            output.readImage(queue, out, [0, 0, 0] as long[], [width, height, 1] as long[], 0, 0)
+            println output.getWidth()
+            println output.getHeight()
+            println output.rowPitch
+            println output.slicePitch
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    int a = (x + y * height) * 4
+                    int r = (x + y * height) * 4 + 1
+                    int g = (x + y * height) * 4 + 2
+                    int b = (x + y * height) * 4 + 3
+                    print "($a,$r,$g,$b ${out.get(a)&0xFF}/${out.get(r)&0xFF}/${out.get(g)&0xFF}/${out.get(b)&0xFF})"
+                }
+                println()
+            }
+        }
+    }
+
+    @Test
+    void "map2D kernel split coordinates groovy"() {
+        MemoryStack.stackPush().withCloseable { s ->
+            def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
+            int width = 8
+            int height = 8
+            int localSize = 2
+            float z = 99
+            int dim = vector3_size
+            anlKernel.buildLib()
+            def variables = [localSize: localSize, z: z]
+            anlKernel.compileProgram('''
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+kernel void map2d_image(
+global struct SMappingRanges *g_ranges,
+write_only image2d_t output
+) {
+    $insert_localMapRange
+    const float a = 0.5;
+    const float r = value_noise3D(coord[i], 200, noInterp);
+    const float g = r;
+    const float b = r;
+    write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
+}
+''', variables)
+            anlKernel.createKernel("map2d_image")
+            def err = s.mallocInt(1)
+            def ranges = MappingRanges.createWithBuffer(s).setDefault()
+            def rangesb = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
+            int size = width * height
+            def format = CLImageFormat.calloc(s)
+            format.image_channel_order(CL_RGBA)
+            format.image_channel_data_type(CL_UNORM_INT8)
+            def image = BufferUtils.createShortBuffer(size * channel_size)
+            def output = new LwjglImage(clCreateImage2D(clcontext, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, format, width, height, 0, image, err));
+            checkCLError(err.get(0))
+            def global = new WorkSize(width, height)
+            def local = new WorkSize(2, 2)
+            def event = anlKernel.run2("map2d_image", queue, global, local, rangesb, output)
             //def event = anlKernel.run1("map2d_image", queue, global, rangesb, z, dim, output)
             event.waitForFinished()
 

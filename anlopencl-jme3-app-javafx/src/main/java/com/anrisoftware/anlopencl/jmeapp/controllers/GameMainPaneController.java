@@ -104,6 +104,9 @@ public class GameMainPaneController {
     public BorderPane mappingFieldsPane;
 
     @FXML
+    public MappingFieldsPaneController mappingFieldsPaneController;
+
+    @FXML
     public TitledPane fileInputsPane;
 
     @FXML

@@ -38,8 +38,13 @@
                 </TitledPane>
                 <TitledPane id="mappingdInputsPane" fx:id="mappingInputsPane" animated="false" text="Mapping">
                   <content>
-                    <BorderPane id="mappingFieldsPane" fx:id="mappingFieldsPane" prefHeight="200.0"
-                      prefWidth="200.0" />
+                    <AnchorPane>
+                      <children>
+                        <fx:include fx:id="mappingFieldsPane" source="mapping-fields-pane.fxml"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0" />
+                      </children>
+                    </AnchorPane>
                   </content>
                 </TitledPane>
                 <TitledPane id="fileInputsPane" fx:id="fileInputsPane" animated="false" text="File">

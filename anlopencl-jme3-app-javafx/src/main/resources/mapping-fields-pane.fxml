@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="310.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.MappingFieldsPaneController">
+  <top>
+    <AnchorPane BorderPane.alignment="CENTER">
+      <children>
+        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          </rowConstraints>
+          <children>
+            <Label id="mappingX0Label" fx:id="mappingX0Label" text="X0:" />
+            <TextField id="mappingX0Field" fx:id="mappingX0Field" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+            <Label id="mappingY0Label" fx:id="mappingY0Label" text="Y0:" GridPane.rowIndex="1" />
+            <TextField id="mappingY0Field" fx:id="mappingY0Field" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            <Label id="mappingZ0Label" fx:id="mappingZ0Label" text="Z0:" GridPane.rowIndex="4" />
+            <TextField id="mappingZ0Field" fx:id="mappingZ0Field" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+            <CheckBox id="threeDMappingBox" fx:id="threeDMappingBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="3D mapping" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+            <Label id="mappingX1Label" fx:id="mappingX1Label" text="X1:" GridPane.columnIndex="2" />
+            <TextField id="mappingX1Field" fx:id="mappingX1Field" GridPane.columnIndex="3" />
+            <Label id="mappingY1Label" fx:id="mappingY1Label" text="Y1:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField id="mappingY1Field" fx:id="mappingY1Field" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label id="mappingZ1Label" fx:id="mappingZ1Label" text="Z1:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField id="mappingZ1Field" fx:id="mappingZ1Field" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+          </children>
+        </GridPane>
+      </children>
+    </AnchorPane>
+  </top>
+</BorderPane>

@@ -1,0 +1,24 @@
+"""
+const size_t g0 = get_global_id(0);
+const size_t g1 = get_global_id(1);
+const size_t w = get_global_size(0);
+const size_t h = get_global_size(1);
+const size_t l0 = get_local_id(0);
+const size_t l1 = get_local_id(1);
+const size_t lw = get_local_size(0);
+const size_t lh = get_local_size(1);
+local vector3 coord[$localSize * $localSize];
+local struct SMappingRanges ranges;
+if (l0 == 0 && l1 == 0) {
+    const REAL sw = (g_ranges->mapx1 - g_ranges->mapx0) / w;
+    const REAL sh = (g_ranges->mapy1 - g_ranges->mapy0) / h;
+    const REAL x0 = g_ranges->mapx0 + g0 * sw;
+    const REAL x1 = g_ranges->mapx0 + g0 * sw + sw * lw;
+    const REAL y0 = g_ranges->mapy0 + g1 * sh;
+    const REAL y1 = g_ranges->mapy0 + g1 * sh + sh * lh;
+    set_ranges_map2D(&ranges, x0, x1, y0, y1);
+    map2D(coord, calc_seamless_none, ranges, lw, lh, $z);
+}
+work_group_barrier(CLK_LOCAL_MEM_FENCE);
+const int i = (l0 + l1 * lh);
+"""

@@ -68,12 +68,12 @@ using ::spdlog::error;
 /**
  * Width x Height of the generated image.
  */
-const size_t size = pow(2, 10);
+const size_t size = pow(2, 2);
 
 /**
  * Output directory.
  */
-const std::string out_dir = "out/noise_functions/";
+const std::string out_dir = "out/noise_functions_tmp/";
 
 /**
  * opencl_noise3D_functions_fixture

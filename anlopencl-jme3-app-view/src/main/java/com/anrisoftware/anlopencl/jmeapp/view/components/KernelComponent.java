@@ -63,7 +63,5 @@ public class KernelComponent implements Component {
 
     public final LwjglBuffer ranges;
 
-    public final LwjglBuffer coord;
-
     public boolean kernelRun = false;
 }
