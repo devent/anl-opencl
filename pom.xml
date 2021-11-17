@@ -77,6 +77,17 @@
         <module>anlopencl-opencl</module>
     </modules>
 
+    <properties>
+        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
+        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
+        <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
+        <project.custom.current.year>2021</project.custom.current.year>
+        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
+        <project.custom.jmh.version>1.32</project.custom.jmh.version>
+        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
+        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
+    </properties>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -99,17 +110,6 @@
             <timezone>Europe/Berlin</timezone>
         </developer>
     </developers>
-
-    <properties>
-        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
-        <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
-        <project.custom.current.year>2021</project.custom.current.year>
-        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
-        <project.custom.jmh.version>1.32</project.custom.jmh.version>
-        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
-        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
