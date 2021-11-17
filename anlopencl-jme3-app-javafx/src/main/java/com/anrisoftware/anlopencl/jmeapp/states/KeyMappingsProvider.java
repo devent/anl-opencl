@@ -54,7 +54,6 @@ import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.inject.Provider;
 
@@ -79,13 +78,12 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
         var map = new HashMap<String, KeyMapping>();
         var commandsButtons = new HashMap<String, KeyMapping>();
         // general
-        map.put("QUIT_MAPPING", new KeyMapping("QUIT_MAPPING", Optional.of(new KeyCodeCombination(Q, CONTROL_DOWN)),
-                Optional.of(new KeyTrigger(KEY_Q)), new GameQuitMessage()));
-        map.put("BUILD_MAPPING",
-                new KeyMapping("BUILD_MAPPING", Optional.empty(), Optional.empty(), new BuildClickedMessage()));
+        map.put("QUIT_MAPPING", KeyMapping.create("QUIT_MAPPING", new KeyCodeCombination(Q, CONTROL_DOWN),
+                new KeyTrigger(KEY_Q), new GameQuitMessage()));
+        map.put("BUILD_MAPPING", KeyMapping.create("BUILD_MAPPING", new BuildClickedMessage()));
         // camera
-        map.put("RESET_CAMERA_MAPPING", new KeyMapping("RESET_CAMERA_MAPPING", Optional.of(new KeyCodeCombination(F10)),
-                Optional.of(new KeyTrigger(KEY_F10)), new ResetCameraMessage()));
+        map.put("RESET_CAMERA_MAPPING", KeyMapping.create("RESET_CAMERA_MAPPING", new KeyCodeCombination(F10),
+                new KeyTrigger(KEY_F10), new ResetCameraMessage()));
         // done
         map.putAll(commandsButtons);
         this.commandsButtons = Collections.unmodifiableMap(commandsButtons);

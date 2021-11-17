@@ -47,6 +47,7 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static java.time.Duration.ofSeconds;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.time.Duration;
 import java.util.Locale;
@@ -140,6 +141,9 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         stage.whenComplete((response, throwable) -> {
             if (throwable == null) {
                 openclBuildActor = response;
+                if (isNotBlank(onp.get().kernelCode.get())) {
+                    actor.get().tell(new BuildClickedMessage());
+                }
             }
         });
         return getDefaultBehavior();

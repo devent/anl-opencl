@@ -45,6 +45,9 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+
 import java.util.Optional;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
@@ -63,6 +66,14 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class KeyMapping {
+
+    public static KeyMapping create(String name, KeyCodeCombination code, KeyTrigger trigger, GuiMessage message) {
+        return new KeyMapping(name, of(code), of(trigger), message);
+    }
+
+    public static KeyMapping create(String name, GuiMessage message) {
+        return new KeyMapping(name, empty(), empty(), message);
+    }
 
     @EqualsAndHashCode.Include
     public final String name;

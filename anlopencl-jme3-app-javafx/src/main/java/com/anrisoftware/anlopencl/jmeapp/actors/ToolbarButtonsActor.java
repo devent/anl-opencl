@@ -51,9 +51,11 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
@@ -64,7 +66,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
-import com.anrisoftware.anlopencl.jmeapp.states.KeyMappingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
@@ -123,7 +125,8 @@ public class ToolbarButtonsActor {
     private GlobalKeys globalKeys;
 
     @Inject
-    private KeyMappingsProvider keyMappings;
+    @Named("keyMappings")
+    private Map<String, KeyMapping> keyMappings;
 
     private GameMainPaneController controller;
 
@@ -149,13 +152,13 @@ public class ToolbarButtonsActor {
         this.controller = (GameMainPaneController) m.controller;
         tellLocalizeControlsSelf(gs);
         controller.buttonQuit.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get().get("QUIT_MAPPING"));
+            globalKeys.runAction(keyMappings.get("QUIT_MAPPING"));
         });
         controller.buttonBuild.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get().get("BUILD_MAPPING"));
+            globalKeys.runAction(keyMappings.get("BUILD_MAPPING"));
         });
         controller.resetCameraButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get().get("RESET_CAMERA_MAPPING"));
+            globalKeys.runAction(keyMappings.get("RESET_CAMERA_MAPPING"));
         });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)

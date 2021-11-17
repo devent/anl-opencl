@@ -52,6 +52,10 @@ import java.util.Map;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class EditorGuiStatesModule extends AbstractModule {
 
     @Override

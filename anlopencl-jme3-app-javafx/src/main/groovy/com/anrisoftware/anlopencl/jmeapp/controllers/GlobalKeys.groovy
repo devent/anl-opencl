@@ -128,7 +128,7 @@ class GlobalKeys implements ActionListener {
     }
 
     void initKeys() {
-        inputManager.addListener(this, keyMappings.values().find { it.trigger.present }.inject([]) { l, v ->
+        inputManager.addListener(this, keyMappings.values().findAll { it.trigger.present }.inject([]) { l, v ->
             inputManager.addMapping(v.name, v.trigger.get())
             l << v.name
         } as String[])

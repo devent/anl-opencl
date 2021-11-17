@@ -45,26 +45,108 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
+import java.util.concurrent.CompletionStage;
+
+import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
+import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor;
+import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFinishedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
+import com.badlogic.ashley.core.Engine;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.jme3.app.DebugKeysAppState;
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.StatsAppState;
+import com.jme3.app.state.ConstantVerifierState;
+import com.jme3.system.AppSettings;
+
+import akka.actor.typed.ActorRef;
+import akka.actor.typed.javadsl.AskPattern;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Game application.
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-public class GameApplication extends AbstractGameApplication {
+@Slf4j
+public class GameApplication extends SimpleApplication {
 
     public static void main(String[] args) {
-        startApp(args, GameApplication.class);
+        var injector = Guice.createInjector();
+        injector.getInstance(GameApplication.class).start(injector);
     }
 
-    GameApplication() {
-        super(new GameSettings());
+    Injector injector;
+
+    Injector parent;
+
+    ActorSystemProvider actor;
+
+    ActorRef<Message> mainWindowActor;
+
+    Engine engine;
+
+    public GameApplication() {
+        super(new StatsAppState(), new DebugKeysAppState(), new ConstantVerifierState());
+        setShowSettings(false);
+        var s = new AppSettings(true);
+        s.setResizable(true);
+        s.setWidth(1024);
+        s.setHeight(768);
+        s.setVSync(false);
+        s.setOpenCLSupport(true);
+        setSettings(s);
+    }
+
+    private void start(Injector parent) {
+        this.parent = parent;
+        super.start();
     }
 
     @Override
-    public void initApp() throws Exception {
-
+    @SneakyThrows
+    public void simpleInitApp() {
+        log.debug("simpleInitApp");
+        // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
+        this.engine = new Engine();
+        this.injector = parent.createChildInjector(new GameApplicationModule(this));
+        this.actor = injector.getInstance(ActorSystemProvider.class);
+        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.load();
+        GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
+            mainWindowActor = ret;
+            CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
+                    replyTo -> new AttachGuiMessage(replyTo), ofMinutes(1), actor.getActorSystem().scheduler());
+            result.whenComplete((ret1, ex1) -> {
+                inputManager.deleteMapping(INPUT_MAPPING_EXIT);
+            });
+        });
+        ViewActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
+            if (ex != null) {
+                log.error("ViewActor error", ex);
+            }
+        });
     }
 
+    @Override
+    public void stop() {
+        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.save();
+        actor.get().tell(new ShutdownMessage());
+        super.stop();
+    }
+
+    @Override
+    public void simpleUpdate(float tpf) {
+        engine.update(tpf);
+    }
 }

@@ -52,9 +52,11 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
@@ -68,7 +70,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
-import com.anrisoftware.anlopencl.jmeapp.states.KeyMappingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
@@ -137,7 +139,8 @@ public class ImageFieldsPaneActor {
     private GlobalKeys globalKeys;
 
     @Inject
-    private KeyMappingsProvider keyMappings;
+    @Named("keyMappings")
+    private Map<String, KeyMapping> keyMappings;
 
     private ImageFieldsPaneController controller;
 
