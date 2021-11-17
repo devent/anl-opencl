@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ANL-OpenCL</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="anl-opencl">ANL-OPENCL</h1>
+<h2 id="introduction">Introduction</h2>
+<figure>
+<img src="Screenshot_20211112_155324.png" title="gui" alt="GUI" /><figcaption>GUI</figcaption>
+</figure>
+<p>The project is a rework of the Accidental-Noise Josua Tippetts’ C++ library in OpenCL. ANL-OPENCL will be used in a Java application via the Aparapi library at a later stage. The C code in <code>src/main/cpp</code> can be compiled into a OpenCL kernel and to be used to generate random noise like in the original Accidental-Noise library. There are tests for both the C and OpenCL kernels in <code>src/test/cpp</code>.</p>
+<h2 id="examples">Examples</h2>
+<p>There are examples for each noise function in <code>src/test/cpp</code>.</p>
+<h3 id="combinergba_simplebillow">combineRGBA_simpleBillow</h3>
+<figure>
+<img src="anlopencl-opencl/out/combineColor/combineRGBA_simpleBillow.png" title="combineRGBA_simpleBillow" alt="combineRGBA_simpleBillow" /><figcaption>combineRGBA_simpleBillow</figcaption>
+</figure>
+<pre><code>#include &lt;noise_gen.h&gt;
+#include &lt;kernel.h&gt;
+
+kernel void combineRGBA_simpleBillow(
+global float3 *input,
+global float4 *output
+) {
+    int id0 = get_global_id(0);
+    kiss09_state srnd;
+    kiss09_seed(&amp;srnd, 200);
+
+    input[id0] = scaleDomain(input[id0], 5.0f);
+
+    float bm = simpleBillow3(input[id0], value_noise3D, 200, linearInterp, random_kiss09, &amp;srnd, 1, 0.125, true);
+    float r = bm * 0.5 + 0.5;
+
+    bm = simpleBillow3(input[id0], value_noise3D, 2000, linearInterp, random_kiss09, &amp;srnd, 1, 0.125, true);
+    float g = bm * 0.5 + 0.5;
+
+    bm = simpleBillow3(input[id0], value_noise3D, 4000, linearInterp, random_kiss09, &amp;srnd, 1, 0.125, true);
+    float b = bm * 0.5 + 0.5;
+
+    output[id0] = combineRGBA(r, g, b, 1.0);
+}
+</code></pre>
+<h3 id="cellular_function3d">cellular_function3D</h3>
+<figure>
+<img src="anlopencl-opencl/out/cellular_functions/cellular_function3D_distEuclid.png" title="cellular_function3D" alt="cellular_function3D" /><figcaption>cellular_function3D</figcaption>
+</figure>
+<pre><code>#include &lt;noise_gen.h&gt;
+#include &lt;kernel.h&gt;
+
+REAL f[] = { 10, 5, 2.5, 1.25 };
+REAL disp[] = { 100, 50, 25, 10 };
+
+kernel void cellular_function3D_distEuclid(
+global vector3 *input,
+global REAL *output
+) {
+    int id0 = get_global_id(0);
+    output[id0] = cellular_function3D(input[id0], 200, f, disp, distEuclid3);
+}
+</code></pre>
+<h2 id="features">Features</h2>
+<h3 id="higher-dimensions-noise-functions">Higher dimensions noise functions</h3>
+<p>All noise functions and utilities functions are available for the dimensions</p>
+<ul>
+<li>2D and vector2 type,</li>
+<li>3D and vector3 type,</li>
+<li>4D and vector4 type,</li>
+<li>6D and vector8 type.</li>
+</ul>
+<h3 id="both-32-bit-and-64-bit-floating-point-supported">Both 32-bit and 64-bit floating-point supported</h3>
+<p>The code can be used for both 32-bit and 64-bit floating-point numbers using the precompiler flag <code>ANLOPENCL_USE_DOUBLE</code> and the types <code>REAL</code>, <code>vector2</code>, <code>vector3</code>, <code>vector4</code> and <code>vector8</code>. Although, it makes little to no difference using 64-bit floating-point to generate the noise for the end result.</p>
+<h3 id="bundles-the-bstatcomprandomcl-to-be-used-in-opencl-kernel">Bundles the bstatcomp/RandomCL to be used in OpenCL kernel</h3>
+<p>Bundles the bstatcomp/RandomCL for generating random numbers in the OpenCL kernel.</p>
+<p>https://github.com/bstatcomp/RandomCL</p>
+<h3 id="code-can-be-used-in-a-c-program-or-opencl-kernel">Code can be used in a C program or OpenCL kernel</h3>
+<p>Using the clang vector extension it is possible to use the same code in a C/C++ program or in a OpenCL kernel. That enables me to test the code via Google-Test framework before it is used in a OpenCL kernel. The precompiler flag <code>ANLOPENCL_USE_OPENCL</code> is set if the code is compiled for a OpenCL kernel.</p>
+<p>https://clang.llvm.org/docs/LanguageExtensions.html#vectors-and-extended-vectors</p>
+<h3 id="library-can-be-pre-build-for-opencl-kernel">Library can be pre-build for OpenCL kernel</h3>
+<p>The ANL-OPENCL code can be bundled and pre-build as a OpenCL library.</p>
+<h2 id="license">License</h2>
+<p>Copyright (C) 2021 Erwin Müller <a href="mailto:erwin@muellerpublic.de" class="email">erwin@muellerpublic.de</a> Released as open-source under the Apache License, Version 2.0.</p>
+<hr />
+<p>ANL-OpenCL :: Core ****************************************************************************</p>
+<p>Copyright (C) 2021 Erwin Müller <a href="mailto:erwin@muellerpublic.de" class="email">erwin@muellerpublic.de</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+<pre><code> http:www.apache.org/licenses/LICENSE-2.0</code></pre>
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<hr />
+<p>ANL-OpenCL :: Core is a derivative work based on Josua Tippetts’ C++ library: http:accidentalnoise.sourceforge.net/index.html ****************************************************************************</p>
+<p>Copyright (C) 2011 Joshua Tippetts</p>
+<p>This software is provided ‘as-is’, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.</p>
+<p>Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:</p>
+<ol type="1">
+<li>The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.</li>
+<li>Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.</li>
+<li>This notice may not be removed or altered from any source distribution.</li>
+</ol>
+</body>
+</html>
