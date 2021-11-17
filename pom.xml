@@ -54,7 +54,7 @@
     <parent>
         <groupId>com.anrisoftware.globalpom</groupId>
         <artifactId>globalpom-groovy-gmavenplus</artifactId>
-        <version>4.6.0-SNAPSHOT</version>
+        <version>4.6.0</version>
     </parent>
 
     <groupId>com.anrisoftware.anlopencl</groupId>
@@ -71,6 +71,7 @@
         <module>anlopencl-jme3-app-javafx</module>
         <module>anlopencl-jme3-app-model</module>
         <module>anlopencl-jme3-app-view</module>
+        <module>anlopencl-jme3-izpack</module>
         <module>anlopencl-jme3-opencl</module>
         <module>anlopencl-jocl</module>
         <module>anlopencl-opencl</module>
@@ -101,7 +102,7 @@
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.globalpom.version>4.6.0-SNAPSHOT</project.custom.globalpom.version>
+        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
         <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
         <project.custom.current.year>2021</project.custom.current.year>
         <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
