@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *

@@ -62,13 +62,6 @@
     <description>The model of the ANL-OpenCL graphical user interface application using JME3.</description>
     <inceptionYear>2021</inceptionYear>
 
-    <properties>
-        <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
-        <project.custom.jmh.version>1.32</project.custom.jmh.version>
-        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.anrisoftware.globalpom</groupId>
@@ -166,7 +159,7 @@
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-images</artifactId>
-            <version>${project.custom.anrisoftware.version}</version>
+            <version>${project.custom.globalpom.version}</version>
         </dependency>
 
     </dependencies>
