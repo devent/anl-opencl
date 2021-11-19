@@ -91,10 +91,7 @@
 		<pack name="Required" preselected="yes" required="yes"
 			installGroups="Required">
 			<description>Required files to run the application.</description>
-			<file
-				src="../anlopencl-jme3-izpack-0.0.1-SNAPSHOT-shade-jar.jar"
-				targetdir="$INSTALL_PATH/lib/" />
-			<file src="etc/" targetdir="$INSTALL_PATH" />
+			<fileset dir="lib" targetdir="$INSTALL_PATH/lib" />
 			<fileset dir="etc" targetdir="$INSTALL_PATH/etc" />
 			<fileset dir="doc" targetdir="$INSTALL_PATH/doc" />
 		</pack>

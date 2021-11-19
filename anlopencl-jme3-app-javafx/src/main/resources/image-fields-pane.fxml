@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="310.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17"
+<BorderPane prefHeight="310.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/11"
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.ImageFieldsPaneController">
   <top>

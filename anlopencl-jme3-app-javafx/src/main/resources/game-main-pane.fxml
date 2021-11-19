@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 
 <BorderPane id="rootPane" fx:id="rootPane" prefHeight="720.0" prefWidth="937.0"
-  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+  xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController">
   <center>
     <HBox>
@@ -29,7 +29,7 @@
                   <content>
                     <AnchorPane>
                       <children>
-                        <fx:include fx:id="imageFieldsPane" source="image-fields-pane.fxml"
+                        <fx:include fx:id="imageFieldsPane" source="./image-fields-pane.fxml"
                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                           AnchorPane.topAnchor="0.0" />
                       </children>
@@ -40,7 +40,7 @@
                   <content>
                     <AnchorPane>
                       <children>
-                        <fx:include fx:id="mappingFieldsPane" source="mapping-fields-pane.fxml"
+                        <fx:include fx:id="mappingFieldsPane" source="./mapping-fields-pane.fxml"
                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                           AnchorPane.topAnchor="0.0" />
                       </children>
