@@ -72,6 +72,7 @@
         <module>anlopencl-jme3-app-model</module>
         <module>anlopencl-jme3-app-view</module>
         <module>anlopencl-jme3-izpack</module>
+        <module>anlopencl-jme3-izpack-fat</module>
         <module>anlopencl-jme3-opencl</module>
         <module>anlopencl-jocl</module>
         <module>anlopencl-opencl</module>

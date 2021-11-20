@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Released as open-source under the Apache License, Version 2.0.
+
+    ****************************************************************************
+    ANL-OpenCL :: IzPack Installation :: Fat Jar
+    ****************************************************************************
+
+    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    ****************************************************************************
+    ANL-OpenCL :: IzPack Installation :: Fat Jar is a derivative work based on Josua Tippetts' C++ library:
+    http://accidentalnoise.sourceforge.net/index.html
+    ****************************************************************************
+
+    Copyright (C) 2011 Joshua Tippetts
+
+      This software is provided 'as-is', without any express or implied
+      warranty.  In no event will the authors be held liable for any damages
+      arising from the use of this software.
+
+      Permission is granted to anyone to use this software for any purpose,
+      including commercial applications, and to alter it and redistribute it
+      freely, subject to the following restrictions:
+
+      1. The origin of this software must not be misrepresented; you must not
+         claim that you wrote the original software. If you use this software
+         in a product, an acknowledgment in the product documentation would be
+         appreciated but is not required.
+      2. Altered source versions must be plainly marked as such, and must not be
+         misrepresented as being the original software.
+      3. This notice may not be removed or altered from any source distribution.
+
+-->
+<izpack:installation version="5.0"
+	xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+	<info>
+		<appname>${project.custom.app.name}</appname>
+		<appversion>${project.custom.app.version}</appversion>
+		<appsubpath>${project.custom.app.path}</appsubpath>
+		<url>${project.custom.app.organization.url}</url>
+		<authors>
+			<author name="${project.custom.app.author.name}" email="${project.custom.app.author.email}" />
+		</authors>
+		<javaversion>${project.custom.jre.minversion}</javaversion>
+		<run-privileged condition="izpack.windowsinstall.7|izpack.windowsinstall.vista" />
+	</info>
+
+	<guiprefs resizable="${project.custom.izpack.gui.resizeable}" width="${project.custom.izpack.gui.width}"
+		height="${project.custom.izpack.gui.height}">
+		<modifier key="useHeadingPanel" value="yes" />
+	</guiprefs>
+
+	<locale>
+		<langpack iso3="eng" />
+	</locale>
+
+	<resources>
+		<res id="InfoPanel.info" src="${project.custom.izpack.readme}" />
+		<res id="shortcutSpec.xml" src="shortcutSpec.xml" />
+		<res id="Unix_shortcutSpec.xml" src="unix_shortcutSpec.xml" />
+	</resources>
+
+	<panels>
+		<panel classname="HelloPanel" />
+		<panel classname="InfoPanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="PacksPanel" />
+		<panel classname="SummaryPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="ShortcutPanel" />
+		<panel classname="SimpleFinishPanel" />
+	</panels>
+
+	<packs>
+		<pack name="Required" preselected="yes" required="yes"
+			installGroups="Required">
+			<description>Required files to run the application.</description>
+			<file
+				src="../anlopencl-jme3-izpack-fat-0.0.1-SNAPSHOT-allinone.jar"
+				targetdir="$INSTALL_PATH/lib/" />
+			<file src="etc/" targetdir="$INSTALL_PATH" />
+			<fileset dir="etc" targetdir="$INSTALL_PATH/etc" />
+			<fileset dir="doc" targetdir="$INSTALL_PATH/doc" />
+		</pack>
+		<pack name="Linux" preselected="yes" required="yes" os="unix"
+			installGroups="Linux">
+			<description>Linux run files.</description>
+			<file src="bin/linux/${project.custom.app.linuxdebugbin}" targetdir="$INSTALL_PATH/bin/linux" />
+            <file src="bin/linux/${project.custom.app.linuxbin}" targetdir="$INSTALL_PATH/bin/linux" />
+			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxbin}"
+				stage="never" keep="true" />
+			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxdebugbin}"
+				stage="never" keep="true" />
+		</pack>
+		<pack name="Windows" preselected="yes" required="yes" os="windows"
+			installGroups="Windows">
+			<description>Windows run files.</description>
+            <file src="bin/windows/${project.custom.app.windowsstartscript}" targetdir="$INSTALL_PATH/bin/windows" />
+            <file src="bin/windows/${project.custom.app.windowsdebugscript}" targetdir="$INSTALL_PATH/bin/windows" />
+            <file src="bin/windows/MessageBox.vbs" targetdir="$INSTALL_PATH/bin/windows" />
+            <fileset dir="../" targetdir="$INSTALL_PATH/bin/windows">
+                <include name="${project.custom.app.windowslauncher}" />
+            </fileset>
+            <fileset dir="../" targetdir="$INSTALL_PATH/Uninstaller">
+                <include name="${project.custom.launch4j.unistaller.filename}.exe" />
+            </fileset>
+		</pack>
+	</packs>
+
+	<!-- Required for creating shortcuts on Windows -->
+	<natives>
+		<native type="izpack" name="ShellLink.dll" />
+		<native type="izpack" name="ShellLink_x64.dll" />
+	</natives>
+
+</izpack:installation>
