@@ -1,0 +1,23 @@
+\ProvidesPackage{customstyles}[2013/04/09 Custom styles for the document]
+\RequirePackage{suffix}
+\RequirePackage{ulem}
+\RequirePackage{emptyspacecolumns}
+\RequirePackage{noparinent}
+
+% title page styles
+\newcommand{\SubjectStyle}{\Huge\textsc}
+\newcommand{\AuthorStyle}{\large}
+\newcommand{\DateStyle}{\large}
+\newcommand{\PublishersStyle}{\textit}
+\newcommand{\DedicationStyle}{\normalsize}
+
+%\setkomafont{chapter}{}
+\setkomafont{section}{\large\textsf}
+\setkomafont{subsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{subsubsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{paragraph}{\normalsize}
+\setkomafont{subparagraph}{\normalsize\normalfont}
+
+\makeatletter
+\@ifdefinable{\ANLOpenCL}{\def\ANLOpenCL/{\textit{ANL-OpenCL}}}
+\makeatother

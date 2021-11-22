@@ -1,0 +1,131 @@
+\documentclass[10pt,abstract=yes,toc=flat]{docusimple}
+\input{additionalpackages}
+
+\urlstyle{sf}
+
+%opening
+\title{Jenk­ins on Ku­bernetes}
+\author{Erwin Müller}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+This quide will describe how to setup a CI/CD with Jenkins on a Kubernetes
+cluster. The focus of the quide is to describe how to install the components 
+and the plugins needed to compile, test and deliver Java libraries, but
+the quide can be expanded to deliver any software via Jenkins. The worker
+nodes will be Kubernetes pods that are created on demand.
+
+\end{abstract}
+
+\section{Use Cases}
+
+% @startuml
+% 
+% :Developer: as Dev
+% :Feature Branch: as DevF
+% :Branch develop: as DevD
+% :Branch master: as DevM
+% 
+% (Deploy to private repository) as DPr
+% (Release to private repository) as RPr
+% (Publish to public repository) as PPu
+% (Deploy Site) as DS
+% 
+% DevF <|-- Dev
+% DevD <|-- DevF
+% DevM <|-- DevD
+% 
+% DevF -> (DPr)
+% 
+% DevD -> (RPr)
+% 
+% DevM -> (PPu)
+% 
+% (DPr) ..> (DS)
+% (RPr) ..> (DPr)
+% 
+% @enduml
+
+\begin{figure}[ht]
+\centering
+\def\svgwidth{0.7\columnwidth}
+\input{ci_cd_use_cases.pdf_tex}
+\end{figure}
+
+\subsection{Deploy to Private Repository}
+
+Developers with feature branches can deploy to the private repository.
+The code is cloned from the git repository, compiled, tested, the SonarQube
+analysis is done and then the artifact is deployed to the private repository.
+In addition, the Javadoc site is created and is deployed.
+
+\subsection{Release to Private Repository}
+
+Code that is merged in the ``develop'' branch will be also cloned from the 
+git repository, compiled, tested, the SonarQube analysis is run. The artifact
+is then released using the Maven release plugin. After the stages are finished
+successfully a release artifact is deployed to the private repository.
+
+\subsection{Publish to Public Repository}
+
+Code that is merged in the ``master'' branch will be published to the Maven 
+central artifact repository. Since the code was already tested and analyzed by 
+SonarQube those steps are skipped to save time.
+
+\subsection{Deploy Site}
+
+This use case is covered automatically by the pipeline in feature branches
+and for code that is merged into the ``develop'' branch. It will run the
+Maven site plugin to generate the Javadoc and deploy the site to a web
+server.
+
+% @startuml
+% 
+% skinparam componentStyle uml2
+% 
+% [Jenkins] as J
+% [Keycloak] as Key
+% [SonarQube] as Sq
+% [Gitea] as Git
+% [Nexus] as N
+% [Web] as W
+% [K8s] as K8
+% [Maven] as M
+% 
+% () "SonarQube :9000" as ISq
+% () "Gitea Hook :https" as IGitHook
+% () "Kubernetes :8080" as IK8
+% () "Jenkins Tunnel :50000" as IJtunnel
+% () "OpenID" as IO
+% () "SSH" as ISSH
+% () "SCP" as ISCP
+% () "HTTPS" as IHTTPS
+% () "DAV" as IDAV
+% 
+% Key -up- IO
+% K8 -up- IK8
+% Sq -up- ISq
+% Git -down- IGitHook
+% Git -up- ISSH
+% M -up- IJtunnel
+% W -up- ISCP
+% W -down- IHTTPS
+% N -up- IDAV
+% 
+% J ..> IO
+% J ..> IK8
+% J ...> IJtunnel
+% J ....> IGitHook
+% 
+% M ..> ISq
+% M ..> ISCP
+% M ..> IDAV
+% M ..> ISSH
+% 
+% @enduml
+
+\end{document}

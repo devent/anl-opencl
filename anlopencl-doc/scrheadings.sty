@@ -1,0 +1,32 @@
+% This file is part of Latexlibs.
+% Copyright 2011 Erwin Müller, erwin.mueller@deventm.org.
+% This work is licensed under the Creative Commons Attribution 3.0 Unported
+% License. To view a copy of this license, visit
+% http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
+% Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+\ProvidesPackage{scrheadings}[2013/04/07 Header with rightmark and leftmark and a footer with page number.]
+
+% for \pagestyle{scrheadings}
+\RequirePackage{scrpage2}
+
+% for \pageref{LastPage}
+\RequirePackage{lastpage}
+
+% the logo to be used, example:
+%   \includegraphics[height=1em]{logo}
+\newcommand{\TheHeadingLogo}{}
+
+\newcommand{\TheHeadingAuthor}{}
+
+% the character to be used to seperate the actual page and the total page number
+\newcommand{\ThePagenumSep}{/}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\automark[section]{subsection}
+\ihead[]{\TheHeadingLogo~\TheHeadingAuthor} 
+\rohead[]{\rightmark}
+\lehead[]{\leftmark}
+\ofoot{\pagemark~\ThePagenumSep~\pageref{LastPage}}
+\setheadsepline[1.0\textwidth]{1pt}
+
