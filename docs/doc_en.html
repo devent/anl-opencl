@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Documentation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,htex4ht --> 
+<meta name="src" content="doc_en.tex"> 
+<link rel="stylesheet" type="text/css" href="doc_en.css"> 
+</head><body 
+>
+<div class="maketitle">
+                                       
+                                                                               
+
+                                                                               
+                                       
+                                                                               
+
+                                                                               
+<span 
+class="pbkdc8t-x-x-248">ANL-OPENCL</span>
+
+<h2 class="titleHead">Documentation</h2>
+<div class="author" ><span 
+class="pbkl8t-x-x-120">Erwin M</span><span 
+class="pbkl8t-x-x-120">üller</span></div><br />
+<div class="date" ><span 
+class="pbkl8t-x-x-120">November 21, 2021</span></div>
+<a 
+href="https://anl-opencl.anrisoftware.com/" class="url" ><span 
+class="pcrro8t-x-x-144">https://anl-opencl.anrisoftware.com/</span></a>
+</div>
+<div class="center" 
+>
+<!--l. 2--><p class="noindent" >
+<!--l. 2--><p class="noindent" ><img 
+src="Screenshot_20211121_152848.png" alt="PIC"  
+width="329" height="329" ></div>
+<!--l. 2--><p class="noindent" >The purpose of this document is to
+describe the <span 
+class="pbkli8t-">ANL-OpenCL </span>library, how to
+use it to create noise images and how to
+use the bundled app.
+<h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Contents</h3>
+<div class="tableofcontents">
+<span class="sectionToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">App</a></span>
+<br />&#x00A0;<span class="subsectionToc" >1.1 <a 
+href="#x1-30001.1" id="QQ2-1-3">Toolbar</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.1 <a 
+href="#x1-40001.1.1" id="QQ2-1-4">Build</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.2 <a 
+href="#x1-50001.1.2" id="QQ2-1-5">Reset Camera</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.3 <a 
+href="#x1-60001.1.3" id="QQ2-1-6">Quit</a></span>                                  <br />&#x00A0;<span class="subsectionToc" >1.2 <a 
+href="#x1-70001.2" id="QQ2-1-7">Image</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.1 <a 
+href="#x1-80001.2.1" id="QQ2-1-8">Name</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.2 <a 
+href="#x1-90001.2.2" id="QQ2-1-9">Seed</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.3 <a 
+href="#x1-100001.2.3" id="QQ2-1-10">Width</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.4 <a 
+href="#x1-110001.2.4" id="QQ2-1-11">Height</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.5 <a 
+href="#x1-120001.2.5" id="QQ2-1-12">Z</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.2.6 <a 
+href="#x1-130001.2.6" id="QQ2-1-13">Dimension</a></span>
+      <br />&#x00A0;<span class="subsectionToc" >1.3 <a 
+href="#x1-140001.3" id="QQ2-1-14">Mapping</a></span>
+      <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >1.3.1 <a 
+href="#x1-150001.3.1" id="QQ2-1-15">3D mapping</a></span>
+      <br />&#x00A0;<span class="subsectionToc" >1.4 <a 
+href="#x1-160001.4" id="QQ2-1-16">Scene Window</a></span>
+      </div>
+                                                                               
+
+                                                                               
+<h3 class="sectionHead"><span class="titlemark">1  </span> <a 
+ id="x1-20001"></a>App</h3>
+<!--l. 3--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-2001r1"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 5--><p class="noindent" ><img 
+src="Screenshot_20211121_152848.png" alt="PIC"  
+width="164" height="164" >
+<a 
+ id="x1-2002"></a>
+<br />  <div class="caption" 
+><span class="id">Figure&#x00A0;1:   </span><span  
+class="content">Screenshot   of   the   app
+version 0.0.2</span></div><!--tex4ht:label?: x1-2001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 7--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 9--><p class="noindent" >The bundled app is a graphical user
+interface to enter the kernel code, build
+it and generate a preview of the noise
+image. It is implemented in Java and
+JMonkeyEngine 3. The goal of the app is
+to quickly prototype noise images with
+kernel code. The goal is not to provide an
+IDE or an advanced code editor. The app
+is divided into two parts. One part is to
+enter the kernel code and parameters
+and other other part is to display the
+generated images.
+<h4 class="subsectionHead"><span class="titlemark">1.1  </span> <a 
+ id="x1-30001.1"></a>Toolbar</h4>
+<!--l. 18--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-3001r2"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 20--><p class="noindent" ><img 
+src="imgs/toolbar-screenshot-0.png" alt="PIC"  
+width="164" height="164" >
+<a 
+ id="x1-3002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;2: </span><span  
+class="content">Toolbar</span></div><!--tex4ht:label?: x1-3001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 22--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 24--><p class="noindent" >The toolbar have buttons for the most
+common functions.
+<h5 class="subsubsectionHead"><span class="titlemark">1.1.1  </span> <a 
+ id="x1-40001.1.1"></a>Build</h5>
+<!--l. 28--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-4001r3"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 30--><p class="noindent" ><img 
+src="imgs/toolbar-build-0.png" alt="PIC"  
+>
+<a 
+ id="x1-4002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;3: </span><span  
+class="content">Toolbar Build Button</span></div><!--tex4ht:label?: x1-4001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 32--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 34--><p class="noindent" >The Build button will build the kernel
+code and display the generated image
+according to the parameters.
+<h5 class="subsubsectionHead"><span class="titlemark">1.1.2  </span> <a 
+ id="x1-50001.1.2"></a>Reset Camera</h5>
+<!--l. 39--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-5001r4"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 41--><p class="noindent" ><img 
+src="imgs/toolbar-reset-camera-0.png" alt="PIC"  
+>
+<a 
+ id="x1-5002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4: </span><span  
+class="content">Toolbar Build Button</span></div><!--tex4ht:label?: x1-5001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 43--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 45--><p class="noindent" >The Reset Camera button will reset the
+camera to the default position and zoom.
+Key shortcut F10.
+<h5 class="subsubsectionHead"><span class="titlemark">1.1.3  </span> <a 
+ id="x1-60001.1.3"></a>Quit</h5>
+<!--l. 50--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-6001r5"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 52--><p class="noindent" ><img 
+src="imgs/toolbar-quit-0.png" alt="PIC"  
+>
+<a 
+ id="x1-6002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5: </span><span  
+class="content">Toolbar Build Button</span></div><!--tex4ht:label?: x1-6001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 54--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 56--><p class="noindent" >The Quit button will exit the app. Key
+shortcut Ctrl-Q.
+<h4 class="subsectionHead"><span class="titlemark">1.2  </span> <a 
+ id="x1-70001.2"></a>Image</h4>
+<!--l. 60--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-7001r6"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 62--><p class="noindent" ><img 
+src="imgs/main-image-0.png" alt="PIC"  
+width="164" height="164" >
+<a 
+ id="x1-7002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;6: </span><span  
+class="content">Image</span></div><!--tex4ht:label?: x1-7001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 64--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 66--><p class="noindent" >The image window have the image
+parameters and the kernel code.
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.1  </span> <a 
+ id="x1-80001.2.1"></a>Name</h5>
+<!--l. 70--><p class="noindent" >The name of the kernel to build.
+<!--l. 72--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.2  </span> <a 
+ id="x1-90001.2.2"></a>Seed</h5>
+<!--l. 74--><p class="noindent" >The seed number.
+<!--l. 76--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.3  </span> <a 
+ id="x1-100001.2.3"></a>Width</h5>
+<!--l. 78--><p class="noindent" >The width of the image in pixels.
+<!--l. 80--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.4  </span> <a 
+ id="x1-110001.2.4"></a>Height</h5>
+<!--l. 82--><p class="noindent" >The height of the image in pixels.
+<!--l. 84--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.5  </span> <a 
+ id="x1-120001.2.5"></a>Z</h5>
+<!--l. 86--><p class="noindent" >The Z value.
+                                             <!--l. 88--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">1.2.6  </span> <a 
+ id="x1-130001.2.6"></a>Dimension</h5>
+<!--l. 90--><p class="noindent" >The count of float numbers of each
+coordinate. Different noise functions
+expect to have the correct dimension of
+the coordinates available.
+<!--l. 93--><p class="noindent" >
+      <dl class="description"><dt class="description">
+<span 
+class="pagd8t-">2D</span>  </dt><dd 
+class="description">requires    dimension    of    2    for
+      <span 
+class="pcrr8t-">float2</span>;
+      </dd><dt class="description">
+<span 
+class="pagd8t-">3D</span>  </dt><dd 
+class="description">requires    dimension    of    4    for
+      <span 
+class="pcrr8t-">float3</span>;
+      </dd><dt class="description">
+<span 
+class="pagd8t-">4D</span>  </dt><dd 
+class="description">requires    dimension    of    4    for
+      <span 
+class="pcrr8t-">float4</span>;
+      </dd><dt class="description">
+<span 
+class="pagd8t-">6D</span>  </dt><dd 
+class="description">requires    dimension    of    8    for
+      <span 
+class="pcrr8t-">float8</span>;</dd></dl>
+<!--l. 100--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">1.3  </span> <a 
+ id="x1-140001.3"></a>Mapping</h4>
+<!--l. 102--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                               
+
+                                                                               
+<a 
+ id="x1-14001r7"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 104--><p class="noindent" ><img 
+src="imgs/main-mapping-0.png" alt="PIC"  
+width="164" height="164" >
+<a 
+ id="x1-14002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;7: </span><span  
+class="content">Image</span></div><!--tex4ht:label?: x1-14001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 106--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 108--><p class="noindent" >The mapping window have the parameters
+to map coordinates.
+<h5 class="subsubsectionHead"><span class="titlemark">1.3.1  </span> <a 
+ id="x1-150001.3.1"></a>3D mapping</h5>
+<!--l. 112--><p class="noindent" >If enabled then the mapping is done in
+3D and the function <span 
+class="pcrr8t-">map3D </span>must be
+used.
+<!--l. 114--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">1.4  </span> <a 
+ id="x1-160001.4"></a>Scene Window</h4>
+<!--l. 116--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                       
+                                                                               
+
+                                                                               
+<a 
+ id="x1-16001r8"></a>
+                                       
+                                                                               
+
+                                                                               
+<!--l. 118--><p class="noindent" ><img 
+src="imgs/main-scene-0.png" alt="PIC"  
+width="164" height="164" >
+<a 
+ id="x1-16002"></a>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;8: </span><span  
+class="content">Image</span></div><!--tex4ht:label?: x1-16001r1 -->
+                                       
+                                                                               
+
+                                                                               
+<!--l. 120--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 122--><p class="noindent" >The scene window shows the generated
+images. The scene can be moved and
+zoomed with the mouse.
+    <dl class="description"><dt class="description">
+<span 
+class="pagd8t-">Middle Mouse</span> </dt><dd 
+class="description">moving the scene;
+    </dd><dt class="description">
+<span 
+class="pagd8t-">Mouse Wheel</span> </dt><dd 
+class="description">zooming the scene;</dd></dl>
+                                       
+                                                                               
+
+                                                                               
+                                       
+                                                                               
+
+                                                                               
+ 
+</body></html> 
+
+                                       
+                                                                               
+
+
