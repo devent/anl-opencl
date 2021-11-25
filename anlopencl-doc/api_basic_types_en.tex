@@ -1,0 +1,21 @@
+\subsection{Basic Types}
+
+\ANLOpenCL/ is designed to be used with both \code{float} and \code{double}
+floating point types. To use double floating point types the 
+flag \ANLOpenCLTypeIndex{ANLOPENCL\_USE\_DOUBLE} must be set.
+
+The header file \ANLOpenCLTypeIndex{opencl\_utils.h} defines the custom types 
+
+\begin{itemize}
+\item \ANLOpenCLTypeIndex{vector2}
+\item \ANLOpenCLTypeIndex{vector3}
+\item \ANLOpenCLTypeIndex{vector4}
+\item \ANLOpenCLTypeIndex{vector8}
+\item \ANLOpenCLTypeIndex{vector16}
+\end{itemize}
+
+as either \code{float2}, \code{float3}, \code{float4}, \code{float8}, 
+\code{float16} or \code{double2}, \code{double3}, \code{double4}, \code{double8}, 
+\code{double16}. And the \ANLOpenCLTypeIndex{REAL} type as either \code{float}
+or \code{double}.
+

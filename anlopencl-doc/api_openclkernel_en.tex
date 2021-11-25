@@ -1,0 +1,74 @@
+\subsection{OpenCL Kernel}
+
+The basic structure of a kernel is give as an example in listings \ref{lst:kernel_example}.
+The kernel expects two parameters to generale an image as a texture. The first
+are the \ANLOpenCLTypeIndex{SMappingRanges} that contains the parameters of the mapping
+as entered by the user on the Mapping \ref{sec:mapping} window. The second parameter
+is the \ANLOpenCLTypeIndex{image2d\_t} image output.
+
+The kernel code can contain variables that are inserted before the code is build.
+One of those variables is \ANLOpenCLTypeIndex{\$insert\_localMapRange}. This variable
+is replaced with the code in listings \ref{lst:insert_local_map_range}.
+\ANLOpenCLType{\$insert\_localMapRange} contains code that divides the coordinates
+space given in the mapping ranges into small peaces and allows the noise functions
+to operate in the local group on the divided part. After this code was inserted 
+the \code{const int i} variable contains the current index in the \code{vector3 coord}
+variable, i.e. reading the coordinate from the position \code{coord[i]} will return
+the correct coordinate in the local group. Additionally, the variable
+\code{struct SMappingRanges ranges} will contain the local mapping ranges.
+
+The variable \ANLOpenCLTypeIndex{\$localSize} contains the size of the part of the
+image that we want to process in pixels. Currently it is set to a maximum size of 32.
+That means that an image of the size 1024x1024 is divided into 32x32 ($1024/32=32$) parts
+with the size of 32x32 pixels. Each noise function will be called in the local group
+only on the 32x32 pixels part.
+
+The variable \ANLOpenCLTypeIndex{\$z} contains the Z value from the Image \ref{sec:image} section.
+
+\begin{lstlisting}[caption={Kernel Example},label={lst:kernel_example},language=OpenCL]
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+kernel void map2d_image(
+global struct SMappingRanges *g_ranges,
+write_only image2d_t output
+) {
+    $insert_localMapRange
+    const float a = 0.5;
+    long seed = 200;
+    const float r = value_noise3D(coord[i], seed, linearInterp);
+    const float g = value_noise3D(coord[i], seed*2, linearInterp);
+    const float b = value_noise3D(coord[i], seed*2, linearInterp);
+    const float f = simpleFractalLayer3(coord[i], 
+value_noise3D, seed*10, linearInterp, 10, 1, 
+false, 0, 1, 0, 0);
+    write_imagef(output, (int2)(g0, g1), (float4)(r*f, g*f, b*f, a));
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Kernel Example},label={lst:insert_local_map_range},language=OpenCL]
+const size_t g0 = get_global_id(0);
+const size_t g1 = get_global_id(1);
+const size_t w = get_global_size(0);
+const size_t h = get_global_size(1);
+const size_t l0 = get_local_id(0);
+const size_t l1 = get_local_id(1);
+const size_t lw = get_local_size(0);
+const size_t lh = get_local_size(1);
+local vector3 coord[$localSize * $localSize];
+local struct SMappingRanges ranges;
+if (l0 == 0 && l1 == 0) {
+    const REAL sw = (g_ranges->mapx1 - g_ranges->mapx0) / w;
+    const REAL sh = (g_ranges->mapy1 - g_ranges->mapy0) / h;
+    const REAL x0 = g_ranges->mapx0 + g0 * sw;
+    const REAL x1 = g_ranges->mapx0 + g0 * sw + sw * lw;
+    const REAL y0 = g_ranges->mapy0 + g1 * sh;
+    const REAL y1 = g_ranges->mapy0 + g1 * sh + sh * lh;
+    set_ranges_map2D(&ranges, x0, x1, y0, y1);
+    map2D(coord, calc_seamless_none, ranges, lw, lh, $z);
+}
+work_group_barrier(CLK_LOCAL_MEM_FENCE);
+const int i = (l0 + l1 * lh);
+\end{lstlisting}

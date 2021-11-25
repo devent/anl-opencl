@@ -1,0 +1,186 @@
+\begin{theindex}
+
+  \item \$insert\_localMapRange, 5
+  \item \$localSize, 5
+  \item \$z, 5
+
+  \indexspace
+
+  \item ANLOPENCL\_USE\_DOUBLE, 6
+
+  \indexspace
+
+  \item calc\_seamless\_no\_z\_none, 7
+  \item calc\_seamless\_no\_z\_x, 7
+  \item calc\_seamless\_no\_z\_xy, 7
+  \item calc\_seamless\_no\_z\_xyz, 7
+  \item calc\_seamless\_no\_z\_xz, 7
+  \item calc\_seamless\_no\_z\_y, 7
+  \item calc\_seamless\_no\_z\_yz, 7
+  \item calc\_seamless\_no\_z\_z, 7
+  \item calc\_seamless\_none, 7
+  \item calc\_seamless\_x, 7
+  \item calc\_seamless\_xy, 7
+  \item calc\_seamless\_xyz, 7
+  \item calc\_seamless\_xz, 7
+  \item calc\_seamless\_y, 7
+  \item calc\_seamless\_yz, 7
+  \item calc\_seamless\_z, 7
+  \item cellular\_function2D, 12
+  \item cellular\_function3D, 12
+  \item cellular\_function4D, 12
+  \item cellular\_function6D, 12
+  \item combineHSVA, 14
+  \item combineRGBA, 14
+  \item create\_ranges\_default, 6
+  \item create\_ranges\_map2D, 6
+  \item create\_ranges\_map3D, 6
+
+  \indexspace
+
+  \item dist\_func2, 14
+  \item dist\_func3, 14
+  \item dist\_func4, 14
+  \item dist\_func6, 14
+  \item distEuclid2, 13
+  \item distEuclid3, 13
+  \item distEuclid4, 13
+  \item distEuclid6, 13
+  \item distGreatestAxis2, 13
+  \item distGreatestAxis3, 13
+  \item distGreatestAxis4, 13
+  \item distGreatestAxis6, 13
+  \item distLeastAxis2, 13
+  \item distLeastAxis3, 13
+  \item distLeastAxis4, 13
+  \item distLeastAxis6, 13
+  \item distManhattan2, 13
+  \item distManhattan3, 13
+  \item distManhattan4, 13
+  \item distManhattan6, 13
+
+  \indexspace
+
+  \item gradient\_noise2D, 9
+  \item gradient\_noise3D, 9
+  \item gradient\_noise4D, 9
+  \item gradient\_noise6D, 9
+  \item gradval\_noise2D, 10
+  \item gradval\_noise3D, 10
+  \item gradval\_noise4D, 10
+  \item gradval\_noise6D, 10
+
+  \indexspace
+
+  \item hermiteInterp, 12
+
+  \indexspace
+
+  \item image2d\_t, 5
+  \item imaging.h, 6, 7
+  \item interp\_func, 13
+
+  \indexspace
+
+  \item kernel.h, 14
+
+  \indexspace
+
+  \item linearInterp, 12
+
+  \indexspace
+
+  \item map2D, 7
+  \item map2DNoZ, 7
+
+  \indexspace
+
+  \item noInterp, 12
+  \item noise\_func2, 13
+  \item noise\_func3, 13
+  \item noise\_func4, 13
+  \item noise\_func6, 13
+  \item noise\_gen.h, 8
+
+  \indexspace
+
+  \item opencl\_utils.h, 6
+
+  \indexspace
+
+  \item quinticInterp, 12
+
+  \indexspace
+
+  \item random\_func, 22
+  \item REAL, 6
+  \item rotateDomain3, 14
+  \item rotateDomain4, 14
+  \item rotateDomain6, 14
+
+  \indexspace
+
+  \item scaleDomain, 14
+  \item scaleToRange, 7
+  \item set\_ranges\_default, 6
+  \item set\_ranges\_map2D, 6
+  \item set\_ranges\_map3D, 6
+  \item simpleBillow3, 20
+  \item simpleBillow4, 20
+  \item simpleBillow6, 20
+  \item simpleBillowLayer3, 17
+  \item simpleBillowLayer4, 17
+  \item simpleBillowLayer6, 17
+  \item simplefBm3, 18, 19
+  \item simplefBm4, 18, 19
+  \item simplefBm6, 18, 19
+  \item simpleFractalLayer3, 15
+  \item simpleFractalLayer4, 15
+  \item simpleFractalLayer6, 15
+  \item simpleRidgedLayer3, 16
+  \item simpleRidgedLayer4, 16
+  \item simpleRidgedLayer6, 16
+  \item simplex\_noise2D, 11
+  \item simplex\_noise3D, 11
+  \item simplex\_noise4D, 11
+  \item simplex\_noise6D, 11
+  \item SMappingRanges, 5, 6
+
+  \indexspace
+
+  \item u, 22
+
+  \indexspace
+
+  \item v, 22
+  \item value\_noise2D, 8
+  \item value\_noise3D, 8
+  \item value\_noise4D, 8
+  \item value\_noise6D, 8
+  \item vector16, 6
+  \item vector2, 6
+  \item vector3, 6
+  \item vector4, 6
+  \item vector8, 6
+
+  \indexspace
+
+  \item w, 22
+  \item white\_noise2D, 11
+  \item white\_noise3D, 11
+  \item white\_noise4D, 11
+  \item white\_noise6D, 11
+
+  \indexspace
+
+  \item x, 22
+
+  \indexspace
+
+  \item y, 22
+
+  \indexspace
+
+  \item z, 22
+
+\end{theindex}

@@ -1,1 +1,41 @@
- 
+\usepackage{listings} 
+\usepackage{xcolor}
+\usepackage{imakeidx}
+\usepackage{subcaption}
+\makeindex
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+
+\lstdefinelanguage[]{OpenCL}[ANSI]{C}{
+    sensitive=false,
+    morekeywords={kernel,global,write_only,read_only},
+    alsoletter={\$},
+    morekeywords=[2]{\$insert_localMapRange,\$localSize,\$z},
+    morecomment=[l][{\color{myGreen}}]{\#}
+}
+
+\lstdefinestyle{c-my}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    keywordstyle={[2]\color{myGreen}},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=0pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=c-my}

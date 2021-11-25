@@ -1,0 +1,116 @@
+\subsection{Mapping Ranges Type}
+
+Since \ANLOpenCL/ is a port of the Josua Tippetts' C++ library
+\url{http://accidentalnoise.sourceforge.net/index.html} the same documentation
+can be used for the mapping ranges.
+
+The struct \ANLOpenCLTypeIndex{SMappingRanges} is defined with the fields
+\begin{itemize}
+\item \ANLOpenCLType{mapx0, mapy0, mapz0, mapx1, mapy1, mapz1} and
+\item \ANLOpenCLType{loopx0, loopy0, loopz0, loopx1, loopy1, loopz1}
+\end{itemize}
+
+\subsection{Mapping Ranges Functions}
+
+\subsubsection{Create Mapping Ranges Functions}
+
+\index{create\_ranges\_default}\index{create\_ranges\_map2D}\index{create\_ranges\_map3D}
+\begin{lstlisting}[caption={Definition of create ranges functions},label={lst:create_ranges_definition},language=OpenCL]
+struct SMappingRanges create_ranges_default();
+struct SMappingRanges create_ranges_map2D(REAL x0, REAL x1, REAL y0, REAL y1);
+struct SMappingRanges create_ranges_map3D(REAL x0, REAL x1, REAL y0, REAL y1, REAL z0, REAL z1)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Example for create ranges functions},label={lst:create_ranges_example},language=OpenCL]
+struct SMappingRanges ranges = create_ranges_default();
+//
+struct SMappingRanges ranges = create_ranges_map2D(-10, 10, -10, 10);
+//
+struct SMappingRanges ranges = create_ranges_map3D(-10, 10, -10, 10, 0, 1);
+\end{lstlisting}
+
+Defined in \ANLOpenCLTypeIndex{imaging.h}.
+The first function creates a default \ANLOpenCLType{SMappingRanges} from -1 to 1.
+The other functions create \ANLOpenCLType{SMappingRanges} with the specified ranges.
+
+\subsubsection{Set Mapping Ranges Functions}
+
+\index{set\_ranges\_default}\index{set\_ranges\_map2D}\index{set\_ranges\_map3D}
+\begin{lstlisting}[caption={Definition of set ranges functions},label={lst:set_ranges_definition},language=OpenCL]
+struct SMappingRanges set_ranges_default(struct SMappingRanges *const ranges);
+struct SMappingRanges set_ranges_map2D(struct SMappingRanges *const ranges, REAL x0, REAL x1, REAL y0, REAL y1);
+struct SMappingRanges set_ranges_map3D(struct SMappingRanges *const ranges, REAL x0, REAL x1, REAL y0, REAL y1, REAL z0, REAL z1);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Example for set ranges functions},label={lst:set_ranges_example},language=OpenCL]
+struct SMappingRanges ranges;
+set_ranges_default(&ranges);
+//
+set_ranges_map2D(&ranges, -10, 10, -10, 10);
+//
+set_ranges_map3D(&ranges, -10, 10, -10, 10, 0, 1);
+\end{lstlisting}
+
+Defined in \ANLOpenCLTypeIndex{imaging.h}.
+The first function sets a default \ANLOpenCLType{SMappingRanges} from -1 to 1.
+The other functions sets \ANLOpenCLType{SMappingRanges} with the specified ranges.
+
+\subsubsection{Mapping Functions}
+
+\index{map2D}\index{map2DNoZ}
+\begin{lstlisting}[caption={Definition of mapping functions},label={lst:mapping_definition},language=OpenCL]
+void* map2D(void *out, calc_seamless calc_seamless, struct SMappingRanges ranges, size_t width, size_t height, REAL z);
+void* map2DNoZ(void *out, calc_seamless_no_z calc_seamless, struct SMappingRanges ranges, size_t width, size_t height);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Example for mapping functions},label={lst:mapping_example},language=OpenCL]
+struct SMappingRanges ranges = create_ranges_map2D(-10, 10, -10, 10);
+map2D(coord, calc_seamless_none, ranges, 1024, 1024, 0);
+\end{lstlisting}
+
+Defined in \ANLOpenCLTypeIndex{imaging.h}.
+Creates the mapping ranges for the width and height. Different seamless functions are supported.
+The coordinates must have the correct size that is dependent on the seamless function used.
+For the \ANLOpenCLType{map2D} function the following seamless functions are available and the
+coordinates type must be used:
+
+\begin{itemize}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_none} coordinates must be of \ANLOpenCLType{vector3}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_x} coordinates must be of \ANLOpenCLType{vector4}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_y} coordinates must be of \ANLOpenCLType{vector4}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_z} coordinates must be of \ANLOpenCLType{vector4}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_xy} coordinates must be of \ANLOpenCLType{vector8}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_xz} coordinates must be of \ANLOpenCLType{vector8}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_yz} coordinates must be of \ANLOpenCLType{vector8}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_xyz} coordinates must be of \ANLOpenCLType{vector8}
+\end{itemize}
+
+For the \ANLOpenCLType{map2DNoZ} function the following seamless functions are available and the
+coordinates type must be used:
+
+\begin{itemize}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_none} coordinates must be of \ANLOpenCLType{vector2}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_x} coordinates must be of \ANLOpenCLType{vector3}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_y} coordinates must be of \ANLOpenCLType{vector3}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_z} coordinates must be of \ANLOpenCLType{vector4}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_xy} coordinates must be of \ANLOpenCLType{vector4}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_xz} coordinates must be of \ANLOpenCLType{vector8}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_yz} coordinates must be of \ANLOpenCLType{vector8}
+\item \ANLOpenCLTypeIndex{calc\_seamless\_no\_z\_xyz} coordinates must be of \ANLOpenCLType{vector8}
+\end{itemize}
+
+\subsubsection{Scale To Range}
+
+\index{scaleToRange}
+\begin{lstlisting}[caption={Definition of scaleToRange function},label={lst:scale_to_range_definition},language=OpenCL]
+REAL* scaleToRange(REAL *data, size_t count, REAL min, REAL max, REAL low, REAL high);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Example for scaleToRange function. The data will be scaled to fit between 0 and 1.},label={lst:scale_to_range_example},language=OpenCL]
+scaleToRange(data, count, min, max, 0, 1);
+\end{lstlisting}
+
+Defined in \ANLOpenCLTypeIndex{imaging.h}.
+Scales the values in data to the range between low and high.
+The data is modified by this function.
+ 

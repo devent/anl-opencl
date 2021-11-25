@@ -1,26 +1,142 @@
 \expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi 
 \doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{Contents}}{3}\relax 
-\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-20001}{QQ2-1-2}{App}}{4}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-2002}{}{\numberline {1}{\ignorespaces Screenshot of the app version 0.0.2\relax }}}{6}\relax 
-\doTocEntry\tocsubsection{1.1}{\csname a:TocLink\endcsname{1}{x1-30001.1}{QQ2-1-3}{Toolbar}}{7}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-3002}{}{\numberline {2}{\ignorespaces Toolbar\relax }}}{9}\relax 
-\doTocEntry\tocsubsubsection{1.1.1}{\csname a:TocLink\endcsname{1}{x1-40001.1.1}{QQ2-1-4}{Build}}{10}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-4002}{}{\numberline {3}{\ignorespaces Toolbar Build Button\relax }}}{12}\relax 
-\doTocEntry\tocsubsubsection{1.1.2}{\csname a:TocLink\endcsname{1}{x1-50001.1.2}{QQ2-1-5}{Reset Camera}}{13}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-5002}{}{\numberline {4}{\ignorespaces Toolbar Build Button\relax }}}{15}\relax 
-\doTocEntry\tocsubsubsection{1.1.3}{\csname a:TocLink\endcsname{1}{x1-60001.1.3}{QQ2-1-6}{Quit}}{16}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-6002}{}{\numberline {5}{\ignorespaces Toolbar Build Button\relax }}}{18}\relax 
-\doTocEntry\tocsubsection{1.2}{\csname a:TocLink\endcsname{1}{x1-70001.2}{QQ2-1-7}{Image}}{19}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-7002}{}{\numberline {6}{\ignorespaces Image\relax }}}{21}\relax 
-\doTocEntry\tocsubsubsection{1.2.1}{\csname a:TocLink\endcsname{1}{x1-80001.2.1}{QQ2-1-8}{Name}}{22}\relax 
-\doTocEntry\tocsubsubsection{1.2.2}{\csname a:TocLink\endcsname{1}{x1-90001.2.2}{QQ2-1-9}{Seed}}{22}\relax 
-\doTocEntry\tocsubsubsection{1.2.3}{\csname a:TocLink\endcsname{1}{x1-100001.2.3}{QQ2-1-10}{Width}}{22}\relax 
-\doTocEntry\tocsubsubsection{1.2.4}{\csname a:TocLink\endcsname{1}{x1-110001.2.4}{QQ2-1-11}{Height}}{22}\relax 
-\doTocEntry\tocsubsubsection{1.2.5}{\csname a:TocLink\endcsname{1}{x1-120001.2.5}{QQ2-1-12}{Z}}{22}\relax 
-\doTocEntry\tocsubsubsection{1.2.6}{\csname a:TocLink\endcsname{1}{x1-130001.2.6}{QQ2-1-13}{Dimension}}{22}\relax 
-\doTocEntry\tocsubsection{1.3}{\csname a:TocLink\endcsname{1}{x1-140001.3}{QQ2-1-14}{Mapping}}{22}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-14002}{}{\numberline {7}{\ignorespaces Image\relax }}}{24}\relax 
-\doTocEntry\tocsubsubsection{1.3.1}{\csname a:TocLink\endcsname{1}{x1-150001.3.1}{QQ2-1-15}{3D mapping}}{25}\relax 
-\doTocEntry\tocsubsection{1.4}{\csname a:TocLink\endcsname{1}{x1-160001.4}{QQ2-1-16}{Scene Window}}{25}\relax 
-\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-16002}{}{\numberline {8}{\ignorespaces Image\relax }}}{27}\relax 
+\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-20001}{QQ2-1-2}{App}}{5}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-2002}{}{\numberline {1}{\ignorespaces Screenshot of the app version 0.0.2\relax }}}{7}\relax 
+\doTocEntry\tocsubsection{1.1}{\csname a:TocLink\endcsname{1}{x1-30001.1}{QQ2-1-3}{Toolbar}}{8}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-3002}{}{\numberline {2}{\ignorespaces Toolbar\relax }}}{10}\relax 
+\doTocEntry\tocsubsubsection{1.1.1}{\csname a:TocLink\endcsname{1}{x1-40001.1.1}{QQ2-1-4}{Build}}{11}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-4002}{}{\numberline {3}{\ignorespaces Toolbar Build Button\relax }}}{13}\relax 
+\doTocEntry\tocsubsubsection{1.1.2}{\csname a:TocLink\endcsname{1}{x1-50001.1.2}{QQ2-1-5}{Reset Camera}}{14}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-5002}{}{\numberline {4}{\ignorespaces Toolbar Build Button\relax }}}{16}\relax 
+\doTocEntry\tocsubsubsection{1.1.3}{\csname a:TocLink\endcsname{1}{x1-60001.1.3}{QQ2-1-6}{Quit}}{17}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-6002}{}{\numberline {5}{\ignorespaces Toolbar Build Button\relax }}}{19}\relax 
+\doTocEntry\tocsubsection{1.2}{\csname a:TocLink\endcsname{1}{x1-70001.2}{QQ2-1-7}{Image}}{20}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-7002}{}{\numberline {6}{\ignorespaces Image\relax }}}{22}\relax 
+\doTocEntry\tocsubsubsection{1.2.1}{\csname a:TocLink\endcsname{1}{x1-80001.2.1}{QQ2-1-8}{Name}}{23}\relax 
+\doTocEntry\tocsubsubsection{1.2.2}{\csname a:TocLink\endcsname{1}{x1-90001.2.2}{QQ2-1-9}{Seed}}{23}\relax 
+\doTocEntry\tocsubsubsection{1.2.3}{\csname a:TocLink\endcsname{1}{x1-100001.2.3}{QQ2-1-10}{Width}}{23}\relax 
+\doTocEntry\tocsubsubsection{1.2.4}{\csname a:TocLink\endcsname{1}{x1-110001.2.4}{QQ2-1-11}{Height}}{23}\relax 
+\doTocEntry\tocsubsubsection{1.2.5}{\csname a:TocLink\endcsname{1}{x1-120001.2.5}{QQ2-1-12}{Z}}{23}\relax 
+\doTocEntry\tocsubsubsection{1.2.6}{\csname a:TocLink\endcsname{1}{x1-130001.2.6}{QQ2-1-13}{Dimension}}{23}\relax 
+\doTocEntry\tocsubsection{1.3}{\csname a:TocLink\endcsname{1}{x1-140001.3}{QQ2-1-14}{Mapping}}{23}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-14002}{}{\numberline {7}{\ignorespaces Image\relax }}}{25}\relax 
+\doTocEntry\tocsubsubsection{1.3.1}{\csname a:TocLink\endcsname{1}{x1-150001.3.1}{QQ2-1-15}{3D mapping}}{26}\relax 
+\doTocEntry\tocsubsection{1.4}{\csname a:TocLink\endcsname{1}{x1-160001.4}{QQ2-1-16}{Scene Window}}{26}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-16002}{}{\numberline {8}{\ignorespaces Image\relax }}}{28}\relax 
+\doTocEntry\tocsection{2}{\csname a:TocLink\endcsname{1}{x1-170002}{QQ2-1-17}{API}}{31}\relax 
+\doTocEntry\tocsubsection{2.1}{\csname a:TocLink\endcsname{1}{x1-180002.1}{QQ2-1-18}{OpenCL Kernel}}{31}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-18007}{}{\numberline {1}Kernel Example}}{31}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-18029}{}{\numberline {2}Kernel Example}}{31}\relax 
+\doTocEntry\tocsubsection{2.2}{\csname a:TocLink\endcsname{1}{x1-190002.2}{QQ2-1-21}{Basic Types}}{31}\relax 
+\doTocEntry\tocsubsection{2.3}{\csname a:TocLink\endcsname{1}{x1-200002.3}{QQ2-1-22}{Mapping Ranges Type}}{32}\relax 
+\doTocEntry\tocsubsection{2.4}{\csname a:TocLink\endcsname{1}{x1-210002.4}{QQ2-1-23}{Mapping Ranges Functions}}{32}\relax 
+\doTocEntry\tocsubsubsection{2.4.1}{\csname a:TocLink\endcsname{1}{x1-220002.4.1}{QQ2-1-24}{Create Mapping Ranges Functions}}{32}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-22005}{}{\numberline {3}Definition of create ranges functions}}{32}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-22010}{}{\numberline {4}Example for create ranges functions}}{32}\relax 
+\doTocEntry\tocsubsubsection{2.4.2}{\csname a:TocLink\endcsname{1}{x1-230002.4.2}{QQ2-1-27}{Set Mapping Ranges Functions}}{32}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-23005}{}{\numberline {5}Definition of set ranges functions}}{32}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-23010}{}{\numberline {6}Example for set ranges functions}}{33}\relax 
+\doTocEntry\tocsubsubsection{2.4.3}{\csname a:TocLink\endcsname{1}{x1-240002.4.3}{QQ2-1-30}{Mapping Functions}}{33}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-24004}{}{\numberline {7}Definition of mapping functions}}{33}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-24008}{}{\numberline {8}Example for mapping functions}}{33}\relax 
+\doTocEntry\tocsubsubsection{2.4.4}{\csname a:TocLink\endcsname{1}{x1-250002.4.4}{QQ2-1-33}{Scale To Range}}{34}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-25003}{}{\numberline {9}Definition of scaleToRange function}}{34}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-25006}{}{\numberline {10}Example for scaleToRange function. The data will be scaled to fit between 0 and 1.}}{34}\relax 
+\doTocEntry\tocsubsection{2.5}{\csname a:TocLink\endcsname{1}{x1-260002.5}{QQ2-1-36}{Noise Generation Functions}}{34}\relax 
+\doTocEntry\tocsubsubsection{2.5.1}{\csname a:TocLink\endcsname{1}{x1-270002.5.1}{QQ2-1-37}{Value Noise Functions}}{35}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-27002}{}{\numberline {9}{\ignorespaces Value Noise 3D no interpolation.\relax }}}{37}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-27004}{}{\numberline {10}{\ignorespaces Value Noise 3D linear interpolation.\relax }}}{40}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-27006}{}{\numberline {11}{\ignorespaces Value Noise 3D hermite interpolation.\relax }}}{43}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-27008}{}{\numberline {12}{\ignorespaces Value Noise 3D quintic interpolation.\relax }}}{46}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-27014}{}{\numberline {11}Definition of value noise functions}}{47}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-27020}{}{\numberline {12}Example for value noise functions}}{47}\relax 
+\doTocEntry\tocsubsubsection{2.5.2}{\csname a:TocLink\endcsname{1}{x1-280002.5.2}{QQ2-1-40}{Gradient Noise Functions}}{47}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-28002}{}{\numberline {13}{\ignorespaces Gradient Noise 3D no interpolation.\relax }}}{49}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-28004}{}{\numberline {14}{\ignorespaces Gradient Noise 3D linear interpolation.\relax }}}{52}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-28006}{}{\numberline {15}{\ignorespaces Gradient Noise 3D hermite interpolation.\relax }}}{55}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-28008}{}{\numberline {16}{\ignorespaces Gradient Noise 3D quintic interpolation.\relax }}}{58}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-28014}{}{\numberline {13}Definition of gradient noise functions}}{59}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-28020}{}{\numberline {14}Example for gradient noise functions}}{59}\relax 
+\doTocEntry\tocsubsubsection{2.5.3}{\csname a:TocLink\endcsname{1}{x1-290002.5.3}{QQ2-1-43}{Gradval Noise Functions}}{59}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-29002}{}{\numberline {17}{\ignorespaces Gradval Noise 3D no interpolation.\relax }}}{61}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-29004}{}{\numberline {18}{\ignorespaces Gradval Noise 3D linear interpolation.\relax }}}{64}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-29006}{}{\numberline {19}{\ignorespaces Gradval Noise 3D hermite interpolation.\relax }}}{67}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-29008}{}{\numberline {20}{\ignorespaces Gradval Noise 3D quintic interpolation.\relax }}}{70}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-29014}{}{\numberline {15}Definition of gradval noise functions}}{71}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-29020}{}{\numberline {16}Example for gradval noise functions}}{71}\relax 
+\doTocEntry\tocsubsubsection{2.5.4}{\csname a:TocLink\endcsname{1}{x1-300002.5.4}{QQ2-1-46}{White Noise Functions}}{71}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-30002}{}{\numberline {21}{\ignorespaces White Noise 3D no interpolation.\relax }}}{73}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-30008}{}{\numberline {17}Definition of white noise functions}}{74}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-30014}{}{\numberline {18}Example for white noise functions}}{74}\relax 
+\doTocEntry\tocsubsubsection{2.5.5}{\csname a:TocLink\endcsname{1}{x1-310002.5.5}{QQ2-1-49}{Simplex Noise Functions}}{74}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-31002}{}{\numberline {22}{\ignorespaces Simplex Noise 3D no interpolation.\relax }}}{76}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-31008}{}{\numberline {19}Definition of simplex noise functions}}{77}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-31014}{}{\numberline {20}Example for simplex noise functions}}{77}\relax 
+\doTocEntry\tocsubsubsection{2.5.6}{\csname a:TocLink\endcsname{1}{x1-320002.5.6}{QQ2-1-52}{Cellular Noise Functions}}{77}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-32006}{}{\numberline {21}Definition of cellular noise functions}}{77}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-32012}{}{\numberline {22}Example for cellular noise functions}}{77}\relax 
+\doTocEntry\tocsubsubsection{2.5.7}{\csname a:TocLink\endcsname{1}{x1-330002.5.7}{QQ2-1-55}{Interpolation Functions}}{77}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-33006}{}{\numberline {23}Definition of interpolation functions}}{78}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-33012}{}{\numberline {24}Example for interpolation functions}}{78}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-33022}{}{\numberline {25}Definition of interpolation function type}}{78}\relax 
+\doTocEntry\tocsubsubsection{2.5.8}{\csname a:TocLink\endcsname{1}{x1-340002.5.8}{QQ2-1-59}{Noise Generation Function Types}}{78}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-34006}{}{\numberline {26}Definition of noise generation function types}}{78}\relax 
+\doTocEntry\tocsubsubsection{2.5.9}{\csname a:TocLink\endcsname{1}{x1-350002.5.9}{QQ2-1-61}{Distance Functions}}{78}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-35006}{}{\numberline {27}Definition of Euclid distance functions}}{79}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-35016}{}{\numberline {28}Definition of Manhattan distance functions}}{79}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-35026}{}{\numberline {29}Definition of greatest axis distance functions}}{79}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-35036}{}{\numberline {30}Definition of least axis distance functions}}{79}\relax 
+\doTocEntry\tocsubsubsection{2.5.10}{\csname a:TocLink\endcsname{1}{x1-360002.5.10}{QQ2-1-66}{Distance Function Types}}{79}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-36006}{}{\numberline {31}Definition of distance function types}}{80}\relax 
+\doTocEntry\tocsubsection{2.6}{\csname a:TocLink\endcsname{1}{x1-370002.6}{QQ2-1-68}{Kernel Functions}}{80}\relax 
+\doTocEntry\tocsubsubsection{2.6.1}{\csname a:TocLink\endcsname{1}{x1-380002.6.1}{QQ2-1-69}{Manipulation Functions}}{80}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38005}{}{\numberline {32}Definition of rotate domain functions}}{80}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38010}{}{\numberline {33}Example for rotate domain functions}}{80}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38023}{}{\numberline {34}Definition of scale domain function}}{80}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38026}{}{\numberline {35}Example for scale domain function}}{81}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38040}{}{\numberline {36}Definition of combine color values functions}}{81}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-38044}{}{\numberline {37}Example for scale domain function}}{81}\relax 
+\doTocEntry\tocsubsubsection{2.6.2}{\csname a:TocLink\endcsname{1}{x1-390002.6.2}{QQ2-1-76}{Fractal Layer Functions}}{81}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39002}{}{\numberline {23}{\ignorespaces Simple fractal layer with value noise 3D and hermite interpolation with rotation.\relax }}}{83}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39004}{}{\numberline {24}{\ignorespaces Simple fractal layer with gradient noise 3D and linear hermite with rotation.\relax }}}{86}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39006}{}{\numberline {25}{\ignorespaces Simple fractal layer with gradval noise 3D and hermite interpolation with rotation.\relax }}}{89}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39008}{}{\numberline {26}{\ignorespaces Simple fractal layer with simplex noise 3D with rotation.\relax }}}{92}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39013}{}{\numberline {38}Definition of simple fractal layer functions}}{93}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39018}{}{\numberline {39}Example for simple fractal layer functions}}{93}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39032}{}{\numberline {27}{\ignorespaces Ridged fractal layer with value noise 3D and hermite interpolation with rotation.\relax }}}{95}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39034}{}{\numberline {28}{\ignorespaces Ridged fractal layer with gradient noise 3D and linear hermite with rotation.\relax }}}{98}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39036}{}{\numberline {29}{\ignorespaces Ridged fractal layer with gradval noise 3D and hermite interpolation with rotation.\relax }}}{101}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39038}{}{\numberline {30}{\ignorespaces Ridged fractal layer with simplex noise 3D with rotation.\relax }}}{104}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39043}{}{\numberline {40}Definition of ridged fractal layer functions}}{105}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39048}{}{\numberline {41}Example for ridged fractal layer functions}}{105}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39062}{}{\numberline {31}{\ignorespaces Billow fractal layer with value noise 3D and hermite interpolation with rotation.\relax }}}{107}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39064}{}{\numberline {32}{\ignorespaces Billow fractal layer with gradient noise 3D and linear hermite with rotation.\relax }}}{110}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39066}{}{\numberline {33}{\ignorespaces Billow fractal layer with gradval noise 3D and hermite interpolation with rotation.\relax }}}{113}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39068}{}{\numberline {34}{\ignorespaces Billow fractal layer with simplex noise 3D with rotation.\relax }}}{116}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39073}{}{\numberline {42}Definition of billow fractal layer functions}}{117}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-39078}{}{\numberline {43}Example for billow fractal layer functions}}{117}\relax 
+\doTocEntry\tocsubsubsection{2.6.3}{\csname a:TocLink\endcsname{1}{x1-400002.6.3}{QQ2-1-83}{Fractal Functions}}{117}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40002}{}{\numberline {35}{\ignorespaces Simple brownian motion fractal with value noise 3D and hermite interpolation with rotation.\relax }}}{119}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40004}{}{\numberline {36}{\ignorespaces Simple brownian motion fractal with gradient noise 3D and linear hermite with rotation.\relax }}}{122}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40006}{}{\numberline {37}{\ignorespaces Simple brownian motion fractal with gradval noise 3D and hermite interpolation with rotation.\relax }}}{125}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40008}{}{\numberline {38}{\ignorespaces Simple brownian motion fractal with simplex noise 3D with rotation.\relax }}}{128}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40013}{}{\numberline {44}Definition of simple brownian motion fractal functions}}{129}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40018}{}{\numberline {45}Example for simple brownian motion fractal functions}}{129}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40034}{}{\numberline {39}{\ignorespaces Simple ridged-multifractal with value noise 3D and hermite interpolation with rotation.\relax }}}{131}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40036}{}{\numberline {40}{\ignorespaces Simple ridged-multifractal with gradient noise 3D and linear hermite with rotation.\relax }}}{134}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40038}{}{\numberline {41}{\ignorespaces Simple ridged-multifractal with gradval noise 3D and hermite interpolation with rotation.\relax }}}{137}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40040}{}{\numberline {42}{\ignorespaces Simple ridged-multifractal with simplex noise 3D with rotation.\relax }}}{140}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40045}{}{\numberline {46}Definition of simple brownian motion fractal functions}}{141}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40050}{}{\numberline {47}Example for simple brownian motion fractal functions}}{141}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40066}{}{\numberline {43}{\ignorespaces Simple billow fractal with value noise 3D and hermite interpolation with rotation.\relax }}}{143}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40068}{}{\numberline {44}{\ignorespaces Simple billow fractal with gradient noise 3D and linear hermite with rotation.\relax }}}{146}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40070}{}{\numberline {45}{\ignorespaces Simple billow fractal with gradval noise 3D and hermite interpolation with rotation.\relax }}}{149}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40072}{}{\numberline {46}{\ignorespaces Simple billow fractal with simplex noise 3D with rotation.\relax }}}{152}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40077}{}{\numberline {48}Definition of simple billow fractal functions}}{153}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-40082}{}{\numberline {49}Example for simple billow fractal functions}}{153}\relax 
+\doTocEntry\tocsubsubsection{2.6.4}{\csname a:TocLink\endcsname{1}{x1-410002.6.4}{QQ2-1-90}{Other Functions}}{153}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-41008}{}{\numberline {50}Definition of components functions}}{153}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-41016}{}{\numberline {51}Example for components functions}}{153}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-41031}{}{\numberline {52}Definition of random function type}}{153}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-420002.6.4}{QQ2-1-94}{Index}}{157}\relax 
 \par 

@@ -13,11 +13,16 @@
 
 %\setkomafont{chapter}{}
 \setkomafont{section}{\large\textsf}
-\setkomafont{subsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{subsection}{\normalfont\large\textsf\uline}
 \setkomafont{subsubsection}{\normalfont\textsf\normalsize\uline}
-\setkomafont{paragraph}{\normalsize}
-\setkomafont{subparagraph}{\normalsize\normalfont}
+\setkomafont{paragraph}{\normalfont\textsf\normalsize}
+\setkomafont{subparagraph}{\normalfont\textsf\normalsize}
 
 \makeatletter
 \@ifdefinable{\ANLOpenCL}{\def\ANLOpenCL/{\textit{ANL-OpenCL}}}
 \makeatother
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\ANLOpenCLType}[1]{\texttt{#1}}
+\newcommand{\ANLOpenCLTypeIndex}[1]{\texttt{#1}\index{#1}}

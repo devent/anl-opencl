@@ -1,7 +1,9 @@
+htfcss:  pbkl8t  font-family: 'URW Bookman L', serif;
+htfcss:  pagdo8t  font-style: oblique; font-family: 'URW Gothic L', serif;
 htfcss:  pcrr8t  font-family: 'Nimbus Mono L', serif;
 htfcss:  pcrbo8t  font-weight: bold; font-style: oblique; font-family: 'Nimbus Mono L', serif;
+htfcss:  pcrr8t  font-family: 'Nimbus Mono L', serif;
 htfcss:  pbkli8t  font-style: italic; font-family: 'URW Bookman L', serif;
-htfcss:  pagdo8t  font-style: oblique; font-family: 'URW Gothic L', serif;
 htfcss:  pcrro8t  font-style: oblique; font-family: 'Nimbus Mono L', serif;
 htfcss:  pbkl8t  font-family: 'URW Bookman L', serif;
 htfcss:  pagd8t  font-family: 'URW Gothic L', serif;
@@ -9,6 +11,8 @@ htfcss:  pagd8t  font-family: 'URW Gothic L', serif;
 htfcss:  pbkdc8t  font-weight: bold; font-family: 'URW Bookman L', serif;
 htfcss:  pagdc8t  font-family: 'URW Gothic L', serif;
 htfcss:  pbkl8t  font-family: 'URW Bookman L', serif;
+htfcss: cmmi font-style: italic;
+htfcss: cmmib font-style: italic; font-weight: bold;
 File: doc_en.html
 File: doc_en.css
 File: doc_en.tmp
@@ -147,6 +151,10 @@ Css: .uuline{ text-decoration:underline; }
 Css: span.sout {text-decoration: line-through }
 Css: span.xout {text-decoration: line-through }
 Css: span.uwave {text-decoration:underline }
+Css: .lstlisting .label{margin-right:0.5em; }
+Css: div.lstlisting{font-family: monospace,monospace; white-space: nowrap; margin-top:0.5em; margin-bottom:0.5em; }
+Css: div.lstinputlisting{ font-family: monospace,monospace; white-space: nowrap; }
+Css: .lstinputlisting .label{margin-right:0.5em;}
 File: Screenshot_20211121_152848.png
 File: Screenshot_20211121_152848.png
 File: imgs/toolbar-screenshot-0.png
@@ -156,7 +164,48 @@ File: imgs/toolbar-quit-0.png
 File: imgs/main-image-0.png
 File: imgs/main-mapping-0.png
 File: imgs/main-scene-0.png
+File: out/noise_functions/value_noise3D_noInterp.png
+File: out/noise_functions/value_noise3D_linearInterp.png
+File: out/noise_functions/value_noise3D_hermiteInterp.png
+File: out/noise_functions/value_noise2D_quinticInterp.png
+File: out/noise_functions/gradient_noise3D_noInterp.png
+File: out/noise_functions/gradient_noise3D_linearInterp.png
+File: out/noise_functions/gradient_noise3D_hermiteInterp.png
+File: out/noise_functions/gradient_noise2D_quinticInterp.png
+File: out/noise_functions/gradval_noise3D_noInterp.png
+File: out/noise_functions/gradval_noise3D_linearInterp.png
+File: out/noise_functions/gradval_noise3D_hermiteInterp.png
+File: out/noise_functions/gradval_noise2D_quinticInterp.png
+File: out/noise_functions/white_noise3D_noInterp.png
+File: out/noise_functions/simplex_noise3D_noInterp.png
+File: out/simpleFractalLayer3/simpleFractalLayer3_value_noise3D_hermiteInterp_rot.png
+File: out/simpleFractalLayer3/simpleFractalLayer3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simpleFractalLayer3/simpleFractalLayer3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simpleFractalLayer3/simpleFractalLayer3_simplex_noise3D_noInterp_rot.png
+File: out/simpleRidgedLayer3/simpleRidgedLayer3_value_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedLayer3/simpleRidgedLayer3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedLayer3/simpleRidgedLayer3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedLayer3/simpleRidgedLayer3_simplex_noise3D_noInterp_rot.png
+File: out/simpleBillowLayer3/simpleBillowLayer3_value_noise3D_hermiteInterp_rot.png
+File: out/simpleBillowLayer3/simpleBillowLayer3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simpleBillowLayer3/simpleBillowLayer3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simpleBillowLayer3/simpleBillowLayer3_simplex_noise3D_noInterp_rot.png
+File: out/simplefBm3/simplefBm3_value_noise3D_hermiteInterp_rot.png
+File: out/simplefBm3/simplefBm3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simplefBm3/simplefBm3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simplefBm3/simplefBm3_simplex_noise3D_noInterp_rot.png
+File: out/simpleRidgedMultifractal3/simpleRidgedMultifractal3_value_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedMultifractal3/simpleRidgedMultifractal3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedMultifractal3/simpleRidgedMultifractal3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simpleRidgedMultifractal3/simpleRidgedMultifractal3_simplex_noise3D_noInterp_rot.png
+File: out/simpleBillow3/simpleBillow3_value_noise3D_hermiteInterp_rot.png
+File: out/simpleBillow3/simpleBillow3_gradient_noise3D_hermiteInterp_rot.png
+File: out/simpleBillow3/simpleBillow3_gradval_noise3D_hermiteInterp_rot.png
+File: out/simpleBillow3/simpleBillow3_simplex_noise3D_noInterp_rot.png
 --- characters ---
+Font("cmr","10","10","100")
+Font("cmmi","10","10","100")
+Font("cmsy","10","10","100")
 Font("pbkl8t","","10","100")
 Font("pbkdc8t","","10","248")
 Font("pagd8t","","10","100")
@@ -165,3 +214,5 @@ Font("pbkl8t","","10","120")
 Font("pcrro8t","","10","144")
 Font("pbkli8t","","10","100")
 Font("pcrr8t","","10","100")
+Font("pcrr8t","","10","80")
+Font("pbkl8t","","10","50")
