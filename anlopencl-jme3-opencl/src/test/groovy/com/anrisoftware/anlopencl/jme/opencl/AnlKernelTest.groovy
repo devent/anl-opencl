@@ -498,6 +498,81 @@ write_only image2d_t output
         }
     }
 
+    @Test
+    void "global rnd state"() {
+        MemoryStack.stackPush().withCloseable { s ->
+            def anlKernel = injector.getInstance(AnlKernelFactory).create(context)
+            int width = 4
+            int height = 4
+            int localSize = 4
+            float z = 99
+            int dim = vector3_size
+            anlKernel.buildLib()
+            def variables = [localSize: localSize, z: z]
+            anlKernel.compileProgram('''
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+kernel void map2d_image(
+global struct SMappingRanges *g_ranges,
+global kiss09_state *g_srnd,
+write_only image2d_t output
+) {
+    $insert_localMapRange
+    kiss09_state srnd;
+    kiss09_seed(&srnd, 200 + g0 + g1);
+    //printf("before [%lu/%lu] [%lu/%lu] %lu/%lu/%lu/%lu\\\\n",g0,g1,l0,l1,g_srnd->x,g_srnd->c,g_srnd->y,g_srnd->z);
+    //printf("before [%lu/%lu] [%lu/%lu] %lu/%lu/%lu/%lu\\\\n",g0,g1,l0,l1,srnd.x,srnd.c,srnd.y,srnd.z);
+    const float f = 0.125;
+    const float a = random_kiss09(&srnd);
+    const float r = simplefBm3(coord[i], value_noise3D, 200, noInterp, random_kiss09, &srnd, 3, f, true);
+    const float g = r;
+    const float b = r;
+    write_imagef(output, (int2)(g0, g1), (float4)(r, g, b, a));
+}
+''', variables)
+            anlKernel.createKernel("map2d_image")
+            def err = s.mallocInt(1)
+            def ranges = MappingRanges.createWithBuffer(s).setDefault()
+            def cl_ranges = new LwjglBuffer(ranges.getClBuffer(s, clcontext))
+            def srnd = Kiss09State.createWithBuffer(s)
+            Kiss09Random.kiss09_seed(srnd, 200);
+            def cl_srnd = new LwjglBuffer(srnd.getClBuffer(s, clcontext))
+            int size = width * height
+            def format = CLImageFormat.calloc(s)
+            format.image_channel_order(CL_RGBA)
+            format.image_channel_data_type(CL_UNORM_INT8)
+            def image = BufferUtils.createShortBuffer(size * channel_size)
+            def cl_output = new LwjglImage(clCreateImage2D(clcontext, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, format, width, height, 0, image, err));
+            checkCLError(err.get(0))
+            def global = new WorkSize(width, height)
+            def local = new WorkSize(2, 2)
+            def event = anlKernel.run2("map2d_image", queue, global, local, cl_ranges, cl_srnd, cl_output)
+            //def event = anlKernel.run1("map2d_image", queue, global, rangesb, z, dim, output)
+            event.waitForFinished()
+
+            def out = BufferUtils.createByteBuffer(size * channel_size)
+            BufferUtils.zeroBuffer(out)
+            cl_output.readImage(queue, out, [0, 0, 0] as long[], [width, height, 1] as long[], 0, 0)
+            println cl_output.getWidth()
+            println cl_output.getHeight()
+            println cl_output.rowPitch
+            println cl_output.slicePitch
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    int a = (x + y * height) * 4
+                    int r = (x + y * height) * 4 + 1
+                    int g = (x + y * height) * 4 + 2
+                    int b = (x + y * height) * 4 + 3
+                    print "($a,$r,$g,$b ${out.get(a)&0xFF}/${out.get(r)&0xFF}/${out.get(g)&0xFF}/${out.get(b)&0xFF})"
+                }
+                println()
+            }
+        }
+    }
+
     static Injector injector
 
     static int vector3_size = 4
