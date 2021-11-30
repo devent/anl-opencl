@@ -44,7 +44,7 @@ Copyright (C) 2011 Joshua Tippetts
 
 
 ****************************************************************************
-Parts of ${project.name} is a derivative work based on the RandomCL library:
+${project.name} bundles and uses the RandomCL library:
 https://github.com/bstatcomp/RandomCL
 ****************************************************************************
 
