@@ -65,7 +65,6 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
-import java.text.NumberFormat;
 import java.util.Locale;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -74,10 +73,12 @@ import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 
 import akka.actor.typed.ActorRef;
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -92,58 +93,87 @@ public class MappingFieldsPaneController {
     public Label mappingX0Label;
 
     @FXML
-    public TextField mappingX0Field;
+    public Spinner<Float> mappingX0Field;
 
     @FXML
     public Label mappingX1Label;
 
     @FXML
-    public TextField mappingX1Field;
+    public Spinner<Float> mappingX1Field;
 
     @FXML
     public Label mappingY0Label;
 
     @FXML
-    public TextField mappingY0Field;
+    public Spinner<Float> mappingY0Field;
 
     @FXML
     public Label mappingY1Label;
 
     @FXML
-    public TextField mappingY1Field;
+    public Spinner<Float> mappingY1Field;
 
     @FXML
     public Label mappingZ0Label;
 
     @FXML
-    public TextField mappingZ0Field;
+    public Spinner<Float> mappingZ0Field;
 
     @FXML
     public Label mappingZ1Label;
 
     @FXML
-    public TextField mappingZ1Field;
+    public Spinner<Float> mappingZ1Field;
 
     @FXML
     public CheckBox threeDMappingBox;
 
+    @FXML
+    public Spinner<Integer> rowsField;
+
+    @FXML
+    public Spinner<Integer> columnsField;
+
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void initializeListeners(ActorRef<Message> actor, Locale locale, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
-        mappingX0Field.textProperty().bindBidirectional(np.mapx0, NumberFormat.getIntegerInstance(locale));
-        mappingX1Field.textProperty().bindBidirectional(np.mapx1, NumberFormat.getIntegerInstance(locale));
-        mappingY0Field.textProperty().bindBidirectional(np.mapy0, NumberFormat.getIntegerInstance(locale));
-        mappingY1Field.textProperty().bindBidirectional(np.mapy1, NumberFormat.getIntegerInstance(locale));
-        mappingZ0Field.textProperty().bindBidirectional(np.mapz0, NumberFormat.getIntegerInstance(locale));
-        mappingZ1Field.textProperty().bindBidirectional(np.mapz1, NumberFormat.getIntegerInstance(locale));
-        mappingZ0Field.setDisable(true);
-        mappingZ1Field.setDisable(true);
-        threeDMappingBox.selectedProperty().not().addListener((observable, oldValue, newValue) -> {
-            mappingZ0Field.setDisable(newValue);
-            mappingZ1Field.setDisable(newValue);
+        var x0ValueFactory = createFloatValueFactory(np.mapx0.get(), (Property) np.mapx0);
+        mappingX0Field.setValueFactory(x0ValueFactory);
+        var x1ValueFactory = createFloatValueFactory(np.mapx1.get(), (Property) np.mapx1);
+        mappingX1Field.setValueFactory(x1ValueFactory);
+        var y0ValueFactory = createFloatValueFactory(np.mapy0.get(), (Property) np.mapy0);
+        mappingY0Field.setValueFactory(y0ValueFactory);
+        var y1ValueFactory = createFloatValueFactory(np.mapy1.get(), (Property) np.mapy1);
+        mappingY1Field.setValueFactory(y1ValueFactory);
+        var z0ValueFactory = createFloatValueFactory(np.mapz0.get(), (Property) np.mapz0);
+        mappingZ0Field.setValueFactory(z0ValueFactory);
+        var z1ValueFactory = createFloatValueFactory(np.mapz1.get(), (Property) np.mapz1);
+        mappingZ1Field.setValueFactory(z1ValueFactory);
+        mappingZ0Field.setDisable(!np.map3d.get());
+        mappingZ1Field.setDisable(!np.map3d.get());
+        threeDMappingBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            mappingZ0Field.setDisable(!newValue);
+            mappingZ1Field.setDisable(!newValue);
         });
+        var rowsValueFactory = createIntegerValueFactory(np.rows.get(), (Property) np.rows);
+        rowsField.setValueFactory(rowsValueFactory);
+        var columnsValueFactory = createIntegerValueFactory(np.columns.get(), (Property) np.columns);
+        columnsField.setValueFactory(columnsValueFactory);
+    }
+
+    private SpinnerValueFactory<Float> createFloatValueFactory(float initialValue, Property<Float> p) {
+        var f = new MappingRangeSpinnerValueFactory(-5000, 5000, initialValue, 1);
+        f.valueProperty().bindBidirectional(p);
+        return f;
+    }
+
+    private SpinnerValueFactory<Integer> createIntegerValueFactory(int initialValue, Property<Integer> p) {
+        var f = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 8, initialValue);
+        f.valueProperty().bindBidirectional(p);
+        return f;
     }
 
 }
