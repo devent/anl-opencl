@@ -57,11 +57,13 @@ pipeline {
         stage("Setup") {
             steps {
                 container("maven") {
-                    groupId = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
-                    artifactId = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
-                    version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-                    isSnapshot = version =~ /.*-snapshot$/
-                    echo "${groupId}/${artifactId}:${version} snapshot: ${isSnapshot}"
+                    script {
+                        groupId = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
+                        artifactId = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
+                        version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+                        isSnapshot = version =~ /.*-snapshot$/
+                        echo "${groupId}/${artifactId}:${version} snapshot: ${isSnapshot}"
+                    }
                 }
             }
         } // stage
