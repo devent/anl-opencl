@@ -106,7 +106,6 @@
         <project.custom.jme3.version>3.5.2-stable</project.custom.jme3.version>
         <project.custom.jmh.version>1.32</project.custom.jmh.version>
         <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
-        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
     </properties>
 
     <licenses>
@@ -143,13 +142,6 @@
                 <groupId>com.aparapi</groupId>
                 <artifactId>aparapi</artifactId>
                 <version>3.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lwjgl</groupId>
-                <artifactId>lwjgl-bom</artifactId>
-                <version>${project.custom.lwjgl.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -198,19 +190,39 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <version>4.2.rc3</version>
                 <configuration>
-                    <header>${license.custom.license.template}</header>
                     <properties>
                         <owner>${license.custom.license.owner}</owner>
                         <email>${license.custom.license.email}</email>
                     </properties>
+                    <licenseSets>
+                    <licenseSet>
+                    <header>${license.custom.license.template}</header>
                     <excludes>
                         <exclude>**/README</exclude>
                         <exclude>**/LICENSE.txt</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
                         <exclude>**/kiss09.cl</exclude>
+                        <exclude>.directory</exclude>
+                        <exclude>CNAME</exclude>
+                        <exclude>**/anlopencl-doc/**</exclude>
+                        <exclude>jenkins-cpp-docker</exclude>
+                        <exclude>**/Debug/**</exclude>
+                        <exclude>**/Debug-LLVM/**</exclude>
+                        <exclude>**/Debug-OpenCL/**</exclude>
+                        <exclude>**/OpenCL/**</exclude>
+                        <exclude>**/Release-LLVM/**</exclude>
+                        <exclude>**/benchmark/**</exclude>
+                        <exclude>**/googletest/**</exclude>
+                        <exclude>**/llvm-project/**</exclude>
+                        <exclude>**/OpenCL-CLHPP/**</exclude>
+                        <exclude>**/OpenCL-Headers/**</exclude>
+                        <exclude>**/spdlog/**</exclude>
                     </excludes>
+                    </licenseSet>
+                    </licenseSets>
                     <mapping>
                         <h>DOUBLESLASH_STYLE</h>
                         <c>DOUBLESLASH_STYLE</c>

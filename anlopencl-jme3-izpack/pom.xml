@@ -73,7 +73,7 @@
     <parent>
         <artifactId>globalpom-izpack</artifactId>
         <groupId>com.anrisoftware.globalpom</groupId>
-        <version>4.6.0-SNAPSHOT</version>
+        <version>4.6.1-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -99,8 +99,7 @@
         <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.launcherfilename>
         <project.custom.launch4j.applauncher.jarfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
-        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
-        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
+        <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
     </properties>
 
 
@@ -148,13 +147,6 @@
                 <groupId>com.anrisoftware.globalpom</groupId>
                 <artifactId>globalpom-groovytestutils</artifactId>
                 <version>${project.custom.globalpom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lwjgl</groupId>
-                <artifactId>lwjgl-bom</artifactId>
-                <version>${project.custom.lwjgl.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
