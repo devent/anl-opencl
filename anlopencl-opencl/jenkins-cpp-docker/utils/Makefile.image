@@ -1,0 +1,88 @@
+SHELL := /bin/bash
+.DEFAULT_GOAL := help
+#VERBOSE ?=
+#NAME :=
+#VERSION :=
+#REPOSITORY :=
+DOCKER_CREDENTIALS := .docker_credentials.yaml
+DOCKER_USER ?= $(shell [ -f $(DOCKER_CREDENTIALS) ] && cat $(DOCKER_CREDENTIALS) | yq e '.user' -)
+DOCKER_PASSWORD ?= $(shell [ -f $(DOCKER_CREDENTIALS) ] && cat $(DOCKER_CREDENTIALS) | yq e '.password' -)
+#APT_CACHE ?=
+
+$(call check_defined, REPOSITORY, docker image repository)
+$(call check_defined, NAME, docker image name)
+$(call check_defined, VERSION, docker image name)
+
+image_build = docker images | egrep '$(REPOSITORY)/$(NAME)\s*$(VERSION)'
+
+.PHONY: _set-version
+_set-version:
+	$(call check_defined, NEW_VERSION, The variable NEW_VERSION bust be set.)
+	$(call check_defined, DOCKER_INFO_FILE, The variable DOCKER_INFO_FILE bust be set.)
+	yq -i '.version = "$(NEW_VERSION)"' $(DOCKER_INFO_FILE)
+
+.PHONY: _build
+_build:
+	$(call check_defined, VERSION, Image version)
+	set $(SET_FLAG) \
+	&& if [[ "$(SKIP_CHECK)" == "true" ]]; then SKIP_CHECK=0; else SKIP_CHECK=1; fi \
+	&& if `bash -c 'exit $$SKIP_CHECK'` || ! $(image_build); then \
+	   if [ -n "$(APT_CACHE)" ]; then \
+	   APT_CACHE_ARG="--build-arg APT_CACHE=$(APT_CACHE)"; \
+	   fi \
+	&& docker build \
+	--build-arg https_proxy=$$HTTPS_PROXY --build-arg http_proxy=$$HTTP_PROXY \
+	--build-arg HTTPS_PROXY=$$HTTPS_PROXY --build-arg HTTP_PROXY=$$HTTP_PROXY \
+	--build-arg ftp_proxy=$$FTP_PROXY --build-arg FTP_PROXY=$$FTP_PROXY \
+	--build-arg no_proxy=$$NO_PROXY --build-arg NO_PROXY=$$NO_PROXY $$APT_CACHE_ARG \
+	-t $(REPOSITORY)/$(NAME):$(VERSION) \
+	-t $(REPOSITORY)/$(NAME):latest .; \
+	fi
+	
+.PHONY: _clean
+_clean:
+	$(call check_defined, VERSION, Image version)
+	if $(image_build); then \
+	$(MAKE) stop ;\
+	fi
+	docker rmi -f $(REPOSITORY)/$(NAME)
+	
+.PHONY: _deploy
+_deploy: build
+	$(call check_defined, VERSION, Image version)
+	if [ -n "$(DOCKER_USER)" ]; then \
+	docker login -u "$(DOCKER_USER)" -p "$(DOCKER_PASSWORD)" ; \
+	fi; \
+	docker push $(REPOSITORY)/$(NAME):$(VERSION) && \
+	docker push $(REPOSITORY)/$(NAME):latest
+
+.PHONY: _rebuild
+_rebuild: 
+	$(MAKE) build SKIP_CHECK=0
+
+.PHONY: _test_up
+_test_up:
+	@bash -c "\
+	REPOSITORY=$(REPOSITORY) \
+	NAME=$(NAME) \
+	VERSION=$(VERSION) \
+	docker-compose up -d \
+	"
+
+.PHONY: _test_down
+_test_down:
+	@bash -c "\
+	REPOSITORY=$(REPOSITORY) \
+	NAME=$(NAME) \
+	VERSION=$(VERSION) \
+	docker-compose down \
+	"
+
+.PHONY: _test_down_volumes
+_test_down_volumes:
+	@bash -c "\
+	REPOSITORY=$(REPOSITORY) \
+	NAME=$(NAME) \
+	VERSION=$(VERSION) \
+	docker-compose down -v \
+	"
