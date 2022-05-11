@@ -1,0 +1,18 @@
+[submodule "anlopencl-opencl/spdlog"]
+	path = anlopencl-opencl/spdlog
+	url = git@github.com:gabime/spdlog.git
+[submodule "anlopencl-opencl/llvm-project"]
+	path = anlopencl-opencl/llvm-project
+	url = https://github.com/llvm/llvm-project.git
+[submodule "anlopencl-opencl/OpenCL-CLHPP"]
+	path = anlopencl-opencl/OpenCL-CLHPP
+	url = git@github.com:KhronosGroup/OpenCL-CLHPP.git
+[submodule "anlopencl-opencl/OpenCL-Headers"]
+	path = anlopencl-opencl/OpenCL-Headers
+	url = git@github.com:KhronosGroup/OpenCL-Headers.git
+[submodule "anlopencl-opencl/googletest"]
+	path = anlopencl-opencl/googletest
+	url = git@github.com:google/googletest.git
+[submodule "anlopencl-opencl/benchmark"]
+	path = anlopencl-opencl/benchmark
+	url = git@github.com:google/benchmark.git

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  maven:
+    image: ${REPOSITORY}/${NAME}:${VERSION}
+    command:
+      - /bin/sh
+      - -c
+      - sleep 1h
+    environment:
+      DEBUG: "true"
+      PROJECT_SSH_HOST_FILE: "/tmp/ssh-host"
+      PROJECT_SSH_USER: "jenkins"
+      # jenkins-test22
+      PROJECT_SSH_PASS: "amVua2lucy10ZXN0MjIK"
+      PROJECT_SSH_PRIVATE_FILE: "/tmp/ssh-private"
+      PROJECT_GIT_NAME: "jenkins"
+      PROJECT_GIT_EMAIL: "jenkins@anrisoftware.com"
+      # jenkins-test22
+      GPG_PASSPHRASE: "amVua2lucy10ZXN0MjIK"
+      GPG_KEY_FILE: "/tmp/gpg-key"
+      GPG_KEY_ID: "D9554FE847018A76C32922A8F689EA2A99E32C65"
+    volumes:
+      - "./root/agent:/home/jenkins/agent"
+      - "./gpg-key.txt:/tmp/gpg-key"
+      - "./ssh-host.txt:/tmp/ssh-host"
+      - "./ssh-private.txt:/tmp/ssh-private"

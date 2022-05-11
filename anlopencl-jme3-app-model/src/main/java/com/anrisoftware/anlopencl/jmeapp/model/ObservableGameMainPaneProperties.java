@@ -122,6 +122,10 @@ public class ObservableGameMainPaneProperties {
 
         public int dim = 2;
 
+        public int columns = 1;
+
+        public int rows = 1;
+
         public float mapx0 = -1;
 
         public float mapy0 = -1;
@@ -203,6 +207,10 @@ public class ObservableGameMainPaneProperties {
 
     public final IntegerProperty dim;
 
+    public final IntegerProperty rows;
+
+    public final IntegerProperty columns;
+
     public final FloatProperty mapx0;
 
     public final FloatProperty mapy0;
@@ -257,6 +265,8 @@ public class ObservableGameMainPaneProperties {
         this.height = JavaBeanIntegerPropertyBuilder.create().bean(p).name("height").build();
         this.z = JavaBeanDoublePropertyBuilder.create().bean(p).name("z").build();
         this.dim = JavaBeanIntegerPropertyBuilder.create().bean(p).name("dim").build();
+        this.rows = JavaBeanIntegerPropertyBuilder.create().bean(p).name("rows").build();
+        this.columns = JavaBeanIntegerPropertyBuilder.create().bean(p).name("columns").build();
         this.mapx0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapx0").build();
         this.mapy0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapy0").build();
         this.mapz0 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapz0").build();
@@ -288,6 +298,8 @@ public class ObservableGameMainPaneProperties {
         height.set(other.height);
         z.set(other.z);
         dim.set(other.dim);
+        rows.set(other.rows);
+        columns.set(other.columns);
         mapx0.set(other.mapx0);
         mapy0.set(other.mapy0);
         mapz0.set(other.mapz0);

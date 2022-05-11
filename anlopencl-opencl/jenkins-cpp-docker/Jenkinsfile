@@ -1,0 +1,91 @@
+/**
+ * Builds and deploys the project.
+ *
+ * @author Erwin Mueller, erwin@muellerpublic.de
+ * @since 0.0.3
+ */
+
+def registryHost = "harbor.anrisoftware.com"
+def registryName = "com.anrisoftware.anlopencl"
+def imageName = "anlopencl-cpp-docker"
+def imageVersion = "0.0.3"
+def imageVersionSnapshot = "${imageVersion}-snapshot"
+def destination = "${registryHost}/${registryName}/${imageName}:${imageVersion}"
+def destinationSnapshot = "${destination}-snapshot"
+def fromImage = "${registryHost}/${registryName}/jenkins-java:1.0.5"
+def harborLink = "https://harbor.anrisoftware.com/harbor/projects/3/repositories/${imageName}/artifacts"
+def currentTag
+def currentVersion
+
+pipeline {
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "3"))
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: "MINUTES")
+    }
+
+    agent {
+        label "buildah"
+    }
+
+    stages {
+        /**
+        * Checkouts the current branch.
+        */
+        stage("Checkout") {
+            steps {
+                container("buildah") {
+                    checkout scm
+                }
+            }
+        }
+
+        /**
+        * Setups the build.
+        */
+        stage("Setup") {
+            steps {
+                script {
+                    if (GIT_BRANCH == "main") {
+                        currentTag = destination
+                        currentVersion = imageVersion
+                    } else {
+                        currentTag = destinationSnapshot
+                        currentVersion = imageVersionSnapshot
+                    }
+                }
+            }
+        }
+
+        /**
+        * Builds the image.
+        */
+        stage("Build") {
+            steps {
+                container(name: "buildah") {
+                    sh "buildah build --from ${fromImage} --storage-driver vfs --no-cache -f Dockerfile --tag ${currentTag} `pwd`/image"
+                }
+            }
+        }
+
+        /**
+        * Pushs the image.
+        */
+        stage("Push") {
+            steps {
+                container(name: "buildah") {
+                    sh "buildah push --storage-driver vfs ${currentTag}"
+                }
+            }
+        }
+    } // stages
+
+    post {
+        success {
+            script {
+                manager.createSummary("document.png").appendText("<a href='${harborLink}/${currentVersion}'>${currentTag}</a>", false)
+            }
+        }
+    } // post
+}

@@ -1,0 +1,1 @@
+Apache archiva standalone deployment.

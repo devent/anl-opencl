@@ -74,7 +74,7 @@
     <parent>
         <groupId>com.anrisoftware.globalpom</groupId>
         <artifactId>globalpom-groovy-gmavenplus</artifactId>
-        <version>4.6.0</version>
+        <version>4.6.1</version>
     </parent>
 
     <groupId>com.anrisoftware.anlopencl</groupId>
@@ -100,10 +100,10 @@
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
+        <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
         <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
-        <project.custom.current.year>2021</project.custom.current.year>
-        <project.custom.jme3.version>3.4.0-stable</project.custom.jme3.version>
+        <project.custom.current.year>2022</project.custom.current.year>
+        <project.custom.jme3.version>3.5.2-stable</project.custom.jme3.version>
         <project.custom.jmh.version>1.32</project.custom.jmh.version>
         <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
         <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
