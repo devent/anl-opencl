@@ -74,6 +74,7 @@ import org.apache.commons.lang3.builder.ToStringStyle
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.lwjgl.BufferUtils
 import org.lwjgl.opencl.CLImageFormat
 import org.lwjgl.system.MemoryStack
@@ -95,6 +96,7 @@ import com.jme3.opencl.lwjgl.LwjglPlatform
  * @see AnlKernel
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
+@ExtendWith(ClPlatformAvailableCondition.class)
 class AnlKernelTest {
 
     long clplatform

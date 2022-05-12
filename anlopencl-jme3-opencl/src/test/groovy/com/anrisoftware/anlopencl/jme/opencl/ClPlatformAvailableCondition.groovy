@@ -65,120 +65,23 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl
 
-import static com.anrisoftware.anlopencl.jme.opencl.LwjglUtils.*
-import static org.lwjgl.opencl.CL11.*;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.*
 
-import org.apache.commons.lang3.builder.ToStringBuilder
-import org.apache.commons.lang3.builder.ToStringStyle
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.lwjgl.system.MemoryStack
+import org.junit.jupiter.api.extension.ConditionEvaluationResult
+import org.junit.jupiter.api.extension.ExecutionCondition
+import org.junit.jupiter.api.extension.ExtensionContext
 
-import com.jme3.opencl.KernelCompilationException
-import com.jme3.opencl.Program
-import com.jme3.opencl.ProgramCache
-import com.jme3.opencl.lwjgl.LwjglContext
-import com.jme3.opencl.lwjgl.LwjglDevice
-import com.jme3.opencl.lwjgl.LwjglPlatform
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLPlatformsFoundException
 
-import groovy.util.logging.Slf4j
+class ClPlatformAvailableCondition implements ExecutionCondition {
 
-@Slf4j
-@ExtendWith(ClPlatformAvailableCondition.class)
-class LwjglProgramsTest {
-
-    long clplatform
-
-    long cldevice
-
-    long clcontext
-
-    LwjglDevice device
-
-    LwjglContext context
-
-    @Test
-    void "program get device"() {
-    }
-
-    @Test
-    void "create header programs"() {
-        def sources = new SourceResourcesProvider()
-        def programsBuilder = new HeaderProgramsBuilder(sources)
-        programsBuilder.createPrograms(context)
-        assert programsBuilder.headers.size() == 8
-        programsBuilder.headerNames.each { log.debug("Program {} created", it) }
-    }
-
-    @Test
-    void "compile program with headers"() {
-        def sources = new SourceResourcesProvider()
-        def libSources = new LibSourcesProvider(sources);
-        def extraSources = new KernelExtraSourcesProvider(sources)
-        def lprogramLib = null
-        def err = MemoryStack.stackMallocInt(1)
-
-        def clprogramLib = clCreateProgramWithSource(clcontext, libSources.get(), err)
-        log.debug("Program created: {}", clprogramLib)
-        checkCLError(err.get(0))
-
-        def programLib = new LwjglProgramEx(clprogramLib, context)
-        programLib.compile("-DANLOPENCL_USE_OPENCL")
-        lprogramLib = LwjglProgramEx.link(context, "-create-library", programLib)
-        log.debug("Library linked: {}", lprogramLib)
-
-        def programCache = new ProgramCache(context);
-        def cacheID = getClass().getName() + ".compile-program-with-headers";
-        programCache.saveToCache(cacheID, programLib);
-        def lprogramFromCache = programCache.loadFromCache(cacheID);
-        log.debug("Library program from cache: {}", lprogramFromCache)
-
-        def kiss09cl = sources.get().get("kiss09.cl")
-        def randomcl = sources.get().get("random.cl")
-        def clprogramKernel = clCreateProgramWithSource(clcontext, """
-${kiss09cl}
-${randomcl}
-#include <opencl_utils.h>
-#include <noise_gen.h>
-#include <kernel.h>
-
-kernel void value_noise2D_noInterp(
-global vector2 *input,
-global REAL *output
-) {
-    int id0 = get_global_id(0);
-    output[id0] = value_noise2D(input[id0], 200, noInterp);
-}
-""", err)
-        log.debug("Kernel program created: {}", clprogramKernel)
-        checkCLError(err.get(0))
-        def headersBuilder = new HeaderProgramsBuilder(sources)
-        headersBuilder.createPrograms(context)
-        def programKernel = new LwjglProgramEx(clprogramKernel, context)
+    @Override
+    ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
         try {
-            programKernel.compile("-DANLOPENCL_USE_OPENCL", headersBuilder.headers, headersBuilder.headerNames)
-            log.debug("Kernel program compiled: {}", programKernel)
-        } catch (KernelCompilationException e) {
-            log.error("Error compile {}", e.log)
-            throw e
+            LwjglUtils.createPlatform()
+            enabled("OpenCL platform available")
+        } catch (NoOpenCLPlatformsFoundException e) {
+            disabled("No OpenCL platform found")
         }
-        try {
-            def lprogramKernel = LwjglProgramEx.link(context, "", [lprogramLib, programKernel] as Program[])
-            log.debug("Kernel program linked: {}", lprogramKernel)
-        } catch (KernelCompilationException e) {
-            log.error("Error link {}", e.log)
-            throw e
-        }
-    }
-
-    @BeforeEach
-    void setupContext() {
-        ToStringBuilder.defaultStyle = ToStringStyle.SHORT_PREFIX_STYLE
-        clplatform = createPlatform()
-        cldevice = createDevice(clplatform)
-        clcontext = createContext(cldevice)
-        device = new LwjglDevice(cldevice, new LwjglPlatform(clplatform))
-        context = new LwjglContext(clcontext, [device])
     }
 }

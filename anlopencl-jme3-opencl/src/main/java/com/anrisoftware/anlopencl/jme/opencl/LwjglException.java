@@ -65,85 +65,67 @@
  */
 package com.anrisoftware.anlopencl.jme.opencl;
 
-import static org.lwjgl.opencl.CL10.CL_DEVICE_TYPE_GPU;
-import static org.lwjgl.opencl.CL10.CL_SUCCESS;
-import static org.lwjgl.opencl.CL10.clCreateCommandQueue;
-import static org.lwjgl.opencl.CL10.clCreateContext;
-import static org.lwjgl.opencl.CL10.clGetDeviceIDs;
-import static org.lwjgl.opencl.CL10.clGetPlatformIDs;
+public abstract class LwjglException extends Exception {
 
-import java.nio.IntBuffer;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5869228857047517474L;
 
-import org.lwjgl.PointerBuffer;
-import org.lwjgl.system.MemoryStack;
+    public static class NoOpenCLPlatformsFoundException extends LwjglException{
 
-import com.anrisoftware.anlopencl.jme.opencl.LwjglException.ContextCreationErrorException;
-import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLGPUFoundException;
-import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLPlatformsFoundException;
-import com.anrisoftware.anlopencl.jme.opencl.LwjglException.QueueCreationErrorException;
+        /**
+         *
+         */
+        private static final long serialVersionUID = -1874409476347171280L;
 
-/**
- * Test utils.
- *
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
- */
-public class LwjglUtils {
-
-    public static long createPlatform() throws NoOpenCLPlatformsFoundException {
-        try (var s = MemoryStack.stackPush()) {
-            var platforms = s.mallocPointer(1);
-            checkCLError(clGetPlatformIDs(platforms, (IntBuffer) null));
-            if (platforms.get(0) == 0) {
-                throw new NoOpenCLPlatformsFoundException();
-            }
-            var platform = platforms.get(0);
-            return platform;
+        public NoOpenCLPlatformsFoundException() {
+            super("No OpenCL platforms found");
         }
     }
 
-    public static long createDevice(long platform) throws NoOpenCLGPUFoundException {
-        try (var s = MemoryStack.stackPush()) {
-            var devices = s.mallocPointer(1);
-            checkCLError(clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, devices, (IntBuffer) null));
-            if (devices.get(0) == 0) {
-                throw new NoOpenCLGPUFoundException();
-            }
-            var device = devices.get(0);
-            return device;
+    public static class NoOpenCLGPUFoundException extends LwjglException{
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = -3573042798366231315L;
+
+        public NoOpenCLGPUFoundException() {
+            super("No OpenCL enabled GPU device found");
         }
     }
 
-    public static long createContext(long device) throws ContextCreationErrorException {
-        try (var s = MemoryStack.stackPush()) {
-            var err = s.mallocInt(1);
-            var context = clCreateContext((PointerBuffer) null, device, null, 0, err);
-            checkCLError(err.get(0));
-            if (context == 0) {
-                throw new ContextCreationErrorException();
-            }
-            return context;
+    public static class ContextCreationErrorException extends LwjglException{
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = 4257630611030726470L;
+
+        public ContextCreationErrorException() {
+            super("Context creation error");
         }
     }
 
-    public static long createQueue(long context, long device) throws QueueCreationErrorException {
-        try (var s = MemoryStack.stackPush()) {
-            var err = s.mallocInt(1);
-            var queue = clCreateCommandQueue(context, device, 0, err);
-            checkCLError(err.get(0));
-            if (queue == 0) {
-                throw new QueueCreationErrorException();
-            }
-            return queue;
+    public static class QueueCreationErrorException extends LwjglException{
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = -2080082649966668146L;
+
+        public QueueCreationErrorException() {
+            super("Queue creation error");
         }
     }
 
-    public static void checkCLError(IntBuffer errcode) {
-        checkCLError(errcode.get(errcode.position()));
+    protected LwjglException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public static void checkCLError(int errcode) {
-        if (errcode != CL_SUCCESS) {
-            throw new RuntimeException(String.format("OpenCL error [%d]", errcode));
-        }
+    protected LwjglException(String message) {
+        super(message);
     }
+
 }
