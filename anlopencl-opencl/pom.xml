@@ -176,6 +176,59 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>4.2.rc3</version>
+                <configuration>
+                    <properties>
+                        <owner>${license.custom.license.owner}</owner>
+                        <email>${license.custom.license.email}</email>
+                    </properties>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>${license.custom.license.template}</header>
+                            <excludes>
+                                <exclude>**/README</exclude>
+                                <exclude>**/LICENSE.txt</exclude>
+                                <exclude>src/test/resources/**</exclude>
+                                <exclude>src/main/resources/**</exclude>
+                                <exclude>**/kiss09.cl</exclude>
+                                <exclude>**/.directory</exclude>
+                                <exclude>**/CNAME</exclude>
+                                <exclude>anlopencl-doc/**</exclude>
+                                <exclude>jenkins-cpp-docker/**</exclude>
+                                <exclude>html/**</exclude>
+                                <exclude>out/**</exclude>
+                                <exclude>Debug/**</exclude>
+                                <exclude>Debug-LLVM/**</exclude>
+                                <exclude>Debug-OpenCL/**</exclude>
+                                <exclude>OpenCL/**</exclude>
+                                <exclude>Release-LLVM/**</exclude>
+                                <exclude>benchmark/**</exclude>
+                                <exclude>googletest/**</exclude>
+                                <exclude>llvm-project/**</exclude>
+                                <exclude>OpenCL-CLHPP/**</exclude>
+                                <exclude>OpenCL-Headers/**</exclude>
+                                <exclude>spdlog/**</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                    <mapping>
+                        <h>DOUBLESLASH_STYLE</h>
+                        <c>DOUBLESLASH_STYLE</c>
+                        <cpp>DOUBLESLASH_STYLE</cpp>
+                        <cl>DOUBLESLASH_STYLE</cl>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
