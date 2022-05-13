@@ -100,6 +100,9 @@
         <project.custom.launch4j.applauncher.jarfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
         <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
+        <lwjgl.version>3.3.1</lwjgl.version>
+        <lwjgl.natives.linux>natives-linux</lwjgl.natives.linux>
+        <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
     </properties>
 
 
@@ -121,7 +124,50 @@
         </site>
     </distributionManagement>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.anrisoftware.globalpom</groupId>
+                <artifactId>globalpom-groovytestutils</artifactId>
+                <version>${project.custom.globalpom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-bom</artifactId>
+                <version>${lwjgl.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-openal</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
 
         <!-- own modules dependencies -->
         <dependency>
@@ -140,16 +186,6 @@
             <artifactId>logback-core</artifactId>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.anrisoftware.globalpom</groupId>
-                <artifactId>globalpom-groovytestutils</artifactId>
-                <version>${project.custom.globalpom.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
