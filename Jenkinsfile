@@ -18,7 +18,7 @@
  *
  * @author Erwin Mueller, erwin.mueller@deventm.org
  * @since 0.0.3
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 def groupId
@@ -61,7 +61,7 @@ pipeline {
                         groupId = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
                         artifactId = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
                         version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-                        isSnapshot = version =~ /.*-snapshot$/
+                        isSnapshot = (version =~ /(?i).*-snapshot$/).matches()
                         echo "${groupId}/${artifactId}:${version} snapshot: ${isSnapshot}"
                     }
                 }
