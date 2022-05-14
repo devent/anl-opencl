@@ -73,7 +73,7 @@
     <parent>
         <artifactId>globalpom-izpack-singlejar</artifactId>
         <groupId>com.anrisoftware.globalpom</groupId>
-        <version>4.6.1-SNAPSHOT</version>
+        <version>4.6.1</version>
         <relativePath />
     </parent>
 
@@ -105,6 +105,28 @@
         <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
     </properties>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>EM</id>
+            <name>Erwin Müller</name>
+            <email>erwin@muellerpublic.de</email>
+            <organization>Advanced Natural Research Institute</organization>
+            <roles>
+                <role>Owner</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+    </developers>
 
     <issueManagement>
         <system>Redmine</system>
@@ -119,9 +141,17 @@
 
     <distributionManagement>
         <site>
-            <id>anrisoftware</id>
-            <url>dav:https://anrisoftware.com/javadoc/${project.groupId}/${project.artifactId}</url>
+            <id>site-distribution-id</id>
+            <url>${site.distribution.url}</url>
         </site>
+        <repository>
+            <id>public_releases</id>
+            <url>https://maven.anrisoftware.com/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>public_snapshots</id>
+            <url>https://maven.anrisoftware.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <dependencyManagement>
