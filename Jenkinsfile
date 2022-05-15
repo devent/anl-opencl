@@ -116,7 +116,6 @@ pipeline {
                         artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
                         artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar"
                         artifacts.each {
-                            sh "chmod +x $it"
                             archiveArtifacts artifacts: it, followSymlinks: false
                         }
                     }
