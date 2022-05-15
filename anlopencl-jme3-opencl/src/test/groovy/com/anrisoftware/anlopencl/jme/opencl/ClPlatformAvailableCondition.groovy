@@ -73,15 +73,28 @@ import org.junit.jupiter.api.extension.ExtensionContext
 
 import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLPlatformsFoundException
 
+/**
+ * Checks that the OpenCL platform is available and the property
+ * {@code "com.anrisoftware.anlopencl.opencl_tests_enabled=yes"} is set.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 class ClPlatformAvailableCondition implements ExecutionCondition {
 
     @Override
     ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        def testsEnabled = System.getProperty("com.anrisoftware.anlopencl.opencl_tests_enabled")
+        if (testsEnabled != null) {
+            testsEnabled = testsEnabled == "yes"
+        }
+        if (!testsEnabled) {
+            return disabled("OpenCL tests are disabled. Set the property 'com.anrisoftware.anlopencl.opencl_tests_enabled=yes' to enable.")
+        }
         try {
             LwjglUtils.createPlatform()
-            enabled("OpenCL platform available")
+            return enabled("OpenCL platform available")
         } catch (NoOpenCLPlatformsFoundException e) {
-            disabled("No OpenCL platform found")
+            return disabled("No OpenCL platform found")
         }
     }
 }
