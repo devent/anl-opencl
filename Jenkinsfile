@@ -109,8 +109,8 @@ pipeline {
             steps {
                 container("maven") {
                     script {
-                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack; mvn -s /m2/settings.xml -B mvn clean install -Dproject.custom.app.version=${version} -Pcompile-izpack"
-                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B mvn clean install -Dproject.custom.app.version=${version} -Pcompile-izpack"
+                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
+                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
                         def artifacts = []
                         artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar"
                         artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
