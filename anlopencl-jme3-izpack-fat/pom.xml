@@ -88,16 +88,16 @@
         <project.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</project.custom.app.mainclass>
         <project.custom.app.name>ANL-OpenCL</project.custom.app.name>
         <project.custom.app.description>ANL-OpenCL</project.custom.app.description>
-        <project.custom.app.path>anl-opencl-0.0.2</project.custom.app.path>
+        <project.custom.app.version>0.0.2</project.custom.app.version>
+        <project.custom.app.path>anl-opencl-${project.custom.app.version}</project.custom.app.path>
         <project.custom.app.author.name>Erwin Müller</project.custom.app.author.name>
         <project.custom.app.author.email>erwin@muellerpublic.de</project.custom.app.author.email>
-        <project.custom.app.version>0.0.2</project.custom.app.version>
         <project.custom.app.organization.url>https://anl-opencl.anrisoftware.com</project.custom.app.organization.url>
         <project.custom.izpack.readme>etc/en_US/readme.txt</project.custom.izpack.readme>
-        <project.custom.launch4j.install.originalfilename>anl-opencl-0.0.2.exe</project.custom.launch4j.install.originalfilename>
-        <project.custom.launch4j.install.internalname>anl-opencl-0.0.2.jar</project.custom.launch4j.install.internalname>
-        <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.launcherfilename>
-        <project.custom.launch4j.applauncher.jarfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.jarfilename>
+        <project.custom.launch4j.install.originalfilename>anl-opencl-${project.custom.app.version}.exe</project.custom.launch4j.install.originalfilename>
+        <project.custom.launch4j.install.internalname>anl-opencl-${project.custom.app.version}.jar</project.custom.launch4j.install.internalname>
+        <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.launcherfilename>
+        <project.custom.launch4j.applauncher.jarfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
         <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
         <lwjgl.version>3.3.1</lwjgl.version>

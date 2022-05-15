@@ -103,6 +103,18 @@ pipeline {
         } // stage
 
         /**
+        * Package the installation.
+        */
+        stage("Package Installation") {
+            steps {
+                container("maven") {
+                    sh "/setup-gpg.sh; cd anlopencl-jme3-izpack; mvn -s /m2/settings.xml -B mvn clean install -Dproject.custom.app.version=${version} -Pcompile-izpack"
+                    sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B mvn clean install -Dproject.custom.app.version=${version} -Pcompile-izpack"
+                }
+            }
+        } // stage
+
+        /**
         * The stage will deploy the artifacts and the generated site to the public repository from the main branch.
         */
         stage("Publish to Public") {
