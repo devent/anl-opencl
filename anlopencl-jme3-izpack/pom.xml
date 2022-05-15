@@ -78,7 +78,7 @@
     </parent>
 
     <artifactId>anlopencl-jme3-izpack</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>ANL-OpenCL :: IzPack Installation</name>
     <description>Package the ANL-OpenCL JMonkeyEngine3 application in IzPack installer.</description>
     <inceptionYear>2021</inceptionYear>
@@ -88,7 +88,7 @@
         <project.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</project.custom.app.mainclass>
         <project.custom.app.name>ANL-OpenCL</project.custom.app.name>
         <project.custom.app.description>ANL-OpenCL</project.custom.app.description>
-        <project.custom.app.version>0.0.2</project.custom.app.version>
+        <project.custom.app.version>${project.version}</project.custom.app.version>
         <project.custom.app.path>anl-opencl-${project.custom.app.version}</project.custom.app.path>
         <project.custom.app.author.name>Erwin Müller</project.custom.app.author.name>
         <project.custom.app.author.email>erwin@muellerpublic.de</project.custom.app.author.email>
