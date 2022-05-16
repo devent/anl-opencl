@@ -63,74 +63,26 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.model;
+package com.anrisoftware.anlopencl.jmeapp.model
 
-import java.io.File;
-import java.io.IOException;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import org.junit.jupiter.api.Test
 
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties.GameMainPaneProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties.GameMainPaneProperties
+import com.google.inject.Guice
 
 /**
- * Provides the {@link GameMainPaneProperties} and saves/loads the properties
- * from/to file.
- *
+ * @see GameMainPaneProperties
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@Slf4j
-public class GameMainPanePropertiesProvider implements Provider<ObservableGameMainPaneProperties> {
+class GameMainPanePropertiesTest {
 
-    private final static String LAST_MAIN_PANE_PROPERTIES_FILE = GameMainPanePropertiesProvider.class.getPackageName()
-            + ".last_main_pane_properties_file";
-
-    private static final File DEFAULT_LAST_MAIN_PANE_PROPERTIES_FILE = new File(
-            System.getProperty("user.home") + "/.anlopencl-last.yaml");
-
-    private final GameMainPaneProperties p;
-
-    private final ObservableGameMainPaneProperties op;
-
-    @Inject
-    private ObjectMapper mapper;
-
-    public GameMainPanePropertiesProvider() throws IOException {
-        this.p = new GameMainPaneProperties();
-        this.op = new ObservableGameMainPaneProperties(p);
-    }
-
-    @Override
-    public ObservableGameMainPaneProperties get() {
-        return op;
-    }
-
-    @SneakyThrows
-    public void save() {
-        File file = getFile();
-        log.debug("Save properties to {}", file);
-        mapper.writeValue(file, p);
-    }
-
-    @SneakyThrows
-    public void load() {
-        var file = getFile();
-        if (file.exists()) {
-            log.debug("Load properties from {}", file);
-            var p = mapper.readValue(file, GameMainPaneProperties.class);
-            op.copy(p);
-        }
-    }
-
-    private File getFile() {
-        var argsFile = System.getProperty(LAST_MAIN_PANE_PROPERTIES_FILE);
-        if (argsFile != null) {
-            return new File(argsFile);
-        }
-        return DEFAULT_LAST_MAIN_PANE_PROPERTIES_FILE;
+    @Test
+    void default_values_are_set() {
+        def gmpp = Guice.createInjector().getInstance(GameMainPaneProperties.class)
+        assertThat gmpp.kernelCode.length(), equalTo(809)
+        assertThat gmpp.kernelCode, startsWith("#include <opencl_utils.h>")
     }
 }
