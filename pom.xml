@@ -104,7 +104,7 @@
         <project.custom.current.year>2022</project.custom.current.year>
         <project.custom.jme3.version>3.5.2-stable</project.custom.jme3.version>
         <project.custom.jmh.version>1.32</project.custom.jmh.version>
-        <project.custom.javafx.version>11.0.2</project.custom.javafx.version>
+        <project.custom.javafx.version>16</project.custom.javafx.version>
     </properties>
 
     <licenses>
@@ -141,6 +141,16 @@
                 <groupId>com.aparapi</groupId>
                 <artifactId>aparapi</artifactId>
                 <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayfella</groupId>
+                <artifactId>jme-jfx-11</artifactId>
+                <version>1.1.5-1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.raumzeitfalle.fx</groupId>
+                <artifactId>scenic-view</artifactId>
+                <version>11.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -160,12 +160,10 @@
         <dependency>
             <groupId>com.jayfella</groupId>
             <artifactId>jme-jfx-11</artifactId>
-            <version>1.1.5.dwarfhustle-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.raumzeitfalle.fx</groupId>
             <artifactId>scenic-view</artifactId>
-            <version>11.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
