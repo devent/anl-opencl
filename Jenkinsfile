@@ -98,6 +98,7 @@ pipeline {
             steps {
                 container("maven") {
                     sh "/setup-gpg.sh; mvn -s /m2/settings.xml -B deploy"
+                    sh "/setup-ssh.sh; git tag ${version}; git push --tags"
                 }
             }
         } // stage
