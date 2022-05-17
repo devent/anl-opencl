@@ -74,7 +74,7 @@
     <parent>
         <groupId>com.anrisoftware.anlopencl</groupId>
         <artifactId>anlopencl</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>
 
     <artifactId>anlopencl-jme3-opencl</artifactId>
@@ -104,7 +104,7 @@
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-opencl</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.3</version>
         </dependency>
 
         <!-- Compile -->
