@@ -112,11 +112,16 @@ pipeline {
                     script {
                         sh "/setup-gpg.sh; cd anlopencl-jme3-izpack; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
                         sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
+                        def artifactsOriginal = []
+                        artifactsOriginal << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar"
                         def artifacts = []
-                        artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar"
-                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
-                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar"
-                        artifacts.each {
+                        artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-${env.BRANCH_NAME}-izpack.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-allinone.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-install.jar"
+                        artifacts.eachWithIndex { it, index ->
+                            sh "mv ${artifactsOriginal[index]} ${it}"
                             archiveArtifacts artifacts: it, followSymlinks: false
                         }
                     }
