@@ -77,6 +77,11 @@ import java.nio.IntBuffer;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.ContextCreationErrorException;
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLGPUFoundException;
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLPlatformsFoundException;
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.QueueCreationErrorException;
+
 /**
  * Test utils.
  *
@@ -84,49 +89,49 @@ import org.lwjgl.system.MemoryStack;
  */
 public class LwjglUtils {
 
-    public static long createPlatform() {
+    public static long createPlatform() throws NoOpenCLPlatformsFoundException {
         try (var s = MemoryStack.stackPush()) {
             var platforms = s.mallocPointer(1);
             checkCLError(clGetPlatformIDs(platforms, (IntBuffer) null));
             if (platforms.get(0) == 0) {
-                throw new RuntimeException("No OpenCL platforms found.");
+                throw new NoOpenCLPlatformsFoundException();
             }
             var platform = platforms.get(0);
             return platform;
         }
     }
 
-    public static long createDevice(long platform) {
+    public static long createDevice(long platform) throws NoOpenCLGPUFoundException {
         try (var s = MemoryStack.stackPush()) {
             var devices = s.mallocPointer(1);
             checkCLError(clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, devices, (IntBuffer) null));
             if (devices.get(0) == 0) {
-                throw new RuntimeException("No GPU device found.");
+                throw new NoOpenCLGPUFoundException();
             }
             var device = devices.get(0);
             return device;
         }
     }
 
-    public static long createContext(long device) {
+    public static long createContext(long device) throws ContextCreationErrorException {
         try (var s = MemoryStack.stackPush()) {
             var err = s.mallocInt(1);
             var context = clCreateContext((PointerBuffer) null, device, null, 0, err);
             checkCLError(err.get(0));
             if (context == 0) {
-                throw new RuntimeException("No GPU device found.");
+                throw new ContextCreationErrorException();
             }
             return context;
         }
     }
 
-    public static long createQueue(long context, long device) {
+    public static long createQueue(long context, long device) throws QueueCreationErrorException {
         try (var s = MemoryStack.stackPush()) {
             var err = s.mallocInt(1);
             var queue = clCreateCommandQueue(context, device, 0, err);
             checkCLError(err.get(0));
             if (queue == 0) {
-                throw new RuntimeException("No queue created.");
+                throw new QueueCreationErrorException();
             }
             return queue;
         }

@@ -100,9 +100,6 @@ public class ViewAppState extends BaseAppState {
     private NoiseImageSystem noiseImageSystem;
 
     @Inject
-    private CoordAxisDebugShape coordAxisDebugShape;
-
-    @Inject
     @Named("pivotNode")
     private Node pivotNode;
 
@@ -139,7 +136,6 @@ public class ViewAppState extends BaseAppState {
         cam.setParallelProjection(false);
         cam.setLocation(gp.getCameraPos());
         cam.setRotation(gp.getCameraRot());
-        pivotNode.attachChild(coordAxisDebugShape.getNode());
         engine.addSystem(noiseImageSystem);
         actor.tell(new AttachViewAppStateDoneMessage());
         pivotNode.addLight(light);

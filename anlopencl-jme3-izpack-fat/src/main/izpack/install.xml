@@ -113,7 +113,7 @@
 			installGroups="Required">
 			<description>Required files to run the application.</description>
 			<file
-				src="../anlopencl-jme3-izpack-fat-0.0.1-SNAPSHOT-allinone.jar"
+				src="../anlopencl-jme3-izpack-fat-${project.version}-allinone.jar"
 				targetdir="$INSTALL_PATH/lib/" />
 			<file src="etc/" targetdir="$INSTALL_PATH" />
 			<fileset dir="etc" targetdir="$INSTALL_PATH/etc" />

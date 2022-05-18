@@ -65,10 +65,17 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofSeconds;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.concurrent.CompletionStage;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.IOUtils;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
 import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor;
@@ -115,16 +122,22 @@ public class GameApplication extends SimpleApplication {
 
     Engine engine;
 
-    public GameApplication() {
+    public GameApplication() throws IOException {
         super(new StatsAppState(), new DebugKeysAppState(), new ConstantVerifierState());
         setShowSettings(false);
         var s = new AppSettings(true);
+        loadAppIcon(s);
         s.setResizable(true);
         s.setWidth(1024);
         s.setHeight(768);
         s.setVSync(false);
         s.setOpenCLSupport(true);
         setSettings(s);
+    }
+
+    private void loadAppIcon(AppSettings s) throws IOException {
+        s.setIcons(new BufferedImage[] { ImageIO.read(getClass().getResource("/app/logo.png")) });
+        s.setTitle(IOUtils.toString(getClass().getResource("/app/title.txt"), UTF_8));
     }
 
     private void start(Injector parent) {

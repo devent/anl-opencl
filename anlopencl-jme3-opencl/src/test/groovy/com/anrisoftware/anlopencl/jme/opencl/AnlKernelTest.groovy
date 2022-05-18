@@ -74,6 +74,7 @@ import org.apache.commons.lang3.builder.ToStringStyle
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.lwjgl.BufferUtils
 import org.lwjgl.opencl.CLImageFormat
 import org.lwjgl.system.MemoryStack
@@ -95,6 +96,7 @@ import com.jme3.opencl.lwjgl.LwjglPlatform
  * @see AnlKernel
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
+@ExtendWith(ClPlatformAvailableCondition.class)
 class AnlKernelTest {
 
     long clplatform
@@ -138,7 +140,7 @@ global float *output
 """)
         anlKernel.createKernel("test_no_args")
         def workSize = new WorkSize(1)
-        def event = anlKernel.run1(queue, workSize)
+        def event = anlKernel.run1("test_no_args", queue, workSize)
         event.waitForFinished()
 
         anlKernel.createKernel("value_noise2D_noInterp")
@@ -153,7 +155,7 @@ global float *output
         def outputb = new LwjglBuffer(clCreateBuffer(clcontext, CL_MEM_WRITE_ONLY, size, err))
         checkCLError(err.get(0))
         workSize = new WorkSize(1)
-        event = anlKernel.run1(queue, workSize, inputb, outputb)
+        event = anlKernel.run1("value_noise2D_noInterp", queue, workSize, inputb, outputb)
         event.waitForFinished()
         def out = stackMallocFloat(1)
         outputb.read(queue, MemoryUtil.memByteBuffer(out), size)

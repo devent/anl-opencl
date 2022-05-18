@@ -65,50 +65,9 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-## change the directory to the start directory of the application.
-function changeBinDirectory() {
-    symlink=`find "$0" -printf "%l"`
-    cd "`dirname "${symlink:-$0}"`"
-}
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __VK_LAYER_NV_optimus=NVIDIA_only
+export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
+exec "$@"
 
-## Returns the no-java-runtime text based on the current locale.
-## It is expected to find the text in a file under:
-##     etc/[LANG]/no_java_runtime.txt
-function noJavaRuntime() {
-    file="../../etc/${lang[0]}/no_java_runtime.txt"
-    if [ ! -f $file ]; then
-        file="../../etc/en_US/no_java_runtime.txt"
-    fi
-    if [ -f $file ]; then
-        noJavaRuntimeText="`cat $file`"
-    fi
-}
-
-## Checks that the Java runtime is installed and shows an error dialog if
-## it is not the case.
-function checkJavaRuntime() {
-    if [ -z "$javaCommand" ]; then
-        noJavaRuntime
-        type zenity >/dev/null 2>&1
-        if [ $? = 0 ]; then
-            zenity --error --text="$noJavaRuntimeText"
-        else
-            echo "$noJavaRuntimeText"
-        fi
-        exit 1
-    fi
-}
-
-currentDir=$(pwd)
-changeBinDirectory
-javaCommand=`type -P java`
-mainClass="${project.custom.app.mainclass}"
-lib="../../lib/*"
-IFS='.' read -a lang <<< "$LANG"
-log="-Dlogback.configurationFile=file:///$PWD/../../etc/logback.xml"
-logArgs="-Dproject.custom.log.prefix=$currentDir"
-args=""
-noJavaRuntimeText="No Java Runtime found."
-checkJavaRuntime
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
-./prime-run.sh "$javaCommand" "$logArgs" "$log" -cp "$lib" "$mainClass" $args $*

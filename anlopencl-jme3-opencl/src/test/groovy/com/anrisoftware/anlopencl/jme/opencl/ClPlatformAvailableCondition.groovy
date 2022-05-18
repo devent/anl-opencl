@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL
+ * ANL-OpenCL :: JME3 - OpenCL
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - OpenCL is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - OpenCL bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,25 +63,38 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.anlkernel;
+package com.anrisoftware.anlopencl.jme.opencl
 
-import java.util.Map;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.*
 
-import com.anrisoftware.anlopencl.anlkernel.AnlKernel.AnlKernelFactory;
-import com.google.inject.AbstractModule;
-import com.google.inject.TypeLiteral;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult
+import org.junit.jupiter.api.extension.ExecutionCondition
+import org.junit.jupiter.api.extension.ExtensionContext
+
+import com.anrisoftware.anlopencl.jme.opencl.LwjglException.NoOpenCLPlatformsFoundException
 
 /**
- * @see AnlKernelFactory
+ * Checks that the OpenCL platform is available and the property
+ * {@code "com.anrisoftware.anlopencl.opencl_tests_enabled=yes"} is set.
+ *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class AnlkernelModule extends AbstractModule {
+class ClPlatformAvailableCondition implements ExecutionCondition {
 
     @Override
-    protected void configure() {
-        install(new FactoryModuleBuilder().implement(AnlKernel.class, AnlKernel.class).build(AnlKernelFactory.class));
-        bind(new TypeLiteral<Map<String, String>>() {
-        }).toProvider(SourceResourcesProvider.class).asEagerSingleton();
+    ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        def testsEnabled = System.getProperty("com.anrisoftware.anlopencl.opencl_tests_enabled")
+        if (testsEnabled != null) {
+            testsEnabled = testsEnabled == "yes"
+        }
+        if (!testsEnabled) {
+            return disabled("OpenCL tests are disabled. Set the property 'com.anrisoftware.anlopencl.opencl_tests_enabled=yes' to enable.")
+        }
+        try {
+            LwjglUtils.createPlatform()
+            return enabled("OpenCL platform available")
+        } catch (NoOpenCLPlatformsFoundException e) {
+            return disabled("No OpenCL platform found")
+        }
     }
 }

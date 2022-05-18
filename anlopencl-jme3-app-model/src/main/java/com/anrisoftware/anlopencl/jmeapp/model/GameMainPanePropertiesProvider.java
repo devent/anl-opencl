@@ -66,6 +66,7 @@
 package com.anrisoftware.anlopencl.jmeapp.model;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -98,7 +99,7 @@ public class GameMainPanePropertiesProvider implements Provider<ObservableGameMa
     @Inject
     private ObjectMapper mapper;
 
-    public GameMainPanePropertiesProvider() {
+    public GameMainPanePropertiesProvider() throws IOException {
         this.p = new GameMainPaneProperties();
         this.op = new ObservableGameMainPaneProperties(p);
     }

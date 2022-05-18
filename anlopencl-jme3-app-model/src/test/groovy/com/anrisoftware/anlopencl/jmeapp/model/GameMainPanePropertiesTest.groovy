@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JOCL bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,51 +63,26 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.anlkernel;
+package com.anrisoftware.anlopencl.jmeapp.model
 
-import java.util.Map;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import org.junit.jupiter.api.Test
+
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties.GameMainPaneProperties
+import com.google.inject.Guice
 
 /**
- * Provides the appended ANL-OpenCL sources.
- *
+ * @see GameMainPaneProperties
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class LibSourcesProvider implements Provider<String> {
+class GameMainPanePropertiesTest {
 
-    private final String sources;
-
-    @Inject
-    public LibSourcesProvider(Map<String, String> sources) {
-        this.sources = appendSources(sources);
+    @Test
+    void default_values_are_set() {
+        def gmpp = Guice.createInjector().getInstance(GameMainPaneProperties.class)
+        assertThat gmpp.kernelCode.length(), equalTo(809)
+        assertThat gmpp.kernelCode, startsWith("#include <opencl_utils.h>")
     }
-
-    private String appendSources(Map<String, String> sources) {
-        var s = new StringBuilder();
-        s.append(sources.get("opencl_utils.h"));
-        s.append(sources.get("opencl_utils.c"));
-        s.append(sources.get("qsort.h"));
-        s.append(sources.get("qsort.c"));
-        s.append(sources.get("utility.h"));
-        s.append(sources.get("utility.c"));
-        s.append(sources.get("hashing.h"));
-        s.append(sources.get("hashing.c"));
-        s.append(sources.get("noise_lut.h"));
-        s.append(sources.get("noise_lut.c"));
-        s.append(sources.get("noise_gen.h"));
-        s.append(sources.get("noise_gen.c"));
-        s.append(sources.get("imaging.h"));
-        s.append(sources.get("imaging.c"));
-        s.append(sources.get("kernel.h"));
-        s.append(sources.get("kernel.c"));
-        return s.toString();
-    }
-
-    @Override
-    public String get() {
-        return sources;
-    }
-
 }

@@ -73,12 +73,12 @@
     <parent>
         <artifactId>globalpom-izpack</artifactId>
         <groupId>com.anrisoftware.globalpom</groupId>
-        <version>4.6.0-SNAPSHOT</version>
+        <version>4.6.1</version>
         <relativePath />
     </parent>
 
     <artifactId>anlopencl-jme3-izpack</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3</version>
     <name>ANL-OpenCL :: IzPack Installation</name>
     <description>Package the ANL-OpenCL JMonkeyEngine3 application in IzPack installer.</description>
     <inceptionYear>2021</inceptionYear>
@@ -88,21 +88,45 @@
         <project.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</project.custom.app.mainclass>
         <project.custom.app.name>ANL-OpenCL</project.custom.app.name>
         <project.custom.app.description>ANL-OpenCL</project.custom.app.description>
-        <project.custom.app.path>anl-opencl-0.0.2</project.custom.app.path>
+        <project.custom.app.version>${project.version}</project.custom.app.version>
+        <project.custom.app.path>anl-opencl-${project.custom.app.version}</project.custom.app.path>
         <project.custom.app.author.name>Erwin Müller</project.custom.app.author.name>
         <project.custom.app.author.email>erwin@muellerpublic.de</project.custom.app.author.email>
-        <project.custom.app.version>0.0.2</project.custom.app.version>
         <project.custom.app.organization.url>https://anl-opencl.anrisoftware.com</project.custom.app.organization.url>
         <project.custom.izpack.readme>etc/en_US/readme.txt</project.custom.izpack.readme>
-        <project.custom.launch4j.install.originalfilename>anl-opencl-0.0.2.exe</project.custom.launch4j.install.originalfilename>
-        <project.custom.launch4j.install.internalname>anl-opencl-0.0.2.jar</project.custom.launch4j.install.internalname>
-        <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.launcherfilename>
-        <project.custom.launch4j.applauncher.jarfilename>anl-opencl-0.0.2</project.custom.launch4j.applauncher.jarfilename>
+        <project.custom.launch4j.install.originalfilename>anl-opencl-${project.custom.app.version}.exe</project.custom.launch4j.install.originalfilename>
+        <project.custom.launch4j.install.internalname>anl-opencl-${project.custom.app.version}.jar</project.custom.launch4j.install.internalname>
+        <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.launcherfilename>
+        <project.custom.launch4j.applauncher.jarfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
-        <project.custom.globalpom.version>4.6.0</project.custom.globalpom.version>
-        <project.custom.lwjgl.version>3.3.0-SNAPSHOT</project.custom.lwjgl.version>
+        <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
+        <lwjgl.version>3.3.1</lwjgl.version>
+        <lwjgl.natives.linux>natives-linux</lwjgl.natives.linux>
+        <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
     </properties>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>EM</id>
+            <name>Erwin Müller</name>
+            <email>erwin@muellerpublic.de</email>
+            <organization>Advanced Natural Research Institute</organization>
+            <roles>
+                <role>Owner</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+    </developers>
 
     <issueManagement>
         <system>Redmine</system>
@@ -117,18 +141,69 @@
 
     <distributionManagement>
         <site>
-            <id>anrisoftware</id>
-            <url>dav:https://anrisoftware.com/javadoc/${project.groupId}/${project.artifactId}</url>
+            <id>site-distribution-id</id>
+            <url>${site.distribution.url}</url>
         </site>
+        <repository>
+            <id>public_releases</id>
+            <url>https://maven.anrisoftware.com/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>public_snapshots</id>
+            <url>https://maven.anrisoftware.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.anrisoftware.globalpom</groupId>
+                <artifactId>globalpom-groovytestutils</artifactId>
+                <version>${project.custom.globalpom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-bom</artifactId>
+                <version>${lwjgl.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-openal</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <classifier>${lwjgl.natives.linux}</classifier>
+        </dependency>
 
         <!-- own modules dependencies -->
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-core</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.3</version>
         </dependency>
 
         <!-- log dependencies -->
@@ -141,23 +216,6 @@
             <artifactId>logback-core</artifactId>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.anrisoftware.globalpom</groupId>
-                <artifactId>globalpom-groovytestutils</artifactId>
-                <version>${project.custom.globalpom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lwjgl</groupId>
-                <artifactId>lwjgl-bom</artifactId>
-                <version>${project.custom.lwjgl.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>

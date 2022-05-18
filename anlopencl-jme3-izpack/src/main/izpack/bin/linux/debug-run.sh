@@ -111,4 +111,4 @@ args=""
 noJavaRuntimeText="No Java Runtime found."
 checkJavaRuntime
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
-"$javaCommand" "$logArgs" "$log" -cp "$lib" "$mainClass" $args $*
+./prime-run.sh "$javaCommand" "$logArgs" "$log" -cp "$lib" "$mainClass" $args $*

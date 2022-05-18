@@ -18,7 +18,7 @@
  *
  * @author Erwin Mueller, erwin.mueller@deventm.org
  * @since 0.0.3
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 def groupId
@@ -57,11 +57,13 @@ pipeline {
         stage("Setup") {
             steps {
                 container("maven") {
-                    groupId = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
-                    artifactId = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
-                    version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-                    isSnapshot = version =~ /.*-snapshot$/
-                    echo "${groupId}/${artifactId}:${version} snapshot: ${isSnapshot}"
+                    script {
+                        groupId = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
+                        artifactId = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
+                        version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+                        isSnapshot = (version =~ /(?i).*-snapshot$/).matches()
+                        echo "${groupId}/${artifactId}:${version} snapshot: ${isSnapshot}"
+                    }
                 }
             }
         } // stage
@@ -96,6 +98,33 @@ pipeline {
             steps {
                 container("maven") {
                     sh "/setup-gpg.sh; mvn -s /m2/settings.xml -B deploy"
+                    sh "/setup-ssh.sh; git tag ${version}; git push --tags"
+                }
+            }
+        } // stage
+
+        /**
+        * Package the installation.
+        */
+        stage("Package Installation") {
+            steps {
+                container("maven") {
+                    script {
+                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
+                        sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
+                        def artifactsOriginal = []
+                        artifactsOriginal << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar"
+                        def artifacts = []
+                        artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-${env.BRANCH_NAME}-izpack.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-allinone.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-install.jar"
+                        artifacts.eachWithIndex { a, index ->
+                            sh "mv ${artifactsOriginal[index]} ${a}"
+                            archiveArtifacts artifacts: a, followSymlinks: false
+                        }
+                    }
                 }
             }
         } // stage

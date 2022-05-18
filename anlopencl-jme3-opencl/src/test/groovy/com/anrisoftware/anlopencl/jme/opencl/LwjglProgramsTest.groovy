@@ -72,6 +72,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.ToStringStyle
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.lwjgl.system.MemoryStack
 
 import com.jme3.opencl.KernelCompilationException
@@ -84,6 +85,7 @@ import com.jme3.opencl.lwjgl.LwjglPlatform
 import groovy.util.logging.Slf4j
 
 @Slf4j
+@ExtendWith(ClPlatformAvailableCondition.class)
 class LwjglProgramsTest {
 
     long clplatform
@@ -103,17 +105,17 @@ class LwjglProgramsTest {
     @Test
     void "create header programs"() {
         def sources = new SourceResourcesProvider()
-        def programsBuilder = new HeaderProgramsBuilder(sources.get())
-        def programs = programsBuilder.createPrograms(context)
-        assert programs.size() == 8
-        programs.each { k, v -> log.debug("Program {} created: {}", k, v) }
+        def programsBuilder = new HeaderProgramsBuilder(sources)
+        programsBuilder.createPrograms(context)
+        assert programsBuilder.headers.size() == 8
+        programsBuilder.headerNames.each { log.debug("Program {} created", it) }
     }
 
     @Test
     void "compile program with headers"() {
         def sources = new SourceResourcesProvider()
-        def libSources = new LibSourcesProvider(sources.get());
-        def extraSources = new KernelExtraSourcesProvider(sources.get())
+        def libSources = new LibSourcesProvider(sources);
+        def extraSources = new KernelExtraSourcesProvider(sources)
         def lprogramLib = null
         def err = MemoryStack.stackMallocInt(1)
 
@@ -151,7 +153,7 @@ global REAL *output
 """, err)
         log.debug("Kernel program created: {}", clprogramKernel)
         checkCLError(err.get(0))
-        def headersBuilder = new HeaderProgramsBuilder(sources.get())
+        def headersBuilder = new HeaderProgramsBuilder(sources)
         headersBuilder.createPrograms(context)
         def programKernel = new LwjglProgramEx(clprogramKernel, context)
         try {

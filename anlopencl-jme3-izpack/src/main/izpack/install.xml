@@ -120,9 +120,12 @@
 			<description>Linux run files.</description>
 			<file src="bin/linux/${project.custom.app.linuxdebugbin}" targetdir="$INSTALL_PATH/bin/linux" />
             <file src="bin/linux/${project.custom.app.linuxbin}" targetdir="$INSTALL_PATH/bin/linux" />
+            <file src="bin/linux/prime-run.sh" targetdir="$INSTALL_PATH/bin/linux" />
 			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxbin}"
 				stage="never" keep="true" />
 			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxdebugbin}"
+				stage="never" keep="true" />
+			<executable targetfile="$INSTALL_PATH/bin/linux/prime-run.sh"
 				stage="never" keep="true" />
 		</pack>
 		<pack name="Windows" preselected="yes" required="yes" os="windows"
