@@ -209,6 +209,7 @@ public class OpenclBuildActor {
                 Map<String, Object> vars = Maps.mutable.empty();
                 vars.put("localSize", Math.min(32, gmp.width.get() / 2));
                 vars.put("z", gmp.z.get());
+                vars.put("seed", gmp.seed.get());
                 kernel.compileProgram(gmp.kernelCode.get(), vars);
                 gmp.codeLastCompiled.set(System.currentTimeMillis());
             }

@@ -8,16 +8,13 @@ global struct SMappingRanges *g_ranges,
 write_only image2d_t output
 ) {
     $insert_localMapRange
-    long seed = 200;
-    kiss09_state srnd;
-    kiss09_seed(&srnd, seed);
     const float a = 0.5;
-    const float r = value_noise3D(coord[i], seed, linearInterp);
-    const float g = value_noise3D(coord[i], seed*2, linearInterp);
-    const float b = value_noise3D(coord[i], seed*2, linearInterp);
-    const float f = simpleFractalLayer3(coord[i],
-		value_noise3D, seed*10, linearInterp, 10, 1,
-		false, 0, 1, 0, 0);
-    const float v = simplefBm3(coord[i], value_noise3D, 200, noInterp, random_kiss09, &srnd, 3, f, true);
-    write_imagef(output, (int2)(g0, g1), (float4)(r*v, g*v, b*v, v));
+    const float r = value_noise3D(coord[i], $seed, hermiteInterp);
+    const float g = value_noise3D(coord[i], $seed*2, hermiteInterp);
+    const float b = value_noise3D(coord[i], $seed*2, hermiteInterp);
+    const float f1 = simpleBillowLayer3(coord[i], value_noise3D, $seed*10, hermiteInterp, 10, 6, true, 45, 1, 0, 0);
+    const float f2 = simpleFractalLayer3(coord[i], value_noise3D, $seed*100, hermiteInterp, 10, 3, true, 45, 0, 1, 0);
+    const float f3 = simpleFractalLayer3(coord[i], value_noise3D, $seed*500, hermiteInterp, 10, 1, true, 45, 0, 0, 1);
+    const f = f1 + f2 + f3;
+    write_imagef(output, (int2)(g0, g1), (float4)(r*f, g*f*0.2, b*f*2, a));
 }
