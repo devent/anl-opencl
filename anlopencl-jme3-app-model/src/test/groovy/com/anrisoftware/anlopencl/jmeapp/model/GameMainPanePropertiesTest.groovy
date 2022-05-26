@@ -82,7 +82,7 @@ class GameMainPanePropertiesTest {
     @Test
     void default_values_are_set() {
         def gmpp = Guice.createInjector().getInstance(GameMainPaneProperties.class)
-        assertThat gmpp.kernelCode.length(), equalTo(809)
+        assertThat gmpp.kernelCode.length(), equalTo(919)
         assertThat gmpp.kernelCode, startsWith("#include <opencl_utils.h>")
     }
 }
