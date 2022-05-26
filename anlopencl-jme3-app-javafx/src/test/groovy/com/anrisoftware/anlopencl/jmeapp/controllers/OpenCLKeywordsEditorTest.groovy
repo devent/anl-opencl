@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model
+ * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
  * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,26 +63,60 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.model
+package com.anrisoftware.anlopencl.jmeapp.controllers
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.Matchers.*
 
-import org.junit.jupiter.api.Test
+import java.util.stream.Stream
 
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties.GameMainPaneProperties
-import com.google.inject.Guice
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 
-/**
- * @see GameMainPaneProperties
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
- */
-class GameMainPanePropertiesTest {
+class OpenCLKeywordsEditorTest {
 
-    @Test
-    void default_values_are_set() {
-        def gmpp = Guice.createInjector().getInstance(GameMainPaneProperties.class)
-        assertThat gmpp.kernelCode.length(), equalTo(919)
-        assertThat gmpp.kernelCode, startsWith("#include <opencl_utils.h>")
+    static Stream<Map> source_matches_preposition_pattern() {
+        def list = []
+        list << [input: '''
+#include <opencl_utils.h>
+#include <noise_gen.h>
+#include <imaging.h>
+#include <kernel.h>
+
+kernel void map2d_image(
+global struct SMappingRanges *g_ranges,
+write_only image2d_t output
+) {
+    ${insert_localMapRange}
+    const float a = 0.5;
+    const float r = value_noise3D(coord[i], $seed, hermiteInterp);
+    const float g = value_noise3D(coord[i], $seed*2, hermiteInterp);
+    const float b = value_noise3D(coord[i], $seed*2, hermiteInterp);
+    const float f1 = simpleBillowLayer3(coord[i],
+value_noise3D, $seed*10, hermiteInterp, 10, 6,
+true, 45, 1, 0, 0);
+    const float f2 = simpleFractalLayer3(coord[i],
+value_noise3D, $seed*100, hermiteInterp, 10, 3,
+true, 45, 0, 1, 0);
+    const float f3 = simpleFractalLayer3(coord[i],
+value_noise3D, $seed*500, hermiteInterp, 10, 1,
+true, 45, 0, 0, 1);
+    const f = f1 + f2 + f3;
+    write_imagef(output, (int2)(g0, g1), (float4)(r*f, g*f*0.2, b*f*2, a));
+}
+''', styleLength: 908, groups: ["#include <header.h>"]]
+        Stream.of(list.toArray())
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void source_matches_preposition_pattern(Map args) {
+        println OpenCLKeywordsEditor.PATTERN
+        def style = OpenCLKeywordsEditor.computeHighlighting(args.input)
+        assertThat style.length(), is(args.styleLength)
+        style.eachWithIndex { it, i ->
+            println it.style
+            println it.length
+        }
     }
 }

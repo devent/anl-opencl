@@ -379,13 +379,13 @@ Returns fractional brownian motion value for the coordinate.
 \end{figure}
 
 \index{simplefBm3}\index{simplefBm4}\index{simplefBm6}
-\begin{lstlisting}[caption={Definition of simple brownian motion fractal functions},label={lst:simple_redgedmf3_definition},language=OpenCL]
+\begin{lstlisting}[caption={Definition of simple ridged multi-fractal functions},label={lst:simple_redgedmf3_definition},language=OpenCL]
 simpleRidgedMultifractal3(vector3 v, noise_func3 basistype, uint seed, interp_func interp, random_func rnd, void *srnd, uint numoctaves, REAL frequency, bool rot);
 simpleRidgedMultifractal4(vector4 v, noise_func4 basistype, uint seed, interp_func interp, random_func rnd, void *srnd, uint numoctaves, REAL frequency, bool rot);
 simpleRidgedMultifractal6(vector8 v, noise_func6 basistype, uint seed, interp_func interp, random_func rnd, void *srnd, uint numoctaves, REAL frequency, bool rot);
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Example for simple brownian motion fractal functions},label={lst:simple_redgedmf3_example},language=OpenCL]
+\begin{lstlisting}[caption={Example for simple ridged multi-fractal functions},label={lst:simple_redgedmf3_example},language=OpenCL]
 kernel void map2d_image(
 global struct SMappingRanges *g_ranges,
 write_only image2d_t output

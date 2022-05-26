@@ -43,7 +43,9 @@
 .comment {
 	-fx-fill: #99968b;
 }
-
 .prep {
 	-fx-fill: #cae682;
+}
+.var {
+	-fx-fill: #ffcc22;
 }

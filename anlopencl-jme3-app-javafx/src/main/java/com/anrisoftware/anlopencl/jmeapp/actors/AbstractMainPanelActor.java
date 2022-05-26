@@ -74,6 +74,7 @@ import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 
+import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.factory.Maps;
 
@@ -137,21 +138,23 @@ public abstract class AbstractMainPanelActor {
         context.pipeToSelf(javaFxBuild.setupUi(context.getExecutionContext(), mainUiResource, additionalCss),
                 (result, cause) -> {
                     if (cause == null) {
-                        return initialStateMessage(injector, context, panelActors, result);
+                        var actors = spawnPanelActors(injector, context, panelActors, result);
+                        return new InitialStateMessage(result.controller, result.root, actors);
                     } else {
                         return new SetupUiErrorMessage(cause);
                     }
                 });
     }
 
-    private static Message initialStateMessage(Injector injector, ActorContext<Message> context,
-            Map<String, PanelActorCreator> panelActors, MainPanelControllerResult result) {
+    private static ImmutableMap<String, ActorRef<Message>> spawnPanelActors(Injector injector,
+            ActorContext<Message> context, Map<String, PanelActorCreator> panelActors,
+            MainPanelControllerResult result) {
         MutableMap<String, ActorRef<Message>> actors = Maps.mutable.empty();
         panelActors.forEach((name, a) -> {
             var actor = context.spawn(a.create(injector), name);
             actors.put(name, actor);
         });
-        return new InitialStateMessage(result.controller, result.root, actors.toImmutable());
+        return actors.toImmutable();
     }
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout, int id,

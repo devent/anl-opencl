@@ -113,8 +113,9 @@ public class OpenCLKeywordsEditor {
     private static final String BRACKET_PATTERN = "\\[|\\]";
     private static final String SEMICOLON_PATTERN = "\\;";
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
-    private static final String COMMENT_PATTERN = "//[^\\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+    private static final String COMMENT_PATTERN = "\\/\\/.*|\\/\\*(?:.|\\R)*?\\*\\/";
     private static final String NUMBER_PATTERN = "\\b[0-9]*\\b";
+    private static final String VARIABLES_PATTERN = "\\$\\{?[a-zA-Z0-9_]+\\}?";
 
     private static final Pattern PATTERN = Pattern.compile( //
             "(?<KEYWORD>" + KEYWORD_PATTERN + ")" //
@@ -126,6 +127,7 @@ public class OpenCLKeywordsEditor {
                     + "|(?<STRING>" + STRING_PATTERN + ")" //
                     + "|(?<NUMBER>" + NUMBER_PATTERN + ")" //
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")" //
+                    + "|(?<VAR>" + VARIABLES_PATTERN + ")" //
     );
 
     private static final String sampleCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
@@ -197,6 +199,8 @@ public class OpenCLKeywordsEditor {
                                                             : matcher.group("STRING") != null ? "string"
                                                                     : matcher.group("COMMENT") != null ? "comment"
                                                                             : matcher.group("PREP") != null ? "prep"
+                                                                                    : matcher.group("VAR") != null
+                                                                                            ? "var"
                                                                                     : null;
             /* never happens */ assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
