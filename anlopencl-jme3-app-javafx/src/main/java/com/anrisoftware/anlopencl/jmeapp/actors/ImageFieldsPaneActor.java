@@ -73,6 +73,7 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
@@ -164,6 +165,8 @@ public class ImageFieldsPaneActor {
 
     private ImageFieldsPaneController controller;
 
+    private final Random rnd = new Random(System.currentTimeMillis());
+
     @Inject
     ImageFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
         this.context = context;
@@ -188,6 +191,9 @@ public class ImageFieldsPaneActor {
         runFxThread(() -> {
             controller.updateLocale(Locale.US, images, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
+        });
+        controller.randomButton.setOnAction((e) -> {
+            onp.get().seed.set(rnd.nextInt());
         });
         tellLocalizeControlsSelf(gs);
         return Behaviors.receive(Message.class)//
