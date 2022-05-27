@@ -80,12 +80,16 @@ import com.sun.javafx.collections.ImmutableObservableList;
 import akka.actor.typed.ActorRef;
 import javafx.beans.property.Property;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -107,6 +111,9 @@ public class ImageFieldsPaneController {
 
     @FXML
     public TextField seedField;
+
+    @FXML
+    public Button randomButton;
 
     @FXML
     public Label widthLabel;
@@ -135,7 +142,11 @@ public class ImageFieldsPaneController {
     @FXML
     public AnchorPane kernelCodePane;
 
+    @SneakyThrows
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
+        randomButton.setGraphic(
+                new ImageView(new Image(images.getResource("dice", locale, iconSize).getURL().openStream())));
+        randomButton.setText(null);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
