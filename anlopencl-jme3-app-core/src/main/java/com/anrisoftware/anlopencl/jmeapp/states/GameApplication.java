@@ -88,7 +88,6 @@ import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.ConstantVerifierState;
@@ -123,7 +122,7 @@ public class GameApplication extends SimpleApplication {
     Engine engine;
 
     public GameApplication() throws IOException {
-        super(new StatsAppState(), new DebugKeysAppState(), new ConstantVerifierState());
+        super(new StatsAppState(), new ConstantVerifierState());
         setShowSettings(false);
         var s = new AppSettings(true);
         loadAppIcon(s);
