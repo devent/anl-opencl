@@ -89,7 +89,6 @@ import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.jme3.app.SimpleApplication;
-import com.jme3.app.StatsAppState;
 import com.jme3.app.state.ConstantVerifierState;
 import com.jme3.system.AppSettings;
 
@@ -122,7 +121,7 @@ public class GameApplication extends SimpleApplication {
     Engine engine;
 
     public GameApplication() throws IOException {
-        super(new StatsAppState(), new ConstantVerifierState());
+        super(new ConstantVerifierState());
         setShowSettings(false);
         var s = new AppSettings(true);
         loadAppIcon(s);
