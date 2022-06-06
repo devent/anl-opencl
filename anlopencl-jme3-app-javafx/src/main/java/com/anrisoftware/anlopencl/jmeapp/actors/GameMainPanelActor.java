@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,6 +84,9 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenSettingsDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogClosedMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -143,6 +146,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     private Injector injector;
 
     private ActorRef<Message> openclBuildActor;
+
+    private ActorRef<Message> settingsDialogActor;
 
     @Inject
     public GameMainPanelActor(ImagesFactory imagesFactory) {
@@ -220,9 +225,34 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return getDefaultBehavior().build();
     }
 
+    private Behavior<Message> onSettingsDialogClosed(SettingsDialogClosedMessage m) {
+        log.debug("onSettingsDialogClosed {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        initial.actors.get(SettingsDialogActor.NAME).tell(m);
+        return getDefaultBehavior().build();
+    }
+
+    private Behavior<Message> onSettingsClicked(SettingsClickedMessage m) {
+        log.debug("onSettingsClicked {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        if (!initial.actors.contains(SettingsDialogActor.NAME)) {
+            SettingsDialogActor.create(ofSeconds(1), injector).whenComplete((res, ex) -> {
+                if (ex != null) {
+                    log.error("Error create settings dialog actor", ex);
+                } else {
+                    res.tell(new OpenSettingsDialogMessage());
+                }
+            });
+        }
+        return super.getBehaviorAfterAttachGui()//
+                .onMessage(SettingsDialogClosedMessage.class, this::onSettingsDialogClosed)//
+                .build();
+    }
+
     private BehaviorBuilder<Message> getDefaultBehavior() {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
+                .onMessage(SettingsClickedMessage.class, this::onSettingsClicked)//
         ;
     }
 

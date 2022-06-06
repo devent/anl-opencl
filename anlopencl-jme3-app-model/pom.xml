@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: JME3 - App - Model
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -149,7 +149,6 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>${project.custom.javafx.version}</version>
         </dependency>
 
         <dependency>
@@ -172,14 +171,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.12.5</version>
         </dependency>
 
         <!-- Resources -->
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-images</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
 
     </dependencies>

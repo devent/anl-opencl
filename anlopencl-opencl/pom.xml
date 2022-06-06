@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: OpenCL
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -145,52 +145,31 @@
         </resources>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${project.custom.source.source}</source>
-                    <target>${project.custom.source.target}</target>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${project.custom.lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.openjdk.jmh</groupId>
-                            <artifactId>jmh-generator-annprocess</artifactId>
-                            <version>1.33</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>${project.custom.lombok.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                        <version>${project.custom.groovy.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>4.2.rc3</version>
                 <configuration>
                     <properties>
                         <owner>${license.custom.license.owner}</owner>
                         <email>${license.custom.license.email}</email>
+                        <year>${globalpom.custom.year}</year>
                     </properties>
+                    <mapping>
+                        <Jenkinsfile>JAVADOC_STYLE</Jenkinsfile>
+                        <h>DOUBLESLASH_STYLE</h>
+                        <c>DOUBLESLASH_STYLE</c>
+                        <cpp>DOUBLESLASH_STYLE</cpp>
+                        <cl>DOUBLESLASH_STYLE</cl>
+                    </mapping>
                     <licenseSets>
                         <licenseSet>
                             <header>${license.custom.license.template}</header>
                             <excludes>
                                 <exclude>**/README</exclude>
+                                <exclude>**/README.md</exclude>
+                                <exclude>**/README.textile</exclude>
                                 <exclude>**/LICENSE.txt</exclude>
+                                <exclude>**/*.odg</exclude>
+                                <exclude>**/.directory</exclude>
                                 <exclude>src/test/resources/**</exclude>
                                 <exclude>src/main/resources/**</exclude>
                                 <exclude>**/kiss09.cl</exclude>
@@ -214,12 +193,6 @@
                             </excludes>
                         </licenseSet>
                     </licenseSets>
-                    <mapping>
-                        <h>DOUBLESLASH_STYLE</h>
-                        <c>DOUBLESLASH_STYLE</c>
-                        <cpp>DOUBLESLASH_STYLE</cpp>
-                        <cl>DOUBLESLASH_STYLE</cl>
-                    </mapping>
                 </configuration>
                 <executions>
                     <execution>

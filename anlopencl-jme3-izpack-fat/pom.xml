@@ -77,6 +77,7 @@
         <relativePath />
     </parent>
 
+    <groupId>com.anrisoftware.anlopencl</groupId>
     <artifactId>anlopencl-jme3-izpack-fat</artifactId>
     <version>0.0.4-SNAPSHOT</version>
     <name>ANL-OpenCL :: IzPack Installation :: Fat Jar</name>
@@ -202,7 +203,7 @@
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-core</artifactId>
-            <version>0.0.4-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- log dependencies -->

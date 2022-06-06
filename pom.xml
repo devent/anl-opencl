@@ -65,8 +65,7 @@
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -74,7 +73,7 @@
     <parent>
         <groupId>com.anrisoftware.globalpom</groupId>
         <artifactId>globalpom-groovy-gmavenplus</artifactId>
-        <version>4.6.1</version>
+        <version>4.6.2</version>
     </parent>
 
     <groupId>com.anrisoftware.anlopencl</groupId>
@@ -86,6 +85,7 @@
     <inceptionYear>2021</inceptionYear>
 
     <modules>
+        <module>anlopencl-doc</module>
         <module>anlopencl-jme3-app-assets</module>
         <module>anlopencl-jme3-app-core</module>
         <module>anlopencl-jme3-app-javafx</module>
@@ -99,12 +99,11 @@
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
         <license.custom.license.email>erwin@muellerpublic.de</license.custom.license.email>
-        <project.custom.current.year>2022</project.custom.current.year>
-        <project.custom.jme3.version>3.5.2-stable</project.custom.jme3.version>
-        <project.custom.jmh.version>1.32</project.custom.jmh.version>
-        <project.custom.javafx.version>16</project.custom.javafx.version>
+        <globalpom.custom.current.year>2022</globalpom.custom.current.year>
+        <globalpom.custom.jme3.version>3.5.2-stable</globalpom.custom.jme3.version>
+        <globalpom.custom.jmh.version>1.32</globalpom.custom.jmh.version>
+        <globalpom.custom.javafx.version>16</globalpom.custom.javafx.version>
     </properties>
 
     <licenses>
@@ -135,146 +134,116 @@
             <dependency>
                 <groupId>com.anrisoftware.globalpom</groupId>
                 <artifactId>globalpom-groovytestutils</artifactId>
-                <version>${project.custom.globalpom.version}</version>
+                <version>${globalpom.custom.anrisoftware.version}</version>
             </dependency>
+
+            <!-- Resources -->
+            <dependency>
+                <groupId>com.anrisoftware.resources</groupId>
+                <artifactId>resources-images</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.resources</groupId>
+                <artifactId>resources-api</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.resources</groupId>
+                <artifactId>resources-getbundle</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.resources</groupId>
+                <artifactId>resources-texts</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.resources</groupId>
+                <artifactId>resources-binary</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jmonkeyengine</groupId>
+                <artifactId>jme3-core</artifactId>
+                <version>${globalpom.custom.jme3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jmonkeyengine</groupId>
+                <artifactId>jme3-desktop</artifactId>
+                <version>${globalpom.custom.jme3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jmonkeyengine</groupId>
+                <artifactId>jme3-lwjgl3</artifactId>
+                <version>${globalpom.custom.jme3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jmonkeyengine</groupId>
+                <artifactId>jme3-testdata</artifactId>
+                <version>${globalpom.custom.jme3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-fxml</artifactId>
+                <version>${globalpom.custom.javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-swing</artifactId>
+                <version>${globalpom.custom.javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-base</artifactId>
+                <version>${globalpom.custom.javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-web</artifactId>
+                <version>${globalpom.custom.javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-controls</artifactId>
+                <version>${globalpom.custom.javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.fxmisc.richtext</groupId>
+                <artifactId>richtextfx</artifactId>
+                <version>0.10.6</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dlsc.formsfx</groupId>
+                <artifactId>formsfx-core</artifactId>
+                <version>11.4.2</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.aparapi</groupId>
                 <artifactId>aparapi</artifactId>
                 <version>3.0.0</version>
             </dependency>
             <dependency>
-                <groupId>com.jayfella</groupId>
-                <artifactId>jme-jfx-11</artifactId>
-                <version>1.1.5-1.0.0</version>
+                <groupId>com.anrisoftware.jmejfx</groupId>
+                <artifactId>jme-jfx</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>net.raumzeitfalle.fx</groupId>
                 <artifactId>scenic-view</artifactId>
                 <version>11.0.2</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>2.12.5</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${project.custom.source.source}</source>
-                    <target>${project.custom.source.target}</target>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${project.custom.lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>${project.custom.lombok.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                        <version>${project.custom.groovy.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>4.2.rc3</version>
-                <configuration>
-                    <properties>
-                        <owner>${license.custom.license.owner}</owner>
-                        <email>${license.custom.license.email}</email>
-                    </properties>
-                    <licenseSets>
-                        <licenseSet>
-                            <header>${license.custom.license.template}</header>
-                            <excludes>
-                                <exclude>**/README</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>src/test/resources/**</exclude>
-                                <exclude>src/main/resources/**</exclude>
-                                <exclude>**/kiss09.cl</exclude>
-                                <exclude>**/.directory</exclude>
-                                <exclude>**/CNAME</exclude>
-                                <exclude>anlopencl-doc/**</exclude>
-                                <exclude>jenkins-cpp-docker/**</exclude>
-                                <exclude>html/**</exclude>
-                                <exclude>out/**</exclude>
-                                <exclude>Debug/**</exclude>
-                                <exclude>Debug-LLVM/**</exclude>
-                                <exclude>Debug-OpenCL/**</exclude>
-                                <exclude>OpenCL/**</exclude>
-                                <exclude>Release-LLVM/**</exclude>
-                                <exclude>benchmark/**</exclude>
-                                <exclude>googletest/**</exclude>
-                                <exclude>llvm-project/**</exclude>
-                                <exclude>OpenCL-CLHPP/**</exclude>
-                                <exclude>OpenCL-Headers/**</exclude>
-                                <exclude>spdlog/**</exclude>
-                            </excludes>
-                        </licenseSet>
-                    </licenseSets>
-                    <mapping>
-                        <h>DOUBLESLASH_STYLE</h>
-                        <c>DOUBLESLASH_STYLE</c>
-                        <cpp>DOUBLESLASH_STYLE</cpp>
-                        <cl>DOUBLESLASH_STYLE</cl>
-                    </mapping>
-                    <header>${license.custom.license.template}</header>
-                    <excludes>
-                        <exclude>**/README</exclude>
-                        <exclude>**/LICENSE.txt</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                        <exclude>**/kiss09.cl</exclude>
-                        <exclude>**/.directory</exclude>
-                        <exclude>**/CNAME</exclude>
-                        <exclude>anlopencl-doc/**</exclude>
-                        <exclude>jenkins-cpp-docker/**</exclude>
-                        <exclude>html/**</exclude>
-                        <exclude>out/**</exclude>
-                        <exclude>Debug/**</exclude>
-                        <exclude>Debug-LLVM/**</exclude>
-                        <exclude>Debug-OpenCL/**</exclude>
-                        <exclude>OpenCL/**</exclude>
-                        <exclude>Release-LLVM/**</exclude>
-                        <exclude>benchmark/**</exclude>
-                        <exclude>googletest/**</exclude>
-                        <exclude>llvm-project/**</exclude>
-                        <exclude>OpenCL-CLHPP/**</exclude>
-                        <exclude>OpenCL-Headers/**</exclude>
-                        <exclude>spdlog/**</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

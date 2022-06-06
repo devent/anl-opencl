@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: OpenCL
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,6 +73,7 @@ import java.nio.FloatBuffer;
 import java.util.concurrent.ForkJoinPool;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -87,6 +88,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+@EnabledIfEnvironmentVariable(named = "com.anrisoftware.anlopencl.benchmark_test_enabled", matches = "yes")
 public class Map2DBenchmarkTest {
 
     @State(Scope.Benchmark)
