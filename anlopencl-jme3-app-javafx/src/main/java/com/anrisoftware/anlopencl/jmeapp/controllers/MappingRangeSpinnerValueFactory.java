@@ -74,8 +74,10 @@ import javafx.util.StringConverter;
 
 /**
  * Copies implementation from
- * {@link SpinnerValueFactory#DoubleSpinnerValueFactory}
+ * {@code SpinnerValueFactory.DoubleSpinnerValueFactory} and changes the format
+ * of the decimal number.
  *
+ * @see SpinnerValueFactory.DoubleSpinnerValueFactory
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> {
