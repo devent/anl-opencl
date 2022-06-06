@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: IzPack Installation
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@
     <parent>
         <artifactId>globalpom-izpack</artifactId>
         <groupId>com.anrisoftware.globalpom</groupId>
-        <version>4.6.1</version>
+        <version>4.6.2-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -85,21 +85,20 @@
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <project.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</project.custom.app.mainclass>
-        <project.custom.app.name>ANL-OpenCL</project.custom.app.name>
-        <project.custom.app.description>ANL-OpenCL</project.custom.app.description>
-        <project.custom.app.version>${project.version}</project.custom.app.version>
-        <project.custom.app.path>anl-opencl-${project.custom.app.version}</project.custom.app.path>
-        <project.custom.app.author.name>Erwin Müller</project.custom.app.author.name>
-        <project.custom.app.author.email>erwin@muellerpublic.de</project.custom.app.author.email>
-        <project.custom.app.organization.url>https://anl-opencl.anrisoftware.com</project.custom.app.organization.url>
-        <project.custom.izpack.readme>etc/en_US/readme.txt</project.custom.izpack.readme>
-        <project.custom.launch4j.install.originalfilename>anl-opencl-${project.custom.app.version}.exe</project.custom.launch4j.install.originalfilename>
-        <project.custom.launch4j.install.internalname>anl-opencl-${project.custom.app.version}.jar</project.custom.launch4j.install.internalname>
-        <project.custom.launch4j.applauncher.launcherfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.launcherfilename>
-        <project.custom.launch4j.applauncher.jarfilename>anl-opencl-${project.custom.app.version}</project.custom.launch4j.applauncher.jarfilename>
+        <globalpom.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</globalpom.custom.app.mainclass>
+        <globalpom.custom.app.name>ANL-OpenCL</globalpom.custom.app.name>
+        <globalpom.custom.app.description>ANL-OpenCL</globalpom.custom.app.description>
+        <globalpom.custom.app.version>${project.version}</globalpom.custom.app.version>
+        <globalpom.custom.app.path>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.app.path>
+        <globalpom.custom.app.author.name>Erwin Müller</globalpom.custom.app.author.name>
+        <globalpom.custom.app.author.email>erwin@muellerpublic.de</globalpom.custom.app.author.email>
+        <globalpom.custom.app.organization.url>https://anl-opencl.anrisoftware.com</globalpom.custom.app.organization.url>
+        <globalpom.custom.izpack.readme>etc/en_US/readme.txt</globalpom.custom.izpack.readme>
+        <globalpom.custom.launch4j.install.originalfilename>anl-opencl-${globalpom.custom.app.version}.exe</globalpom.custom.launch4j.install.originalfilename>
+        <globalpom.custom.launch4j.install.internalname>anl-opencl-${globalpom.custom.app.version}.jar</globalpom.custom.launch4j.install.internalname>
+        <globalpom.custom.launch4j.applauncher.launcherfilename>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.launch4j.applauncher.launcherfilename>
+        <globalpom.custom.launch4j.applauncher.jarfilename>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
-        <project.custom.globalpom.version>4.6.1</project.custom.globalpom.version>
         <lwjgl.version>3.3.1</lwjgl.version>
         <lwjgl.natives.linux>natives-linux</lwjgl.natives.linux>
         <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
@@ -159,7 +158,7 @@
             <dependency>
                 <groupId>com.anrisoftware.globalpom</groupId>
                 <artifactId>globalpom-groovytestutils</artifactId>
-                <version>${project.custom.globalpom.version}</version>
+                <version>${globalpom.custom.anrisoftware.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lwjgl</groupId>
@@ -223,20 +222,31 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>${license.custom.license.template}</header>
                     <properties>
                         <owner>${license.custom.license.owner}</owner>
                         <email>${license.custom.license.email}</email>
-                        <project.custom.year>${project.custom.year}</project.custom.year>
+                        <year>${globalpom.custom.year}</year>
                     </properties>
-                    <excludes>
-                        <exclude>**/README</exclude>
-                        <exclude>**/LICENSE.txt</exclude>
-                        <exclude>**/no_java_runtime.txt</exclude>
-                        <exclude>**/readme.txt</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                    </excludes>
+                    <mapping>
+                        <Jenkinsfile>JAVADOC_STYLE</Jenkinsfile>
+                    </mapping>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>${license.custom.license.template}</header>
+                            <excludes>
+                                <exclude>**/README</exclude>
+                                <exclude>**/README.md</exclude>
+                                <exclude>**/README.textile</exclude>
+                                <exclude>**/LICENSE.txt</exclude>
+                                <exclude>**/*.odg</exclude>
+                                <exclude>**/.directory</exclude>
+                                <exclude>src/test/resources/**</exclude>
+                                <exclude>src/main/resources/**</exclude>
+                                <exclude>**/no_java_runtime.txt</exclude>
+                                <exclude>**/readme.txt</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
                 </configuration>
                 <executions>
                     <execution>

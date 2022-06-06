@@ -1,12 +1,12 @@
 @REM
-@REM Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+@REM Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 @REM Released as open-source under the Apache License, Version 2.0.
 @REM
 @REM ****************************************************************************
 @REM ANL-OpenCL :: IzPack Installation
 @REM ****************************************************************************
 @REM
-@REM Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+@REM Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 @REM
 @REM Licensed under the Apache License, Version 2.0 (the "License");
 @REM you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ set apppath=%bashpath%/../..
 set lib="%apppath%"\lib\*
 set log="-Dlogback.configurationFile=file:///%apppath%/etc/logback-debug.xml"
 set args=
-set mainClass="${project.custom.app.mainclass}"
+set mainClass="${globalpom.custom.app.mainclass}"
 
 java -version >nul 2>&1 && ( set found=true ) || ( set found=false )
 if %found% EQU false (

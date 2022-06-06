@@ -102,13 +102,13 @@ function checkJavaRuntime() {
 currentDir=$(pwd)
 changeBinDirectory
 javaCommand=`type -P java`
-mainClass="${project.custom.app.mainclass}"
+mainClass="${globalpom.custom.app.mainclass}"
 lib="../../lib/*"
 IFS='.' read -a lang <<< "$LANG"
 log="-Dlogback.configurationFile=file:///$PWD/../../etc/logback.xml"
-logArgs="-Dproject.custom.log.prefix=$currentDir"
+logArgs="-Dglobalpom.custom.log.prefix=$currentDir"
 args=""
 noJavaRuntimeText="No Java Runtime found."
 checkJavaRuntime
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
-"$javaCommand" "$logArgs" "$log" -cp "$lib" "$mainClass" $args $*
+./prime-run.sh "$javaCommand" "$logArgs" "$log" -cp "$lib" "$mainClass" $args $*

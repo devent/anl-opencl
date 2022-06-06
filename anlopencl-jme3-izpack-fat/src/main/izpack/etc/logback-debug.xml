@@ -81,9 +81,9 @@
 
     <appender name="FILE_DAILY"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>\${java.io.tmpdir}/${project.custom.app.path}-\${bySecond}.log</file>
+        <file>\${java.io.tmpdir}/${globalpom.custom.app.path}-\${bySecond}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>\${java.io.tmpdir}/${project.custom.app.path}-\${bySecond}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>\${java.io.tmpdir}/${globalpom.custom.app.path}-\${bySecond}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>1MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>

@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: IzPack Installation
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -70,48 +70,48 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://izpack.org/schema/shortcuts http://izpack.org/schema/5.0/izpack-shortcuts-5.0.xsd">
 <skipIfNotSupported />
-    <programGroup defaultName="${project.custom.app.name}"
+    <programGroup defaultName="${globalpom.custom.app.name}"
         location="startMenu" />
     <shortcut
-       name="${project.custom.app.name}"
+       name="${globalpom.custom.app.name}"
      programGroup="yes"
      desktop="yes"
      applications="no"
      startMenu="yes"
      startup="no"
-     target="${INSTALL_PATH}/bin/linux/${project.custom.app.linuxbin}"
+     target="${INSTALL_PATH}/bin/linux/${globalpom.custom.app.linuxbin}"
      commandLine=""
      workingDirectory="$INSTALL_PATH/bin/linux"
-     description="Start ${project.custom.app.name}. ${project.custom.app.description}"
+     description="Start ${globalpom.custom.app.name}. ${globalpom.custom.app.description}"
      type="Application"
      encoding="UTF-8"
      terminal="false"
      KdeSubstUID="false"
      initialState="normal"
-     iconFile="$INSTALL_PATH/${project.custom.app.icon.unix}">
+     iconFile="$INSTALL_PATH/${globalpom.custom.app.icon.unix}">
         <createForPack name="Linux" />
     </shortcut>
     <shortcut
-       name="Debug Mode ${project.custom.app.name}"
+       name="Debug Mode ${globalpom.custom.app.name}"
      programGroup="yes"
      desktop="no"
      applications="no"
      startMenu="yes"
      startup="no"
-     target="$INSTALL_PATH/bin/linux/${project.custom.app.linuxdebugbin}"
+     target="$INSTALL_PATH/bin/linux/${globalpom.custom.app.linuxdebugbin}"
      commandLine=""
      workingDirectory="$INSTALL_PATH/bin/linux"
-     description="Start debug mode of ${project.custom.app.name}. ${project.custom.app.description}"
+     description="Start debug mode of ${globalpom.custom.app.name}. ${globalpom.custom.app.description}"
      type="Application"
      encoding="UTF-8"
      terminal="true"
      KdeSubstUID="false"
      initialState="normal"
-     iconFile="$INSTALL_PATH/${project.custom.app.icon.unix}">
+     iconFile="$INSTALL_PATH/${globalpom.custom.app.icon.unix}">
         <createForPack name="Linux" />
     </shortcut>
     <shortcut
-       name="${project.custom.app.name} User Manual"
+       name="${globalpom.custom.app.name} User Manual"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -121,13 +121,13 @@
      target="${INSTALL_PATH}/doc/en/anlopencl-jme3-doc-en-0.0.2.pdf"
      commandLine=""
      workingDirectory="$INSTALL_PATH/doc/en"
-     description="${project.custom.app.name} User Manual"
+     description="${globalpom.custom.app.name} User Manual"
      type="link"
      mimetype="text/plain"
      encoding="UTF-8">
     </shortcut>
     <shortcut
-       name="${project.custom.app.name} Benutzerhandbuch"
+       name="${globalpom.custom.app.name} Benutzerhandbuch"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -137,7 +137,7 @@
      target="${INSTALL_PATH}/doc/en/anlopencl-jme3-doc-en-0.0.2.pdf"
      commandLine=""
      workingDirectory="$INSTALL_PATH/doc/en"
-     description="${project.custom.app.name} Benutzerhandbuch"
+     description="${globalpom.custom.app.name} Benutzerhandbuch"
      type="link"
      mimetype="text/plain"
      encoding="UTF-8">

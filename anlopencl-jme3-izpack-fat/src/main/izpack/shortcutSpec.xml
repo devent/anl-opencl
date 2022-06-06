@@ -70,48 +70,48 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://izpack.org/schema/shortcuts http://izpack.org/schema/5.0/izpack-shortcuts-5.0.xsd">
     <skipIfNotSupported />
-    <programGroup defaultName="${project.custom.app.name}"
+    <programGroup defaultName="${globalpom.custom.app.name}"
         location="applications||startMenu" />
     <shortcut
-       name="${project.custom.app.name}"
+       name="${globalpom.custom.app.name}"
      programGroup="yes"
      desktop="yes"
      applications="yes"
      startMenu="yes"
      startup="no"
-     target="${INSTALL_PATH}/bin/windows/${project.custom.app.windowsbin}"
+     target="${INSTALL_PATH}/bin/windows/${globalpom.custom.app.windowsbin}"
      commandLine=""
      workingDirectory="$INSTALL_PATH"
-     description="Start ${project.custom.app.name}. ${project.custom.app.description}"
+     description="Start ${globalpom.custom.app.name}. ${globalpom.custom.app.description}"
      type="Application"
      encoding="UTF-8"
      terminal="false"
      KdeSubstUID="false"
      initialState="normal"
-     iconFile="${INSTALL_PATH}/${project.custom.app.icon.windows}">
+     iconFile="${INSTALL_PATH}/${globalpom.custom.app.icon.windows}">
         <createForPack name="Windows" />
     </shortcut>
     <shortcut
-       name="Debug ${project.custom.app.name}"
+       name="Debug ${globalpom.custom.app.name}"
      programGroup="yes"
      desktop="no"
      applications="no"
      startMenu="yes"
      startup="no"
-     target="${INSTALL_PATH}/bin/windows/${project.custom.app.windowsdebugbin}"
+     target="${INSTALL_PATH}/bin/windows/${globalpom.custom.app.windowsdebugbin}"
      commandLine=""
      workingDirectory="${INSTALL_PATH}"
-     description="Start debug mode of ${project.custom.app.name}. ${project.custom.app.description}"
+     description="Start debug mode of ${globalpom.custom.app.name}. ${globalpom.custom.app.description}"
      type="Application"
      encoding="UTF-8"
      terminal="true"
      KdeSubstUID="false"
      initialState="normal"
-     iconFile="${INSTALL_PATH}/${project.custom.app.icon.windows}">
+     iconFile="${INSTALL_PATH}/${globalpom.custom.app.icon.windows}">
         <createForPack name="Windows" />
     </shortcut>
     <shortcut
-       name="${project.custom.app.name} User Manual"
+       name="${globalpom.custom.app.name} User Manual"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -120,12 +120,12 @@
      target="${INSTALL_PATH}/doc/en/anlopencl-jme3-doc-en-0.0.2.pdf"
      commandLine=""
      workingDirectory="$INSTALL_PATH/doc/en"
-     description="${project.custom.app.name} User Manual"
+     description="${globalpom.custom.app.name} User Manual"
      type="Link"
      encoding="UTF-8">
     </shortcut>
     <shortcut
-       name="${project.custom.app.name} Benutzerhandbuch"
+       name="${globalpom.custom.app.name} Benutzerhandbuch"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -134,7 +134,7 @@
      target="${INSTALL_PATH}/doc/en/anlopencl-jme3-doc-en-0.0.2.pdf"
      commandLine=""
      workingDirectory="${INSTALL_PATH}/doc/en"
-     description="${project.custom.app.name} Benutzerhandbuch"
+     description="${globalpom.custom.app.name} Benutzerhandbuch"
      type="Link"
      encoding="UTF-8">
     </shortcut>
