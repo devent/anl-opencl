@@ -1,0 +1,44 @@
+@startuml
+actor User
+boundary settingsButton
+boundary okButton
+boundary cancelButton
+participant GameMainPanelActor as gmpActor
+participant ToolbarButtonsActor as tbActor
+participant SettingsDialogActor as sdActor
+
+User -> settingsButton : clicked
+activate settingsButton
+settingsButton -> gmpActor : SettingsClickedMessage
+deactivate settingsButton
+
+activate gmpActor
+gmpActor -> gmpActor : onSettingsClicked()
+gmpActor -> tbActor : SettingsClickedMessage
+
+activate tbActor
+tbActor -> tbActor : onSettingsClicked
+create sdActor
+gmpActor -> sdActor : create
+deactivate tbActor
+
+par
+gmpActor -> sdActor : OpenSettingsDialogMessage
+sdActor -> sdActor : onOpenSettingsDialog()
+end
+
+deactivate gmpActor
+
+== ==
+
+alt
+User -> okButton : clicked
+okButton -> gmpActor : SettingsDialogOkedMessage
+
+else
+
+User -> cancelButton : clicked
+cancelButton -> gmpActor : SettingsDialogCanceledMessage
+end
+
+@enduml
