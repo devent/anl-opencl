@@ -72,6 +72,12 @@ import akka.actor.typed.receptionist.ServiceKey;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Message that the actor was terminated. This message is send after the actor
+ * was terminated.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @RequiredArgsConstructor
 @ToString
 public class ActorTerminatedMessage extends Message {

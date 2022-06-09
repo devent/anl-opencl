@@ -71,28 +71,23 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 import java.util.Locale;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.dlsc.formsfx.model.structure.Form;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * {@code game-main-pane.fxml} controller.
+ * {@code settings-dialog-pane.fxml} controller.
  *
  * @author Erwin Müller
  */
@@ -100,110 +95,47 @@ import lombok.extern.slf4j.Slf4j;
 public class SettingsDialogController {
 
     @FXML
-    public BorderPane rootPane;
+    public Label titleLabel;
 
     @FXML
-    public SplitPane splitMain;
+    public ImageView logoView;
 
     @FXML
-    public Accordion inputAccordion;
+    public Button okButton;
 
     @FXML
-    public TitledPane imageInputsPane;
+    public Button applyButton;
 
     @FXML
-    public Pane imageFieldsPane;
+    public Button cancelButton;
 
     @FXML
-    public ImageFieldsPaneController imageFieldsPaneController;
+    public Label tempdirLabel;
 
     @FXML
-    public TitledPane map2dInputsPane;
+    public TextField tempdirField;
 
     @FXML
-    public BorderPane mappingFieldsPane;
-
-    @FXML
-    public MappingFieldsPaneController mappingFieldsPaneController;
-
-    @FXML
-    public TitledPane fileInputsPane;
-
-    @FXML
-    public Button buttonBuild;
-
-    @FXML
-    public Button buttonQuit;
-
-    @FXML
-    public Button settingsButton;
-
-    @FXML
-    public ToggleButton buttonRun;
-
-    @FXML
-    public Button resetCameraButton;
-
-    @FXML
-    public Label statusLabel;
-
-    @FXML
-    public ProgressIndicator statusProgress;
-
-    @FXML
-    public TitledPane buildLogsPane;
-
-    @FXML
-    public TextArea buildLogsText;
-
-    public Form mappingForm;
+    public Button openTempdirButton;
 
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
-        resetCameraButton.setGraphic(new ImageView(toFXImage(
-                images.getResource("resetCameraButton", locale, iconSize).getBufferedImage(TYPE_INT_ARGB), null)));
-        resetCameraButton.setText(null);
+        var settingsDialogImage = images.getResource("settings_dialog", locale, IconSize.HUGE);
+        logoView.setImage(toFXImage(settingsDialogImage.getBufferedImage(TYPE_INT_ARGB), null));
+        logoView.setFitWidth(50);
+        logoView.setFitHeight(264);
     }
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
-        setupImagePropertiesFields(np);
-        setupSplitMain(np);
-        setupInputAccordion(np);
-        statusProgress.setProgress(0);
-        statusProgress.setVisible(false);
-        // JavaFxUtil.runFxThread(() -> {
-        // ScenicView.show(JavaFxUI.getInstance().getScene());
-        // });
-    }
-
-    private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
-    }
-
-    private void setupSplitMain(ObservableGameMainPaneProperties np) {
-        splitMain.setDividerPosition(0, np.splitMainPosition.get());
-        splitMain.getDividers().get(0).positionProperty().bindBidirectional(np.splitMainPosition);
-    }
-
-    private void setupInputAccordion(ObservableGameMainPaneProperties np) {
-        updateLastExpandedPane(np.lastExpandedPane.get());
-        inputAccordion.expandedPaneProperty().addListener((o, ov, nv) -> {
-            if (nv != null) {
-                np.lastExpandedPane.set(nv.getId());
-            }
+        okButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogOkedMessage());
         });
-        np.lastExpandedPane.addListener((o, ov, nv) -> {
-            updateLastExpandedPane(nv);
+        cancelButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogCanceledMessage());
         });
-    }
-
-    private void updateLastExpandedPane(String id) {
-        var list = inputAccordion.getPanes().filtered((n) -> n.getId().equals(id));
-        if (list.size() > 0) {
-            var pane = list.get(0);
-            inputAccordion.setExpandedPane(pane);
-        } else {
-            log.error("No panels in noiseAccordion matching {}", id);
-        }
+        applyButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogApplyMessage());
+        });
     }
 
 }

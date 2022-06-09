@@ -65,6 +65,7 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
+import static com.anrisoftware.anlopencl.jmeapp.actors.AdditionalCss.ADDITIONAL_CSS;
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static java.time.Duration.ofSeconds;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -84,9 +85,9 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.OpenSettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogClosedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -130,8 +131,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     public static CompletionStage<ActorRef<Message>> create(Injector injector, Duration timeout) {
         return AbstractMainPanelActor.create(injector, timeout, ID, KEY, NAME, GameMainPanelActorFactory.class,
-                "/game-main-pane.fxml", panelActors, "/modena_dark.css", "/forms-inputs.css",
-                "/opencl-keywords-dark-wombat.css");
+                "/game-main-pane.fxml", panelActors, ADDITIONAL_CSS);
     }
 
     private final Images images;
@@ -147,11 +147,9 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private ActorRef<Message> openclBuildActor;
 
-    private ActorRef<Message> settingsDialogActor;
-
     @Inject
     public GameMainPanelActor(ImagesFactory imagesFactory) {
-        images = imagesFactory.create(GameMainPanelActor.class.getSimpleName());
+        this.images = imagesFactory.create(GameMainPanelActor.class.getSimpleName());
     }
 
     @Override
@@ -225,28 +223,41 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return getDefaultBehavior().build();
     }
 
-    private Behavior<Message> onSettingsDialogClosed(SettingsDialogClosedMessage m) {
-        log.debug("onSettingsDialogClosed {}", m);
-        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        initial.actors.get(SettingsDialogActor.NAME).tell(m);
-        return getDefaultBehavior().build();
-    }
-
+    /**
+     * Processing {@link SettingsClickedMessage}.
+     * <p>
+     * This message is send after if user wants to open the settings dialog by
+     * either clicking on the settings button or using a shortcut key binding.
+     * <p>
+     * Returns a behavior that reacts to the following messages:
+     * <ul>
+     * <li>{@link #getBehaviorAfterAttachGui()}
+     * <li>{@link SettingsDialogMessage}
+     * </ul>
+     */
     private Behavior<Message> onSettingsClicked(SettingsClickedMessage m) {
         log.debug("onSettingsClicked {}", m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        if (!initial.actors.contains(SettingsDialogActor.NAME)) {
+        if (!actor.getMainActor().haveActor(SettingsDialogActor.ID)) {
             SettingsDialogActor.create(ofSeconds(1), injector).whenComplete((res, ex) -> {
                 if (ex != null) {
                     log.error("Error create settings dialog actor", ex);
                 } else {
-                    res.tell(new OpenSettingsDialogMessage());
+                    res.tell(new SettingsDialogOpenMessage());
                 }
             });
+        } else {
+            actor.getMainActor().getActor(SettingsDialogActor.ID).tell(new SettingsDialogOpenMessage());
         }
         return super.getBehaviorAfterAttachGui()//
-                .onMessage(SettingsDialogClosedMessage.class, this::onSettingsDialogClosed)//
+                .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
                 .build();
+    }
+
+    private Behavior<Message> onSettingsDialogClosed(SettingsDialogMessage m) {
+        log.debug("onSettingsDialogClosed {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        return getDefaultBehavior().build();
     }
 
     private BehaviorBuilder<Message> getDefaultBehavior() {

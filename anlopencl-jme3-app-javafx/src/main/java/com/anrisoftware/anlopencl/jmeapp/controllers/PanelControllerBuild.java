@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model
+ * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,36 +63,118 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.controllers;
 
-import lombok.ToString;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
+import javax.inject.Inject;
+
+import org.apache.commons.io.IOUtils;
+
+import com.jayfella.jme.jfx.JavaFxUI;
+import com.jme3.app.Application;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Message that the settings dialog was closed.
+ * Loads the FXML and creates the panel controller.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class SettingsDialogClosedMessage extends GuiMessage {
+@Slf4j
+public class PanelControllerBuild {
 
     /**
-     * Message that the settings dialog was closed by canceling it.
+     * Initializes the JavaFx UI and loads the FXML and creates the panel
+     * controller.
      *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
-    @ToString(callSuper = true)
-    public static class SettingsDialogCanceledMessage extends SettingsDialogClosedMessage {
+    public static class PanelControllerInitializeFxBuild extends PanelControllerBuild {
 
+        @Inject
+        PanelControllerInitializeFxBuild(Application app, GlobalKeys globalKeys) {
+            super(app, globalKeys);
+        }
+
+        @Override
+        @SneakyThrows
+        protected void initializeFx(List<String> css) {
+            var task = app.enqueue(() -> {
+                JavaFxUI.initialize(app, css.toArray(new String[0]));
+                return true;
+            });
+            task.get();
+            globalKeys.setup(JavaFxUI.getInstance());
+        }
     }
 
     /**
-     * Message that the settings dialog was closed by Ok it.
+     * Contains the loaded panel and controller.
      *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOkedMessage extends SettingsDialogClosedMessage {
+    @RequiredArgsConstructor
+    public static class PanelControllerResult {
 
+        public final Region root;
+
+        public final Object controller;
+
+    }
+
+    protected final Application app;
+
+    protected final GlobalKeys globalKeys;
+
+    @Inject
+    public PanelControllerBuild(Application app, GlobalKeys globalKeys) {
+        this.app = app;
+        this.globalKeys = globalKeys;
+    }
+
+    public CompletableFuture<PanelControllerResult> loadFxml(Executor executor, String fxmlfile,
+            String... additionalCss) {
+        return CompletableFuture.supplyAsync(() -> {
+            return loadFxml0(fxmlfile, additionalCss);
+        }, executor);
+    }
+
+    @SneakyThrows
+    private PanelControllerResult loadFxml0(String fxmlfile, String... additionalCss) {
+        log.debug("setupGui0");
+        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
+        // 14);
+        var css = new ArrayList<String>();
+        css.add(getCss());
+        css.addAll(Arrays.asList(additionalCss));
+        initializeFx(css);
+        var loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlfile));
+        return new PanelControllerResult(loadFxml(loader, fxmlfile), loader.getController());
+    }
+
+    protected void initializeFx(List<String> css) {
+    }
+
+    @SneakyThrows
+    private String getCss() {
+        return IOUtils.resourceToURL("/game-theme.css").toExternalForm();
+    }
+
+    @SneakyThrows
+    private Pane loadFxml(FXMLLoader loader, String mainUiResource) {
+        var root = (Pane) loader.load(getClass().getResourceAsStream(mainUiResource));
+        return root;
     }
 
 }

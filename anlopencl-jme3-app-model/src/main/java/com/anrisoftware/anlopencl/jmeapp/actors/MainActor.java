@@ -115,6 +115,10 @@ public class MainActor extends MessageActor<Message> {
         return actors.get(id);
     }
 
+    public boolean haveActor(int id) {
+        return actors.containsKey(id);
+    }
+
     @Override
     public Receive<Message> createReceive() {
         return newReceiveBuilder()//

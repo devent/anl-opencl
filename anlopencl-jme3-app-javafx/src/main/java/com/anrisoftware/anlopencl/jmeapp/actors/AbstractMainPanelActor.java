@@ -79,8 +79,8 @@ import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.factory.Maps;
 
 import com.anrisoftware.anlopencl.jmeapp.components.PanelComponent;
-import com.anrisoftware.anlopencl.jmeapp.controllers.MainPanelControllerBuild;
-import com.anrisoftware.anlopencl.jmeapp.controllers.MainPanelControllerBuild.MainPanelControllerResult;
+import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild.PanelControllerInitializeFxBuild;
+import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild.PanelControllerResult;
 import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
@@ -134,8 +134,8 @@ public abstract class AbstractMainPanelActor {
 
     private static void startJavafxBuild(Injector injector, ActorContext<Message> context, String mainUiResource,
             Map<String, PanelActorCreator> panelActors, String... additionalCss) {
-        var javaFxBuild = injector.getInstance(MainPanelControllerBuild.class);
-        context.pipeToSelf(javaFxBuild.setupUi(context.getExecutionContext(), mainUiResource, additionalCss),
+        var build = injector.getInstance(PanelControllerInitializeFxBuild.class);
+        context.pipeToSelf(build.loadFxml(context.getExecutionContext(), mainUiResource, additionalCss),
                 (result, cause) -> {
                     if (cause == null) {
                         var actors = spawnPanelActors(injector, context, panelActors, result);
@@ -148,7 +148,7 @@ public abstract class AbstractMainPanelActor {
 
     private static ImmutableMap<String, ActorRef<Message>> spawnPanelActors(Injector injector,
             ActorContext<Message> context, Map<String, PanelActorCreator> panelActors,
-            MainPanelControllerResult result) {
+            PanelControllerResult result) {
         MutableMap<String, ActorRef<Message>> actors = Maps.mutable.empty();
         panelActors.forEach((name, a) -> {
             var actor = context.spawn(a.create(injector), name);

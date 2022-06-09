@@ -80,6 +80,7 @@ import javax.inject.Provider;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
 import com.jme3.input.controls.KeyTrigger;
 
 import javafx.scene.input.KeyCodeCombination;
@@ -101,6 +102,7 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
         map.put("QUIT_MAPPING", KeyMapping.create("QUIT_MAPPING", new KeyCodeCombination(Q, CONTROL_DOWN),
                 new KeyTrigger(KEY_Q), new GameQuitMessage()));
         map.put("BUILD_MAPPING", KeyMapping.create("BUILD_MAPPING", new BuildClickedMessage()));
+        map.put("SETTINGS_MAPPING", KeyMapping.create("SETTINGS_MAPPING", new SettingsClickedMessage()));
         // camera
         map.put("RESET_CAMERA_MAPPING", KeyMapping.create("RESET_CAMERA_MAPPING", new KeyCodeCombination(F10),
                 new KeyTrigger(KEY_F10), new ResetCameraMessage()));

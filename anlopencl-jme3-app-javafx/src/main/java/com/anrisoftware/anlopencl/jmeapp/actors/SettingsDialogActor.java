@@ -65,6 +65,7 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
+import static com.anrisoftware.anlopencl.jmeapp.actors.AdditionalCss.ADDITIONAL_CSS;
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
@@ -72,32 +73,43 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
+import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild;
+import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild.PanelControllerResult;
+import com.anrisoftware.anlopencl.jmeapp.controllers.SettingsDialogController;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.OpenSettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogClosedMessage.SettingsDialogCanceledMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogClosedMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogOpenMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
+import com.jayfella.jme.jfx.JavaFxUI;
+import com.jme3.renderer.Camera;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
+import akka.actor.typed.javadsl.StashBuffer;
 import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -108,6 +120,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SettingsDialogActor {
 
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    private static class InitialStateMessage extends Message {
+
+        public final ActorContext<Message> context;
+
+        public final Region root;
+
+        public final Object controller;
+    }
+
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    private static class ErrorSetupControllerMessage extends Message {
+
+        public final ActorContext<Message> context;
+
+        public final Throwable cause;
+    }
+
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
             SettingsDialogActor.class.getSimpleName());
 
@@ -117,14 +149,27 @@ public class SettingsDialogActor {
 
     public interface SettingsDialogActorFactory {
 
-        SettingsDialogActor create(ActorContext<Message> context);
+        SettingsDialogActor create(ActorContext<Message> context, StashBuffer<Message> buffer);
     }
 
     public static Behavior<Message> create(Injector injector) {
-        return Behaviors.setup((context) -> {
+        return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
+            context.pipeToSelf(loadPanel(injector, context), (value, cause) -> {
+                if (cause == null) {
+                    return new InitialStateMessage(context, value.root, value.controller);
+                } else {
+                    return new ErrorSetupControllerMessage(context, cause);
+                }
+            });
             context.getSystem().receptionist().tell(Receptionist.register(KEY, context.getSelf()));
-            return injector.getInstance(SettingsDialogActorFactory.class).create(context).start();
-        });
+            return injector.getInstance(SettingsDialogActorFactory.class).create(context, stash).start();
+        }));
+    }
+
+    private static CompletableFuture<PanelControllerResult> loadPanel(Injector injector,
+            ActorContext<Message> context) {
+        var build = injector.getInstance(PanelControllerBuild.class);
+        return build.loadFxml(context.getExecutionContext(), "/settings-dialog-pane.fxml", ADDITIONAL_CSS);
     }
 
     public static CompletionStage<ActorRef<Message>> create(Duration timeout, Injector injector) {
@@ -134,20 +179,35 @@ public class SettingsDialogActor {
 
     private final ActorContext<Message> context;
 
+    private final StashBuffer<Message> buffer;
+
     private final GameSettings gs;
 
     private final Images images;
 
     @Inject
+    private ActorSystemProvider actor;
+
+    @Inject
+    private GameMainPanePropertiesProvider onp;
+
+    @Inject
     @Named("keyMappings")
     private Map<String, KeyMapping> keyMappings;
 
-    private GameMainPaneController controller;
+    private SettingsDialogController controller;
+
+    private Region dialog;
 
     @Inject
-    SettingsDialogActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    private Camera camera;
+
+    @Inject
+    SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer, GameSettings gs,
+            ImagesFactory images) {
         this.context = context;
-        this.images = images.create("Images");
+        this.buffer = buffer;
+        this.images = images.create("AppImages");
         this.gs = gs;
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -157,25 +217,48 @@ public class SettingsDialogActor {
     public Behavior<Message> start() {
         return Behaviors.receive(Message.class)//
                 .onMessage(InitialStateMessage.class, this::onInitialState)//
+                .onMessage(ErrorSetupControllerMessage.class, this::onErrorState)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+                .onMessage(Message.class, this::stashOtherCommand)//
                 .build();
+    }
+
+    private Behavior<Message> stashOtherCommand(Message m) {
+        log.debug("stashOtherCommand {}", m);
+        buffer.stash(m);
+        return Behaviors.same();
     }
 
     private Behavior<Message> onInitialState(InitialStateMessage m) {
-        log.debug("onInitialState");
-        this.controller = (GameMainPaneController) m.controller;
+        log.debug("onInitialState {}", m);
+        return buffer.unstashAll(active(m));
+    }
+
+    private Behavior<Message> active(InitialStateMessage m) {
+        log.debug("activate {}", m);
+        this.controller = (SettingsDialogController) m.controller;
+        this.dialog = m.root;
+        controller.updateLocale(gs.getLocale(), images, gs.getIconSize());
+        controller.initializeListeners(actor.get(), onp.get());
         tellLocalizeControlsSelf(gs);
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .onMessage(OpenSettingsDialogMessage.class, this::onOpenSettingsDialog)//
+                .onMessage(SettingsDialogOpenMessage.class, this::onOpenSettingsDialog)//
                 .onMessage(SettingsDialogOkedMessage.class, this::onSettingsDialogOked)//
                 .onMessage(SettingsDialogCanceledMessage.class, this::onSettingsDialogCanceled)//
+                .onMessage(SettingsDialogApplyMessage.class, this::onSettingsDialogApply)//
                 .build();
     }
 
-    private Behavior<Message> onOpenSettingsDialog(OpenSettingsDialogMessage m) {
+    private Behavior<Message> onErrorState(ErrorSetupControllerMessage m) {
+        log.debug("onErrorState");
+        return Behaviors.stopped();
+    }
+
+    private Behavior<Message> onOpenSettingsDialog(SettingsDialogOpenMessage m) {
         log.debug("onOpenSettingsDialog");
         runFxThread(() -> {
+            JavaFxUI.getInstance().showDialog(dialog);
         });
         return Behaviors.same();
     }
@@ -183,12 +266,21 @@ public class SettingsDialogActor {
     private Behavior<Message> onSettingsDialogOked(SettingsDialogOkedMessage m) {
         log.debug("onSettingsDialogOked");
         runFxThread(() -> {
+            JavaFxUI.getInstance().removeDialog();
         });
         return Behaviors.same();
     }
 
     private Behavior<Message> onSettingsDialogCanceled(SettingsDialogCanceledMessage m) {
         log.debug("onSettingsDialogCanceled");
+        runFxThread(() -> {
+            JavaFxUI.getInstance().removeDialog();
+        });
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onSettingsDialogApply(SettingsDialogApplyMessage m) {
+        log.debug("onSettingsDialogApply");
         runFxThread(() -> {
         });
         return Behaviors.same();
@@ -207,6 +299,7 @@ public class SettingsDialogActor {
     }
 
     private void setupIcons(LocalizeControlsMessage m) {
+
         var contentDisplay = ContentDisplay.LEFT;
         switch (m.textPosition) {
         case NONE:
@@ -235,13 +328,6 @@ public class SettingsDialogActor {
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
                 images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
-    }
-
-    private void setDisableControlButtons(boolean disabled) {
-        runFxThread(() -> {
-            controller.buttonBuild.setDisable(disabled);
-            controller.buttonRun.setDisable(disabled);
-        });
     }
 
 }

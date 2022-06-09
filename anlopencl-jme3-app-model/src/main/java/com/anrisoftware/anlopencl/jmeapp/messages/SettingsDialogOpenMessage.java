@@ -73,6 +73,6 @@ import lombok.ToString;
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
 @ToString(callSuper = true)
-public class OpenSettingsDialogMessage extends GuiMessage {
+public class SettingsDialogOpenMessage extends GuiMessage {
 
 }

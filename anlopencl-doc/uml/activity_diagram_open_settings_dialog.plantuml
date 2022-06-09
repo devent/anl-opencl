@@ -1,31 +1,66 @@
 @startuml
 actor User
 boundary settingsButton
-boundary okButton
-boundary cancelButton
 participant GameMainPanelActor as gmpActor
 participant ToolbarButtonsActor as tbActor
 participant SettingsDialogActor as sdActor
+boundary okButton
+boundary cancelButton
 
 User -> settingsButton : clicked
 activate settingsButton
 settingsButton -> gmpActor : SettingsClickedMessage
 deactivate settingsButton
-
 activate gmpActor
 gmpActor -> gmpActor : onSettingsClicked()
+activate gmpActor
 gmpActor -> tbActor : SettingsClickedMessage
 
 activate tbActor
 tbActor -> tbActor : onSettingsClicked
-create sdActor
-gmpActor -> sdActor : create
 deactivate tbActor
 
-par
-gmpActor -> sdActor : OpenSettingsDialogMessage
-sdActor -> sdActor : onOpenSettingsDialog()
+create sdActor
+gmpActor -> sdActor : create
+activate sdActor
+sdActor -> sdActor : create()
+activate sdActor
+group withStash
+	group setup
+		par pipeToSelf
+			sdActor -> sdActor : loadPanel()
+			alt success
+				sdActor --> sdActor : InitialStateMessage
+				else error
+				sdActor --> sdActor : ErrorSetupControllerMessage
+			end 'alt
+		end 'par
+		sdActor -> sdActor : start()
+	end 'setup
+end 'withStash
+sdActor --> sdActor : behavior
+sdActor -> CreateActorMessage : createNamedActor()
+deactivate sdActor
+deactivate sdActor
+
+par whenComplete
+alt success
+gmpActor -> sdActor : SettingsDialogOpenMessage
+else failure
+gmpActor -> gmpActor : ErrorOpenSettingsDialogMessage
 end
+end
+deactivate gmpActor
+deactivate gmpActor
+
+== ==
+
+-> sdActor : OpenSettingsDialogMessage
+sdActor -> sdActor : onOpenSettingsDialog()
+create okButton
+sdActor -> okButton
+create cancelButton
+sdActor -> cancelButton : create
 
 deactivate gmpActor
 

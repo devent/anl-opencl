@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,80 +63,46 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.controllers;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import lombok.ToString;
 
-import javax.inject.Inject;
+/**
+ * Settings dialog message.
+ *
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ */
+@ToString(callSuper = true)
+public class SettingsDialogMessage extends GuiMessage {
 
-import org.apache.commons.io.IOUtils;
-
-import com.jayfella.jme.jfx.JavaFxUI;
-import com.jme3.app.Application;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-public class MainPanelControllerBuild {
-
-    @RequiredArgsConstructor
-    public static class MainPanelControllerResult {
-
-        public final Region root;
-
-        public final Object controller;
+    /**
+     * Message that the settings dialog was closed by canceling it.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsDialogCanceledMessage extends SettingsDialogMessage {
 
     }
 
-    @Inject
-    private Application app;
+    /**
+     * Message that the settings dialog was closed by Ok it.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsDialogOkedMessage extends SettingsDialogMessage {
 
-    @Inject
-    private GlobalKeys globalKeys;
-
-    public CompletableFuture<MainPanelControllerResult> setupUi(Executor executor, String mainUiResource,
-            String... additionalCss) {
-        return CompletableFuture.supplyAsync(() -> {
-            return setupGui0(mainUiResource, additionalCss);
-        }, executor);
     }
 
-    @SneakyThrows
-    private MainPanelControllerResult setupGui0(String mainUiResource, String... additionalCss) {
-        log.debug("setupGui0");
-        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
-        // 14);
-        var css = new ArrayList<String>();
-        css.add(getCss());
-        css.addAll(Arrays.asList(additionalCss));
-        var task = app.enqueue(() -> {
-            JavaFxUI.initialize(app, css.toArray(new String[0]));
-            return true;
-        });
-        task.get();
-        globalKeys.setup(JavaFxUI.getInstance());
-        var loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(mainUiResource));
-        return new MainPanelControllerResult(loadFxml(loader, mainUiResource), loader.getController());
-    }
+    /**
+     * Message that the settings dialog should be applied.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsDialogApplyMessage extends SettingsDialogMessage {
 
-    @SneakyThrows
-    private String getCss() {
-        return IOUtils.resourceToURL("/game-theme.css").toExternalForm();
-    }
-
-    @SneakyThrows
-    private Pane loadFxml(FXMLLoader loader, String mainUiResource) {
-        var root = (Pane) loader.load(getClass().getResourceAsStream(mainUiResource));
-        return root;
     }
 
 }

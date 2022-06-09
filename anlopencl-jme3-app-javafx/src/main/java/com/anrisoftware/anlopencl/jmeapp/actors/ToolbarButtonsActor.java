@@ -86,7 +86,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogClosedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
@@ -233,12 +233,12 @@ public class ToolbarButtonsActor {
         log.debug("onSettingsClicked {}", m);
         setDisableControlButtons(true);
         return Behaviors.receive(Message.class)//
-                .onMessage(SettingsDialogClosedMessage.class, this::onSettingsDialogClosed)//
+                .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
                 .onMessage(GuiMessage.class, this::onGuiCatchall)//
                 .build();
     }
 
-    private Behavior<Message> onSettingsDialogClosed(SettingsDialogClosedMessage m) {
+    private Behavior<Message> onSettingsDialogClosed(SettingsDialogMessage m) {
         log.debug("onSettingsDialogClosed {}", m);
         setDisableControlButtons(false);
         return getDefaultBehavior();
