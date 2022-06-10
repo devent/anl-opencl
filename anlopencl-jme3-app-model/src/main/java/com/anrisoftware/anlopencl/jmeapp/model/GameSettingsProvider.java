@@ -63,56 +63,74 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.model;
 
-import lombok.ToString;
+import java.io.File;
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings.GameSettings;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Settings dialog message.
+ * Provides the {@link GameSettings} and saves/loads the properties from/to
+ * file.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class SettingsDialogMessage extends GuiMessage {
+@Slf4j
+public class GameSettingsProvider implements Provider<ObservableGameSettings> {
 
-    /**
-     * Message that the settings dialog was closed by canceling it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogCanceledMessage extends SettingsDialogMessage {
+    private final static String GAME_SETTINGS_FILE = GameSettingsProvider.class.getPackageName()
+            + ".game_settings_file";
 
+    private static final File DEFAULT_GAME_SETTINGS_FILE = new File(
+            System.getProperty("user.home") + "/.anlopencl-settings.yaml");
+
+    private final GameSettings p;
+
+    private final ObservableGameSettings op;
+
+    @Inject
+    private ObjectMapper mapper;
+
+    public GameSettingsProvider() throws IOException {
+        this.p = new GameSettings();
+        this.op = new ObservableGameSettings(p);
     }
 
-    /**
-     * Message that the settings dialog was closed by Ok it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOkedMessage extends SettingsDialogMessage {
-
+    @Override
+    public ObservableGameSettings get() {
+        return op;
     }
 
-    /**
-     * Message that the settings dialog should be applied.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogApplyMessage extends SettingsDialogMessage {
-
+    @SneakyThrows
+    public void save() {
+        File file = getFile();
+        log.debug("Save settings to {}", file);
+        mapper.writeValue(file, p);
     }
 
-    /**
-     * Message that the file chooser dialog for the temp-dir should be opened.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTempdirDialogMessage extends SettingsDialogMessage {
-
+    @SneakyThrows
+    public void load() {
+        var file = getFile();
+        if (file.exists()) {
+            log.debug("Load settings from {}", file);
+            var p = mapper.readValue(file, GameSettings.class);
+            op.copy(p);
+        }
     }
 
+    private File getFile() {
+        var argsFile = System.getProperty(GAME_SETTINGS_FILE);
+        if (argsFile != null) {
+            return new File(argsFile);
+        }
+        return DEFAULT_GAME_SETTINGS_FILE;
+    }
 }

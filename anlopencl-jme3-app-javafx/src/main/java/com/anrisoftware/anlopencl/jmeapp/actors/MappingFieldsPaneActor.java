@@ -89,7 +89,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -145,7 +146,7 @@ public class MappingFieldsPaneActor {
 
     private final ActorContext<Message> context;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private final Images images;
 
@@ -165,10 +166,11 @@ public class MappingFieldsPaneActor {
     private MappingFieldsPaneController controller;
 
     @Inject
-    MappingFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    MappingFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
         this.images = images.create("ButtonsIcons");
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -189,7 +191,7 @@ public class MappingFieldsPaneActor {
             controller.updateLocale(Locale.US, images, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
         });
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(AttachGuiMessage.class, this::onAttachGui)//
@@ -200,8 +202,8 @@ public class MappingFieldsPaneActor {
                 .build();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onAttachGui(AttachGuiMessage m) {

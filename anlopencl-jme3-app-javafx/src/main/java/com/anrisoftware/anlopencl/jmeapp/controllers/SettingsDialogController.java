@@ -74,6 +74,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -84,6 +85,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -118,6 +120,8 @@ public class SettingsDialogController {
     @FXML
     public Button openTempdirButton;
 
+    public DirectoryChooser tempdirFileChooser;
+
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
         var settingsDialogImage = images.getResource("settings_dialog", locale, IconSize.HUGE);
         logoView.setImage(toFXImage(settingsDialogImage.getBufferedImage(TYPE_INT_ARGB), null));
@@ -127,6 +131,8 @@ public class SettingsDialogController {
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
+        tempdirFileChooser = new DirectoryChooser();
+        tempdirFileChooser.setTitle("Open Directory");
         okButton.setOnAction((event) -> {
             actor.tell(new SettingsDialogOkedMessage());
         });
@@ -135,6 +141,9 @@ public class SettingsDialogController {
         });
         applyButton.setOnAction((event) -> {
             actor.tell(new SettingsDialogApplyMessage());
+        });
+        openTempdirButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogOpenTempdirDialogMessage());
         });
     }
 

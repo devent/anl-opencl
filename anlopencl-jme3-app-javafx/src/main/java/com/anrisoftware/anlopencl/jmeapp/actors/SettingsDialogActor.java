@@ -87,9 +87,11 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
@@ -181,7 +183,7 @@ public class SettingsDialogActor {
 
     private final StashBuffer<Message> buffer;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private final Images images;
 
@@ -203,12 +205,13 @@ public class SettingsDialogActor {
     private Camera camera;
 
     @Inject
-    SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer, GameSettings gs,
-            ImagesFactory images) {
+    SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer,
+            GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
         this.buffer = buffer;
         this.images = images.create("AppImages");
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -238,15 +241,16 @@ public class SettingsDialogActor {
         log.debug("activate {}", m);
         this.controller = (SettingsDialogController) m.controller;
         this.dialog = m.root;
-        controller.updateLocale(gs.getLocale(), images, gs.getIconSize());
+        controller.updateLocale(gsp.get().locale.get(), images, gsp.get().iconSize.get());
         controller.initializeListeners(actor.get(), onp.get());
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(SettingsDialogOpenMessage.class, this::onOpenSettingsDialog)//
                 .onMessage(SettingsDialogOkedMessage.class, this::onSettingsDialogOked)//
                 .onMessage(SettingsDialogCanceledMessage.class, this::onSettingsDialogCanceled)//
                 .onMessage(SettingsDialogApplyMessage.class, this::onSettingsDialogApply)//
+                .onMessage(SettingsDialogOpenTempdirDialogMessage.class, this::onSettingsDialogOpenTempdirDialog)//
                 .build();
     }
 
@@ -286,12 +290,21 @@ public class SettingsDialogActor {
         return Behaviors.same();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private Behavior<Message> onSettingsDialogOpenTempdirDialog(SettingsDialogOpenTempdirDialogMessage m) {
+        log.debug("onSettingsDialogOpenTempdirDialog");
+        runFxThread(() -> {
+            var window = JavaFxUI.getInstance().getScene().getWindow();
+            controller.tempdirFileChooser.showDialog(window);
+        });
+        return Behaviors.same();
+    }
+
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls");
+        log.debug("onLocalizeControls {}", m);
         runFxThread(() -> {
             setupIcons(m);
         });

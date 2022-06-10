@@ -84,6 +84,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFini
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
@@ -153,6 +154,8 @@ public class GameApplication extends SimpleApplication {
         this.actor = injector.getInstance(ActorSystemProvider.class);
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
         gmpp.load();
+        var gsp = injector.getInstance(GameSettingsProvider.class);
+        gsp.load();
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
@@ -172,6 +175,8 @@ public class GameApplication extends SimpleApplication {
     public void stop() {
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
         gmpp.save();
+        var gsp = injector.getInstance(GameSettingsProvider.class);
+        gsp.save();
         actor.get().tell(new ShutdownMessage());
         super.stop();
     }

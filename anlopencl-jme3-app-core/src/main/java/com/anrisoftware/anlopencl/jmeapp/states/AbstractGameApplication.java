@@ -70,7 +70,6 @@ import javax.inject.Named;
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
 import com.anrisoftware.anlopencl.jmeapp.actors.MainActorsModule;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.anrisoftware.resources.binary.internal.binaries.BinariesResourcesModule;
 import com.anrisoftware.resources.binary.internal.maps.BinariesDefaultMapsModule;
@@ -124,8 +123,6 @@ abstract class AbstractGameApplication extends SimpleApplication {
 
     public final Engine entityEngine;
 
-    public final GameSettings gs;
-
     public Injector globalInjector;
 
     public Injector injector;
@@ -136,11 +133,10 @@ abstract class AbstractGameApplication extends SimpleApplication {
 
     public ActorSystemProvider actor;
 
-    protected AbstractGameApplication(GameSettings gs) {
+    protected AbstractGameApplication() {
         super();
         this.appInitialized = false;
         this.entityEngine = new Engine();
-        this.gs = gs;
         setSettings(createAppSettings());
     }
 
@@ -253,11 +249,6 @@ abstract class AbstractGameApplication extends SimpleApplication {
             @Provides
             ActorRef<Message> getActor() {
                 return AbstractGameApplication.this.actor.get();
-            }
-
-            @Provides
-            GameSettings getGameSettings() {
-                return gs;
             }
         });
     }

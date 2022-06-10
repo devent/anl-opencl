@@ -65,18 +65,26 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.model;
 
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.TextPosition;
 import com.anrisoftware.resources.images.external.IconSize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanFloatPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
+import lombok.Data;
+import lombok.SneakyThrows;
 
 /**
  * Settings that apply to all games and can be changed in the game settings
@@ -84,90 +92,88 @@ import javafx.beans.property.SimpleObjectProperty;
  *
  * @author Erwin Müller
  */
-public class GameSettings {
+public class ObservableGameSettings {
 
     /**
-     * The locale of the game.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
-    public final ObjectProperty<Locale> locale = new SimpleObjectProperty<>(Locale.US);
+    @Data
+    public static class GameSettings {
 
-    public void setLocale(Locale locale) {
-        this.locale.setValue(locale);
+        public Locale locale = Locale.US;
+
+        @JsonIgnore
+        public DateTimeFormatter gameTimeFormat = DateTimeFormatter.RFC_1123_DATE_TIME;
+
+        public float tickLength = 1 / 30f;
+
+        public float tickLongLength = 1 / 15f;
+
+        public boolean windowFullscreen = false;
+
+        public int windowWidth = 1024;
+
+        public int windowHeight = 768;
+
+        public IconSize iconSize = IconSize.MEDIUM;
+
+        public TextPosition textPosition = TextPosition.RIGHT;
+
+        public double mainSplitPosition = 0.71;
+
+        public Path tempDir = Path.of(System.getProperty("java.io.tmpdir"));
     }
 
-    public Locale getLocale() {
-        return locale.get();
+    public final ObjectProperty<Locale> locale;
+
+    public final ObjectProperty<DateTimeFormatter> gameTimeFormat;
+
+    public final FloatProperty tickLength;
+
+    public final FloatProperty tickLongLength;
+
+    public final BooleanProperty windowFullscreen;
+
+    public final IntegerProperty windowWidth;
+
+    public final IntegerProperty windowHeight;
+
+    public final ObjectProperty<IconSize> iconSize;
+
+    public final ObjectProperty<TextPosition> textPosition;
+
+    public final DoubleProperty mainSplitPosition;
+
+    public final ObjectProperty<Path> tempDir;
+
+    @SuppressWarnings("unchecked")
+    @SneakyThrows
+    public ObservableGameSettings(GameSettings p) {
+        this.locale = JavaBeanObjectPropertyBuilder.create().bean(p).name("locale").build();
+        this.gameTimeFormat = JavaBeanObjectPropertyBuilder.create().bean(p).name("gameTimeFormat").build();
+        this.tickLength = JavaBeanFloatPropertyBuilder.create().bean(p).name("tickLength").build();
+        this.tickLongLength = JavaBeanFloatPropertyBuilder.create().bean(p).name("tickLongLength").build();
+        this.windowFullscreen = JavaBeanBooleanPropertyBuilder.create().bean(p).name("windowFullscreen").build();
+        this.windowWidth = JavaBeanIntegerPropertyBuilder.create().bean(p).name("windowWidth").build();
+        this.windowHeight = JavaBeanIntegerPropertyBuilder.create().bean(p).name("windowHeight").build();
+        this.iconSize = JavaBeanObjectPropertyBuilder.create().bean(p).name("iconSize").build();
+        this.textPosition = JavaBeanObjectPropertyBuilder.create().bean(p).name("textPosition").build();
+        this.mainSplitPosition = JavaBeanDoublePropertyBuilder.create().bean(p).name("mainSplitPosition").build();
+        this.tempDir = JavaBeanObjectPropertyBuilder.create().bean(p).name("tempDir").build();
     }
 
-    /**
-     * The format how the game time is displayed.
-     */
-    public final DateTimeFormatter gameTimeFormat = DateTimeFormatter.RFC_1123_DATE_TIME;
-
-    public DateTimeFormatter getGameTimeFormat() {
-        return gameTimeFormat;
+    public void copy(GameSettings other) {
+        locale.set(other.locale);
+        gameTimeFormat.set(other.gameTimeFormat);
+        tickLength.set(other.tickLength);
+        tickLongLength.set(other.tickLongLength);
+        windowFullscreen.set(other.windowFullscreen);
+        windowWidth.set(other.windowWidth);
+        windowHeight.set(other.windowHeight);
+        iconSize.set(other.iconSize);
+        iconSize.set(other.iconSize);
+        mainSplitPosition.set(other.mainSplitPosition);
+        tempDir.set(other.tempDir);
     }
-
-    /**
-     * The length of the game tick.
-     */
-    public final FloatProperty tickLength = new SimpleFloatProperty(1 / 30f);
-
-    public void setTickLength(float tickLength) {
-        this.tickLength.setValue(tickLength);
-    }
-
-    public float getTickLength() {
-        return tickLength.get();
-    }
-
-    /**
-     * The length of the game tick long.
-     */
-    public final FloatProperty tickLongLength = new SimpleFloatProperty(1 / 15f);
-
-    public void setTickLongLength(float tickLongLength) {
-        this.tickLongLength.setValue(tickLongLength);
-    }
-
-    public float getTickLongLength() {
-        return tickLongLength.get();
-    }
-
-    public boolean windowFullscreen;
-
-    public int windowWidth;
-
-    public int windowHeight;
-
-    public final ObjectProperty<IconSize> iconSize = new SimpleObjectProperty<>(IconSize.LARGE);
-
-    public void setIconSize(IconSize iconSize) {
-        this.iconSize.set(iconSize);
-    }
-
-    public IconSize getIconSize() {
-        return iconSize.get();
-    }
-
-    public final ObjectProperty<TextPosition> textPosition = new SimpleObjectProperty<>(TextPosition.NONE);
-
-    public void setTextPosition(TextPosition textPosition) {
-        this.textPosition.set(textPosition);
-    }
-
-    public TextPosition getTextPosition() {
-        return textPosition.get();
-    }
-
-    public final DoubleProperty mainSplitPosition = new SimpleDoubleProperty(0.71);
-
-    public void setMainSplitPosition(double pos) {
-        this.mainSplitPosition.set(pos);
-    }
-
-    public double getMainSplitPosition() {
-        return mainSplitPosition.get();
-    }
-
 }

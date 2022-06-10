@@ -68,11 +68,18 @@ package com.anrisoftware.anlopencl.jmeapp.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 
+/**
+ * Binds the properties and settings providers as singletons.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class ModelModule extends AbstractModule {
 
     @Override
     protected void configure() {
         bind(GameMainPanePropertiesProvider.class).asEagerSingleton();
+        bind(GameSettingsProvider.class).asEagerSingleton();
         bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).asEagerSingleton();
     }
+
 }

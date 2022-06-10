@@ -87,7 +87,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
@@ -139,7 +140,7 @@ public class ToolbarButtonsActor {
 
     private final ActorContext<Message> context;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private final Images images;
 
@@ -153,10 +154,11 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
         this.images = images.create("ButtonsIcons");
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -172,7 +174,7 @@ public class ToolbarButtonsActor {
     private Behavior<Message> onInitialState(InitialStateMessage m) {
         log.debug("onInitialState");
         this.controller = (GameMainPaneController) m.controller;
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         controller.buttonQuit.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get("QUIT_MAPPING"));
         });
@@ -207,8 +209,8 @@ public class ToolbarButtonsActor {
                 .build();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
