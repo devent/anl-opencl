@@ -71,6 +71,8 @@ import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.crea
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -241,8 +243,11 @@ public class SettingsDialogActor {
         log.debug("activate {}", m);
         this.controller = (SettingsDialogController) m.controller;
         this.dialog = m.root;
-        controller.updateLocale(gsp.get().locale.get(), images, gsp.get().iconSize.get());
-        controller.initializeListeners(actor.get(), onp.get());
+        runFxThread(() -> {
+            controller.updateSettings(gsp.get());
+            controller.updateLocale(gsp.get(), images);
+            controller.initializeListeners(actor.get(), onp.get());
+        });
         tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
@@ -270,6 +275,7 @@ public class SettingsDialogActor {
     private Behavior<Message> onSettingsDialogOked(SettingsDialogOkedMessage m) {
         log.debug("onSettingsDialogOked");
         runFxThread(() -> {
+            gsp.get().tempDir.set(Path.of(controller.tempdirField.getText()));
             JavaFxUI.getInstance().removeDialog();
         });
         return Behaviors.same();
@@ -294,12 +300,18 @@ public class SettingsDialogActor {
         log.debug("onSettingsDialogOpenTempdirDialog");
         runFxThread(() -> {
             var window = JavaFxUI.getInstance().getScene().getWindow();
-            controller.tempdirFileChooser.showDialog(window);
+            controller.tempdirFileChooser.setInitialDirectory(new File(controller.tempdirField.getText()));
+            var file = controller.tempdirFileChooser.showDialog(window);
+            if (file != null) {
+                String path = file.getAbsolutePath();
+                controller.tempdirField.setText(path);
+            }
         });
         return Behaviors.same();
     }
 
     private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        log.debug("tellLocalizeControlsSelf");
         context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 

@@ -68,14 +68,13 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
-import java.util.Locale;
-
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 
@@ -122,17 +121,25 @@ public class SettingsDialogController {
 
     public DirectoryChooser tempdirFileChooser;
 
-    public void updateLocale(Locale locale, Images images, IconSize iconSize) {
-        var settingsDialogImage = images.getResource("settings_dialog", locale, IconSize.HUGE);
+    public void updateSettings(ObservableGameSettings gs) {
+        tempdirFileChooser = new DirectoryChooser();
+        tempdirFileChooser.setTitle("Open Directory");
+        var file = gs.tempDir.get().toFile();
+        tempdirFileChooser.setInitialDirectory(file);
+        tempdirField.setText(file.getAbsolutePath());
+    }
+
+    public void updateLocale(ObservableGameSettings gs, Images images) {
+        var settingsDialogImage = images.getResource("settings_dialog", gs.locale.get(), IconSize.HUGE);
         logoView.setImage(toFXImage(settingsDialogImage.getBufferedImage(TYPE_INT_ARGB), null));
+        logoView.setPreserveRatio(false);
+        logoView.setSmooth(true);
         logoView.setFitWidth(50);
         logoView.setFitHeight(264);
     }
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
-        tempdirFileChooser = new DirectoryChooser();
-        tempdirFileChooser.setTitle("Open Directory");
         okButton.setOnAction((event) -> {
             actor.tell(new SettingsDialogOkedMessage());
         });
@@ -146,5 +153,4 @@ public class SettingsDialogController {
             actor.tell(new SettingsDialogOpenTempdirDialogMessage());
         });
     }
-
 }
