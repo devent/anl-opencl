@@ -114,7 +114,7 @@ public class PanelControllerBuild {
                 return true;
             });
             task.get();
-            globalKeys.setup(JavaFxUI.getInstance());
+            globalKeys.setup(JavaFxUI.getInstance(), app.getInputManager());
         }
     }
 

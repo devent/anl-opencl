@@ -90,9 +90,6 @@ import javafx.scene.input.KeyCombination.ModifierValue
 class GlobalKeys implements ActionListener {
 
     @Inject
-    InputManager inputManager
-
-    @Inject
     ActorSystemProvider actor
 
     @Inject
@@ -105,9 +102,9 @@ class GlobalKeys implements ActionListener {
 
     boolean controlDown = false
 
-    void setup(JavaFxUI instance) {
+    void setup(JavaFxUI instance, InputManager inputManager) {
         setupControls(instance.scene)
-        initKeys()
+        initKeys(inputManager)
     }
 
     void remove(KeyMapping mapping, JmeMapping jmeMapping) {
@@ -147,7 +144,7 @@ class GlobalKeys implements ActionListener {
         }
     }
 
-    void initKeys() {
+    void initKeys(InputManager inputManager) {
         inputManager.addListener(this, keyMappings.values().findAll { it.trigger.present }.inject([]) { l, v ->
             inputManager.addMapping(v.name, v.trigger.get())
             l << v.name
