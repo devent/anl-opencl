@@ -174,6 +174,8 @@ public class GameApplication extends SimpleApplication {
     @Override
     public void stop() {
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.get().setCameraPos(getCamera().getLocation());
+        gmpp.get().setCameraRot(getCamera().getRotation());
         gmpp.save();
         var gsp = injector.getInstance(GameSettingsProvider.class);
         gsp.save();
