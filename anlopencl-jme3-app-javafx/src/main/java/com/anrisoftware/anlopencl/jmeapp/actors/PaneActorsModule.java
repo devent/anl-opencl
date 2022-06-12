@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor.GameMainPanelActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ImageFieldsPaneActor.ImageFieldsPaneActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.MappingFieldsPaneActor.MappingFieldsPaneActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.SettingsDialogActor.SettingsDialogActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.StatusBarActor.StatusBarActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ToolbarButtonsActor.ToolbarButtonsActorFactory;
 import com.google.inject.AbstractModule;
@@ -91,5 +92,7 @@ public class PaneActorsModule extends AbstractModule {
                 .build(ImageFieldsPaneActorFactory.class));
         install(new FactoryModuleBuilder().implement(MappingFieldsPaneActor.class, MappingFieldsPaneActor.class)
                 .build(MappingFieldsPaneActorFactory.class));
+        install(new FactoryModuleBuilder().implement(SettingsDialogActor.class, SettingsDialogActor.class)
+                .build(SettingsDialogActorFactory.class));
     }
 }

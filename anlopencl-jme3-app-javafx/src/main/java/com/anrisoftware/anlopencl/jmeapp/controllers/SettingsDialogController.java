@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model
+ * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,111 +63,94 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.model;
+package com.anrisoftware.anlopencl.jmeapp.controllers;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
-import com.anrisoftware.anlopencl.jmeapp.messages.TextPosition;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.resources.images.external.IconSize;
+import com.anrisoftware.resources.images.external.Images;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import akka.actor.typed.ActorRef;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Settings that apply to all games and can be changed in the game settings
- * menu.
+ * {@code settings-dialog-pane.fxml} controller.
  *
  * @author Erwin Müller
  */
-public class GameSettings {
+@Slf4j
+public class SettingsDialogController {
 
-    /**
-     * The locale of the game.
-     */
-    public final ObjectProperty<Locale> locale = new SimpleObjectProperty<>(Locale.US);
+    @FXML
+    public Label titleLabel;
 
-    public void setLocale(Locale locale) {
-        this.locale.setValue(locale);
+    @FXML
+    public ImageView logoView;
+
+    @FXML
+    public Button okButton;
+
+    @FXML
+    public Button applyButton;
+
+    @FXML
+    public Button cancelButton;
+
+    @FXML
+    public Label tempdirLabel;
+
+    @FXML
+    public TextField tempdirField;
+
+    @FXML
+    public Button openTempdirButton;
+
+    public DirectoryChooser tempdirFileChooser;
+
+    public void updateSettings(ObservableGameSettings gs) {
+        tempdirFileChooser = new DirectoryChooser();
+        tempdirFileChooser.setTitle("Open Directory");
+        var file = gs.tempDir.get().toFile();
+        tempdirFileChooser.setInitialDirectory(file);
+        tempdirField.setText(file.getAbsolutePath());
     }
 
-    public Locale getLocale() {
-        return locale.get();
+    public void updateLocale(ObservableGameSettings gs, Images images) {
+        var settingsDialogImage = images.getResource("settings_dialog", gs.locale.get(), IconSize.HUGE);
+        logoView.setImage(toFXImage(settingsDialogImage.getBufferedImage(TYPE_INT_ARGB), null));
+        logoView.setPreserveRatio(false);
+        logoView.setSmooth(true);
+        logoView.setFitWidth(50);
+        logoView.setFitHeight(264);
     }
 
-    /**
-     * The format how the game time is displayed.
-     */
-    public final DateTimeFormatter gameTimeFormat = DateTimeFormatter.RFC_1123_DATE_TIME;
-
-    public DateTimeFormatter getGameTimeFormat() {
-        return gameTimeFormat;
+    public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
+        log.debug("initializeListeners");
+        okButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogOkedMessage());
+        });
+        cancelButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogCanceledMessage());
+        });
+        applyButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogApplyMessage());
+        });
+        openTempdirButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogOpenTempdirDialogMessage());
+        });
     }
-
-    /**
-     * The length of the game tick.
-     */
-    public final FloatProperty tickLength = new SimpleFloatProperty(1 / 30f);
-
-    public void setTickLength(float tickLength) {
-        this.tickLength.setValue(tickLength);
-    }
-
-    public float getTickLength() {
-        return tickLength.get();
-    }
-
-    /**
-     * The length of the game tick long.
-     */
-    public final FloatProperty tickLongLength = new SimpleFloatProperty(1 / 15f);
-
-    public void setTickLongLength(float tickLongLength) {
-        this.tickLongLength.setValue(tickLongLength);
-    }
-
-    public float getTickLongLength() {
-        return tickLongLength.get();
-    }
-
-    public boolean windowFullscreen;
-
-    public int windowWidth;
-
-    public int windowHeight;
-
-    public final ObjectProperty<IconSize> iconSize = new SimpleObjectProperty<>(IconSize.LARGE);
-
-    public void setIconSize(IconSize iconSize) {
-        this.iconSize.set(iconSize);
-    }
-
-    public IconSize getIconSize() {
-        return iconSize.get();
-    }
-
-    public final ObjectProperty<TextPosition> textPosition = new SimpleObjectProperty<>(TextPosition.NONE);
-
-    public void setTextPosition(TextPosition textPosition) {
-        this.textPosition.set(textPosition);
-    }
-
-    public TextPosition getTextPosition() {
-        return textPosition.get();
-    }
-
-    public final DoubleProperty mainSplitPosition = new SimpleDoubleProperty(0.71);
-
-    public void setMainSplitPosition(double pos) {
-        this.mainSplitPosition.set(pos);
-    }
-
-    public double getMainSplitPosition() {
-        return mainSplitPosition.get();
-    }
-
 }

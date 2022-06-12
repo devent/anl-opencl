@@ -70,7 +70,7 @@ set apppath=%bashpath%/../..
 set lib="%apppath%"\lib\*
 set log="-Dlogback.configurationFile=file:///%apppath%/etc/logback.xml"
 set args=
-set mainClass="${project.custom.app.mainclass}"
+set mainClass="${globalpom.custom.app.mainclass}"
 
 javaw -version >nul 2>&1 && ( set found=true ) || ( set found=false )
 if %found% EQU false (

@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,8 +74,10 @@ import javafx.util.StringConverter;
 
 /**
  * Copies implementation from
- * {@link SpinnerValueFactory#DoubleSpinnerValueFactory}
+ * {@code SpinnerValueFactory.DoubleSpinnerValueFactory} and changes the format
+ * of the decimal number.
  *
+ * @see SpinnerValueFactory.DoubleSpinnerValueFactory
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> {

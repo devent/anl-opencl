@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+# Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 # Released as open-source under the Apache License, Version 2.0.
 #
 # ****************************************************************************
 # ANL-OpenCL :: IzPack Installation
 # ****************************************************************************
 #
-# Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+# Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -102,11 +102,11 @@ function checkJavaRuntime() {
 currentDir=$(pwd)
 changeBinDirectory
 javaCommand=`type -P java`
-mainClass="${project.custom.app.mainclass}"
+mainClass="${globalpom.custom.app.mainclass}"
 lib="../../lib/*"
 IFS='.' read -a lang <<< "$LANG"
 log="-Dlogback.configurationFile=file:///$PWD/../../etc/logback-debug.xml"
-logArgs="-Dproject.custom.log.prefix=$currentDir"
+logArgs="-Dglobalpom.custom.log.prefix=$currentDir"
 args=""
 noJavaRuntimeText="No Java Runtime found."
 checkJavaRuntime

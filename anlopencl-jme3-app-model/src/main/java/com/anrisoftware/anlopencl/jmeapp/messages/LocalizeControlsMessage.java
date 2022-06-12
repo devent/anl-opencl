@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,11 +67,18 @@ package com.anrisoftware.anlopencl.jmeapp.messages;
 
 import java.util.Locale;
 
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.resources.images.external.IconSize;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Message that the GUI controlls should be updated with a new locale, icon size
+ * and text position.
+ * 
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 @RequiredArgsConstructor
 public class LocalizeControlsMessage extends GuiMessage {
@@ -81,4 +88,10 @@ public class LocalizeControlsMessage extends GuiMessage {
     public final IconSize iconSize;
 
     public final TextPosition textPosition;
+
+    public LocalizeControlsMessage(ObservableGameSettings gs) {
+        this.locale = gs.locale.get();
+        this.iconSize = gs.iconSize.get();
+        this.textPosition = gs.textPosition.get();
+    }
 }

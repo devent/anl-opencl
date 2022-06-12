@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,7 +80,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
@@ -127,14 +128,15 @@ public class StatusBarActor {
 
     private final ActorContext<Message> context;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private GameMainPaneController controller;
 
     @Inject
-    StatusBarActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    StatusBarActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
     }
 
@@ -147,7 +149,7 @@ public class StatusBarActor {
     private Behavior<Message> onInitialState(InitialStateMessage m) {
         log.debug("onInitialState");
         this.controller = (GameMainPaneController) m.controller;
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
@@ -155,8 +157,8 @@ public class StatusBarActor {
                 .build();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onBuildClicked(BuildClickedMessage m) {

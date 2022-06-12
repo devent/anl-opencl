@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,6 +67,7 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -84,11 +85,46 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Loads the FXML and creates the panel controller.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @Slf4j
-public class MainPanelControllerBuild {
+public class PanelControllerBuild {
 
+    /**
+     * Initializes the JavaFx UI and loads the FXML and creates the panel
+     * controller.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    public static class PanelControllerInitializeFxBuild extends PanelControllerBuild {
+
+        @Inject
+        PanelControllerInitializeFxBuild(Application app, GlobalKeys globalKeys) {
+            super(app, globalKeys);
+        }
+
+        @Override
+        @SneakyThrows
+        protected void initializeFx(List<String> css) {
+            var task = app.enqueue(() -> {
+                JavaFxUI.initialize(app, css.toArray(new String[0]));
+                return true;
+            });
+            task.get();
+            globalKeys.setup(JavaFxUI.getInstance(), app.getInputManager());
+        }
+    }
+
+    /**
+     * Contains the loaded panel and controller.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
     @RequiredArgsConstructor
-    public static class MainPanelControllerResult {
+    public static class PanelControllerResult {
 
         public final Region root;
 
@@ -96,36 +132,38 @@ public class MainPanelControllerBuild {
 
     }
 
-    @Inject
-    private Application app;
+    protected final Application app;
+
+    protected final GlobalKeys globalKeys;
 
     @Inject
-    private GlobalKeys globalKeys;
+    public PanelControllerBuild(Application app, GlobalKeys globalKeys) {
+        this.app = app;
+        this.globalKeys = globalKeys;
+    }
 
-    public CompletableFuture<MainPanelControllerResult> setupUi(Executor executor, String mainUiResource,
+    public CompletableFuture<PanelControllerResult> loadFxml(Executor executor, String fxmlfile,
             String... additionalCss) {
         return CompletableFuture.supplyAsync(() -> {
-            return setupGui0(mainUiResource, additionalCss);
+            return loadFxml0(fxmlfile, additionalCss);
         }, executor);
     }
 
     @SneakyThrows
-    private MainPanelControllerResult setupGui0(String mainUiResource, String... additionalCss) {
+    private PanelControllerResult loadFxml0(String fxmlfile, String... additionalCss) {
         log.debug("setupGui0");
         // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
         // 14);
         var css = new ArrayList<String>();
         css.add(getCss());
         css.addAll(Arrays.asList(additionalCss));
-        var task = app.enqueue(() -> {
-            JavaFxUI.initialize(app, css.toArray(new String[0]));
-            return true;
-        });
-        task.get();
-        globalKeys.setup(JavaFxUI.getInstance());
+        initializeFx(css);
         var loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(mainUiResource));
-        return new MainPanelControllerResult(loadFxml(loader, mainUiResource), loader.getController());
+        loader.setLocation(getClass().getResource(fxmlfile));
+        return new PanelControllerResult(loadFxml(loader, fxmlfile), loader.getController());
+    }
+
+    protected void initializeFx(List<String> css) {
     }
 
     @SneakyThrows

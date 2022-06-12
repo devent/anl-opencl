@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -288,6 +288,13 @@ public class ObservableGameMainPaneProperties {
         mapy1.set(other.mapy1);
         mapz1.set(other.mapz1);
         map3d.set(other.map3d);
+        cameraPosX.set(other.cameraPosX);
+        cameraPosY.set(other.cameraPosY);
+        cameraPosZ.set(other.cameraPosZ);
+        cameraRotX.set(other.cameraRotX);
+        cameraRotY.set(other.cameraRotY);
+        cameraRotZ.set(other.cameraRotZ);
+        cameraRotW.set(other.cameraRotW);
         kernelName.set(other.kernelName);
         kernelCode.set(other.kernelCode);
         codeLastChange.set(other.codeLastChange);
@@ -303,5 +310,18 @@ public class ObservableGameMainPaneProperties {
 
     public Quaternion getCameraRot() {
         return new Quaternion(cameraRotX.get(), cameraRotY.get(), cameraRotZ.get(), cameraRotW.get());
+    }
+
+    public void setCameraPos(Vector3f l) {
+        cameraPosX.set(l.x);
+        cameraPosY.set(l.y);
+        cameraPosZ.set(l.z);
+    }
+
+    public void setCameraRot(Quaternion r) {
+        cameraRotX.set(r.getX());
+        cameraRotY.set(r.getY());
+        cameraRotZ.set(r.getZ());
+        cameraRotW.set(r.getW());
     }
 }

@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: JME3 - App - Core
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -169,51 +169,14 @@
         <dependency>
             <groupId>org.jmonkeyengine</groupId>
             <artifactId>jme3-core</artifactId>
-            <version>${project.custom.jme3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jmonkeyengine</groupId>
             <artifactId>jme3-desktop</artifactId>
-            <version>${project.custom.jme3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jmonkeyengine</groupId>
             <artifactId>jme3-lwjgl3</artifactId>
-            <version>${project.custom.jme3.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jayfella</groupId>
-            <artifactId>jme-jfx-11</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.raumzeitfalle.fx</groupId>
-            <artifactId>scenic-view</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>${project.custom.javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${project.custom.javafx.version}</version>
         </dependency>
 
         <dependency>
@@ -233,48 +196,26 @@
             <artifactId>eclipse-collections</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.12.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.fxmisc.richtext</groupId>
-            <artifactId>richtextfx</artifactId>
-            <version>0.10.6</version>
-        </dependency>
-        <dependency>
-          <groupId>com.dlsc.formsfx</groupId>
-          <artifactId>formsfx-core</artifactId>
-          <version>11.3.2</version>
-        </dependency>
-
         <!-- Resources -->
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-images</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-api</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-getbundle</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-texts</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-binary</artifactId>
-            <version>${project.custom.globalpom.version}</version>
         </dependency>
 
     </dependencies>

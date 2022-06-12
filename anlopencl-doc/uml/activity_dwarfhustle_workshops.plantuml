@@ -1,0 +1,36 @@
+@startuml
+title "Carpenter"
+|crafting spot|
+start
+
+:place crafting spot;
+note left
+Outside or inside without a room.
+end note
+
+if (have tier 0 material wood?) then (yes)
+
+:build primitive;
+note left
+Primitive forniture made of wood.
+(Bed, Chair, Table, Cabinet, Chest, Armor stand, Weapon rack)
+Tools made of wood.
+end note
+
+|workshop|
+if (have table?) then (yes)
+:set table in room;
+:build basic;
+
+floating note left
+Inside a room with forniture.
+A room is an enclosed area not too large.
+end note
+
+endif
+
+endif
+
+stop
+
+@enduml

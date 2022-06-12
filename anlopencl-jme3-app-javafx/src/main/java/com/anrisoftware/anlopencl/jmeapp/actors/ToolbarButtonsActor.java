@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +85,10 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishe
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.images.external.ImagesFactory;
@@ -137,7 +140,7 @@ public class ToolbarButtonsActor {
 
     private final ActorContext<Message> context;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private final Images images;
 
@@ -151,10 +154,11 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
         this.images = images.create("ButtonsIcons");
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -170,7 +174,7 @@ public class ToolbarButtonsActor {
     private Behavior<Message> onInitialState(InitialStateMessage m) {
         log.debug("onInitialState");
         this.controller = (GameMainPaneController) m.controller;
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         controller.buttonQuit.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get("QUIT_MAPPING"));
         });
@@ -180,6 +184,9 @@ public class ToolbarButtonsActor {
         controller.resetCameraButton.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get("RESET_CAMERA_MAPPING"));
         });
+        controller.settingsButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get("SETTINGS_MAPPING"));
+        });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)
          * -> { System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO if (ov != null &&
@@ -188,17 +195,22 @@ public class ToolbarButtonsActor {
          * } if (nv != null && nv.isSelected()) {
          * globalKeys.runAction(keyMappings.get().get("BUILDINGS_MAPPING")); } });
          */
+        return getDefaultBehavior();
+    }
+
+    private Behavior<Message> getDefaultBehavior() {
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
+                .onMessage(SettingsClickedMessage.class, this::onSettingsClicked)//
                 .onMessage(GuiMessage.class, this::onGuiCatchall)//
                 .build();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
@@ -217,6 +229,21 @@ public class ToolbarButtonsActor {
         log.debug("onBuildFailed {}", m);
         setDisableControlButtons(false);
         return Behaviors.same();
+    }
+
+    private Behavior<Message> onSettingsClicked(SettingsClickedMessage m) {
+        log.debug("onSettingsClicked {}", m);
+        setDisableControlButtons(true);
+        return Behaviors.receive(Message.class)//
+                .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
+                .onMessage(GuiMessage.class, this::onGuiCatchall)//
+                .build();
+    }
+
+    private Behavior<Message> onSettingsDialogClosed(SettingsDialogMessage m) {
+        log.debug("onSettingsDialogClosed {}", m);
+        setDisableControlButtons(false);
+        return getDefaultBehavior();
     }
 
     private Behavior<Message> onGuiCatchall(GuiMessage m) {

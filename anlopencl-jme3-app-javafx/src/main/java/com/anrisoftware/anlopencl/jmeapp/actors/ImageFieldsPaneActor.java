@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,7 +90,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettings;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -146,7 +147,7 @@ public class ImageFieldsPaneActor {
 
     private final ActorContext<Message> context;
 
-    private final GameSettings gs;
+    private final GameSettingsProvider gsp;
 
     private final Images images;
 
@@ -168,10 +169,11 @@ public class ImageFieldsPaneActor {
     private final Random rnd = new Random(System.currentTimeMillis());
 
     @Inject
-    ImageFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettings gs, ImagesFactory images) {
+    ImageFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
         this.images = images.create("ButtonsIcons");
-        this.gs = gs;
+        this.gsp = gsp;
+        var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -195,7 +197,7 @@ public class ImageFieldsPaneActor {
         controller.randomButton.setOnAction((e) -> {
             onp.get().seed.set(rnd.nextInt());
         });
-        tellLocalizeControlsSelf(gs);
+        tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(AttachGuiMessage.class, this::onAttachGui)//
@@ -206,8 +208,8 @@ public class ImageFieldsPaneActor {
                 .build();
     }
 
-    private void tellLocalizeControlsSelf(GameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs.getLocale(), gs.getIconSize(), gs.getTextPosition()));
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> onAttachGui(AttachGuiMessage m) {

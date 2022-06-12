@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,8 @@ import com.badlogic.ashley.systems.IntervalIteratingSystem;
 import com.jme3.renderer.Camera;
 
 /**
- * Updates the main panel.
+ * If the window width or height changes, send a
+ * {@link MainWindowResizedMessage} message to the panel actor.
  *
  * @author Erwin Müller {@literal <erwin@muellerpublic.de}
  */

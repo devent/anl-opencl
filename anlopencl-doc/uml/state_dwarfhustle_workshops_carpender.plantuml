@@ -1,0 +1,34 @@
+@startuml
+title "Carpenter"
+
+state "Crafting Spot" as cspot {
+state "Tier 0 Wood Materials" as tier0wood0 <<entryPoint>>
+state "crafting finished" as crafting0
+crafting0: basic wood forniture
+tier0wood0 --> crafting0
+crafting0 -> products0 <<exitPoint>>
+}
+cspot: outside or
+cspot: inside not in room
+[*] --> tier0wood0
+products0 --> [*]
+
+state "Workshop" as workshop {
+
+state "Tier 0 Wood Materials" as tier0wood1 <<entryPoint>>
+state Tools <<entryPoint>>
+state Nails <<entryPoint>>
+state Glue <<entryPoint>>
+state "have tools?" as havetools <<choice>>
+state "crafting finished" as crafting1
+
+crafting1: advanced wood forniture
+tier0wood1 --> crafting1
+crafting1 -> products1 <<exitPoint>>
+}
+workshop: outside or
+workshop: inside not in room
+[*] --> tier0wood1
+products1 --> [*]
+
+@enduml

@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,7 @@
 package com.anrisoftware.anlopencl.jmeapp.components;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.states.PanelRenderSystem;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 
@@ -73,6 +74,12 @@ import akka.actor.typed.ActorRef;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Component for the main window panel.
+ *
+ * @see PanelRenderSystem
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 @RequiredArgsConstructor
 public class PanelComponent implements Component {

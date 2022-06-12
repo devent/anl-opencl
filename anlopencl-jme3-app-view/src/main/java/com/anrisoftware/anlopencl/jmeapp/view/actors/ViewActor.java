@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - View
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishe
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.components.KernelComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
@@ -147,8 +146,6 @@ public class ViewActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, ViewActor.create(injector));
     }
 
-    private final ObservableGameMainPaneProperties gmpp;
-
     private final LwjglContext clContext;
 
     private final Map<String, Entity> noiseImageEntities;
@@ -160,6 +157,9 @@ public class ViewActor {
     @Assisted
     @Inject
     private StashBuffer<Message> buffer;
+
+    @Inject
+    private GameMainPanePropertiesProvider gmpp;
 
     @Inject
     private Application app;
@@ -174,8 +174,7 @@ public class ViewActor {
     private CameraPanningAppState cameraPanningAppState;
 
     @Inject
-    public ViewActor(GameMainPanePropertiesProvider gpp, com.jme3.opencl.Context openclContext) {
-        this.gmpp = gpp.get();
+    public ViewActor(com.jme3.opencl.Context openclContext) {
         this.clContext = (LwjglContext) openclContext;
         this.noiseImageEntities = Maps.mutable.empty();
     }
@@ -209,20 +208,27 @@ public class ViewActor {
     /**
      * Unstash all messages in the buffer. Returns a new behavior that responds to:
      * <ul>
-     * <li>
+     * <li>{@link ResetCameraMessage}
+     * <li>{@link BuildFinishedMessage}
      * </ul>
      */
     private Behavior<Message> onAttachViewAppStateDone(AttachViewAppStateDoneMessage m) {
-        log.debug("onAttachViewAppStateDone");
+        log.debug("onAttachViewAppStateDone {}", m);
         app.enqueue(() -> {
+            setupCamera();
             var entity = engine.createEntity().add(new ImageComponent(10, 10));
-            noiseImageEntities.put(gmpp.kernelName.get(), entity);
+            noiseImageEntities.put(gmpp.get().kernelName.get(), entity);
             engine.addEntity(entity);
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//
                 .onMessage(ResetCameraMessage.class, this::onResetCamera)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .build());
+    }
+
+    private void setupCamera() {
+        app.getCamera().setLocation(gmpp.get().getCameraPos());
+        app.getCamera().setRotation(gmpp.get().getCameraRot());
     }
 
     private Behavior<Message> onResetCamera(ResetCameraMessage m) {
@@ -243,18 +249,19 @@ public class ViewActor {
 
     private void updateTexture() {
         log.debug("updateTexture");
-        var entity = noiseImageEntities.get(gmpp.kernelName.get());
+        var gmp = gmpp.get();
+        var entity = noiseImageEntities.get(gmp.kernelName.get());
         if (KernelComponent.m.has(entity)) {
             var kc = entity.remove(KernelComponent.class);
             kc.tex.getImage().dispose();
             kc.ranges.release();
         }
         try (var s = MemoryStack.stackPush()) {
-            int width = gmpp.width.get();
-            int height = gmpp.height.get();
+            int width = gmp.width.get();
+            int height = gmp.height.get();
             var tex = new Texture2D(width, height, 1, RGBA8);
             var ranges = MappingRanges.createWithBuffer(s);
-            if (gmpp.map3d.get()) {
+            if (gmp.map3d.get()) {
                 setMap3D(ranges);
             } else {
                 setMap2D(ranges);
@@ -265,12 +272,14 @@ public class ViewActor {
     }
 
     private void setMap2D(MappingRanges ranges) {
-        ranges.setMap2D(gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(), gmpp.mapy1.get());
+        var gmp = gmpp.get();
+        ranges.setMap2D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get());
     }
 
     private void setMap3D(MappingRanges ranges) {
-        ranges.setMap3D(gmpp.mapx0.get(), gmpp.mapx1.get(), gmpp.mapy0.get(), gmpp.mapy1.get(), gmpp.mapz0.get(),
-                gmpp.mapz1.get());
+        var gmp = gmpp.get();
+        ranges.setMap3D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get(), gmp.mapz0.get(),
+                gmp.mapz1.get());
     }
 
 }

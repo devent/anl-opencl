@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,9 +90,6 @@ import javafx.scene.input.KeyCombination.ModifierValue
 class GlobalKeys implements ActionListener {
 
     @Inject
-    InputManager inputManager
-
-    @Inject
     ActorSystemProvider actor
 
     @Inject
@@ -105,9 +102,9 @@ class GlobalKeys implements ActionListener {
 
     boolean controlDown = false
 
-    void setup(JavaFxUI instance) {
+    void setup(JavaFxUI instance, InputManager inputManager) {
         setupControls(instance.scene)
-        initKeys()
+        initKeys(inputManager)
     }
 
     void remove(KeyMapping mapping, JmeMapping jmeMapping) {
@@ -147,7 +144,7 @@ class GlobalKeys implements ActionListener {
         }
     }
 
-    void initKeys() {
+    void initKeys(InputManager inputManager) {
         inputManager.addListener(this, keyMappings.values().findAll { it.trigger.present }.inject([]) { l, v ->
             inputManager.addMapping(v.name, v.trigger.get())
             l << v.name

@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,6 +72,12 @@ import akka.actor.typed.receptionist.ServiceKey;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Message that the actor was terminated. This message is send after the actor
+ * was terminated.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @RequiredArgsConstructor
 @ToString
 public class ActorTerminatedMessage extends Message {

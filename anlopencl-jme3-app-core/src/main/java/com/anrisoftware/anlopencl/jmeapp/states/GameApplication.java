@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Core
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,6 +84,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFini
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
@@ -105,7 +106,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GameApplication extends SimpleApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         var injector = Guice.createInjector();
         injector.getInstance(GameApplication.class).start(injector);
     }
@@ -120,14 +121,29 @@ public class GameApplication extends SimpleApplication {
 
     Engine engine;
 
-    public GameApplication() throws IOException {
+    public GameApplication() {
         super(new ConstantVerifierState());
+    }
+
+    private void start(Injector parent) throws IOException {
+        this.parent = parent;
+        setupApp();
+        super.start();
+    }
+
+    private void setupApp() throws IOException {
+        this.injector = parent.createChildInjector(new GameApplicationModule(this));
+        this.actor = injector.getInstance(ActorSystemProvider.class);
+        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.load();
+        var gsp = injector.getInstance(GameSettingsProvider.class);
+        gsp.load();
         setShowSettings(false);
         var s = new AppSettings(true);
         loadAppIcon(s);
         s.setResizable(true);
-        s.setWidth(1024);
-        s.setHeight(768);
+        s.setWidth(gsp.get().windowWidth.get());
+        s.setHeight(gsp.get().windowHeight.get());
         s.setVSync(false);
         s.setOpenCLSupport(true);
         setSettings(s);
@@ -138,21 +154,12 @@ public class GameApplication extends SimpleApplication {
         s.setTitle(IOUtils.toString(getClass().getResource("/app/title.txt"), UTF_8));
     }
 
-    private void start(Injector parent) {
-        this.parent = parent;
-        super.start();
-    }
-
     @Override
     @SneakyThrows
     public void simpleInitApp() {
         log.debug("simpleInitApp");
         // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
         this.engine = new Engine();
-        this.injector = parent.createChildInjector(new GameApplicationModule(this));
-        this.actor = injector.getInstance(ActorSystemProvider.class);
-        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
-        gmpp.load();
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
@@ -171,7 +178,14 @@ public class GameApplication extends SimpleApplication {
     @Override
     public void stop() {
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
+        gmpp.get().setCameraPos(getCamera().getLocation());
+        gmpp.get().setCameraRot(getCamera().getRotation());
         gmpp.save();
+        var gsp = injector.getInstance(GameSettingsProvider.class);
+        gsp.get().windowWidth.set(getCamera().getWidth());
+        gsp.get().windowHeight.set(getCamera().getHeight());
+        gsp.get().windowFullscreen.set(context.getSettings().isFullscreen());
+        gsp.save();
         actor.get().tell(new ShutdownMessage());
         super.stop();
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
     ANL-OpenCL :: IzPack Installation
     ****************************************************************************
 
-    Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -71,19 +71,19 @@
 	xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
 
 	<info>
-		<appname>${project.custom.app.name}</appname>
-		<appversion>${project.custom.app.version}</appversion>
-		<appsubpath>${project.custom.app.path}</appsubpath>
-		<url>${project.custom.app.organization.url}</url>
+		<appname>${globalpom.custom.app.name}</appname>
+		<appversion>${globalpom.custom.app.version}</appversion>
+		<appsubpath>${globalpom.custom.app.path}</appsubpath>
+		<url>${globalpom.custom.app.organization.url}</url>
 		<authors>
-			<author name="${project.custom.app.author.name}" email="${project.custom.app.author.email}" />
+			<author name="${globalpom.custom.app.author.name}" email="${globalpom.custom.app.author.email}" />
 		</authors>
-		<javaversion>${project.custom.jre.minversion}</javaversion>
+		<javaversion>${globalpom.custom.jre.minversion}</javaversion>
 		<run-privileged condition="izpack.windowsinstall.7|izpack.windowsinstall.vista" />
 	</info>
 
-	<guiprefs resizable="${project.custom.izpack.gui.resizeable}" width="${project.custom.izpack.gui.width}"
-		height="${project.custom.izpack.gui.height}">
+	<guiprefs resizable="${globalpom.custom.izpack.gui.resizeable}" width="${globalpom.custom.izpack.gui.width}"
+		height="${globalpom.custom.izpack.gui.height}">
 		<modifier key="useHeadingPanel" value="yes" />
 	</guiprefs>
 
@@ -92,7 +92,7 @@
 	</locale>
 
 	<resources>
-		<res id="InfoPanel.info" src="${project.custom.izpack.readme}" />
+		<res id="InfoPanel.info" src="${globalpom.custom.izpack.readme}" />
 		<res id="shortcutSpec.xml" src="shortcutSpec.xml" />
 		<res id="Unix_shortcutSpec.xml" src="unix_shortcutSpec.xml" />
 	</resources>
@@ -118,12 +118,12 @@
 		<pack name="Linux" preselected="yes" required="yes" os="unix"
 			installGroups="Linux">
 			<description>Linux run files.</description>
-			<file src="bin/linux/${project.custom.app.linuxdebugbin}" targetdir="$INSTALL_PATH/bin/linux" />
-            <file src="bin/linux/${project.custom.app.linuxbin}" targetdir="$INSTALL_PATH/bin/linux" />
+			<file src="bin/linux/${globalpom.custom.app.linuxdebugbin}" targetdir="$INSTALL_PATH/bin/linux" />
+            <file src="bin/linux/${globalpom.custom.app.linuxbin}" targetdir="$INSTALL_PATH/bin/linux" />
             <file src="bin/linux/prime-run.sh" targetdir="$INSTALL_PATH/bin/linux" />
-			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxbin}"
+			<executable targetfile="$INSTALL_PATH/bin/linux/${globalpom.custom.app.linuxbin}"
 				stage="never" keep="true" />
-			<executable targetfile="$INSTALL_PATH/bin/linux/${project.custom.app.linuxdebugbin}"
+			<executable targetfile="$INSTALL_PATH/bin/linux/${globalpom.custom.app.linuxdebugbin}"
 				stage="never" keep="true" />
 			<executable targetfile="$INSTALL_PATH/bin/linux/prime-run.sh"
 				stage="never" keep="true" />
@@ -131,14 +131,14 @@
 		<pack name="Windows" preselected="yes" required="yes" os="windows"
 			installGroups="Windows">
 			<description>Windows run files.</description>
-            <file src="bin/windows/${project.custom.app.windowsstartscript}" targetdir="$INSTALL_PATH/bin/windows" />
-            <file src="bin/windows/${project.custom.app.windowsdebugscript}" targetdir="$INSTALL_PATH/bin/windows" />
+            <file src="bin/windows/${globalpom.custom.app.windowsstartscript}" targetdir="$INSTALL_PATH/bin/windows" />
+            <file src="bin/windows/${globalpom.custom.app.windowsdebugscript}" targetdir="$INSTALL_PATH/bin/windows" />
             <file src="bin/windows/MessageBox.vbs" targetdir="$INSTALL_PATH/bin/windows" />
             <fileset dir="../" targetdir="$INSTALL_PATH/bin/windows">
-                <include name="${project.custom.app.windowslauncher}" />
+                <include name="${globalpom.custom.app.windowslauncher}" />
             </fileset>
             <fileset dir="../" targetdir="$INSTALL_PATH/Uninstaller">
-                <include name="${project.custom.launch4j.unistaller.filename}.exe" />
+                <include name="${globalpom.custom.launch4j.unistaller.filename}.exe" />
             </fileset>
 		</pack>
 	</packs>

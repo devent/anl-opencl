@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,9 @@ package com.anrisoftware.anlopencl.jmeapp.model;
 
 import javax.inject.Provider;
 
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
@@ -75,12 +77,28 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
     private final ObjectMapper mapper;
 
     public ObjectMapperProvider() {
-        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper = createObjectMapper();
     }
 
     @Override
     public ObjectMapper get() {
         return mapper;
+    }
+
+    private ObjectMapper createObjectMapper() {
+        @SuppressWarnings("deprecation")
+        var module = new SimpleModule("customerSerializationModule", new Version(1, 0, 0, "static version"));
+        addCustomDeserializersTo(module);
+        addCustomSerializersTo(module);
+        var objectMapper = new ObjectMapper(new YAMLFactory());
+        objectMapper.registerModule(module);
+        return objectMapper;
+    }
+
+    private void addCustomSerializersTo(SimpleModule module) {
+    }
+
+    private void addCustomDeserializersTo(SimpleModule module) {
     }
 
 }

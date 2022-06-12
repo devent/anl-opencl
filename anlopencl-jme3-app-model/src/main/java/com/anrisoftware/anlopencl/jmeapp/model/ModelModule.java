@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
  * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
- * Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
+ * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,11 +68,18 @@ package com.anrisoftware.anlopencl.jmeapp.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 
+/**
+ * Binds the properties and settings providers as singletons.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 public class ModelModule extends AbstractModule {
 
     @Override
     protected void configure() {
         bind(GameMainPanePropertiesProvider.class).asEagerSingleton();
+        bind(GameSettingsProvider.class).asEagerSingleton();
         bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).asEagerSingleton();
     }
+
 }

@@ -19,3 +19,17 @@
     -fx-pref-width: 26;
 	-fx-pref-height: 26;
 }
+
+.dialogPane {
+    -fx-background-color: -fx-background;
+    -fx-border-color: -fx-color;
+    -fx-border-style: solid;
+    -fx-border-width: 4px;
+}
+
+.titleLabel {
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-border-color: -fx-box-border;
+    -fx-border-style: solid;
+}
