@@ -63,30 +63,67 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.components;
+package com.anrisoftware.anlopencl.jmeapp.view.actors
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.ComponentMapper;
+import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.Matchers.*
 
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.Test
+
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent
+import com.badlogic.ashley.core.Engine
 
 /**
- * Sets the image quad width and height.
- *
+ * @see NoiseImageEntities
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString
-@RequiredArgsConstructor
-public class ImageComponent implements Component {
+class NoiseImageEntitiesTest {
 
-    public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+    @Test
+    void "set columns and rows"() {
+        def entities = new NoiseImageEntities(new Engine())
+        entities.set(1, 1)
+        assertThatEntity entities, 1, 1
+        entities.set(2, 1)
+        assertThatEntity entities, 2, 1
+        entities.set(2, 2)
+        assertThatEntity entities, 2, 2
+        entities.set(3, 3)
+        assertThatEntity entities, 3, 3
+        entities.set(3, 4)
+        assertThatEntity entities, 3, 4
+        entities.set(4, 4)
+        assertThatEntity entities, 4, 4
+        entities.set(4, 3)
+        assertThatEntity entities, 4, 3
+        entities.set(3, 3)
+        assertThatEntity entities, 3, 3
+        entities.set(1, 1)
+        assertThatEntity entities, 1, 1
+    }
 
-    public final int column;
+    static def rnd = new Random(System.currentTimeMillis())
 
-    public final int row;
+    static def entitiesRnd = new NoiseImageEntities(new Engine())
 
-    public final int width;
+    @RepeatedTest(10)
+    void "random set columns and rows"() {
+        int cols = rnd.nextInt(100) + 1
+        int rows = rnd.nextInt(100) + 1
+        entitiesRnd.set(cols, rows)
+        assertThatEntity entitiesRnd, cols, rows
+    }
 
-    public final int height;
+    void assertThatEntity(NoiseImageEntities entities, int cols, int rows) {
+        assertThat "columns count is correct", entities.noiseImageEntities.size(), equalTo(cols)
+        assertThat "rows count is correct", entities.noiseImageEntities.get(0).size(), equalTo(rows)
+        for (int c = 0; c < cols; c++) {
+            for (int r = 0; r < rows; r++) {
+                def ic = entities.noiseImageEntities.get(c).get(r).getComponent(ImageComponent)
+                assertThat ic.column, equalTo(c)
+                assertThat ic.row, equalTo(r)
+            }
+        }
+    }
 }

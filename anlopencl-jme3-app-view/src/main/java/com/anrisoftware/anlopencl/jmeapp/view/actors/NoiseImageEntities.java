@@ -63,30 +63,84 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.components;
+package com.anrisoftware.anlopencl.jmeapp.view.actors;
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.ComponentMapper;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import javax.inject.Inject;
+
+import org.eclipse.collections.impl.factory.Lists;
+
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Sets the image quad width and height.
+ * Creates or deletes noise image entities to fill columns and rows.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString
-@RequiredArgsConstructor
-public class ImageComponent implements Component {
+@Slf4j
+public class NoiseImageEntities {
 
-    public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+    /**
+     * Columns first list of noise image entities.
+     */
+    private final List<List<Entity>> noiseImageEntities;
 
-    public final int column;
+    private final Engine engine;
 
-    public final int row;
+    @Inject
+    public NoiseImageEntities(Engine engine) {
+        this.engine = engine;
+        this.noiseImageEntities = Lists.mutable.empty();
+    }
 
-    public final int width;
+    public void set(int cols, int rows) {
+        log.debug("Set to cols {} rows {}", cols, rows);
+        int oldcols = noiseImageEntities.size();
+        int diffcols = cols - oldcols;
+        if (diffcols > 0) {
+            for (int c = 0; c < diffcols; c++) {
+                noiseImageEntities.add(Lists.mutable.empty());
+            }
+        }
+        if (diffcols < 0) {
+            for (int c = diffcols; c < 0; c++) {
+                var rowlist = noiseImageEntities.remove(noiseImageEntities.size() - 1);
+                for (Entity e : rowlist) {
+                    engine.removeEntity(e);
+                }
+            }
+        }
+        for (int c = 0; c < cols; c++) {
+            var rowlist = noiseImageEntities.get(c);
+            int oldrows = rowlist.size();
+            int diffrows = rows - oldrows;
+            if (diffrows > 0) {
+                for (int r = 0; r < diffrows; r++) {
+                    addImageComponent(rowlist, c, oldrows + r);
+                }
+            }
+            if (diffrows < 0) {
+                for (int r = diffrows; r < 0; r++) {
+                    var e = rowlist.remove(rowlist.size() - 1);
+                    engine.removeEntity(e);
+                }
+            }
+        }
+    }
 
-    public final int height;
+    private void addImageComponent(List<Entity> rowlist, int col, int row) {
+        var e = engine.createEntity();
+        rowlist.add(e);
+        e.add(new ImageComponent(col, row, 1, 1));
+        engine.addEntity(e);
+    }
+
+    public List<List<Entity>> getEntities(String string) {
+        return noiseImageEntities;
+    }
 }

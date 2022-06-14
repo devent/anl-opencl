@@ -119,7 +119,7 @@ public class GameApplication extends SimpleApplication {
 
     ActorRef<Message> mainWindowActor;
 
-    Engine engine;
+    private Engine engine;
 
     public GameApplication() {
         super(new ConstantVerifierState());
@@ -132,7 +132,8 @@ public class GameApplication extends SimpleApplication {
     }
 
     private void setupApp() throws IOException {
-        this.injector = parent.createChildInjector(new GameApplicationModule(this));
+        this.engine = new Engine();
+        this.injector = parent.createChildInjector(new GameApplicationModule(this, engine));
         this.actor = injector.getInstance(ActorSystemProvider.class);
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
         gmpp.load();
@@ -159,7 +160,6 @@ public class GameApplication extends SimpleApplication {
     public void simpleInitApp() {
         log.debug("simpleInitApp");
         // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
-        this.engine = new Engine();
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,

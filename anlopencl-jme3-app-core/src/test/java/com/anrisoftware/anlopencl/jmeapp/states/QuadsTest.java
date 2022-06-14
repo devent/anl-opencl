@@ -65,100 +65,143 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
-import javax.inject.Named;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
-import com.anrisoftware.anlopencl.jme.opencl.AnlkernelModule;
-import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProviderModule;
-import com.anrisoftware.anlopencl.jmeapp.actors.MainActorsModule;
-import com.anrisoftware.anlopencl.jmeapp.actors.PaneActorsModule;
-import com.anrisoftware.anlopencl.jmeapp.controllers.ControllersModule;
-import com.anrisoftware.anlopencl.jmeapp.model.ModelModule;
-import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActorsModule;
-import com.anrisoftware.anlopencl.jmeapp.view.states.ViewStatesModule;
-import com.anrisoftware.resources.binary.internal.binaries.BinariesResourcesModule;
-import com.anrisoftware.resources.binary.internal.maps.BinariesDefaultMapsModule;
-import com.anrisoftware.resources.images.internal.images.ImagesResourcesModule;
-import com.anrisoftware.resources.images.internal.mapcached.ResourcesImagesCachedMapModule;
-import com.anrisoftware.resources.images.internal.scaling.ResourcesSmoothScalingModule;
-import com.anrisoftware.resources.texts.internal.texts.TextsResourcesDefaultModule;
+import com.anrisoftware.anlopencl.jmeapp.view.actors.NoiseImageEntities;
+import com.anrisoftware.anlopencl.jmeapp.view.states.CoordAxisDebugShape;
+import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageSystem;
 import com.badlogic.ashley.core.Engine;
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.jme3.app.Application;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
-import com.jme3.asset.AssetManager;
-import com.jme3.input.InputManager;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
+import com.jme3.app.state.ConstantVerifierState;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
+import com.jme3.system.AppSettings;
+import com.simsilica.lemur.Button;
+import com.simsilica.lemur.Container;
+import com.simsilica.lemur.GuiGlobals;
+import com.simsilica.lemur.HAlignment;
+import com.simsilica.lemur.Label;
+import com.simsilica.lemur.TextField;
+import com.simsilica.lemur.style.BaseStyles;
 
-import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Tests the addition and removing of image quads.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@RequiredArgsConstructor
-public class GameApplicationModule extends AbstractModule {
+@Slf4j
+public class QuadsTest extends SimpleApplication {
 
-    private final SimpleApplication owner;
+    @SneakyThrows
+    public static void main(String[] args) {
+        var injector = Guice.createInjector();
+        injector.getInstance(QuadsTest.class).start(injector);
+    }
 
     private final Engine engine;
 
+    private CoordAxisDebugShape coordAxisDebugShape;
+
+    private TextField columnsField;
+
+    private TextField rowsField;
+
+    private NoiseImageEntities noiseImageEntities;
+
+    private NoiseImageSystem noiseImageSystem;
+
+    private final NumberFormat numberFormat;
+
+    private Label infoLabel;
+
+    private Injector injector;
+
+    public QuadsTest() {
+        super(new DebugKeysAppState(), new ConstantVerifierState());
+        this.engine = new Engine();
+        this.numberFormat = NumberFormat.getInstance(Locale.US);
+    }
+
+    private void start(Injector parent) throws IOException {
+        this.injector = parent.createChildInjector(new GameApplicationModule(this, engine));
+        // stateManager.attach(new FlyCamAppState());
+        setupSettings();
+        start();
+    }
+
+    private void setupSettings() {
+        setShowSettings(false);
+        var s = new AppSettings(true);
+        s.setResizable(true);
+        s.setWidth(1024);
+        s.setHeight(768);
+        s.setVSync(false);
+        s.setOpenCLSupport(true);
+        setSettings(s);
+    }
+
     @Override
-    protected void configure() {
-        install(new ActorSystemProviderModule());
-        install(new MainActorsModule());
-        install(new PaneActorsModule());
-        install(new EditorGuiStatesModule());
-        install(new GuiStatesModule());
-        install(new ModelModule());
-        install(new ControllersModule());
-        install(new ViewActorsModule());
-        install(new ViewStatesModule());
-        // OpenCL
-        install(new AnlkernelModule());
-        // Resources
-        install(new ImagesResourcesModule());
-        install(new ResourcesImagesCachedMapModule());
-        install(new ResourcesSmoothScalingModule());
-        install(new TextsResourcesDefaultModule());
-        install(new BinariesResourcesModule());
-        install(new BinariesDefaultMapsModule());
+    public void simpleInitApp() {
+        GuiGlobals.initialize(this);
+        BaseStyles.loadGlassStyle();
+        GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
+        coordAxisDebugShape = new CoordAxisDebugShape(assetManager);
+        rootNode.attachChild(coordAxisDebugShape.getNode());
+        noiseImageSystem = injector.getInstance(NoiseImageSystem.class);
+        noiseImageEntities = injector.getInstance(NoiseImageEntities.class);
+        engine.addSystem(noiseImageSystem);
+        setupCamera();
+        setupGui();
     }
 
-    @Provides
-    public Application getApp() {
-        return owner;
+    private void setupGui() {
+        var window = new Container();
+        window.setPreferredSize(new Vector3f(300, 100, 0));
+        guiNode.attachChild(window);
+        window.setLocalTranslation(10, cam.getHeight() - 10, 0);
+        window.addChild(new Label("Columns:"));
+        this.columnsField = new TextField("1");
+        columnsField.setTextHAlignment(HAlignment.Right);
+        window.addChild(columnsField);
+        window.addChild(new Label("Rows:"));
+        this.rowsField = new TextField("1");
+        rowsField.setTextHAlignment(HAlignment.Right);
+        window.addChild(rowsField);
+        var applyButton = window.addChild(new Button("Apply"));
+        applyButton.addClickCommands(source -> {
+            updateColsRows();
+        });
+        infoLabel = new Label("");
+        window.addChild(infoLabel);
     }
 
-    @Provides
-    @Named("pivotNode")
-    public Node getPivotNode() {
-        return owner.getRootNode();
+    @SneakyThrows
+    private void updateColsRows() {
+        var cols = numberFormat.parse(columnsField.getText()).intValue();
+        var rows = numberFormat.parse(rowsField.getText()).intValue();
+        if (cols > 0 && rows > 0) {
+            log.debug("Apply columns {} rows {}", cols, rows);
+            infoLabel.setText("");
+            noiseImageEntities.set(cols, rows);
+        } else {
+            infoLabel.setText("Columns and rows must be greater 0");
+        }
     }
 
-    @Provides
-    public InputManager getInputManager() {
-        return owner.getInputManager();
+    private void setupCamera() {
+        cam.setLocation(new Vector3f(1.7853183f, 1.1580523f, 10.528595f));
+        cam.setRotation(new Quaternion(-3.711398E-4f, 0.99803764f, 0.062332783f, 0.005950089f));
     }
 
-    @Provides
-    public AssetManager getAssetManager() {
-        return owner.getAssetManager();
-    }
-
-    @Provides
-    public Camera getCamera() {
-        return owner.getCamera();
-    }
-
-    @Provides
-    public Engine getEngine() {
-        return engine;
-    }
-
-    @Provides
-    public com.jme3.opencl.Context getOpenCLContext() {
-        return owner.getContext().getOpenCLContext();
+    @Override
+    public void simpleUpdate(float tpf) {
     }
 }

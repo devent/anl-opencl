@@ -1,0 +1,30 @@
+@startuml
+
+participant ViewActor as vActor
+collections buffer
+boundary ViewAppState as vaState
+control Engine
+boundary CameraPanningAppState as cpaState
+entity noiseImageEntity as niEntity
+entity "ImageComponent(10, 10)" as icomponent0
+collections noiseImageEntities as niEntities
+control NoiseImageSystem as niSystem
+control StateManager
+
+create vActor
+-> vActor : create()
+alt Behaviors.withStash
+	alt Behaviors.setup
+		create vaState
+		vActor -> vaState : create
+		vActor -> vActor : start()
+		activate vActor
+		alt app.enqueue
+			vActor -> StateManager : attach(viewAppState)
+			vActor -> cpaState : attach(cameraPanningAppState)
+		end
+	end
+end
+deactivate vActor
+
+@enduml
