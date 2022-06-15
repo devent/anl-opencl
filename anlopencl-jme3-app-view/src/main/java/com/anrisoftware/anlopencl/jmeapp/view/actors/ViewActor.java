@@ -217,11 +217,17 @@ public class ViewActor {
         log.debug("onAttachViewAppStateDone {}", m);
         app.enqueue(() -> {
             setupCamera();
-            noiseImageEntities.set(1, 1);
+            noiseImageEntities.set(gmpp.get().columns.get(), gmpp.get().rows.get());
         });
         gmpp.get().columns.addListener((observable, oldValue, newValue) -> {
+            app.enqueue(() -> {
+                noiseImageEntities.set(newValue.intValue(), gmpp.get().rows.get());
+            });
         });
         gmpp.get().rows.addListener((observable, oldValue, newValue) -> {
+            app.enqueue(() -> {
+                noiseImageEntities.set(gmpp.get().columns.get(), newValue.intValue());
+            });
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//
                 .onMessage(ResetCameraMessage.class, this::onResetCamera)//
@@ -256,12 +262,11 @@ public class ViewActor {
         var entities = noiseImageEntities.getEntities();
         for (var rows : entities) {
             for (var entity : rows) {
-                if (!KernelComponent.m.has(entity)) {
-                    continue;
+                if (KernelComponent.m.has(entity)) {
+                    var kc = entity.remove(KernelComponent.class);
+                    kc.tex.getImage().dispose();
+                    kc.ranges.release();
                 }
-                var kc = entity.remove(KernelComponent.class);
-                kc.tex.getImage().dispose();
-                kc.ranges.release();
                 try (var s = MemoryStack.stackPush()) {
                     int width = gmp.width.get();
                     int height = gmp.height.get();

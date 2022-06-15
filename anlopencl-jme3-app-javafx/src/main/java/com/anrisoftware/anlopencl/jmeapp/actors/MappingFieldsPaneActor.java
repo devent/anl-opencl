@@ -85,6 +85,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.ColumnsRowsChangedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -190,6 +191,14 @@ public class MappingFieldsPaneActor {
         runFxThread(() -> {
             controller.updateLocale(Locale.US, images, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
+            controller.columnsField.valueProperty().addListener((observable, oldValue, newValue) -> {
+                actor.getActorSystem()
+                        .tell(new ColumnsRowsChangedMessage(onp.get().columns.get(), onp.get().rows.get()));
+            });
+            controller.rowsField.valueProperty().addListener((observable, oldValue, newValue) -> {
+                actor.getActorSystem()
+                        .tell(new ColumnsRowsChangedMessage(onp.get().columns.get(), onp.get().rows.get()));
+            });
         });
         tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
