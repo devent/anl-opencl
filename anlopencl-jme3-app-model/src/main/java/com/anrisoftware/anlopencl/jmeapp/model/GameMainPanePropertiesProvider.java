@@ -122,6 +122,8 @@ public class GameMainPanePropertiesProvider implements Provider<ObservableGameMa
         if (file.exists()) {
             log.debug("Load properties from {}", file);
             var p = mapper.readValue(file, GameMainPaneProperties.class);
+            p.width = 512;
+            p.height = 512;
             op.copy(p);
         }
     }

@@ -81,6 +81,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishe
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.components.KernelComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
 import com.anrisoftware.anlopencl.jmeapp.view.states.CameraPanningAppState;
@@ -260,6 +261,16 @@ public class ViewActor {
         log.debug("updateTexture");
         var gmp = gmpp.get();
         var entities = noiseImageEntities.getEntities();
+        int ncols = entities.size();
+        int nrows = entities.get(0).size();
+        float xx = (gmp.mapx1.get() - gmp.mapx0.get()) / (float) ncols;
+        float yy = (gmp.mapy1.get() - gmp.mapy0.get()) / (float) nrows;
+        float x0 = gmp.mapx0.get();
+        float x1 = gmp.mapx1.get();
+        float y0 = gmp.mapy0.get();
+        float y1 = gmp.mapy1.get();
+        float z0 = gmp.mapz0.get();
+        float z1 = gmp.mapz1.get();
         for (var rows : entities) {
             for (var entity : rows) {
                 if (KernelComponent.m.has(entity)) {
@@ -267,15 +278,16 @@ public class ViewActor {
                     kc.tex.getImage().dispose();
                     kc.ranges.release();
                 }
+                var ic = ImageComponent.m.get(entity);
                 try (var s = MemoryStack.stackPush()) {
                     int width = gmp.width.get();
                     int height = gmp.height.get();
                     var tex = new Texture2D(width, height, 1, RGBA8);
                     var ranges = MappingRanges.createWithBuffer(s);
                     if (gmp.map3d.get()) {
-                        setMap3D(ranges);
+                        setMap3D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, z0, z1, xx, yy);
                     } else {
-                        setMap2D(ranges);
+                        setMap2D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, xx, yy);
                     }
                     var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
                     entity.add(new KernelComponent(tex, rangesb));
@@ -284,15 +296,22 @@ public class ViewActor {
         }
     }
 
-    private void setMap2D(MappingRanges ranges) {
-        var gmp = gmpp.get();
-        ranges.setMap2D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get());
+    private void setMap2D(MappingRanges ranges, int cols, int rows, int c, int r, float x0, float x1, float y0,
+            float y1, float xx, float yy) {
+        float mx0 = x0 + (xx * c);
+        float mx1 = x1 - ((cols - c - 1) * xx);
+        float my0 = y0 + (yy * r);
+        float my1 = y1 - ((rows - r - 1) * yy);
+        ranges.setMap2D(mx0, mx1, my0, my1);
     }
 
-    private void setMap3D(MappingRanges ranges) {
-        var gmp = gmpp.get();
-        ranges.setMap3D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get(), gmp.mapz0.get(),
-                gmp.mapz1.get());
+    private void setMap3D(MappingRanges ranges, int cols, int rows, int c, int r, float x0, float x1, float y0,
+            float y1, float z0, float z1, float xx, float yy) {
+        float mx0 = x0 + (xx * c);
+        float mx1 = x1 - ((cols - c - 1) * xx);
+        float my0 = y0 + (yy * r);
+        float my1 = y1 - ((rows - r - 1) * yy);
+        ranges.setMap3D(mx0, mx1, my0, my1, z0, z1);
     }
 
 }

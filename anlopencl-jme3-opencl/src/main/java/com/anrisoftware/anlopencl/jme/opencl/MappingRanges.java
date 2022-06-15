@@ -80,6 +80,7 @@ import java.nio.ByteBuffer;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
@@ -169,6 +170,13 @@ public class MappingRanges extends Struct implements NativeResource {
     @Override
     public int sizeof() {
         return SIZEOF;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).appendSuper(super.toString()).append("x0", getMapx0()).append("x1", getMapx1())
+                .append("y0", getMapy0()).append("y1", getMapy1()).append("z0", getMapz0()).append("z1", getMapz1())
+                .build();
     }
 
     /**
