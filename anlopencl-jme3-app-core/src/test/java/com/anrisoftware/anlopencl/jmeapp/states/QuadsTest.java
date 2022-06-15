@@ -69,6 +69,8 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
+import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
 import com.anrisoftware.anlopencl.jmeapp.view.actors.NoiseImageEntities;
 import com.anrisoftware.anlopencl.jmeapp.view.states.CoordAxisDebugShape;
 import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageSystem;
@@ -124,6 +126,8 @@ public class QuadsTest extends SimpleApplication {
 
     private Injector injector;
 
+    private ActorSystemProvider actor;
+
     public QuadsTest() {
         super(new DebugKeysAppState(), new ConstantVerifierState());
         this.engine = new Engine();
@@ -132,6 +136,7 @@ public class QuadsTest extends SimpleApplication {
 
     private void start(Injector parent) throws IOException {
         this.injector = parent.createChildInjector(new GameApplicationModule(this, engine));
+        this.actor = injector.getInstance(ActorSystemProvider.class);
         // stateManager.attach(new FlyCamAppState());
         setupSettings();
         start();
@@ -199,6 +204,12 @@ public class QuadsTest extends SimpleApplication {
     private void setupCamera() {
         cam.setLocation(new Vector3f(1.7853183f, 1.1580523f, 10.528595f));
         cam.setRotation(new Quaternion(-3.711398E-4f, 0.99803764f, 0.062332783f, 0.005950089f));
+    }
+
+    @Override
+    public void stop() {
+        actor.get().tell(new ShutdownMessage());
+        super.stop();
     }
 
     @Override

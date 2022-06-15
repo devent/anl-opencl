@@ -98,6 +98,10 @@ public class NoiseImageEntities {
         this.noiseImageEntities = Lists.mutable.empty();
     }
 
+    /**
+     * Sets the count of columns and rows, creates and removes noise image entities
+     * as needed.
+     */
     public void set(int cols, int rows) {
         log.debug("Set to cols {} rows {}", cols, rows);
         int oldcols = noiseImageEntities.size();
@@ -140,7 +144,12 @@ public class NoiseImageEntities {
         engine.addEntity(e);
     }
 
-    public List<List<Entity>> getEntities(String string) {
+    /**
+     * Returns the list of noise image entities.
+     * 
+     * @return columns first {@link List} of {@link List} of noise image entities.
+     */
+    public List<List<Entity>> getEntities() {
         return noiseImageEntities;
     }
 }

@@ -253,7 +253,7 @@ public class ViewActor {
     private void updateTexture() {
         log.debug("updateTexture");
         var gmp = gmpp.get();
-        var entities = noiseImageEntities.getEntities(gmp.kernelName.get());
+        var entities = noiseImageEntities.getEntities();
         for (var rows : entities) {
             for (var entity : rows) {
                 if (!KernelComponent.m.has(entity)) {

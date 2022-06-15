@@ -110,6 +110,8 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     @Named("pivotNode")
     private Node pivotNode;
 
+    private final Node imagesNode;
+
     private final CommandQueue queue;
 
     @Inject
@@ -118,11 +120,13 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         this.gmpp = onp.get();
         this.noiseImageQuads = Maps.mutable.empty();
         this.queue = context.createQueue().register();
+        this.imagesNode = new Node("imagesNode");
     }
 
     @Override
     public void addedToEngine(Engine engine) {
         super.addedToEngine(engine);
+        pivotNode.attachChild(imagesNode);
         engine.addEntityListener(FAMILY, new EntityListener() {
 
             @Override
@@ -143,7 +147,10 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         var c = ImageComponent.m.get(entity);
         var quad = noiseImageQuadFactory.create(c);
         noiseImageQuads.put(entity, quad);
-        pivotNode.attachChild(quad.getPic());
+        imagesNode.setLocalTranslation(0, 0, 0);
+        imagesNode.attachChild(quad.getPic());
+        var bound = imagesNode.getWorldBound().getCenter();
+        imagesNode.setLocalTranslation(-bound.x, -bound.y, -bound.z);
         entity.componentRemoved.add((signal, object) -> {
             if (!KernelComponent.m.has(object)) {
                 quad.setNotSetTexture(true);
@@ -154,7 +161,10 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     private void removeNoiseImageQuad(Entity entity) {
         log.debug("removeNoiseImageQuad {}", entity);
         var quad = noiseImageQuads.remove(entity);
-        pivotNode.detachChild(quad.getPic());
+        imagesNode.setLocalTranslation(0, 0, 0);
+        imagesNode.detachChild(quad.getPic());
+        var bound = imagesNode.getWorldBound().getCenter();
+        imagesNode.setLocalTranslation(-bound.x, -bound.y, -bound.z);
     }
 
     @Override

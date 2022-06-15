@@ -117,7 +117,7 @@ public class NoiseImageQuad {
         this.context = (LwjglContext) context;
         pic.setQueueBucket(Bucket.Opaque);
         pic.setTexture(assetManager, unsetTex, true);
-        pic.setPosition(-c.width / 2f, -c.height / 2f);
+        pic.setPosition(c.column, c.row);
         pic.setWidth(c.width);
         pic.setHeight(c.height);
     }
