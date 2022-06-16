@@ -67,8 +67,8 @@
  * Builds and deploys the project.
  *
  * @author Erwin Mueller, erwin.mueller@deventm.org
- * @since 4.6.2
- * @version 1.4.1
+ * @since 0.0.4
+ * @version 1.4.2
  */
 def groupId
 def artifactId
