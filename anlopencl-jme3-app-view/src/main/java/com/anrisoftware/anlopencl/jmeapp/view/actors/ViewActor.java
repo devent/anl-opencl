@@ -69,12 +69,10 @@ import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.crea
 import static com.jme3.texture.Image.Format.RGBA8;
 
 import java.time.Duration;
-import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 
-import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
 import com.anrisoftware.anlopencl.jme.opencl.MappingRanges;
@@ -89,7 +87,6 @@ import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMes
 import com.anrisoftware.anlopencl.jmeapp.view.states.CameraPanningAppState;
 import com.anrisoftware.anlopencl.jmeapp.view.states.ViewAppState;
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 import com.jme3.app.Application;
@@ -148,7 +145,7 @@ public class ViewActor {
 
     private final LwjglContext clContext;
 
-    private final Map<String, Entity> noiseImageEntities;
+    private final NoiseImageEntities noiseImageEntities;
 
     @Assisted
     @Inject
@@ -157,6 +154,9 @@ public class ViewActor {
     @Assisted
     @Inject
     private StashBuffer<Message> buffer;
+
+    @Inject
+    private ActorSystemProvider actor;
 
     @Inject
     private GameMainPanePropertiesProvider gmpp;
@@ -174,9 +174,9 @@ public class ViewActor {
     private CameraPanningAppState cameraPanningAppState;
 
     @Inject
-    public ViewActor(com.jme3.opencl.Context openclContext) {
+    public ViewActor(com.jme3.opencl.Context openclContext, NoiseImageEntities noiseImageEntities) {
         this.clContext = (LwjglContext) openclContext;
-        this.noiseImageEntities = Maps.mutable.empty();
+        this.noiseImageEntities = noiseImageEntities;
     }
 
     /**
@@ -197,12 +197,14 @@ public class ViewActor {
         });
         return Behaviors.receive(Message.class)//
                 .onMessage(AttachViewAppStateDoneMessage.class, this::onAttachViewAppStateDone)//
-                .onMessage(Message.class, (m) -> {
-                    log.debug("stashOtherCommand: {}", m);
-                    buffer.stash(m);
-                    return Behaviors.same();
-                })//
+                .onMessage(Message.class, this::stashOtherCommand)//
                 .build();
+    }
+
+    private Behavior<Message> stashOtherCommand(Message m) {
+        log.debug("stashOtherCommand {}", m);
+        buffer.stash(m);
+        return Behaviors.same();
     }
 
     /**
@@ -216,9 +218,17 @@ public class ViewActor {
         log.debug("onAttachViewAppStateDone {}", m);
         app.enqueue(() -> {
             setupCamera();
-            var entity = engine.createEntity().add(new ImageComponent(10, 10));
-            noiseImageEntities.put(gmpp.get().kernelName.get(), entity);
-            engine.addEntity(entity);
+            noiseImageEntities.set(gmpp.get().columns.get(), gmpp.get().rows.get());
+        });
+        gmpp.get().columns.addListener((observable, oldValue, newValue) -> {
+            app.enqueue(() -> {
+                noiseImageEntities.set(newValue.intValue(), gmpp.get().rows.get());
+            });
+        });
+        gmpp.get().rows.addListener((observable, oldValue, newValue) -> {
+            app.enqueue(() -> {
+                noiseImageEntities.set(gmpp.get().columns.get(), newValue.intValue());
+            });
         });
         return buffer.unstashAll(Behaviors.receive(Message.class)//
                 .onMessage(ResetCameraMessage.class, this::onResetCamera)//
@@ -250,36 +260,58 @@ public class ViewActor {
     private void updateTexture() {
         log.debug("updateTexture");
         var gmp = gmpp.get();
-        var entity = noiseImageEntities.get(gmp.kernelName.get());
-        if (KernelComponent.m.has(entity)) {
-            var kc = entity.remove(KernelComponent.class);
-            kc.tex.getImage().dispose();
-            kc.ranges.release();
-        }
-        try (var s = MemoryStack.stackPush()) {
-            int width = gmp.width.get();
-            int height = gmp.height.get();
-            var tex = new Texture2D(width, height, 1, RGBA8);
-            var ranges = MappingRanges.createWithBuffer(s);
-            if (gmp.map3d.get()) {
-                setMap3D(ranges);
-            } else {
-                setMap2D(ranges);
+        var entities = noiseImageEntities.getEntities();
+        int ncols = entities.size();
+        int nrows = entities.get(0).size();
+        float xx = (gmp.mapx1.get() - gmp.mapx0.get()) / (float) ncols;
+        float yy = (gmp.mapy1.get() - gmp.mapy0.get()) / (float) nrows;
+        float x0 = gmp.mapx0.get();
+        float x1 = gmp.mapx1.get();
+        float y0 = gmp.mapy0.get();
+        float y1 = gmp.mapy1.get();
+        float z0 = gmp.mapz0.get();
+        float z1 = gmp.mapz1.get();
+        for (var rows : entities) {
+            for (var entity : rows) {
+                if (KernelComponent.m.has(entity)) {
+                    var kc = entity.remove(KernelComponent.class);
+                    kc.tex.getImage().dispose();
+                    kc.ranges.release();
+                }
+                var ic = ImageComponent.m.get(entity);
+                try (var s = MemoryStack.stackPush()) {
+                    int width = gmp.width.get();
+                    int height = gmp.height.get();
+                    var tex = new Texture2D(width, height, 1, RGBA8);
+                    var ranges = MappingRanges.createWithBuffer(s);
+                    if (gmp.map3d.get()) {
+                        setMap3D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, z0, z1, xx, yy);
+                    } else {
+                        setMap2D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, xx, yy);
+                    }
+                    var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
+                    entity.add(new KernelComponent(tex, rangesb));
+                }
             }
-            var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
-            entity.add(new KernelComponent(tex, rangesb));
         }
     }
 
-    private void setMap2D(MappingRanges ranges) {
-        var gmp = gmpp.get();
-        ranges.setMap2D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get());
+    private void setMap2D(MappingRanges ranges, int cols, int rows, int c, int r, float x0, float x1, float y0,
+            float y1, float xx, float yy) {
+        float mx0 = x0 + (xx * c);
+        float mx1 = x1 - ((cols - c - 1) * xx);
+        float my0 = y0 + (yy * r);
+        float my1 = y1 - ((rows - r - 1) * yy);
+        ranges.setMap2D(mx0, mx1, my0, my1);
     }
 
-    private void setMap3D(MappingRanges ranges) {
-        var gmp = gmpp.get();
-        ranges.setMap3D(gmp.mapx0.get(), gmp.mapx1.get(), gmp.mapy0.get(), gmp.mapy1.get(), gmp.mapz0.get(),
-                gmp.mapz1.get());
+    private void setMap3D(MappingRanges ranges, int cols, int rows, int c, int r, float x0, float x1, float y0,
+            float y1, float z0, float z1, float xx, float yy) {
+        float mx0 = x0 + (xx * c);
+        float mx1 = x1 - ((cols - c - 1) * xx);
+        float my0 = y0 + (yy * r);
+        float my1 = y1 - ((rows - r - 1) * yy);
+        ranges.setMap3D(mx0, mx1, my0, my1, z0, z1);
     }
 
 }

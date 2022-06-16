@@ -128,7 +128,7 @@ public abstract class AbstractMainPanelActor {
             Map<String, PanelActorCreator> panelActors, String... additionalCss) {
         return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
             startJavafxBuild(injector, context, mainUiResource, panelActors, additionalCss);
-            return injector.getInstance(mainPanelActorFactoryType).create(context, stash).start();
+            return injector.getInstance(mainPanelActorFactoryType).create(context, stash).start(injector);
         }));
     }
 
@@ -147,8 +147,7 @@ public abstract class AbstractMainPanelActor {
     }
 
     private static ImmutableMap<String, ActorRef<Message>> spawnPanelActors(Injector injector,
-            ActorContext<Message> context, Map<String, PanelActorCreator> panelActors,
-            PanelControllerResult result) {
+            ActorContext<Message> context, Map<String, PanelActorCreator> panelActors, PanelControllerResult result) {
         MutableMap<String, ActorRef<Message>> actors = Maps.mutable.empty();
         panelActors.forEach((name, a) -> {
             var actor = context.spawn(a.create(injector), name);
@@ -185,7 +184,10 @@ public abstract class AbstractMainPanelActor {
 
     protected InitialStateMessage initial;
 
-    public Behavior<Message> start() {
+    protected Injector injector;
+
+    public Behavior<Message> start(Injector injector) {
+        this.injector = injector;
         return Behaviors.receive(Message.class)//
                 .onMessage(InitialStateMessage.class, this::onInitialState)//
                 .onMessage(SetupUiErrorMessage.class, this::onSetupUiError)//

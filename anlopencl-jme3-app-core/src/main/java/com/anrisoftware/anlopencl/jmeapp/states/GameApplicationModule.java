@@ -85,6 +85,7 @@ import com.badlogic.ashley.core.Engine;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -99,7 +100,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GameApplicationModule extends AbstractModule {
 
-    private final GameApplication owner;
+    private final SimpleApplication owner;
+
+    private final Engine engine;
 
     @Override
     protected void configure() {
@@ -151,7 +154,7 @@ public class GameApplicationModule extends AbstractModule {
 
     @Provides
     public Engine getEngine() {
-        return owner.engine;
+        return engine;
     }
 
     @Provides

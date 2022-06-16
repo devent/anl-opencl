@@ -63,106 +63,67 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.states;
+package com.anrisoftware.anlopencl.jmeapp.view.actors
 
-import javax.inject.Inject;
+import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.Matchers.*
 
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
-import com.google.inject.assistedinject.Assisted;
-import com.jme3.asset.AssetManager;
-import com.jme3.opencl.Image;
-import com.jme3.opencl.MemoryAccess;
-import com.jme3.opencl.lwjgl.LwjglContext;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
-import com.jme3.texture.Texture2D;
-import com.jme3.ui.Picture;
+import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.Test
+
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent
+import com.badlogic.ashley.core.Engine
 
 /**
- * Shows the noise image in a quad object.
- *
+ * @see NoiseImageEntities
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class NoiseImageQuad {
+class NoiseImageEntitiesTest {
 
-    /**
-     * Factory to create a new {@link NoiseImageQuad}.
-     *
-     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
-     */
-    public interface NoiseImageQuadFactory {
-        NoiseImageQuad create(ImageComponent c);
+    @Test
+    void "set columns and rows"() {
+        def entities = new NoiseImageEntities(new Engine())
+        entities.set(1, 1)
+        assertThatEntity entities, 1, 1
+        entities.set(2, 1)
+        assertThatEntity entities, 2, 1
+        entities.set(2, 2)
+        assertThatEntity entities, 2, 2
+        entities.set(3, 3)
+        assertThatEntity entities, 3, 3
+        entities.set(3, 4)
+        assertThatEntity entities, 3, 4
+        entities.set(4, 4)
+        assertThatEntity entities, 4, 4
+        entities.set(4, 3)
+        assertThatEntity entities, 4, 3
+        entities.set(3, 3)
+        assertThatEntity entities, 3, 3
+        entities.set(1, 1)
+        assertThatEntity entities, 1, 1
     }
 
-    private final Picture pic;
+    static def rnd = new Random(System.currentTimeMillis())
 
-    private final Texture2D unsetTex;
+    static def entitiesRnd = new NoiseImageEntities(new Engine())
 
-    private final AssetManager assetManager;
-
-    private Image texCL;
-
-    private boolean textureSet = false;
-
-    private boolean imageBoundOpenCL = false;
-
-    private final LwjglContext context;
-
-    private Texture2D tex;
-
-    @Inject
-    public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageComponent c) {
-        this.pic = new Picture(NoiseImageQuad.class.getSimpleName());
-        this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
-        this.assetManager = assetManager;
-        this.context = (LwjglContext) context;
-        pic.setQueueBucket(Bucket.Opaque);
-        pic.setTexture(assetManager, unsetTex, true);
-        pic.setPosition(c.column, c.row);
-        pic.setWidth(c.width);
-        pic.setHeight(c.height);
+    @RepeatedTest(10)
+    void "random set columns and rows"() {
+        int cols = rnd.nextInt(100) + 1
+        int rows = rnd.nextInt(100) + 1
+        entitiesRnd.set(cols, rows)
+        assertThatEntity entitiesRnd, cols, rows
     }
 
-    public void setNotSetTexture(boolean b) {
-        if (b) {
-            pic.setTexture(assetManager, unsetTex, true);
-            texCL.release();
-            textureSet = false;
-            imageBoundOpenCL = false;
+    void assertThatEntity(NoiseImageEntities entities, int cols, int rows) {
+        assertThat "columns count is correct", entities.noiseImageEntities.size(), equalTo(cols)
+        assertThat "rows count is correct", entities.noiseImageEntities.get(0).size(), equalTo(rows)
+        for (int c = 0; c < cols; c++) {
+            for (int r = 0; r < rows; r++) {
+                def ic = entities.noiseImageEntities.get(c).get(r).getComponent(ImageComponent)
+                assertThat ic.column, equalTo(c)
+                assertThat ic.row, equalTo(r)
+            }
         }
     }
-
-    public boolean isTextureSet() {
-        return textureSet;
-    }
-
-    public boolean isTextureUploaded() {
-        return tex != null && tex.getImage().getId() != -1;
-    }
-
-    public boolean isImageBoundOpenCL() {
-        return imageBoundOpenCL;
-    }
-
-    public void setTex(Texture2D tex) {
-        pic.setTexture(assetManager, tex, true);
-        this.tex = tex;
-        textureSet = true;
-    }
-
-    /**
-     * Bind the texture to OpenCL after the texture was uploaded to OpenGL.
-     */
-    public void bindTextureToImage() {
-        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY);
-        imageBoundOpenCL = true;
-    }
-
-    public Image getTexCL() {
-        return texCL;
-    }
-
-    public Picture getPic() {
-        return pic;
-    }
-
 }

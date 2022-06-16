@@ -142,9 +142,6 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     @Inject
     private GameMainPanePropertiesProvider onp;
 
-    @Inject
-    private Injector injector;
-
     private ActorRef<Message> openclBuildActor;
 
     @Inject

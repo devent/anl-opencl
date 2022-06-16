@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - View
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - View is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - View bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,106 +63,21 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.states;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import javax.inject.Inject;
-
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
-import com.google.inject.assistedinject.Assisted;
-import com.jme3.asset.AssetManager;
-import com.jme3.opencl.Image;
-import com.jme3.opencl.MemoryAccess;
-import com.jme3.opencl.lwjgl.LwjglContext;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
-import com.jme3.texture.Texture2D;
-import com.jme3.ui.Picture;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
- * Shows the noise image in a quad object.
+ * The number of image columns or rows changed.
  *
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-public class NoiseImageQuad {
+@ToString(callSuper = true)
+@RequiredArgsConstructor
+public class ColumnsRowsChangedMessage extends GuiMessage {
 
-    /**
-     * Factory to create a new {@link NoiseImageQuad}.
-     *
-     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
-     */
-    public interface NoiseImageQuadFactory {
-        NoiseImageQuad create(ImageComponent c);
-    }
+    public final int columns;
 
-    private final Picture pic;
-
-    private final Texture2D unsetTex;
-
-    private final AssetManager assetManager;
-
-    private Image texCL;
-
-    private boolean textureSet = false;
-
-    private boolean imageBoundOpenCL = false;
-
-    private final LwjglContext context;
-
-    private Texture2D tex;
-
-    @Inject
-    public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageComponent c) {
-        this.pic = new Picture(NoiseImageQuad.class.getSimpleName());
-        this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
-        this.assetManager = assetManager;
-        this.context = (LwjglContext) context;
-        pic.setQueueBucket(Bucket.Opaque);
-        pic.setTexture(assetManager, unsetTex, true);
-        pic.setPosition(c.column, c.row);
-        pic.setWidth(c.width);
-        pic.setHeight(c.height);
-    }
-
-    public void setNotSetTexture(boolean b) {
-        if (b) {
-            pic.setTexture(assetManager, unsetTex, true);
-            texCL.release();
-            textureSet = false;
-            imageBoundOpenCL = false;
-        }
-    }
-
-    public boolean isTextureSet() {
-        return textureSet;
-    }
-
-    public boolean isTextureUploaded() {
-        return tex != null && tex.getImage().getId() != -1;
-    }
-
-    public boolean isImageBoundOpenCL() {
-        return imageBoundOpenCL;
-    }
-
-    public void setTex(Texture2D tex) {
-        pic.setTexture(assetManager, tex, true);
-        this.tex = tex;
-        textureSet = true;
-    }
-
-    /**
-     * Bind the texture to OpenCL after the texture was uploaded to OpenGL.
-     */
-    public void bindTextureToImage() {
-        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY);
-        imageBoundOpenCL = true;
-    }
-
-    public Image getTexCL() {
-        return texCL;
-    }
-
-    public Picture getPic() {
-        return pic;
-    }
-
+    public final int rows;
 }

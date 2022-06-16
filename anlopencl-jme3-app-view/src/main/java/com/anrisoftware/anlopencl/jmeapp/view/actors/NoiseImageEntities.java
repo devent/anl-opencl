@@ -63,106 +63,93 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.view.states;
+package com.anrisoftware.anlopencl.jmeapp.view.actors;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.collections.impl.factory.Lists;
+
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
-import com.google.inject.assistedinject.Assisted;
-import com.jme3.asset.AssetManager;
-import com.jme3.opencl.Image;
-import com.jme3.opencl.MemoryAccess;
-import com.jme3.opencl.lwjgl.LwjglContext;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
-import com.jme3.texture.Texture2D;
-import com.jme3.ui.Picture;
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Shows the noise image in a quad object.
+ * Creates or deletes noise image entities to fill columns and rows.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class NoiseImageQuad {
+@Slf4j
+public class NoiseImageEntities {
 
     /**
-     * Factory to create a new {@link NoiseImageQuad}.
-     *
-     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     * Columns first list of noise image entities.
      */
-    public interface NoiseImageQuadFactory {
-        NoiseImageQuad create(ImageComponent c);
-    }
+    private final List<List<Entity>> noiseImageEntities;
 
-    private final Picture pic;
-
-    private final Texture2D unsetTex;
-
-    private final AssetManager assetManager;
-
-    private Image texCL;
-
-    private boolean textureSet = false;
-
-    private boolean imageBoundOpenCL = false;
-
-    private final LwjglContext context;
-
-    private Texture2D tex;
+    private final Engine engine;
 
     @Inject
-    public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageComponent c) {
-        this.pic = new Picture(NoiseImageQuad.class.getSimpleName());
-        this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
-        this.assetManager = assetManager;
-        this.context = (LwjglContext) context;
-        pic.setQueueBucket(Bucket.Opaque);
-        pic.setTexture(assetManager, unsetTex, true);
-        pic.setPosition(c.column, c.row);
-        pic.setWidth(c.width);
-        pic.setHeight(c.height);
+    public NoiseImageEntities(Engine engine) {
+        this.engine = engine;
+        this.noiseImageEntities = Lists.mutable.empty();
     }
 
-    public void setNotSetTexture(boolean b) {
-        if (b) {
-            pic.setTexture(assetManager, unsetTex, true);
-            texCL.release();
-            textureSet = false;
-            imageBoundOpenCL = false;
+    /**
+     * Sets the count of columns and rows, creates and removes noise image entities
+     * as needed.
+     */
+    public void set(int cols, int rows) {
+        log.debug("Set to cols {} rows {}", cols, rows);
+        int oldcols = noiseImageEntities.size();
+        int diffcols = cols - oldcols;
+        if (diffcols > 0) {
+            for (int c = 0; c < diffcols; c++) {
+                noiseImageEntities.add(Lists.mutable.empty());
+            }
+        }
+        if (diffcols < 0) {
+            for (int c = diffcols; c < 0; c++) {
+                var rowlist = noiseImageEntities.remove(noiseImageEntities.size() - 1);
+                for (Entity e : rowlist) {
+                    engine.removeEntity(e);
+                }
+            }
+        }
+        for (int c = 0; c < cols; c++) {
+            var rowlist = noiseImageEntities.get(c);
+            int oldrows = rowlist.size();
+            int diffrows = rows - oldrows;
+            if (diffrows > 0) {
+                for (int r = 0; r < diffrows; r++) {
+                    addImageComponent(rowlist, c, oldrows + r);
+                }
+            }
+            if (diffrows < 0) {
+                for (int r = diffrows; r < 0; r++) {
+                    var e = rowlist.remove(rowlist.size() - 1);
+                    engine.removeEntity(e);
+                }
+            }
         }
     }
 
-    public boolean isTextureSet() {
-        return textureSet;
-    }
-
-    public boolean isTextureUploaded() {
-        return tex != null && tex.getImage().getId() != -1;
-    }
-
-    public boolean isImageBoundOpenCL() {
-        return imageBoundOpenCL;
-    }
-
-    public void setTex(Texture2D tex) {
-        pic.setTexture(assetManager, tex, true);
-        this.tex = tex;
-        textureSet = true;
+    private void addImageComponent(List<Entity> rowlist, int col, int row) {
+        var e = engine.createEntity();
+        rowlist.add(e);
+        e.add(new ImageComponent(col, row, 1, 1));
+        engine.addEntity(e);
     }
 
     /**
-     * Bind the texture to OpenCL after the texture was uploaded to OpenGL.
+     * Returns the list of noise image entities.
+     *
+     * @return columns first {@link List} of {@link List} of noise image entities.
      */
-    public void bindTextureToImage() {
-        texCL = context.bindImage(tex, MemoryAccess.WRITE_ONLY);
-        imageBoundOpenCL = true;
+    public List<List<Entity>> getEntities() {
+        return noiseImageEntities;
     }
-
-    public Image getTexCL() {
-        return texCL;
-    }
-
-    public Picture getPic() {
-        return pic;
-    }
-
 }

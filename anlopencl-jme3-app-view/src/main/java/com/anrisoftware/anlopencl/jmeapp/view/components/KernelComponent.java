@@ -73,6 +73,13 @@ import com.jme3.texture.Texture2D;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Quad image component that contains the generated texture and the mapping
+ * ranges. Contains also a flag if the image from the kernel was already
+ * generated so that the image is not generated in every frame.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 @RequiredArgsConstructor
 public class KernelComponent implements Component {

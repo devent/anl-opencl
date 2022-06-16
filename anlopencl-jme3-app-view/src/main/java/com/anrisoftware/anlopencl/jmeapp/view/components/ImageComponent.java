@@ -71,11 +71,20 @@ import com.badlogic.ashley.core.ComponentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Sets the image quad width and height.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 @RequiredArgsConstructor
 public class ImageComponent implements Component {
 
     public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+
+    public final int column;
+
+    public final int row;
 
     public final int width;
 

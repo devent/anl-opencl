@@ -1,0 +1,35 @@
+@startuml
+
+participant ViewActor as vActor
+collections buffer
+boundary ViewAppState as vaState
+control Engine
+boundary CameraPanningAppState as cpaState
+entity noiseImageEntity as niEntity
+entity "ImageComponent(10, 10)" as icomponent0
+collections noiseImageEntities as niEntities
+control NoiseImageSystem as niSystem
+
+-> vActor : AttachViewAppStateDoneMessage
+activate vActor
+alt akka-thread
+vActor -> vActor : onAttachViewAppStateDone()
+	vActor -> buffer : unstashAll()
+else app.enqueue
+	vActor -> vActor : setupCamera()
+	create niEntity
+	vActor -> niEntity : engine.createEntity()
+	create icomponent0
+	vActor -> icomponent0 : <<new>>
+	vActor -> niEntities : put(kernelName, noiseImageEntity)
+	vActor -> Engine : addEntity(noiseImageEntity)
+	activate Engine
+	Engine -> niSystem : entityAdded()
+	activate niSystem
+	niSystem -> niSystem : createNoiseImageQuad()
+	deactivate niSystem
+	deactivate Engine
+end
+deactivate vActor
+
+@enduml

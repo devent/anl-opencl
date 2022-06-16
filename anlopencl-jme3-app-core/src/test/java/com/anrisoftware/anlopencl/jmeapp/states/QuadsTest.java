@@ -65,133 +65,154 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.time.Duration.ofMinutes;
-import static java.time.Duration.ofSeconds;
-
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.concurrent.CompletionStage;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.io.IOUtils;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
-import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor;
-import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage.AttachGuiFinishedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ShutdownMessage;
-import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
+import com.anrisoftware.anlopencl.jmeapp.view.actors.NoiseImageEntities;
+import com.anrisoftware.anlopencl.jmeapp.view.states.CoordAxisDebugShape;
+import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageSystem;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.ConstantVerifierState;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.system.AppSettings;
+import com.simsilica.lemur.Button;
+import com.simsilica.lemur.Container;
+import com.simsilica.lemur.GuiGlobals;
+import com.simsilica.lemur.HAlignment;
+import com.simsilica.lemur.Label;
+import com.simsilica.lemur.TextField;
+import com.simsilica.lemur.style.BaseStyles;
 
-import akka.actor.typed.ActorRef;
-import akka.actor.typed.javadsl.AskPattern;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Game application.
+ * Tests the addition and removing of image quads.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 @Slf4j
-public class GameApplication extends SimpleApplication {
+public class QuadsTest extends SimpleApplication {
 
-    public static void main(String[] args) throws IOException {
+    @SneakyThrows
+    public static void main(String[] args) {
         var injector = Guice.createInjector();
-        injector.getInstance(GameApplication.class).start(injector);
+        injector.getInstance(QuadsTest.class).start(injector);
     }
 
-    Injector injector;
+    private final Engine engine;
 
-    Injector parent;
+    private CoordAxisDebugShape coordAxisDebugShape;
 
-    ActorSystemProvider actor;
+    private TextField columnsField;
 
-    ActorRef<Message> mainWindowActor;
+    private TextField rowsField;
 
-    private Engine engine;
+    private NoiseImageEntities noiseImageEntities;
 
-    public GameApplication() {
-        super(new ConstantVerifierState());
+    private NoiseImageSystem noiseImageSystem;
+
+    private final NumberFormat numberFormat;
+
+    private Label infoLabel;
+
+    private Injector injector;
+
+    private ActorSystemProvider actor;
+
+    public QuadsTest() {
+        super(new DebugKeysAppState(), new ConstantVerifierState());
+        this.engine = new Engine();
+        this.numberFormat = NumberFormat.getInstance(Locale.US);
     }
 
     private void start(Injector parent) throws IOException {
-        this.parent = parent;
-        setupApp();
-        super.start();
-    }
-
-    private void setupApp() throws IOException {
-        this.engine = new Engine();
         this.injector = parent.createChildInjector(new GameApplicationModule(this, engine));
         this.actor = injector.getInstance(ActorSystemProvider.class);
-        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
-        gmpp.load();
-        var gsp = injector.getInstance(GameSettingsProvider.class);
-        gsp.load();
+        // stateManager.attach(new FlyCamAppState());
+        setupSettings();
+        start();
+    }
+
+    private void setupSettings() {
         setShowSettings(false);
         var s = new AppSettings(true);
-        loadAppIcon(s);
         s.setResizable(true);
-        s.setWidth(gsp.get().windowWidth.get());
-        s.setHeight(gsp.get().windowHeight.get());
+        s.setWidth(1024);
+        s.setHeight(768);
         s.setVSync(false);
         s.setOpenCLSupport(true);
         setSettings(s);
     }
 
-    private void loadAppIcon(AppSettings s) throws IOException {
-        s.setIcons(new BufferedImage[] { ImageIO.read(getClass().getResource("/app/logo.png")) });
-        s.setTitle(IOUtils.toString(getClass().getResource("/app/title.txt"), UTF_8));
+    @Override
+    public void simpleInitApp() {
+        GuiGlobals.initialize(this);
+        BaseStyles.loadGlassStyle();
+        GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
+        coordAxisDebugShape = new CoordAxisDebugShape(assetManager);
+        rootNode.attachChild(coordAxisDebugShape.getNode());
+        noiseImageSystem = injector.getInstance(NoiseImageSystem.class);
+        noiseImageEntities = injector.getInstance(NoiseImageEntities.class);
+        engine.addSystem(noiseImageSystem);
+        setupCamera();
+        setupGui();
     }
 
-    @Override
+    private void setupGui() {
+        var window = new Container();
+        window.setPreferredSize(new Vector3f(300, 100, 0));
+        guiNode.attachChild(window);
+        window.setLocalTranslation(10, cam.getHeight() - 10, 0);
+        window.addChild(new Label("Columns:"));
+        this.columnsField = new TextField("1");
+        columnsField.setTextHAlignment(HAlignment.Right);
+        window.addChild(columnsField);
+        window.addChild(new Label("Rows:"));
+        this.rowsField = new TextField("1");
+        rowsField.setTextHAlignment(HAlignment.Right);
+        window.addChild(rowsField);
+        var applyButton = window.addChild(new Button("Apply"));
+        applyButton.addClickCommands(source -> {
+            updateColsRows();
+        });
+        infoLabel = new Label("");
+        window.addChild(infoLabel);
+    }
+
     @SneakyThrows
-    public void simpleInitApp() {
-        log.debug("simpleInitApp");
-        // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
-        GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
-            mainWindowActor = ret;
-            CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
-                    replyTo -> new AttachGuiMessage(replyTo), ofMinutes(1), actor.getActorSystem().scheduler());
-            result.whenComplete((ret1, ex1) -> {
-                inputManager.deleteMapping(INPUT_MAPPING_EXIT);
-            });
-        });
-        ViewActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
-            if (ex != null) {
-                log.error("ViewActor error", ex);
-            }
-        });
+    private void updateColsRows() {
+        var cols = numberFormat.parse(columnsField.getText()).intValue();
+        var rows = numberFormat.parse(rowsField.getText()).intValue();
+        if (cols > 0 && rows > 0) {
+            log.debug("Apply columns {} rows {}", cols, rows);
+            infoLabel.setText("");
+            noiseImageEntities.set(cols, rows);
+        } else {
+            infoLabel.setText("Columns and rows must be greater 0");
+        }
+    }
+
+    private void setupCamera() {
+        cam.setLocation(new Vector3f(1.7853183f, 1.1580523f, 10.528595f));
+        cam.setRotation(new Quaternion(-3.711398E-4f, 0.99803764f, 0.062332783f, 0.005950089f));
     }
 
     @Override
     public void stop() {
-        var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
-        gmpp.get().setCameraPos(getCamera().getLocation());
-        gmpp.get().setCameraRot(getCamera().getRotation());
-        gmpp.save();
-        var gsp = injector.getInstance(GameSettingsProvider.class);
-        gsp.get().windowWidth.set(getCamera().getWidth());
-        gsp.get().windowHeight.set(getCamera().getHeight());
-        gsp.get().windowFullscreen.set(context.getSettings().isFullscreen());
-        gsp.save();
         actor.get().tell(new ShutdownMessage());
         super.stop();
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        engine.update(tpf);
     }
 }

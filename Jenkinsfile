@@ -67,8 +67,8 @@
  * Builds and deploys the project.
  *
  * @author Erwin Mueller, erwin.mueller@deventm.org
- * @since 4.6.2
- * @version 1.4.1
+ * @since 0.0.4
+ * @version 1.4.2
  */
 def groupId
 def artifactId
@@ -174,6 +174,7 @@ pipeline {
         success {
             container("maven") {
                 script {
+                    sh "wget -qO- https://project.anrisoftware.com/sys/fetch_changesets?key=\${REDMINE_API_KEY}"
                     manager.createSummary("document.png").appendText("<a href=\"${env.JAVADOC_URL}/${groupId}/${artifactId}/${version}/index.html\">View Maven Site</a>", false)
                 }
             }
