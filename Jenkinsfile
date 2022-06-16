@@ -174,7 +174,7 @@ pipeline {
         success {
             container("maven") {
                 script {
-                    sh "curl https://project.anrisoftware.com/sys/fetch_changesets?key=\${REDMINE_API_KEY}"
+                    sh "wget -qO- https://project.anrisoftware.com/sys/fetch_changesets?key=\${REDMINE_API_KEY}"
                     manager.createSummary("document.png").appendText("<a href=\"${env.JAVADOC_URL}/${groupId}/${artifactId}/${version}/index.html\">View Maven Site</a>", false)
                 }
             }
