@@ -1,13 +1,13 @@
 <!--
 
-    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2022-2022 Erwin Müller <erwin@muellerpublic.de>
     Released as open-source under the Apache License, Version 2.0.
 
     ****************************************************************************
-    ANL-OpenCL :: IzPack Installation
+    ANL-OpenCL :: IzPack Installation :: Windows Dependencies
     ****************************************************************************
 
-    Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
+    Copyright (C) 2022-2022 Erwin Müller <erwin@muellerpublic.de>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
     limitations under the License.
 
     ****************************************************************************
-    ANL-OpenCL :: IzPack Installation is a derivative work based on Josua Tippetts' C++ library:
+    ANL-OpenCL :: IzPack Installation :: Windows Dependencies is a derivative work based on Josua Tippetts' C++ library:
     http://accidentalnoise.sourceforge.net/index.html
     ****************************************************************************
 
@@ -46,7 +46,7 @@
 
 
     ****************************************************************************
-    ANL-OpenCL :: IzPack Installation bundles and uses the RandomCL library:
+    ANL-OpenCL :: IzPack Installation :: Windows Dependencies bundles and uses the RandomCL library:
     https://github.com/bstatcomp/RandomCL
     ****************************************************************************
 
@@ -77,30 +77,20 @@
         <relativePath />
     </parent>
 
-    <artifactId>anlopencl-jme3-izpack</artifactId>
+    <artifactId>anlopencl-jme3-izpack-windows</artifactId>
     <groupId>com.anrisoftware.anlopencl</groupId>
     <version>0.0.4-SNAPSHOT</version>
-    <name>ANL-OpenCL :: IzPack Installation</name>
-    <description>Package the ANL-OpenCL JMonkeyEngine3 application in IzPack installer.</description>
-    <inceptionYear>2021</inceptionYear>
+    <name>ANL-OpenCL :: IzPack Installation :: Windows Dependencies</name>
+    <description>Windows dependencies for the the ANL-OpenCL JMonkeyEngine3 application.</description>
+    <inceptionYear>2022</inceptionYear>
 
     <properties>
         <license.custom.license.template>src/main/resources/LICENSE.temp</license.custom.license.template>
-        <globalpom.custom.app.mainclass>com.anrisoftware.anlopencl.jmeapp.states.GameApplication</globalpom.custom.app.mainclass>
-        <globalpom.custom.app.name>ANL-OpenCL</globalpom.custom.app.name>
-        <globalpom.custom.app.description>ANL-OpenCL</globalpom.custom.app.description>
-        <globalpom.custom.app.version>${project.version}</globalpom.custom.app.version>
-        <globalpom.custom.app.path>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.app.path>
-        <globalpom.custom.app.author.name>Erwin Müller</globalpom.custom.app.author.name>
-        <globalpom.custom.app.author.email>erwin@muellerpublic.de</globalpom.custom.app.author.email>
-        <globalpom.custom.app.organization.url>https://anl-opencl.anrisoftware.com</globalpom.custom.app.organization.url>
-        <globalpom.custom.izpack.readme>etc/en_US/readme.txt</globalpom.custom.izpack.readme>
-        <globalpom.custom.launch4j.install.originalfilename>anl-opencl-${globalpom.custom.app.version}.exe</globalpom.custom.launch4j.install.originalfilename>
-        <globalpom.custom.launch4j.install.internalname>anl-opencl-${globalpom.custom.app.version}.jar</globalpom.custom.launch4j.install.internalname>
-        <globalpom.custom.launch4j.applauncher.launcherfilename>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.launch4j.applauncher.launcherfilename>
-        <globalpom.custom.launch4j.applauncher.jarfilename>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
         <lwjgl.version>3.3.1</lwjgl.version>
+        <lwjgl.natives.linux>natives-linux</lwjgl.natives.linux>
+        <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
+        <lwjgl.natives>${lwjgl.natives.windows}</lwjgl.natives>
     </properties>
 
     <licenses>
@@ -155,102 +145,42 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.anrisoftware.globalpom</groupId>
-                <artifactId>globalpom-groovytestutils</artifactId>
-                <version>${globalpom.custom.anrisoftware.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.lwjgl</groupId>
                 <artifactId>lwjgl-bom</artifactId>
                 <version>${lwjgl.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            <dependency>
-                <groupId>com.anrisoftware.anlopencl</groupId>
-                <artifactId>anlopencl-jme3-app-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.anrisoftware.anlopencl</groupId>
-                <artifactId>anlopencl-jme3-izpack-linux</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.anrisoftware.anlopencl</groupId>
-                <artifactId>anlopencl-jme3-izpack-windows</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
 
-        <!-- own modules dependencies -->
         <dependency>
-            <groupId>com.anrisoftware.anlopencl</groupId>
-            <artifactId>anlopencl-jme3-app-core</artifactId>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <classifier>${lwjgl.natives}</classifier>
         </dependency>
         <dependency>
-            <groupId>com.anrisoftware.anlopencl</groupId>
-            <artifactId>anlopencl-jme3-izpack-linux</artifactId>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <classifier>${lwjgl.natives}</classifier>
         </dependency>
         <dependency>
-            <groupId>com.anrisoftware.anlopencl</groupId>
-            <artifactId>anlopencl-jme3-izpack-windows</artifactId>
-        </dependency>
-
-        <!-- log dependencies -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <classifier>${lwjgl.natives}</classifier>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-openal</artifactId>
+            <classifier>${lwjgl.natives}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <classifier>${lwjgl.natives}</classifier>
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <properties>
-                        <owner>${license.custom.license.owner}</owner>
-                        <email>${license.custom.license.email}</email>
-                        <year>${globalpom.custom.year}</year>
-                    </properties>
-                    <mapping>
-                        <Jenkinsfile>JAVADOC_STYLE</Jenkinsfile>
-                    </mapping>
-                    <licenseSets>
-                        <licenseSet>
-                            <header>${license.custom.license.template}</header>
-                            <excludes>
-                                <exclude>**/README</exclude>
-                                <exclude>**/README.md</exclude>
-                                <exclude>**/README.textile</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>**/*.odg</exclude>
-                                <exclude>**/.directory</exclude>
-                                <exclude>src/test/resources/**</exclude>
-                                <exclude>src/main/resources/**</exclude>
-                                <exclude>**/no_java_runtime.txt</exclude>
-                                <exclude>**/readme.txt</exclude>
-                            </excludes>
-                        </licenseSet>
-                    </licenseSets>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
