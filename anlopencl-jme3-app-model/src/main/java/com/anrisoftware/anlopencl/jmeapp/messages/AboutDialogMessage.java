@@ -68,11 +68,40 @@ package com.anrisoftware.anlopencl.jmeapp.messages;
 import lombok.ToString;
 
 /**
- * Message that the user clicked the settings button.
+ * About dialog message.
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
 @ToString(callSuper = true)
-public class SettingsClickedMessage extends GuiMessage {
+public class AboutDialogMessage extends GuiMessage {
 
+    /**
+     * Message that the settings dialog was closed by closing it.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class AboutDialogClosedMessage extends AboutDialogMessage {
+
+    }
+
+    /**
+     * Message to open the About dialog.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class AboutDialogOpenMessage extends GuiMessage {
+
+    }
+
+    /**
+     * Message that the user clicked the About Dialog button.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class AboutClickedMessage extends GuiMessage {
+
+    }
 }

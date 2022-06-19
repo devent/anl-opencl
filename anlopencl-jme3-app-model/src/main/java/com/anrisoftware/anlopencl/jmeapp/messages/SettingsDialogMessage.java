@@ -115,4 +115,23 @@ public class SettingsDialogMessage extends GuiMessage {
 
     }
 
+    /**
+     * Message to open the settings dialog.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsDialogOpenMessage extends GuiMessage {
+
+    }
+
+    /**
+     * Message that the user clicked the settings button.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsClickedMessage extends GuiMessage {
+
+    }
 }

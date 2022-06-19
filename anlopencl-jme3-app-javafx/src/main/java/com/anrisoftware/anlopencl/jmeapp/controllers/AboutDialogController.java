@@ -68,15 +68,13 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogClosedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
+import com.anrisoftware.resources.texts.external.Texts;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
@@ -84,7 +82,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
-import javafx.stage.DirectoryChooser;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -107,36 +104,21 @@ public class AboutDialogController {
     @FXML
     public WebView webView;
 
-    public void updateSettings(ObservableGameSettings gs) {
-        tempdirFileChooser = new DirectoryChooser();
-        tempdirFileChooser.setTitle("Open Directory");
-        var file = gs.tempDir.get().toFile();
-        tempdirFileChooser.setInitialDirectory(file);
-        tempdirField.setText(file.getAbsolutePath());
-    }
-
-    public void updateLocale(ObservableGameSettings gs, Images images) {
-        var settingsDialogImage = images.getResource("settings_dialog", gs.locale.get(), IconSize.HUGE);
-        logoView.setImage(toFXImage(settingsDialogImage.getBufferedImage(TYPE_INT_ARGB), null));
+    public void updateLocale(ObservableGameSettings gs, Images images, Texts texts) {
+        logoView.setImage(toFXImage(
+                images.getResource("about_dialog", gs.locale.get(), IconSize.HUGE).getBufferedImage(TYPE_INT_ARGB),
+                null));
         logoView.setPreserveRatio(false);
         logoView.setSmooth(true);
         logoView.setFitWidth(50);
         logoView.setFitHeight(264);
+        webView.getEngine().loadContent(texts.getResource("about_text", gs.locale.get()).getText());
     }
 
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
         closeButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogOkedMessage());
-        });
-        cancelButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogCanceledMessage());
-        });
-        applyButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogApplyMessage());
-        });
-        openTempdirButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogOpenTempdirDialogMessage());
+            actor.tell(new AboutDialogClosedMessage());
         });
     }
 }

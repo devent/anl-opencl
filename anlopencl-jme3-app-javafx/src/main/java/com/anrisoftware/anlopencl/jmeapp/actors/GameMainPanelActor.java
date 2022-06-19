@@ -85,9 +85,9 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogOpenMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -146,7 +146,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     @Inject
     public GameMainPanelActor(ImagesFactory imagesFactory) {
-        this.images = imagesFactory.create(GameMainPanelActor.class.getSimpleName());
+        this.images = imagesFactory.create("AppIcons");
     }
 
     @Override

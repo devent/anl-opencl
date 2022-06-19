@@ -169,7 +169,7 @@ public class MappingFieldsPaneActor {
     @Inject
     MappingFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
-        this.images = images.create("ButtonsIcons");
+        this.images = images.create("AppIcons");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));

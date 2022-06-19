@@ -85,8 +85,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishe
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
@@ -156,7 +156,7 @@ public class ToolbarButtonsActor {
     @Inject
     ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
         this.context = context;
-        this.images = images.create("ButtonsIcons");
+        this.images = images.create("AppIcons");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
