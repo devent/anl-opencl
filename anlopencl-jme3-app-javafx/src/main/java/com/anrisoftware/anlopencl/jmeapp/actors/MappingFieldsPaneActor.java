@@ -95,7 +95,6 @@ import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 
@@ -149,7 +148,9 @@ public class MappingFieldsPaneActor {
 
     private final GameSettingsProvider gsp;
 
-    private final Images images;
+    @Inject
+    @Named("AppIcons")
+    private Images appIcons;
 
     @Inject
     private GameMainPanePropertiesProvider onp;
@@ -167,9 +168,8 @@ public class MappingFieldsPaneActor {
     private MappingFieldsPaneController controller;
 
     @Inject
-    MappingFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
+    MappingFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
         this.context = context;
-        this.images = images.create("AppIcons");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -189,7 +189,7 @@ public class MappingFieldsPaneActor {
         var mainController = (GameMainPaneController) m.controller;
         this.controller = mainController.mappingFieldsPaneController;
         runFxThread(() -> {
-            controller.updateLocale(Locale.US, images, IconSize.SMALL);
+            controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
             controller.columnsField.valueProperty().addListener((observable, oldValue, newValue) -> {
                 actor.getActorSystem()
@@ -275,12 +275,13 @@ public class MappingFieldsPaneActor {
 
     private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(
-                toFXImage(images.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
     }
 
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
-                images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
+                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
     }
 
     private void setDisableControlButtons(boolean disabled) {

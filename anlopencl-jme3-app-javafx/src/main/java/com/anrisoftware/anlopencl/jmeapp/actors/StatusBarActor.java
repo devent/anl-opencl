@@ -82,7 +82,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 
@@ -133,7 +132,7 @@ public class StatusBarActor {
     private GameMainPaneController controller;
 
     @Inject
-    StatusBarActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
+    StatusBarActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
         this.context = context;
         this.gsp = gsp;
         var gs = gsp.get();

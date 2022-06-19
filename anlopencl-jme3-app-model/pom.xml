@@ -178,6 +178,10 @@
             <groupId>com.anrisoftware.resources</groupId>
             <artifactId>resources-images</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.resources</groupId>
+            <artifactId>resources-texts</artifactId>
+        </dependency>
 
     </dependencies>
 

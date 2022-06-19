@@ -96,7 +96,6 @@ import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 import com.jayfella.jme.jfx.JavaFxUI;
@@ -187,7 +186,9 @@ public class SettingsDialogActor {
 
     private final GameSettingsProvider gsp;
 
-    private final Images images;
+    @Inject
+    @Named("AppImages")
+    private Images appImages;
 
     @Inject
     private ActorSystemProvider actor;
@@ -208,10 +209,9 @@ public class SettingsDialogActor {
 
     @Inject
     SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer,
-            GameSettingsProvider gsp, ImagesFactory images) {
+            GameSettingsProvider gsp) {
         this.context = context;
         this.buffer = buffer;
-        this.images = images.create("AppImages");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -245,7 +245,7 @@ public class SettingsDialogActor {
         this.dialog = m.root;
         runFxThread(() -> {
             controller.updateSettings(gsp.get());
-            controller.updateLocale(gsp.get(), images);
+            controller.updateLocale(gsp.get(), appImages);
             controller.initializeListeners(actor.get(), onp.get());
         });
         tellLocalizeControlsSelf(gsp.get());
@@ -347,12 +347,13 @@ public class SettingsDialogActor {
 
     private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(
-                toFXImage(images.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+                toFXImage(appImages.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
     }
 
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
-                images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
+                appImages.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
     }
 
 }

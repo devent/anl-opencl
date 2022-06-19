@@ -91,7 +91,6 @@ import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 
@@ -142,7 +141,9 @@ public class ToolbarButtonsActor {
 
     private final GameSettingsProvider gsp;
 
-    private final Images images;
+    @Inject
+    @Named("AppIcons")
+    private Images appIcons;
 
     @Inject
     private GlobalKeys globalKeys;
@@ -154,9 +155,8 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
         this.context = context;
-        this.images = images.create("AppIcons");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -283,12 +283,13 @@ public class ToolbarButtonsActor {
 
     private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(
-                toFXImage(images.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
     }
 
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
-                images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
+                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
     }
 
     private void setDisableControlButtons(boolean disabled) {

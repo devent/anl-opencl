@@ -76,6 +76,7 @@ import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.collections.impl.factory.Maps;
 
@@ -91,7 +92,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.Settings
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.jme3.opencl.KernelCompilationException;
 
@@ -134,7 +134,9 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 "/game-main-pane.fxml", panelActors, ADDITIONAL_CSS);
     }
 
-    private final Images images;
+    @Inject
+    @Named("AppIcons")
+    private Images appIcons;
 
     @Inject
     private ActorSystemProvider actor;
@@ -145,15 +147,14 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     private ActorRef<Message> openclBuildActor;
 
     @Inject
-    public GameMainPanelActor(ImagesFactory imagesFactory) {
-        this.images = imagesFactory.create("AppIcons");
+    public GameMainPanelActor() {
     }
 
     @Override
     protected BehaviorBuilder<Message> getBehaviorAfterAttachGui() {
         runFxThread(() -> {
             var controller = (GameMainPaneController) initial.controller;
-            controller.updateLocale(Locale.US, images, IconSize.SMALL);
+            controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
             controller.initializeListeners(actor.get(), onp.get());
         });
         Duration timeout = Duration.ofSeconds(3);
