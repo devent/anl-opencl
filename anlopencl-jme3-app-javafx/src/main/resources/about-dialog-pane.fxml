@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="600.0" styleClass="dialogPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.SettingsDialogController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="600.0" styleClass="dialogPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anrisoftware.anlopencl.jmeapp.controllers.AboutDialogController">
    <bottom>
       <HBox fillHeight="false" spacing="4.0" BorderPane.alignment="CENTER">
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <Button id="closeButton" fx:id="okButton" mnemonicParsing="false" text="Close" />
+            <Button id="closeButton" fx:id="closeButton" mnemonicParsing="false" text="Close" />
          </children>
       </HBox>
    </bottom>
@@ -24,7 +24,9 @@
          <children>
             <HBox>
                <children>
-                  <Label id="titleLabel" fx:id="titleLabel" prefWidth="600.0" styleClass="titleLabel" text="About" HBox.hgrow="ALWAYS" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label id="titleLabel" fx:id="titleLabel" styleClass="titleLabel" text="About" HBox.hgrow="ALWAYS" />
+                  <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
@@ -38,6 +40,6 @@
       </ImageView>
    </left>
    <center>
-      <WebView id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <WebView id="webView" fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

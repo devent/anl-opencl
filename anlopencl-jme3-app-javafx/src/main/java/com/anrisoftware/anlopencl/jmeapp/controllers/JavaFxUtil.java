@@ -65,6 +65,12 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import com.jayfella.jme.jfx.JavaFxUI;
 
 import javafx.application.Platform;
@@ -84,4 +90,51 @@ public class JavaFxUtil {
         Platform.runLater(task);
     }
 
+    /**
+     * Run the task on the JavaFx thread and wait for its completion. Taken from
+     * {@link http://www.java2s.com/example/java/javafx/run-and-wait-on-javafx-thread.html}
+     *
+     * @param runnable the {@link Runnable} task to run.
+     * @param result   the result of the task.
+     * @return the result of the task.
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws TimeoutException
+     */
+    public static <V> V runFxAndWait(long timeout, TimeUnit unit, Runnable runnable, V result)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        if (Platform.isFxApplicationThread()) {
+            runnable.run();
+            return result;
+        } else {
+            var futureTask = new FutureTask<>(runnable, result);
+            Platform.runLater(futureTask);
+            return futureTask.get(timeout, unit);
+        }
+    }
+
+    /**
+     * Run the task on the JavaFx thread and wait for its completion. Taken from
+     * {@link http://www.java2s.com/example/java/javafx/run-and-wait-on-javafx-thread.html}
+     *
+     * @param callable the {@link Callable} task to run.
+     * @return the result of the task.
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
+    public static <V> V runFxAndWait(long timeout, TimeUnit unit, Callable<V> callable)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        if (Platform.isFxApplicationThread()) {
+            try {
+                return callable.call();
+            } catch (Exception e) {
+                throw new ExecutionException(e);
+            }
+        } else {
+            var futureTask = new FutureTask<>(callable);
+            Platform.runLater(futureTask);
+            return futureTask.get(timeout, unit);
+        }
+    }
 }

@@ -1,0 +1,39 @@
+@startuml
+
+actor User
+boundary aboutButton
+collections globalKeys
+participant GameMainPanelActor as gmpActor
+control MainActor
+participant AboutDialogActor as adActor
+participant ToolbarButtonsActor as tbActor
+
+alt javafx thread
+	User -> aboutButton : click
+	aboutButton -> globalKeys : runAction()
+	activate globalKeys
+		alt akka thread
+			globalKeys -> MainActor : AboutDialogOpenTriggeredMessage
+		end
+	deactivate globalKeys
+end
+
+== AboutDialogOpenTriggeredMessage ==
+
+MainActor x-> gmpActor : AboutDialogOpenTriggeredMessage
+activate gmpActor
+	gmpActor -> gmpActor : onAboutDialogOpenTriggered()
+	gmpActor -> tbActor : AboutDialogOpenTriggeredMessage
+	gmpActor -> MainActor : sendMessageMayCreate()
+	activate MainActor
+		alt aboutDialogActor already exists?
+			MainActor -> adActor : AboutDialogOpenMessage
+		else
+			MainActor -> adActor : create
+			MainActor -> adActor : AboutDialogOpenMessage
+			adActor -> adActor : start()
+		end
+	deactivate MainActor
+deactivate gmpActor
+
+@enduml

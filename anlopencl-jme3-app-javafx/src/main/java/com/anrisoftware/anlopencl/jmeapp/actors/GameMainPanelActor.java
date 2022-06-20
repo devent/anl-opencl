@@ -81,13 +81,16 @@ import javax.inject.Named;
 import org.eclipse.collections.impl.factory.Maps;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
@@ -222,7 +225,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     }
 
     /**
-     * Processing {@link SettingsClickedMessage}.
+     * Processing {@link SettingsDialogOpenTriggeredMessage}.
      * <p>
      * This message is send after if user wants to open the settings dialog by
      * either clicking on the settings button or using a shortcut key binding.
@@ -233,23 +236,13 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
      * <li>{@link SettingsDialogMessage}
      * </ul>
      */
-    private Behavior<Message> onSettingsClicked(SettingsClickedMessage m) {
+    private Behavior<Message> onSettingsClicked(SettingsDialogOpenTriggeredMessage m) {
         log.debug("onSettingsClicked {}", m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        if (!actor.getMainActor().haveActor(SettingsDialogActor.ID)) {
-            SettingsDialogActor.create(ofSeconds(1), injector).whenComplete((res, ex) -> {
-                if (ex != null) {
-                    log.error("Error create settings dialog actor", ex);
-                } else {
-                    res.tell(new SettingsDialogOpenMessage());
-                }
-            });
-        } else {
-            actor.getMainActor().getActor(SettingsDialogActor.ID).tell(new SettingsDialogOpenMessage());
-        }
-        return super.getBehaviorAfterAttachGui()//
-                .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
-                .build();
+        return MainActor.sendMessageMayCreate(injector, SettingsDialogActor.ID, new SettingsDialogOpenMessage(),
+                SettingsDialogActor::create, super.getBehaviorAfterAttachGui()//
+                        .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
+        );
     }
 
     private Behavior<Message> onSettingsDialogClosed(SettingsDialogMessage m) {
@@ -258,10 +251,38 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return getDefaultBehavior().build();
     }
 
+    /**
+     * Processing {@link AboutDialogOpenTriggeredMessage}.
+     * <p>
+     * This message is send after if user wants to open the about dialog by either
+     * clicking on the About button or using a shortcut key binding.
+     * <p>
+     * Returns a behavior that reacts to the following messages:
+     * <ul>
+     * <li>{@link #getBehaviorAfterAttachGui()}
+     * <li>{@link AboutDialogMessage}
+     * </ul>
+     */
+    private Behavior<Message> onAboutDialogOpenTriggered(AboutDialogOpenTriggeredMessage m) {
+        log.debug("onAboutDialogOpenTriggered {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        return MainActor.sendMessageMayCreate(injector, AboutDialogActor.ID, new AboutDialogOpenMessage(),
+                AboutDialogActor::create, super.getBehaviorAfterAttachGui()//
+                        .onMessage(AboutDialogMessage.class, this::onAboutDialog)//
+        );
+    }
+
+    private Behavior<Message> onAboutDialog(AboutDialogMessage m) {
+        log.debug("onAboutDialog {}", m);
+        initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
+        return getDefaultBehavior().build();
+    }
+
     private BehaviorBuilder<Message> getDefaultBehavior() {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
-                .onMessage(SettingsClickedMessage.class, this::onSettingsClicked)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsClicked)//
+                .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
         ;
     }
 

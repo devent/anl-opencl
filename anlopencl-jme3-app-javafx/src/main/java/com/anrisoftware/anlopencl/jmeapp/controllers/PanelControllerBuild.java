@@ -65,6 +65,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -173,7 +175,9 @@ public class PanelControllerBuild {
 
     @SneakyThrows
     private Pane loadFxml(FXMLLoader loader, String mainUiResource) {
-        var root = (Pane) loader.load(getClass().getResourceAsStream(mainUiResource));
+        var root = JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
+            return (Pane) loader.load(getClass().getResourceAsStream(mainUiResource));
+        });
         return root;
     }
 

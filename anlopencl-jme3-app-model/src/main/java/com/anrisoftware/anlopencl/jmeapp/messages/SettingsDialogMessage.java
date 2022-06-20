@@ -81,7 +81,7 @@ public class SettingsDialogMessage extends GuiMessage {
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsDialogCanceledMessage extends SettingsDialogMessage {
+    public static class SettingsDialogCancelTriggeredMessage extends SettingsDialogMessage {
 
     }
 
@@ -91,7 +91,7 @@ public class SettingsDialogMessage extends GuiMessage {
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsDialogOkedMessage extends SettingsDialogMessage {
+    public static class SettingsDialogOkTriggeredMessage extends SettingsDialogMessage {
 
     }
 
@@ -126,12 +126,13 @@ public class SettingsDialogMessage extends GuiMessage {
     }
 
     /**
-     * Message that the user clicked the settings button.
+     * Message that the user clicked the Settings Dialog button or pressed a key
+     * binding to open the Settings dialog.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsClickedMessage extends GuiMessage {
+    public static class SettingsDialogOpenTriggeredMessage extends GuiMessage {
 
     }
 }

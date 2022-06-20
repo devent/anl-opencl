@@ -76,12 +76,13 @@ import lombok.ToString;
 public class AboutDialogMessage extends GuiMessage {
 
     /**
-     * Message that the settings dialog was closed by closing it.
+     * Message that the settings dialog was closed by closing it by either a)
+     * trigger the close button, b) press Esc.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class AboutDialogClosedMessage extends AboutDialogMessage {
+    public static class AboutDialogCloseTriggeredMessage extends AboutDialogMessage {
 
     }
 
@@ -96,12 +97,13 @@ public class AboutDialogMessage extends GuiMessage {
     }
 
     /**
-     * Message that the user clicked the About Dialog button.
+     * Message that the user clicked the About Dialog button or pressed a key
+     * binding to open the about dialog.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class AboutClickedMessage extends GuiMessage {
+    public static class AboutDialogOpenTriggeredMessage extends GuiMessage {
 
     }
 }

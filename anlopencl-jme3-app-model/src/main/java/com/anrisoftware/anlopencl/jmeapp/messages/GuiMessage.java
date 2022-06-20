@@ -69,6 +69,11 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 
 import lombok.ToString;
 
+/**
+ * Generic message from the GUI frontend.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 public class GuiMessage extends Message {
 

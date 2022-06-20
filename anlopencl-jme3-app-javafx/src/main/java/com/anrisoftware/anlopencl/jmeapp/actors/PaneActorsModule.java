@@ -65,6 +65,7 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
+import com.anrisoftware.anlopencl.jmeapp.actors.AboutDialogActor.AboutDialogActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor.GameMainPanelActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ImageFieldsPaneActor.ImageFieldsPaneActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.MappingFieldsPaneActor.MappingFieldsPaneActorFactory;
@@ -94,5 +95,7 @@ public class PaneActorsModule extends AbstractModule {
                 .build(MappingFieldsPaneActorFactory.class));
         install(new FactoryModuleBuilder().implement(SettingsDialogActor.class, SettingsDialogActor.class)
                 .build(SettingsDialogActorFactory.class));
+        install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, AboutDialogActor.class)
+                .build(AboutDialogActorFactory.class));
     }
 }

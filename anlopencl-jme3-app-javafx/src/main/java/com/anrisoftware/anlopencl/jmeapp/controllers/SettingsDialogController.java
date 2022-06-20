@@ -70,8 +70,8 @@ import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCanceledMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCancelTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
@@ -141,10 +141,10 @@ public class SettingsDialogController {
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
         okButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogOkedMessage());
+            actor.tell(new SettingsDialogOkTriggeredMessage());
         });
         cancelButton.setOnAction((event) -> {
-            actor.tell(new SettingsDialogCanceledMessage());
+            actor.tell(new SettingsDialogCancelTriggeredMessage());
         });
         applyButton.setOnAction((event) -> {
             actor.tell(new SettingsDialogApplyMessage());

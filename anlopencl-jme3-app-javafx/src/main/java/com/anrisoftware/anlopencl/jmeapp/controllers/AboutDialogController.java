@@ -68,7 +68,7 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
-import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogClosedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
@@ -118,7 +118,7 @@ public class AboutDialogController {
     public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
         log.debug("initializeListeners");
         closeButton.setOnAction((event) -> {
-            actor.tell(new AboutDialogClosedMessage());
+            actor.tell(new AboutDialogCloseTriggeredMessage());
         });
     }
 }
