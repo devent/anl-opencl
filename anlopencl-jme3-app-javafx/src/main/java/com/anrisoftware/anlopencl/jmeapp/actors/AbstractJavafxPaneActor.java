@@ -210,9 +210,10 @@ public class AbstractJavafxPaneActor<ControllerType> {
         ;
     }
 
-    private Behavior<Message> stashOtherCommand(Message m) {
-        log.debug("stashOtherCommand {}", m);
-        buffer.stash(m);
+    private Behavior<Message> stashOtherCommand(Object m) {
+        var mm = (Message) m;
+        log.debug("stashOtherCommand {}", mm);
+        buffer.stash(mm);
         return Behaviors.same();
     }
 
@@ -232,9 +233,10 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return Behaviors.receive(Message.class);
     }
 
-    private Behavior<Message> onErrorState(JavafxPaneErrorSetupControllerMessage m) {
-        log.debug("onErrorState {}", m);
-        log.error("Error setup controller", m.cause);
+    private Behavior<Message> onErrorState(Object m) {
+        var mm = (JavafxPaneErrorSetupControllerMessage) m;
+        log.debug("onErrorState {}", mm);
+        log.error("Error setup controller", mm.cause);
         return Behaviors.stopped();
     }
 
