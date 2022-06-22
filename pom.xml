@@ -233,7 +233,7 @@
             <dependency>
                 <groupId>com.anrisoftware.jmejfx</groupId>
                 <artifactId>jme-jfx</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
             </dependency>
             <dependency>
                 <groupId>net.raumzeitfalle.fx</groupId>
