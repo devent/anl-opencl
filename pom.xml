@@ -271,6 +271,44 @@
                     <failOnError>false</failOnError>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <owner>${license.custom.license.owner}</owner>
+                        <email>${license.custom.license.email}</email>
+                        <year>${globalpom.custom.year}</year>
+                    </properties>
+                    <mapping>
+                        <Jenkinsfile>JAVADOC_STYLE</Jenkinsfile>
+                        <Makefile>SCRIPT_STYLE</Makefile>
+                    </mapping>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>${license.custom.license.template}</header>
+                            <excludes>
+                                <exclude>**/README</exclude>
+                                <exclude>**/README.md</exclude>
+                                <exclude>**/README.textile</exclude>
+                                <exclude>**/LICENSE.txt</exclude>
+                                <exclude>**/*.odg</exclude>
+                                <exclude>**/.directory</exclude>
+                                <exclude>src/test/resources/**</exclude>
+                                <exclude>src/main/resources/**</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

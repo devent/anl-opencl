@@ -1,12 +1,13 @@
+#!/bin/bash
 #
-# Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
+# Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
 # Released as open-source under the Apache License, Version 2.0.
 #
 # ****************************************************************************
-# ANL-OpenCL :: OpenCL
+# ANL-OpenCL :: Bundle POM
 # ****************************************************************************
 #
-# Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
+# Copyright (C) 2021 Erwin Müller <erwin@muellerpublic.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 # limitations under the License.
 #
 # ****************************************************************************
-# ANL-OpenCL :: OpenCL is a derivative work based on Josua Tippetts' C++ library:
+# ANL-OpenCL :: Bundle POM is a derivative work based on Josua Tippetts' C++ library:
 # http://accidentalnoise.sourceforge.net/index.html
 # ****************************************************************************
 #
@@ -45,7 +46,7 @@
 #
 #
 # ****************************************************************************
-# ANL-OpenCL :: OpenCL bundles and uses the RandomCL library:
+# ANL-OpenCL :: Bundle POM bundles and uses the RandomCL library:
 # https://github.com/bstatcomp/RandomCL
 # ****************************************************************************
 #
@@ -64,26 +65,51 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-LATEX_CMD=pdflatex
+SHELL := /bin/bash
+.DEFAULT_GOAL := help
 
-all: refman.pdf
+.PHONY: update-versions
+update-versions: ##@targets Updates the versions of all sub-modules
+	$(call check_defined, VERSION, VERSION must be set)
+	mvn versions:set -DnewVersion=$(VERSION) && mvn versions:commit
+	cd anlopencl-jme3-izpack && mvn versions:set -DnewVersion=$(VERSION) && mvn versions:commit
+	cd anlopencl-jme3-izpack-fat && mvn versions:set -DnewVersion=$(VERSION) && mvn versions:commit
 
-pdf: refman.pdf
+#COLORS
+GREEN  := $(shell tput -Txterm setaf 2)
+WHITE  := $(shell tput -Txterm setaf 7)
+YELLOW := $(shell tput -Txterm setaf 3)
+RED := $(shell tput -Txterm setaf 1)
+RESET  := $(shell tput -Txterm sgr0)
 
-refman.pdf: clean refman.tex
-	$(LATEX_CMD) refman
-	makeindex refman.idx
-	$(LATEX_CMD) refman
-	latex_count=8 ; \
-	while egrep -s 'Rerun (LaTeX|to get cross-references right)' refman.log && [ $$latex_count -gt 0 ] ;\
-	    do \
-	      echo "Rerunning latex...." ;\
-	      $(LATEX_CMD) refman ;\
-	      latex_count=`expr $$latex_count - 1` ;\
-	    done
-	makeindex refman.idx
-	$(LATEX_CMD) refman
+# Add the following 'help' target to your Makefile
+# And add help text after each target name starting with '\#\#'
+# A category can be added with @category
+HELP_FUN = \
+    %help; \
+    while(<>) { push @{$$help{$$2 // 'options'}}, [$$1, $$3] if /^([0-9a-zA-Z\-]+)\s*:.*\#\#(?:@([a-zA-Z\-]+))?\s(.*)$$/ }; \
+    print "USAGE\n\nmake [target]\n\n"; \
+    for (sort keys %help) { \
+    print "${WHITE}$$_:${RESET}\n"; \
+    for (@{$$help{$$_}}) { \
+    $$sep = " " x (32 - length $$_->[0]); \
+    print "  ${YELLOW}$$_->[0]${RESET}$$sep${GREEN}$$_->[1]${RESET}\n"; \
+    }; \
+    print "\n"; }
 
+help: ##@other Show this help.
+	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
-clean:
-	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out *.brf *.blg *.bbl refman.pdf
+# Check that given variables are set and all have non-empty values,
+# die with an error otherwise.
+#
+# Author: http://stackoverflow.com/questions/10858261/abort-makefile-if-variable-not-set
+#
+# Params:
+#   1. Variable name(s) to test.
+#   2. (optional) Error message to print.
+check_defined = \
+    $(foreach 1,$1,$(__check_defined))
+__check_defined = \
+    $(if $(value $1),, \
+      $(error ${RED}Undefined $1$(if $(value 2), ($(strip $2)))))
