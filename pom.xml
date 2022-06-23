@@ -78,7 +78,7 @@
 
     <groupId>com.anrisoftware.anlopencl</groupId>
     <artifactId>anlopencl</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
     <name>ANL-OpenCL :: Bundle POM</name>
     <description>Manages the dependencies of the Accidental Noise Library OpenCL rework.</description>
