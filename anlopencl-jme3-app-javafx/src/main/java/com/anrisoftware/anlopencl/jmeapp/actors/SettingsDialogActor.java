@@ -65,9 +65,7 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
-import static com.anrisoftware.anlopencl.jmeapp.actors.AdditionalCss.ADDITIONAL_CSS;
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
-import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
@@ -75,14 +73,11 @@ import java.io.File;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild;
-import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild.PanelControllerResult;
 import com.anrisoftware.anlopencl.jmeapp.controllers.SettingsDialogController;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -99,20 +94,16 @@ import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 import com.jayfella.jme.jfx.JavaFxUI;
-import com.jme3.renderer.Camera;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.StashBuffer;
-import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -121,27 +112,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller
  */
 @Slf4j
-public class SettingsDialogActor {
-
-    @RequiredArgsConstructor
-    @ToString(callSuper = true)
-    private static class InitialStateMessage extends Message {
-
-        public final ActorContext<Message> context;
-
-        public final Region root;
-
-        public final Object controller;
-    }
-
-    @RequiredArgsConstructor
-    @ToString(callSuper = true)
-    private static class ErrorSetupControllerMessage extends Message {
-
-        public final ActorContext<Message> context;
-
-        public final Throwable cause;
-    }
+public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogController> {
 
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
             SettingsDialogActor.class.getSimpleName());
@@ -150,39 +121,23 @@ public class SettingsDialogActor {
 
     public static final int ID = KEY.hashCode();
 
-    public interface SettingsDialogActorFactory {
+    /**
+     * Creates {@link SettingsDialogActor}.
+     * 
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    public interface SettingsDialogActorFactory extends AbstractJavafxPaneActorFactory {
 
-        SettingsDialogActor create(ActorContext<Message> context, StashBuffer<Message> buffer);
     }
 
-    public static Behavior<Message> create(Injector injector) {
-        return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
-            context.pipeToSelf(loadPanel(injector, context), (value, cause) -> {
-                if (cause == null) {
-                    return new InitialStateMessage(context, value.root, value.controller);
-                } else {
-                    return new ErrorSetupControllerMessage(context, cause);
-                }
-            });
-            context.getSystem().receptionist().tell(Receptionist.register(KEY, context.getSelf()));
-            return injector.getInstance(SettingsDialogActorFactory.class).create(context, stash).start();
-        }));
-    }
-
-    private static CompletableFuture<PanelControllerResult> loadPanel(Injector injector,
-            ActorContext<Message> context) {
-        var build = injector.getInstance(PanelControllerBuild.class);
-        return build.loadFxml(context.getExecutionContext(), "/settings-dialog-pane.fxml", ADDITIONAL_CSS);
-    }
-
+    /**
+     * Asynchronously loads the FXML file of the dialog and creates the dialog
+     * actor.
+     */
     public static CompletionStage<ActorRef<Message>> create(Duration timeout, Injector injector) {
-        var system = injector.getInstance(ActorSystemProvider.class).getActorSystem();
-        return createNamedActor(system, timeout, ID, KEY, NAME, create(injector));
+        return createWithPane(timeout, ID, KEY, NAME, injector, injector.getInstance(SettingsDialogActorFactory.class),
+                "/settings-dialog-pane.fxml");
     }
-
-    private final ActorContext<Message> context;
-
-    private final StashBuffer<Message> buffer;
 
     private final GameSettingsProvider gsp;
 
@@ -200,18 +155,10 @@ public class SettingsDialogActor {
     @Named("keyMappings")
     private Map<String, KeyMapping> keyMappings;
 
-    private SettingsDialogController controller;
-
-    private Region dialog;
-
-    @Inject
-    private Camera camera;
-
     @Inject
     SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer,
             GameSettingsProvider gsp) {
-        this.context = context;
-        this.buffer = buffer;
+        super(context, buffer);
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -219,55 +166,36 @@ public class SettingsDialogActor {
         gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
     }
 
-    public Behavior<Message> start() {
-        return Behaviors.receive(Message.class)//
-                .onMessage(InitialStateMessage.class, this::onInitialState)//
-                .onMessage(ErrorSetupControllerMessage.class, this::onErrorState)//
+    @Override
+    protected BehaviorBuilder<Message> getStartBehaviorBuilder() {
+        return super.getStartBehaviorBuilder()//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .onMessage(Message.class, this::stashOtherCommand)//
-                .build();
+        ;
     }
 
-    private Behavior<Message> stashOtherCommand(Message m) {
-        log.debug("stashOtherCommand {}", m);
-        buffer.stash(m);
-        return Behaviors.same();
-    }
-
-    private Behavior<Message> onInitialState(InitialStateMessage m) {
-        log.debug("onInitialState {}", m);
-        return buffer.unstashAll(active(m));
-    }
-
-    private Behavior<Message> active(InitialStateMessage m) {
-        log.debug("activate {}", m);
-        this.controller = (SettingsDialogController) m.controller;
-        this.dialog = m.root;
+    @Override
+    protected BehaviorBuilder<Message> doActivate(JavafxPaneInitialStateMessage<SettingsDialogController> m) {
+        log.debug("doActivate {}", m);
         runFxThread(() -> {
             controller.updateSettings(gsp.get());
             controller.updateLocale(gsp.get(), appImages);
             controller.initializeListeners(actor.get(), onp.get());
         });
         tellLocalizeControlsSelf(gsp.get());
-        return Behaviors.receive(Message.class)//
+        return super.doActivate(m)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(SettingsDialogOpenMessage.class, this::onOpenSettingsDialog)//
                 .onMessage(SettingsDialogOkTriggeredMessage.class, this::onSettingsDialogOked)//
                 .onMessage(SettingsDialogCancelTriggeredMessage.class, this::onSettingsDialogCanceled)//
                 .onMessage(SettingsDialogApplyMessage.class, this::onSettingsDialogApply)//
                 .onMessage(SettingsDialogOpenTempdirDialogMessage.class, this::onSettingsDialogOpenTempdirDialog)//
-                .build();
-    }
-
-    private Behavior<Message> onErrorState(ErrorSetupControllerMessage m) {
-        log.debug("onErrorState");
-        return Behaviors.stopped();
+        ;
     }
 
     private Behavior<Message> onOpenSettingsDialog(SettingsDialogOpenMessage m) {
         log.debug("onOpenSettingsDialog");
         runFxThread(() -> {
-            JavaFxUI.getInstance().showDialog(dialog);
+            JavaFxUI.getInstance().showDialog(pane);
         });
         return Behaviors.same();
     }

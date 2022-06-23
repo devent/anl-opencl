@@ -118,10 +118,19 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
 
     public static final int ID = KEY.hashCode();
 
+    /**
+     * Creates {@link AboutDialogActor}.
+     * 
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
     public interface AboutDialogActorFactory extends AbstractJavafxPaneActorFactory {
 
     }
 
+    /**
+     * Asynchronously loads the FXML file of the dialog and creates the dialog
+     * actor.
+     */
     public static CompletionStage<ActorRef<Message>> create(Duration timeout, Injector injector) {
         return createWithPane(timeout, ID, KEY, NAME, injector, injector.getInstance(AboutDialogActorFactory.class),
                 "/about-dialog-pane.fxml");
@@ -177,7 +186,7 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
             pane.setPrefSize(camera.getWidth() - 100, camera.getHeight() - 100);
         });
         tellLocalizeControlsSelf(gsp.get());
-        return Behaviors.receive(Message.class)//
+        return super.doActivate(m)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(AboutDialogOpenMessage.class, this::onAboutDialogOpenMessage)//
                 .onMessage(AboutDialogCloseTriggeredMessage.class, this::onAboutDialogCloseTriggered)//

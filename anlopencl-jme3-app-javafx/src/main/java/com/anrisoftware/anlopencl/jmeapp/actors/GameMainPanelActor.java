@@ -90,8 +90,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -236,8 +236,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
      * <li>{@link SettingsDialogMessage}
      * </ul>
      */
-    private Behavior<Message> onSettingsClicked(SettingsDialogOpenTriggeredMessage m) {
-        log.debug("onSettingsClicked {}", m);
+    private Behavior<Message> onSettingsDialogOpenTriggered(SettingsDialogOpenTriggeredMessage m) {
+        log.debug("onSettingsDialogOpenTriggered {}", m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
         return MainActor.sendMessageMayCreate(injector, SettingsDialogActor.ID, new SettingsDialogOpenMessage(),
                 SettingsDialogActor::create, super.getBehaviorAfterAttachGui()//
@@ -281,7 +281,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     private BehaviorBuilder<Message> getDefaultBehavior() {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
-                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsClicked)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
         ;
     }

@@ -174,9 +174,10 @@ public class PanelControllerBuild {
     }
 
     @SneakyThrows
-    private Pane loadFxml(FXMLLoader loader, String mainUiResource) {
+    private Pane loadFxml(FXMLLoader loader, String res) {
         var root = JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
-            return (Pane) loader.load(getClass().getResourceAsStream(mainUiResource));
+            log.debug("Load FXML file {}", res);
+            return (Pane) loader.load(getClass().getResourceAsStream(res));
         });
         return root;
     }

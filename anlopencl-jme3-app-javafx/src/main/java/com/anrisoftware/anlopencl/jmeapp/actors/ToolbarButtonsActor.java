@@ -84,8 +84,8 @@ import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
-import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
@@ -213,7 +213,7 @@ public class ToolbarButtonsActor {
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
-                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsClicked)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutClicked)//
                 .build();
     }
@@ -240,8 +240,8 @@ public class ToolbarButtonsActor {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onSettingsClicked(SettingsDialogOpenTriggeredMessage m) {
-        log.debug("onSettingsClicked {}", m);
+    private Behavior<Message> onSettingsDialogOpenTriggered(SettingsDialogOpenTriggeredMessage m) {
+        log.debug("onSettingsDialogOpenTriggered {}", m);
         setDisableControlButtons(true);
         return Behaviors.receive(Message.class)//
                 .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
@@ -312,6 +312,10 @@ public class ToolbarButtonsActor {
         runFxThread(() -> {
             controller.buttonBuild.setDisable(disabled);
             controller.buttonRun.setDisable(disabled);
+            controller.buttonQuit.setDisable(disabled);
+            controller.resetCameraButton.setDisable(disabled);
+            controller.aboutButton.setDisable(disabled);
+            controller.settingsButton.setDisable(disabled);
         });
     }
 
