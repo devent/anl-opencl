@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model
+ * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,16 +63,53 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.states;
 
-import lombok.ToString;
+import static com.jme3.input.KeyInput.KEY_F10;
+import static com.jme3.input.KeyInput.KEY_Q;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+import static javafx.scene.input.KeyCode.F10;
+import static javafx.scene.input.KeyCode.Q;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+
+import java.util.Optional;
+
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
+import com.jme3.input.controls.KeyTrigger;
+
+import javafx.scene.input.KeyCodeCombination;
+import lombok.RequiredArgsConstructor;
 
 /**
- * Message to open the settings dialog.
+ * Default key mappings.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class SettingsDialogOpenMessage extends GuiMessage {
+@RequiredArgsConstructor
+public enum DefaultKeyMappings {
+
+    // general
+    QUIT_MAPPING(new GameQuitMessage(), of(new KeyCodeCombination(Q, CONTROL_DOWN)), of(new KeyTrigger(KEY_Q))),
+
+    BUILD_MAPPING(new BuildClickedMessage(), empty(), empty()),
+
+    SETTINGS_MAPPING(new SettingsDialogOpenTriggeredMessage(), empty(), empty()),
+
+    ABOUT_DIALOG_MAPPING(new AboutDialogOpenTriggeredMessage(), empty(), empty()),
+
+    // camera
+    RESET_CAMERA_MAPPING(new ResetCameraMessage(), of(new KeyCodeCombination(F10)), of(new KeyTrigger(KEY_F10)));
+
+    public final GuiMessage message;
+
+    public final Optional<KeyCodeCombination> keyCode;
+
+    public final Optional<KeyTrigger> keyTrigger;
 
 }

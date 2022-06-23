@@ -79,6 +79,11 @@ import akka.pattern.StatusReply;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Abstract message to create a new actor.
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @RequiredArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 public abstract class CreateActorMessage extends Message {
@@ -88,6 +93,11 @@ public abstract class CreateActorMessage extends Message {
 
     public final ActorRef<StatusReply<ActorRef<Message>>> replyTo;
 
+    /**
+     * Message to create a new anonymous actor.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
     @ToString(callSuper = true)
     public static class CreateAnonActorMessage extends CreateActorMessage {
 
@@ -97,6 +107,11 @@ public abstract class CreateActorMessage extends Message {
 
     }
 
+    /**
+     * Message to create a new named actor.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
     @ToString(onlyExplicitlyIncluded = true, callSuper = true)
     public static class CreateNamedActorMessage extends CreateActorMessage {
 
@@ -117,32 +132,33 @@ public abstract class CreateActorMessage extends Message {
 
     }
 
-    @ToString(onlyExplicitlyIncluded = true, callSuper = true)
-    public static class CreateGameActorMessage extends CreateNamedActorMessage {
-
-        public CreateGameActorMessage(int id, ServiceKey<Message> key, String name, Behavior<Message> actor,
-                ActorRef<StatusReply<ActorRef<Message>>> replyTo) {
-            super(id, key, name, actor, replyTo);
-        }
-
-    }
-
+    /**
+     * Ask to create a new anonymous actor within the timeout duration.
+     *
+     * @param system
+     * @param timeout
+     * @param actor
+     * @return
+     */
     public static CompletionStage<ActorRef<Message>> createAnonActor(ActorSystem<Message> system, Duration timeout,
             Behavior<Message> actor) {
         return AskPattern.<Message, ActorRef<Message>>askWithStatus(system,
                 replyTo -> new CreateAnonActorMessage(actor, replyTo), timeout, system.scheduler());
     }
 
+    /**
+     * Ask to create a new named actor within the timeout duration. The named actor
+     * is registered in the main actor.
+     *
+     * @param system
+     * @param timeout
+     * @param actor
+     * @return
+     */
     public static CompletionStage<ActorRef<Message>> createNamedActor(ActorSystem<Message> system, Duration timeout,
             int id, ServiceKey<Message> key, String name, Behavior<Message> actor) {
         return AskPattern.<Message, ActorRef<Message>>askWithStatus(system,
                 replyTo -> new CreateNamedActorMessage(id, key, name, actor, replyTo), timeout, system.scheduler());
-    }
-
-    public static CompletionStage<ActorRef<Message>> createGameActor(ActorSystem<Message> system, Duration timeout,
-            int id, ServiceKey<Message> key, String name, Behavior<Message> actor) {
-        return AskPattern.<Message, ActorRef<Message>>askWithStatus(system,
-                replyTo -> new CreateGameActorMessage(id, key, name, actor, replyTo), timeout, system.scheduler());
     }
 
 }

@@ -65,25 +65,11 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.states;
 
-import static com.jme3.input.KeyInput.KEY_F10;
-import static com.jme3.input.KeyInput.KEY_Q;
-import static javafx.scene.input.KeyCode.F10;
-import static javafx.scene.input.KeyCode.Q;
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Provider;
-
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
-import com.jme3.input.controls.KeyTrigger;
-
-import javafx.scene.input.KeyCodeCombination;
 
 /**
  *
@@ -93,22 +79,12 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
 
     private final Map<String, KeyMapping> map;
 
-    public final Map<String, KeyMapping> commandsButtons;
-
     public KeyMappingsProvider() {
         var map = new HashMap<String, KeyMapping>();
-        var commandsButtons = new HashMap<String, KeyMapping>();
-        // general
-        map.put("QUIT_MAPPING", KeyMapping.create("QUIT_MAPPING", new KeyCodeCombination(Q, CONTROL_DOWN),
-                new KeyTrigger(KEY_Q), new GameQuitMessage()));
-        map.put("BUILD_MAPPING", KeyMapping.create("BUILD_MAPPING", new BuildClickedMessage()));
-        map.put("SETTINGS_MAPPING", KeyMapping.create("SETTINGS_MAPPING", new SettingsClickedMessage()));
-        // camera
-        map.put("RESET_CAMERA_MAPPING", KeyMapping.create("RESET_CAMERA_MAPPING", new KeyCodeCombination(F10),
-                new KeyTrigger(KEY_F10), new ResetCameraMessage()));
-        // done
-        map.putAll(commandsButtons);
-        this.commandsButtons = Collections.unmodifiableMap(commandsButtons);
+        for (var v : DefaultKeyMappings.values()) {
+            map.put(v.name(),
+                    KeyMapping.create(v.name(), v.keyCode.orElse(null), v.keyTrigger.orElse(null), v.message));
+        }
         this.map = Collections.unmodifiableMap(map);
     }
 

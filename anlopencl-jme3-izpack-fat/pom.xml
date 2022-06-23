@@ -101,8 +101,6 @@
         <globalpom.custom.launch4j.applauncher.jarfilename>anl-opencl-${globalpom.custom.app.version}</globalpom.custom.launch4j.applauncher.jarfilename>
         <!-- others -->
         <lwjgl.version>3.3.1</lwjgl.version>
-        <lwjgl.natives.linux>natives-linux</lwjgl.natives.linux>
-        <lwjgl.natives.windows>natives-windows-x86</lwjgl.natives.windows>
     </properties>
 
     <licenses>
@@ -168,42 +166,38 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.anlopencl</groupId>
+                <artifactId>anlopencl-jme3-app-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.anlopencl</groupId>
+                <artifactId>anlopencl-jme3-izpack-linux</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.anrisoftware.anlopencl</groupId>
+                <artifactId>anlopencl-jme3-izpack-windows</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl</artifactId>
-            <classifier>${lwjgl.natives.linux}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-glfw</artifactId>
-            <classifier>${lwjgl.natives.linux}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-jemalloc</artifactId>
-            <classifier>${lwjgl.natives.linux}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-openal</artifactId>
-            <classifier>${lwjgl.natives.linux}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-opengl</artifactId>
-            <classifier>${lwjgl.natives.linux}</classifier>
-        </dependency>
-
         <!-- own modules dependencies -->
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-core</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-jme3-izpack-linux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.anrisoftware.anlopencl</groupId>
+            <artifactId>anlopencl-jme3-izpack-windows</artifactId>
         </dependency>
 
         <!-- log dependencies -->

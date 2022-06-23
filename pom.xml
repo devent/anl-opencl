@@ -78,7 +78,7 @@
 
     <groupId>com.anrisoftware.anlopencl</groupId>
     <artifactId>anlopencl</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
     <name>ANL-OpenCL :: Bundle POM</name>
     <description>Manages the dependencies of the Accidental Noise Library OpenCL rework.</description>
@@ -93,6 +93,8 @@
         <module>anlopencl-jme3-app-view</module>
         <module>anlopencl-jme3-izpack</module>
         <module>anlopencl-jme3-izpack-fat</module>
+        <module>anlopencl-jme3-izpack-linux</module>
+        <module>anlopencl-jme3-izpack-windows</module>
         <module>anlopencl-jme3-opencl</module>
         <module>anlopencl-opencl</module>
     </modules>
@@ -104,6 +106,8 @@
         <globalpom.custom.jme3.version>3.5.2-stable</globalpom.custom.jme3.version>
         <globalpom.custom.jmh.version>1.32</globalpom.custom.jmh.version>
         <globalpom.custom.javafx.version>16</globalpom.custom.javafx.version>
+        <globalpom.custom.source.source>17</globalpom.custom.source.source>
+        <globalpom.custom.source.target>17</globalpom.custom.source.target>
     </properties>
 
     <licenses>
@@ -229,7 +233,7 @@
             <dependency>
                 <groupId>com.anrisoftware.jmejfx</groupId>
                 <artifactId>jme-jfx</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
             </dependency>
             <dependency>
                 <groupId>net.raumzeitfalle.fx</groupId>

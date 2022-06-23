@@ -65,6 +65,11 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
+import static java.time.Duration.ofSeconds;
+
+import java.time.Duration;
+import java.util.concurrent.CompletionStage;
+
 import javax.inject.Inject;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
@@ -82,6 +87,7 @@ import com.google.inject.assistedinject.Assisted;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 import akka.pattern.StatusReply;
@@ -101,6 +107,44 @@ public class MainActor extends MessageActor<Message> {
 
     public static Behavior<Message> create(Injector injector) {
         return Behaviors.setup((context) -> injector.getInstance(MainActorFactory.class).create(context));
+    }
+
+    @FunctionalInterface
+    public interface ActorCreate {
+        CompletionStage<ActorRef<Message>> create(Duration timeout, Injector injector);
+    }
+
+    /**
+     * Sends message to the actor if the actor was already created otherwise create
+     * the actor and send the message.
+     *
+     * @param injector        the {@link Injector} that can instantiate the
+     *                        {@link ActorSystemProvider}.
+     * @param id              the ID of the actor.
+     * @param m               the {@link Message} to send to the actor.
+     * @param actorCreate     the {@link ActorCreate} callback that creates the
+     *                        actor.
+     * @param behaviorBuilder the {@link BehaviorBuilder} to build and return the
+     *                        {@link Behavior} after the message was send.
+     * @return the {@link Behavior} build from the specified {@link BehaviorBuilder}
+     *         after the message was send.
+     */
+    public static Behavior<Message> sendMessageMayCreate(Injector injector, int id, Message m, ActorCreate actorCreate,
+            BehaviorBuilder<Message> behaviorBuilder) {
+        var actor = injector.getInstance(ActorSystemProvider.class).getMainActor();
+        var behavior = behaviorBuilder.build();
+        if (actor.haveActor(id)) {
+            actor.getActor(id).tell(m);
+            return behavior;
+        }
+        actorCreate.create(ofSeconds(1), injector).whenComplete((res, ex) -> {
+            if (ex != null) {
+                log.error("Error create about dialog actor", ex);
+            } else {
+                res.tell(m);
+            }
+        });
+        return behavior;
     }
 
     private final MutableIntObjectMap<ActorRef<Message>> actors;

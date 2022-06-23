@@ -139,6 +139,9 @@ public class GameMainPaneController {
     public Button settingsButton;
 
     @FXML
+    public Button aboutButton;
+
+    @FXML
     public ToggleButton buttonRun;
 
     @FXML

@@ -66,7 +66,7 @@
 package com.anrisoftware.anlopencl.jmeapp.states;
 
 import static java.util.Optional.empty;
-import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
 
 import java.util.Optional;
 
@@ -88,7 +88,7 @@ import lombok.ToString;
 public class KeyMapping {
 
     public static KeyMapping create(String name, KeyCodeCombination code, KeyTrigger trigger, GuiMessage message) {
-        return new KeyMapping(name, of(code), of(trigger), message);
+        return new KeyMapping(name, ofNullable(code), ofNullable(trigger), message);
     }
 
     public static KeyMapping create(String name, GuiMessage message) {

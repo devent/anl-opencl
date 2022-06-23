@@ -67,6 +67,11 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.ABOUT_DIALOG_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.BUILD_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.QUIT_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.RESET_CAMERA_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.SETTINGS_MAPPING;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
@@ -79,19 +84,19 @@ import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
-import com.anrisoftware.resources.images.external.ImagesFactory;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 
@@ -142,7 +147,9 @@ public class ToolbarButtonsActor {
 
     private final GameSettingsProvider gsp;
 
-    private final Images images;
+    @Inject
+    @Named("AppIcons")
+    private Images appIcons;
 
     @Inject
     private GlobalKeys globalKeys;
@@ -154,9 +161,8 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp, ImagesFactory images) {
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
         this.context = context;
-        this.images = images.create("ButtonsIcons");
         this.gsp = gsp;
         var gs = gsp.get();
         gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
@@ -176,16 +182,19 @@ public class ToolbarButtonsActor {
         this.controller = (GameMainPaneController) m.controller;
         tellLocalizeControlsSelf(gsp.get());
         controller.buttonQuit.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get("QUIT_MAPPING"));
+            globalKeys.runAction(keyMappings.get(QUIT_MAPPING.name()));
         });
         controller.buttonBuild.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get("BUILD_MAPPING"));
+            globalKeys.runAction(keyMappings.get(BUILD_MAPPING.name()));
         });
         controller.resetCameraButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get("RESET_CAMERA_MAPPING"));
+            globalKeys.runAction(keyMappings.get(RESET_CAMERA_MAPPING.name()));
         });
         controller.settingsButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get("SETTINGS_MAPPING"));
+            globalKeys.runAction(keyMappings.get(SETTINGS_MAPPING.name()));
+        });
+        controller.aboutButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(ABOUT_DIALOG_MAPPING.name()));
         });
         /*
          * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)
@@ -204,8 +213,8 @@ public class ToolbarButtonsActor {
                 .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
-                .onMessage(SettingsClickedMessage.class, this::onSettingsClicked)//
-                .onMessage(GuiMessage.class, this::onGuiCatchall)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsClicked)//
+                .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutClicked)//
                 .build();
     }
 
@@ -231,12 +240,11 @@ public class ToolbarButtonsActor {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onSettingsClicked(SettingsClickedMessage m) {
+    private Behavior<Message> onSettingsClicked(SettingsDialogOpenTriggeredMessage m) {
         log.debug("onSettingsClicked {}", m);
         setDisableControlButtons(true);
         return Behaviors.receive(Message.class)//
                 .onMessage(SettingsDialogMessage.class, this::onSettingsDialogClosed)//
-                .onMessage(GuiMessage.class, this::onGuiCatchall)//
                 .build();
     }
 
@@ -246,10 +254,18 @@ public class ToolbarButtonsActor {
         return getDefaultBehavior();
     }
 
-    private Behavior<Message> onGuiCatchall(GuiMessage m) {
-        log.debug("onGuiCatchall {}", m);
-        // buildings.tell(m);
-        return Behaviors.same();
+    private Behavior<Message> onAboutClicked(AboutDialogOpenTriggeredMessage m) {
+        log.debug("onAboutClicked {}", m);
+        setDisableControlButtons(true);
+        return Behaviors.receive(Message.class)//
+                .onMessage(AboutDialogCloseTriggeredMessage.class, this::onAboutDialogClosed)//
+                .build();
+    }
+
+    private Behavior<Message> onAboutDialogClosed(AboutDialogCloseTriggeredMessage m) {
+        log.debug("onAboutDialogClosed {}", m);
+        setDisableControlButtons(false);
+        return getDefaultBehavior();
     }
 
     private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
@@ -283,12 +299,13 @@ public class ToolbarButtonsActor {
 
     private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(
-                toFXImage(images.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
     }
 
     private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
         return new ImageView(toFXImage(
-                images.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB), null));
+                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
     }
 
     private void setDisableControlButtons(boolean disabled) {

@@ -63,76 +63,31 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.model;
 
-import lombok.ToString;
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import com.anrisoftware.resources.images.external.Images;
+import com.anrisoftware.resources.images.external.ImagesFactory;
 
 /**
- * Settings dialog message.
- *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * Provides the {@link Images} from {@code AppImages.properties}
+ * 
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class SettingsDialogMessage extends GuiMessage {
+public class AppIconsProvider implements Provider<Images> {
 
-    /**
-     * Message that the settings dialog was closed by canceling it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogCancelTriggeredMessage extends SettingsDialogMessage {
+    private final Images images;
 
+    @Inject
+    public AppIconsProvider(ImagesFactory images) {
+        this.images = images.create("AppIcons");
     }
 
-    /**
-     * Message that the settings dialog was closed by Ok it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOkTriggeredMessage extends SettingsDialogMessage {
-
+    @Override
+    public Images get() {
+        return images;
     }
 
-    /**
-     * Message that the settings dialog should be applied.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogApplyMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message that the file chooser dialog for the temp-dir should be opened.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTempdirDialogMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message to open the settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenMessage extends GuiMessage {
-
-    }
-
-    /**
-     * Message that the user clicked the Settings Dialog button or pressed a key
-     * binding to open the Settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTriggeredMessage extends GuiMessage {
-
-    }
 }

@@ -65,11 +65,20 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.model;
 
+import com.anrisoftware.resources.images.external.Images;
+import com.anrisoftware.resources.texts.external.Texts;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 
 /**
- * Binds the properties and settings providers as singletons.
+ * Binds the properties and settings providers as singletons. Loads also the
+ * application resources from
+ * <ul>
+ * <li>{@code AppIcons.properties}
+ * <li>{@code AppImages.properties}
+ * <li>{@code AppTexts.properties}
+ * </ul>
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
@@ -80,6 +89,10 @@ public class ModelModule extends AbstractModule {
         bind(GameMainPanePropertiesProvider.class).asEagerSingleton();
         bind(GameSettingsProvider.class).asEagerSingleton();
         bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).asEagerSingleton();
+        bind(Images.class).annotatedWith(Names.named("AppIcons")).toProvider(AppIconsProvider.class).asEagerSingleton();
+        bind(Images.class).annotatedWith(Names.named("AppImages")).toProvider(AppImagesProvider.class)
+                .asEagerSingleton();
+        bind(Texts.class).annotatedWith(Names.named("AppTexts")).toProvider(AppTextsProvider.class).asEagerSingleton();
     }
 
 }

@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model
+ * ANL-OpenCL :: JME3 - App - JavaFX
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,76 +63,62 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.controllers;
 
-import lombok.ToString;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static javafx.embed.swing.SwingFXUtils.toFXImage;
+
+import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
+import com.anrisoftware.resources.images.external.IconSize;
+import com.anrisoftware.resources.images.external.Images;
+import com.anrisoftware.resources.texts.external.Texts;
+
+import akka.actor.typed.ActorRef;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.web.WebView;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Settings dialog message.
+ * {@code about-dialog-pane.fxml} controller.
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller
  */
-@ToString(callSuper = true)
-public class SettingsDialogMessage extends GuiMessage {
+@Slf4j
+public class AboutDialogController {
 
-    /**
-     * Message that the settings dialog was closed by canceling it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogCancelTriggeredMessage extends SettingsDialogMessage {
+    @FXML
+    public Label titleLabel;
 
+    @FXML
+    public ImageView logoView;
+
+    @FXML
+    public Button closeButton;
+
+    @FXML
+    public WebView webView;
+
+    public void updateLocale(ObservableGameSettings gs, Images images, Texts texts) {
+        logoView.setImage(toFXImage(
+                images.getResource("about_dialog", gs.locale.get(), IconSize.HUGE).getBufferedImage(TYPE_INT_ARGB),
+                null));
+        logoView.setPreserveRatio(false);
+        logoView.setSmooth(true);
+        logoView.setFitWidth(50);
+        logoView.setFitHeight(264);
+        webView.getEngine().loadContent(texts.getResource("about_text", gs.locale.get()).getText());
     }
 
-    /**
-     * Message that the settings dialog was closed by Ok it.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOkTriggeredMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message that the settings dialog should be applied.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogApplyMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message that the file chooser dialog for the temp-dir should be opened.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTempdirDialogMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message to open the settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenMessage extends GuiMessage {
-
-    }
-
-    /**
-     * Message that the user clicked the Settings Dialog button or pressed a key
-     * binding to open the Settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTriggeredMessage extends GuiMessage {
-
+    public void initializeListeners(ActorRef<Message> actor, ObservableGameMainPaneProperties np) {
+        log.debug("initializeListeners");
+        closeButton.setOnAction((event) -> {
+            actor.tell(new AboutDialogCloseTriggeredMessage());
+        });
     }
 }

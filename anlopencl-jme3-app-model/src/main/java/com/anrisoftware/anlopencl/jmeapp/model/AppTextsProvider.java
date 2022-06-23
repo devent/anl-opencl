@@ -63,16 +63,31 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.messages;
+package com.anrisoftware.anlopencl.jmeapp.model;
 
-import lombok.ToString;
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import com.anrisoftware.resources.texts.external.Texts;
+import com.anrisoftware.resources.texts.external.TextsFactory;
 
 /**
- * Message that the user clicked the settings button.
+ * Provides the {@link Texts} from {@code AppTexts.properties}
  *
- * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString(callSuper = true)
-public class SettingsClickedMessage extends GuiMessage {
+public class AppTextsProvider implements Provider<Texts> {
+
+    private final Texts texts;
+
+    @Inject
+    public AppTextsProvider(TextsFactory images) {
+        this.texts = images.create("AppTexts");
+    }
+
+    @Override
+    public Texts get() {
+        return texts;
+    }
 
 }

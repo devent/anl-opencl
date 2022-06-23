@@ -68,71 +68,42 @@ package com.anrisoftware.anlopencl.jmeapp.messages;
 import lombok.ToString;
 
 /**
- * Settings dialog message.
+ * About dialog message.
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
 @ToString(callSuper = true)
-public class SettingsDialogMessage extends GuiMessage {
+public class AboutDialogMessage extends GuiMessage {
 
     /**
-     * Message that the settings dialog was closed by canceling it.
+     * Message that the settings dialog was closed by closing it by either a)
+     * trigger the close button, b) press Esc.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsDialogCancelTriggeredMessage extends SettingsDialogMessage {
+    public static class AboutDialogCloseTriggeredMessage extends AboutDialogMessage {
 
     }
 
     /**
-     * Message that the settings dialog was closed by Ok it.
+     * Message to open the About dialog.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsDialogOkTriggeredMessage extends SettingsDialogMessage {
+    public static class AboutDialogOpenMessage extends GuiMessage {
 
     }
 
     /**
-     * Message that the settings dialog should be applied.
+     * Message that the user clicked the About Dialog button or pressed a key
+     * binding to open the about dialog.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
      */
     @ToString(callSuper = true)
-    public static class SettingsDialogApplyMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message that the file chooser dialog for the temp-dir should be opened.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTempdirDialogMessage extends SettingsDialogMessage {
-
-    }
-
-    /**
-     * Message to open the settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenMessage extends GuiMessage {
-
-    }
-
-    /**
-     * Message that the user clicked the Settings Dialog button or pressed a key
-     * binding to open the Settings dialog.
-     *
-     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
-     */
-    @ToString(callSuper = true)
-    public static class SettingsDialogOpenTriggeredMessage extends GuiMessage {
+    public static class AboutDialogOpenTriggeredMessage extends GuiMessage {
 
     }
 }
