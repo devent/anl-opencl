@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,88 +63,16 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.controllers;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import com.jayfella.jme.jfx.JavaFxUI;
-
-import javafx.application.Platform;
+import lombok.ToString;
 
 /**
- * Utils methods to run on the different threats.
+ * Message that the user clicked the build button.
  *
- * @author Erwin Müller
+ * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-public class JavaFxUtil {
+@ToString(callSuper = true)
+public class BuildTriggeredMessage extends GuiMessage {
 
-    /**
-     * Runs the task on the JME thread.
-     */
-    public static void runInJmeThread(Runnable task) {
-        JavaFxUI.getInstance().runInJmeThread(task);
-    }
-
-    /**
-     * Runs the task on the JavaFX thread.
-     */
-    public static void runFxThread(Runnable task) {
-        if (Platform.isFxApplicationThread()) {
-            task.run();
-        } else {
-            Platform.runLater(task);
-        }
-    }
-
-    /**
-     * Run the task on the JavaFx thread and wait for its completion. Taken from
-     * {@link http://www.java2s.com/example/java/javafx/run-and-wait-on-javafx-thread.html}
-     *
-     * @param runnable the {@link Runnable} task to run.
-     * @param result   the result of the task.
-     * @return the result of the task.
-     * @throws InterruptedException
-     * @throws ExecutionException
-     * @throws TimeoutException
-     */
-    public static <V> V runFxAndWait(long timeout, TimeUnit unit, Runnable runnable, V result)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        if (Platform.isFxApplicationThread()) {
-            runnable.run();
-            return result;
-        } else {
-            var futureTask = new FutureTask<>(runnable, result);
-            Platform.runLater(futureTask);
-            return futureTask.get(timeout, unit);
-        }
-    }
-
-    /**
-     * Run the task on the JavaFx thread and wait for its completion. Taken from
-     * {@link http://www.java2s.com/example/java/javafx/run-and-wait-on-javafx-thread.html}
-     *
-     * @param callable the {@link Callable} task to run.
-     * @return the result of the task.
-     * @throws ExecutionException
-     * @throws InterruptedException
-     * @throws TimeoutException
-     */
-    public static <V> V runFxAndWait(long timeout, TimeUnit unit, Callable<V> callable)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        if (Platform.isFxApplicationThread()) {
-            try {
-                return callable.call();
-            } catch (Exception e) {
-                throw new ExecutionException(e);
-            }
-        } else {
-            var futureTask = new FutureTask<>(callable);
-            Platform.runLater(futureTask);
-            return futureTask.get(timeout, unit);
-        }
-    }
 }

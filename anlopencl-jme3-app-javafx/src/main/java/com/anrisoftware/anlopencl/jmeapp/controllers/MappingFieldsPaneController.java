@@ -171,7 +171,7 @@ public class MappingFieldsPaneController {
     }
 
     private SpinnerValueFactory<Integer> createIntegerValueFactory(int initialValue, Property<Integer> p) {
-        var f = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 8, initialValue);
+        var f = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, initialValue);
         f.valueProperty().bindBidirectional(p);
         return f;
     }

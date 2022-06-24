@@ -86,9 +86,9 @@ import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
@@ -210,7 +210,7 @@ public class ToolbarButtonsActor {
     private Behavior<Message> getDefaultBehavior() {
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
+                .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
@@ -222,8 +222,8 @@ public class ToolbarButtonsActor {
         context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
-    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
-        log.debug("onBuildClicked {}", m);
+    private Behavior<Message> onBuildTriggered(BuildTriggeredMessage m) {
+        log.debug("onBuildTriggered {}", m);
         setDisableControlButtons(true);
         return Behaviors.same();
     }

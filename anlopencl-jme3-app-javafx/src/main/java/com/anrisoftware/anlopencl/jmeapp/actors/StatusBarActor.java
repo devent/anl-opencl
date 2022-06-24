@@ -75,7 +75,7 @@ import javax.inject.Inject;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
@@ -150,7 +150,7 @@ public class StatusBarActor {
         this.controller = (GameMainPaneController) m.controller;
         tellLocalizeControlsSelf(gsp.get());
         return Behaviors.receive(Message.class)//
-                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
+                .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .build();
@@ -160,7 +160,7 @@ public class StatusBarActor {
         context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
-    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
+    private Behavior<Message> onBuildClicked(BuildTriggeredMessage m) {
         log.debug("onBuildClicked {}", m);
         JavaFxUtil.runFxThread(() -> {
             controller.statusLabel.setText("Build started...");

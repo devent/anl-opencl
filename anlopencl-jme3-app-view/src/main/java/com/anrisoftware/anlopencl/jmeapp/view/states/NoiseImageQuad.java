@@ -111,7 +111,7 @@ public class NoiseImageQuad {
 
     @Inject
     public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageComponent c) {
-        this.pic = new Picture(NoiseImageQuad.class.getSimpleName());
+        this.pic = new Picture(NoiseImageQuad.class.getSimpleName() + c.column + c.row);
         this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
         this.assetManager = assetManager;
         this.context = (LwjglContext) context;
@@ -125,9 +125,23 @@ public class NoiseImageQuad {
     public void setNotSetTexture(boolean b) {
         if (b) {
             pic.setTexture(assetManager, unsetTex, true);
-            texCL.release();
+            if (texCL != null) {
+                texCL.release();
+            }
             textureSet = false;
             imageBoundOpenCL = false;
+        }
+    }
+
+    public void setShowRunningTexture(boolean b) {
+        if (b) {
+            pic.setTexture(assetManager, unsetTex, true);
+        }
+    }
+
+    public void setShowImageTexture(boolean b) {
+        if (b) {
+            pic.setTexture(assetManager, tex, true);
         }
     }
 

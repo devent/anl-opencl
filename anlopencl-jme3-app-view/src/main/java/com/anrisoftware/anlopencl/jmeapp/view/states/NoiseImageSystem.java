@@ -73,6 +73,9 @@ import javax.inject.Named;
 import org.eclipse.collections.impl.factory.Maps;
 import org.lwjgl.system.MemoryStack;
 
+import com.anrisoftware.anlopencl.jmeapp.actors.ActorSystemProvider;
+import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage.KernelFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
@@ -109,6 +112,9 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     @Inject
     @Named("pivotNode")
     private Node pivotNode;
+
+    @Inject
+    private ActorSystemProvider actor;
 
     private final Node imagesNode;
 
@@ -170,6 +176,7 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
     @Override
     protected void processEntity(Entity entity) {
         if (KernelComponent.m.has(entity)) {
+            var ic = ImageComponent.m.get(entity);
             var kc = KernelComponent.m.get(entity);
             var imageQuad = noiseImageQuads.get(entity);
             if (!imageQuad.isTextureSet()) {
@@ -179,24 +186,26 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
                 imageQuad.bindTextureToImage();
             }
             if (imageQuad.isImageBoundOpenCL() && !kc.kernelRun) {
-                runKernel(kc, imageQuad);
+                runKernel(ic, kc, imageQuad);
                 kc.kernelRun = true;
             }
         }
     }
 
-    private void runKernel(KernelComponent kc, NoiseImageQuad imageQuad) {
+    private void runKernel(ImageComponent ic, KernelComponent kc, NoiseImageQuad quad) {
+        actor.get().tell(new KernelStartedMessage(ic.column, ic.row));
         try (var s = MemoryStack.stackPush()) {
             var work = new Kernel.WorkSize(gmpp.width.get(), gmpp.height.get());
             var name = gmpp.kernelName.get();
             var seed = gmpp.seed.get();
             try {
                 log.trace("acquiring image for sharing");
-                imageQuad.getTexCL().acquireImageForSharingNoEvent(queue);
+                quad.getTexCL().acquireImageForSharingNoEvent(queue);
                 log.trace("running kernel");
-                gmpp.kernel.get().run1NoEvent(name, queue, work, kc.ranges, imageQuad.getTexCL(), seed);
+                gmpp.kernel.get().run1NoEvent(name, queue, work, kc.ranges, quad.getTexCL(), seed);
                 log.trace("releasing image for sharing");
-                imageQuad.getTexCL().releaseImageForSharingNoEvent(queue);
+                quad.getTexCL().releaseImageForSharingNoEvent(queue);
+                actor.get().tell(new KernelFinishedMessage(ic.column, ic.row));
             } catch (Exception e) {
                 log.error("Error run kernel", e);
             }
