@@ -79,7 +79,7 @@
 
     <artifactId>anlopencl-jme3-izpack</artifactId>
     <groupId>com.anrisoftware.anlopencl</groupId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <name>ANL-OpenCL :: IzPack Installation</name>
     <description>Package the ANL-OpenCL JMonkeyEngine3 application in IzPack installer.</description>
     <inceptionYear>2021</inceptionYear>

@@ -74,7 +74,7 @@
     <parent>
         <groupId>com.anrisoftware.anlopencl</groupId>
         <artifactId>anlopencl</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>anlopencl-jme3-app-core</artifactId>
@@ -118,32 +118,32 @@
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-assets</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-javafx</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-model</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-view</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-opencl</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-opencl</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
 
         <!-- Compile -->

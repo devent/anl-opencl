@@ -74,6 +74,7 @@ import java.time.Duration;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -84,14 +85,16 @@ import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage.KernelFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -102,6 +105,7 @@ import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.receptionist.ServiceKey;
+import akka.actor.typed.scaladsl.Behaviors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -137,6 +141,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 "/game-main-pane.fxml", panelActors, ADDITIONAL_CSS);
     }
 
+    private final AtomicInteger kernelStartedCounter;
+
     @Inject
     @Named("AppIcons")
     private Images appIcons;
@@ -151,6 +157,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     @Inject
     public GameMainPanelActor() {
+        this.kernelStartedCounter = new AtomicInteger(0);
     }
 
     @Override
@@ -166,17 +173,19 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
             if (throwable == null) {
                 openclBuildActor = response;
                 if (isNotBlank(onp.get().kernelCode.get())) {
-                    actor.get().tell(new BuildClickedMessage());
+                    actor.get().tell(new BuildTriggeredMessage());
                 }
             }
         });
         return getDefaultBehavior();
     }
 
-    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
-        log.debug("onBuildClicked {}", m);
+    private Behavior<Message> onBuildTriggered(BuildTriggeredMessage m) {
+        log.debug("onBuildTriggered {}", m);
+        kernelStartedCounter.set(onp.get().columns.get() * onp.get().rows.get());
+        setStartProgress(true);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
-        Duration timeout = ofSeconds(10);
+        Duration timeout = ofSeconds(30);
         context.ask(BuildStartMessage.BuildResponseMessage.class, openclBuildActor, timeout,
                 (ActorRef<BuildStartMessage.BuildResponseMessage> ref) -> new BuildStartMessage(ref),
                 (response, throwable) -> {
@@ -194,6 +203,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildStartMessage.BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildStartMessage.BuildFailedMessage.class, this::onBuildFailed)//
+                .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
+                .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
                 .build();
     }
 
@@ -214,6 +225,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         actor.get().tell(m);
         forwardMessage(m);
         runFxThread(() -> {
+            setStartProgress(false);
             var controller = (GameMainPaneController) initial.controller;
             if (m.cause instanceof KernelCompilationException) {
                 var ex = (KernelCompilationException) m.cause;
@@ -236,8 +248,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
      * <li>{@link SettingsDialogMessage}
      * </ul>
      */
-    private Behavior<Message> onSettingsClicked(SettingsDialogOpenTriggeredMessage m) {
-        log.debug("onSettingsClicked {}", m);
+    private Behavior<Message> onSettingsDialogOpenTriggered(SettingsDialogOpenTriggeredMessage m) {
+        log.debug("onSettingsDialogOpenTriggered {}", m);
         initial.actors.get(ToolbarButtonsActor.NAME).tell(m);
         return MainActor.sendMessageMayCreate(injector, SettingsDialogActor.ID, new SettingsDialogOpenMessage(),
                 SettingsDialogActor::create, super.getBehaviorAfterAttachGui()//
@@ -280,15 +292,38 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     private BehaviorBuilder<Message> getDefaultBehavior() {
         return super.getBehaviorAfterAttachGui()//
-                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
-                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsClicked)//
+                .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
+                .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
+                .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
         ;
+    }
+
+    private Behavior<Message> onKernelStarted(KernelStartedMessage m) {
+        log.debug("onKernelStarted {}", m);
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onKernelFinished(KernelFinishedMessage m) {
+        log.debug("onKernelFinished {}", m);
+        if (kernelStartedCounter.decrementAndGet() == 0) {
+            setStartProgress(false);
+        }
+        return Behaviors.same();
     }
 
     private void forwardMessage(Message m) {
         initial.actors.forEach((a) -> {
             a.tell(m);
+        });
+    }
+
+    private void setStartProgress(boolean start) {
+        runFxThread(() -> {
+            var controller = (GameMainPaneController) initial.controller;
+            controller.statusProgress.setVisible(start);
+            controller.statusProgress.setProgress(start ? -1 : 0);
         });
     }
 

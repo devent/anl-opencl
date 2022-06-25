@@ -1,0 +1,49 @@
+@startuml
+
+actor User
+boundary buildButton
+collections globalKeys
+participant GameMainPanelActor as gmpActor
+control MainActor
+participant openclBuildActor as obActor
+participant ToolbarButtonsActor as tbActor
+
+par javafx thread
+	User -> buildButton : click
+	buildButton -> globalKeys : runAction()
+	activate globalKeys
+		par akka thread
+			globalKeys -> MainActor : BuildTriggeredMessage
+		end
+	deactivate globalKeys
+end
+
+== BuildTriggeredMessage ==
+
+MainActor x-> gmpActor : BuildTriggeredMessage
+activate gmpActor
+	gmpActor -> gmpActor : onBuildTriggered()
+	par akka thread
+		gmpActor -> tbActor : BuildTriggeredMessage
+		activate tbActor
+		tbActor -> tbActor : onBuildTriggered()
+		tbActor -> tbActor : setDisableControlButtons(true)
+		deactivate tbActor
+	else akka thread
+		gmpActor -> obActor : BuildStartMessage
+		activate obActor
+			alt if build failed? yes
+			obActor --> gmpActor : BuildFailedMessage
+			else no
+			obActor --> gmpActor : BuildFinishedMessage
+			end
+		deactivate obActor
+	end
+deactivate gmpActor
+
+== BuildFinishedMessage ==
+
+-> gmpActor : BuildFinishedMessage
+gmpActor -> gmpActor : onBuildFinished()
+
+@enduml

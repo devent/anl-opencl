@@ -65,14 +65,35 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.messages;
 
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Message that the user clicked the build button.
+ * Message that the kernel is started for an image quad.
  *
  * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
  */
-@ToString(callSuper = true)
-public class BuildClickedMessage extends GuiMessage {
+@ToString
+@RequiredArgsConstructor
+public class KernelStartedMessage extends Message {
 
+    /**
+     * Message that the kernel is finished for an image quad.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @ToString
+    @RequiredArgsConstructor
+    public static class KernelFinishedMessage extends Message {
+
+        public final int column;
+
+        public final int row;
+    }
+
+    public final int column;
+
+    public final int row;
 }

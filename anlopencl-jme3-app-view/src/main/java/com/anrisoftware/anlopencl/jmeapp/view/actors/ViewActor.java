@@ -66,7 +66,6 @@
 package com.anrisoftware.anlopencl.jmeapp.view.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
-import static com.jme3.texture.Image.Format.RGBA8;
 
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
@@ -92,6 +91,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.jme3.app.Application;
 import com.jme3.opencl.lwjgl.LwjglBuffer;
 import com.jme3.opencl.lwjgl.LwjglContext;
+import com.jme3.texture.Image.Format;
 import com.jme3.texture.Texture2D;
 
 import akka.actor.typed.ActorRef;
@@ -282,7 +282,7 @@ public class ViewActor {
                 try (var s = MemoryStack.stackPush()) {
                     int width = gmp.width.get();
                     int height = gmp.height.get();
-                    var tex = new Texture2D(width, height, 1, RGBA8);
+                    var tex = new Texture2D(width, height, 1, Format.RGBA32F);
                     var ranges = MappingRanges.createWithBuffer(s);
                     if (gmp.map3d.get()) {
                         setMap3D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, z0, z1, xx, yy);

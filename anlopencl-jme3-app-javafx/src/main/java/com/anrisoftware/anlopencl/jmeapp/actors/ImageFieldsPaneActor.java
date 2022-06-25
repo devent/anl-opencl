@@ -83,7 +83,7 @@ import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
 import com.anrisoftware.anlopencl.jmeapp.controllers.ImageFieldsPaneController;
 import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
@@ -201,7 +201,7 @@ public class ImageFieldsPaneActor {
         return Behaviors.receive(Message.class)//
                 .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(AttachGuiMessage.class, this::onAttachGui)//
-                .onMessage(BuildClickedMessage.class, this::onBuildClicked)//
+                .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(GuiMessage.class, this::onGuiCatchall)//
@@ -217,7 +217,7 @@ public class ImageFieldsPaneActor {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onBuildClicked(BuildClickedMessage m) {
+    private Behavior<Message> onBuildClicked(BuildTriggeredMessage m) {
         log.debug("onBuildClicked {}", m);
         setDisableControlButtons(true);
         return Behaviors.same();

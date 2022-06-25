@@ -93,7 +93,7 @@ public class PaneActorsModule extends AbstractModule {
                 .build(ImageFieldsPaneActorFactory.class));
         install(new FactoryModuleBuilder().implement(MappingFieldsPaneActor.class, MappingFieldsPaneActor.class)
                 .build(MappingFieldsPaneActorFactory.class));
-        install(new FactoryModuleBuilder().implement(SettingsDialogActor.class, SettingsDialogActor.class)
+        install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, SettingsDialogActor.class)
                 .build(SettingsDialogActorFactory.class));
         install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, AboutDialogActor.class)
                 .build(AboutDialogActorFactory.class));

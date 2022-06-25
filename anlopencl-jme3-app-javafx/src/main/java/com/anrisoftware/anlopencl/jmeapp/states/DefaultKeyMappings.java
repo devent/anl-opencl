@@ -76,7 +76,7 @@ import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import java.util.Optional;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenTriggeredMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildClickedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GameQuitMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
@@ -97,7 +97,7 @@ public enum DefaultKeyMappings {
     // general
     QUIT_MAPPING(new GameQuitMessage(), of(new KeyCodeCombination(Q, CONTROL_DOWN)), of(new KeyTrigger(KEY_Q))),
 
-    BUILD_MAPPING(new BuildClickedMessage(), empty(), empty()),
+    BUILD_MAPPING(new BuildTriggeredMessage(), empty(), empty()),
 
     SETTINGS_MAPPING(new SettingsDialogOpenTriggeredMessage(), empty(), empty()),
 
