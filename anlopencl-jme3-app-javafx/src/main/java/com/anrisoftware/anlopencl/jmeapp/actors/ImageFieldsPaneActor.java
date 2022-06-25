@@ -83,9 +83,9 @@ import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
 import com.anrisoftware.anlopencl.jmeapp.controllers.ImageFieldsPaneController;
 import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -237,7 +237,6 @@ public class ImageFieldsPaneActor {
 
     private Behavior<Message> onGuiCatchall(GuiMessage m) {
         log.debug("onGuiCatchall {}", m);
-        // buildings.tell(m);
         return Behaviors.same();
     }
 
