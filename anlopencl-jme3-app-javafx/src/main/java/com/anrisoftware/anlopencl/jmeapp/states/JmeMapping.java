@@ -83,7 +83,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class JmeMapping {
 
-    public final static JmeMapping CONTROL_MAPPING = new JmeMapping("CONTROL_MAPPING",
+    public static final JmeMapping CONTROL_MAPPING = new JmeMapping("CONTROL_MAPPING",
             new KeyTrigger[] { new KeyTrigger(KEY_RCONTROL), new KeyTrigger(KEY_LCONTROL) });
 
     @EqualsAndHashCode.Include
