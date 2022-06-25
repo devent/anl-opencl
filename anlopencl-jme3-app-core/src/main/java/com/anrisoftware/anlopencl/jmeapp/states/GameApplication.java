@@ -159,7 +159,6 @@ public class GameApplication extends SimpleApplication {
     @SneakyThrows
     public void simpleInitApp() {
         log.debug("simpleInitApp");
-        // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,
