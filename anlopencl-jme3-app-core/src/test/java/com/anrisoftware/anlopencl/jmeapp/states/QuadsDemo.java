@@ -100,12 +100,12 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 @Slf4j
-public class QuadsTest extends SimpleApplication {
+public class QuadsDemo extends SimpleApplication {
 
     @SneakyThrows
     public static void main(String[] args) {
         var injector = Guice.createInjector();
-        injector.getInstance(QuadsTest.class).start(injector);
+        injector.getInstance(QuadsDemo.class).start(injector);
     }
 
     private final Engine engine;
@@ -128,7 +128,7 @@ public class QuadsTest extends SimpleApplication {
 
     private ActorSystemProvider actor;
 
-    public QuadsTest() {
+    public QuadsDemo() {
         super(new DebugKeysAppState(), new ConstantVerifierState());
         this.engine = new Engine();
         this.numberFormat = NumberFormat.getInstance(Locale.US);
