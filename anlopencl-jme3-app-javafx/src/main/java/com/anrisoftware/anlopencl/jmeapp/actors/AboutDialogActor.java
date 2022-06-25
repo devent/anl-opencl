@@ -66,8 +66,6 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.Map;
@@ -79,11 +77,9 @@ import javax.inject.Named;
 import com.anrisoftware.anlopencl.jmeapp.controllers.AboutDialogController;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogCloseTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialogOpenMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.anrisoftware.resources.texts.external.Texts;
@@ -99,8 +95,6 @@ import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.StashBuffer;
 import akka.actor.typed.receptionist.ServiceKey;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -136,12 +130,6 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
                 "/about-dialog-pane.fxml");
     }
 
-    private final GameSettingsProvider gsp;
-
-    @Inject
-    @Named("AppImages")
-    private Images appImages;
-
     @Inject
     private ActorSystemProvider actor;
 
@@ -161,20 +149,8 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
 
     @Inject
     AboutDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer,
-            GameSettingsProvider gsp) {
-        super(context, buffer);
-        this.gsp = gsp;
-        var gs = gsp.get();
-        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-    }
-
-    @Override
-    protected BehaviorBuilder<Message> getStartBehaviorBuilder() {
-        return super.getStartBehaviorBuilder()//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-        ;
+            GameSettingsProvider gsp, @Named("AppImages") Images appImages) {
+        super(context, buffer, gsp, appImages);
     }
 
     @Override
@@ -185,9 +161,7 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
             controller.initializeListeners(actor.get(), onp.get());
             pane.setPrefSize(camera.getWidth() - (double) 100, camera.getHeight() - (double) 100);
         });
-        tellLocalizeControlsSelf(gsp.get());
         return super.doActivate(m)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(AboutDialogOpenMessage.class, this::onAboutDialogOpenMessage)//
                 .onMessage(AboutDialogCloseTriggeredMessage.class, this::onAboutDialogCloseTriggered)//
         ;
@@ -207,52 +181,6 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
             JavaFxUI.getInstance().removeDialog();
         });
         return Behaviors.same();
-    }
-
-    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
-        log.debug("tellLocalizeControlsSelf");
-        context.getSelf().tell(new LocalizeControlsMessage(gs));
-    }
-
-    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls {}", m);
-        runFxThread(() -> {
-            setupIcons(m);
-        });
-        return Behaviors.same();
-    }
-
-    private void setupIcons(LocalizeControlsMessage m) {
-
-        var contentDisplay = ContentDisplay.LEFT;
-        switch (m.textPosition) {
-        case NONE:
-            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
-            break;
-        case BOTTOM:
-            contentDisplay = ContentDisplay.TOP;
-            break;
-        case LEFT:
-            contentDisplay = ContentDisplay.RIGHT;
-            break;
-        case RIGHT:
-            contentDisplay = ContentDisplay.LEFT;
-            break;
-        case TOP:
-            contentDisplay = ContentDisplay.BOTTOM;
-            break;
-        }
-    }
-
-    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(
-                toFXImage(appImages.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
-    }
-
-    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(toFXImage(
-                appImages.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
-                null));
     }
 
 }

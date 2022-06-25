@@ -66,8 +66,6 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -79,7 +77,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.SettingsDialogController;
-import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCancelTriggeredMessage;
@@ -88,7 +85,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.Settings
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
@@ -102,8 +98,6 @@ import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.StashBuffer;
 import akka.actor.typed.receptionist.ServiceKey;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -123,7 +117,7 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
 
     /**
      * Creates {@link SettingsDialogActor}.
-     * 
+     *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
     public interface SettingsDialogActorFactory extends AbstractJavafxPaneActorFactory {
@@ -139,12 +133,6 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
                 "/settings-dialog-pane.fxml");
     }
 
-    private final GameSettingsProvider gsp;
-
-    @Inject
-    @Named("AppImages")
-    private Images appImages;
-
     @Inject
     private ActorSystemProvider actor;
 
@@ -157,20 +145,8 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
 
     @Inject
     SettingsDialogActor(@Assisted ActorContext<Message> context, @Assisted StashBuffer<Message> buffer,
-            GameSettingsProvider gsp) {
-        super(context, buffer);
-        this.gsp = gsp;
-        var gs = gsp.get();
-        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-    }
-
-    @Override
-    protected BehaviorBuilder<Message> getStartBehaviorBuilder() {
-        return super.getStartBehaviorBuilder()//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-        ;
+            GameSettingsProvider gsp, @Named("AppImages") Images appImages) {
+        super(context, buffer, gsp, appImages);
     }
 
     @Override
@@ -181,9 +157,7 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
             controller.updateLocale(gsp.get(), appImages);
             controller.initializeListeners(actor.get(), onp.get());
         });
-        tellLocalizeControlsSelf(gsp.get());
         return super.doActivate(m)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(SettingsDialogOpenMessage.class, this::onOpenSettingsDialog)//
                 .onMessage(SettingsDialogOkTriggeredMessage.class, this::onSettingsDialogOked)//
                 .onMessage(SettingsDialogCancelTriggeredMessage.class, this::onSettingsDialogCanceled)//
@@ -236,52 +210,6 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
             }
         });
         return Behaviors.same();
-    }
-
-    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
-        log.debug("tellLocalizeControlsSelf");
-        context.getSelf().tell(new LocalizeControlsMessage(gs));
-    }
-
-    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls {}", m);
-        runFxThread(() -> {
-            setupIcons(m);
-        });
-        return Behaviors.same();
-    }
-
-    private void setupIcons(LocalizeControlsMessage m) {
-
-        var contentDisplay = ContentDisplay.LEFT;
-        switch (m.textPosition) {
-        case NONE:
-            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
-            break;
-        case BOTTOM:
-            contentDisplay = ContentDisplay.TOP;
-            break;
-        case LEFT:
-            contentDisplay = ContentDisplay.RIGHT;
-            break;
-        case RIGHT:
-            contentDisplay = ContentDisplay.LEFT;
-            break;
-        case TOP:
-            contentDisplay = ContentDisplay.BOTTOM;
-            break;
-        }
-    }
-
-    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(
-                toFXImage(appImages.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
-    }
-
-    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(toFXImage(
-                appImages.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
-                null));
     }
 
 }
