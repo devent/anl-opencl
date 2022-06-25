@@ -75,7 +75,10 @@ public class AdditionalCss {
     /**
      * Additional CSS for JavaFX.
      */
-    public static final String[] ADDITIONAL_CSS = new String[] { "/modena_dark.css", "/forms-inputs.css",
+    protected static final String[] ADDITIONAL_CSS = new String[] { "/modena_dark.css", "/forms-inputs.css",
             "/opencl-keywords-dark-wombat.css" };
 
+    private AdditionalCss() {
+        // utility class
+    }
 }
