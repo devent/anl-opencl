@@ -95,25 +95,27 @@ import lombok.extern.slf4j.Slf4j;
  * Abstract actor that loads a pane from a FXML file.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @param <T> the controller type.
  */
 @Slf4j
-public class AbstractJavafxPaneActor<ControllerType> {
+public class AbstractJavafxPaneActor<T> {
 
     /**
      * Message that is send after the pane was successfully loaded from the FXML
      * file.
      *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     * @param <T> the controller type.
      */
     @RequiredArgsConstructor
     @ToString(callSuper = true)
-    protected static class JavafxPaneInitialStateMessage<ControllerType> extends Message {
+    protected static class JavafxPaneInitialStateMessage<T> extends Message {
 
         public final ActorContext<Message> context;
 
         public final Region root;
 
-        public final ControllerType controller;
+        public final T controller;
     }
 
     /**
@@ -164,12 +166,12 @@ public class AbstractJavafxPaneActor<ControllerType> {
     }
 
     @SuppressWarnings("unchecked")
-    private static <ControllerType> Behavior<Message> createWithPane(Injector injector,
+    private static <T> Behavior<Message> createWithPane(Injector injector,
             AbstractJavafxPaneActorFactory paneActorFactory, ServiceKey<Message> key, String paneFxml) {
         return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
             context.pipeToSelf(loadPanel(injector, context, paneFxml), (value, cause) -> {
                 if (cause == null) {
-                    return new JavafxPaneInitialStateMessage<>(context, value.root, (ControllerType) value.controller);
+                    return new JavafxPaneInitialStateMessage<>(context, value.root, (T) value.controller);
                 } else {
                     return new JavafxPaneErrorSetupControllerMessage(context, cause);
                 }
@@ -189,7 +191,7 @@ public class AbstractJavafxPaneActor<ControllerType> {
 
     protected final StashBuffer<Message> buffer;
 
-    protected ControllerType controller;
+    protected T controller;
 
     protected Region pane;
 
@@ -217,19 +219,19 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onInitialState(JavafxPaneInitialStateMessage<ControllerType> m) {
+    private Behavior<Message> onInitialState(JavafxPaneInitialStateMessage<T> m) {
         log.debug("onInitialState {}", m);
         return buffer.unstashAll(active(m));
     }
 
-    private Behavior<Message> active(JavafxPaneInitialStateMessage<ControllerType> m) {
+    private Behavior<Message> active(JavafxPaneInitialStateMessage<T> m) {
         log.debug("activate {}", m);
         this.controller = m.controller;
         this.pane = m.root;
         return doActivate(m).build();
     }
 
-    protected BehaviorBuilder<Message> doActivate(JavafxPaneInitialStateMessage<ControllerType> m) {
+    protected BehaviorBuilder<Message> doActivate(JavafxPaneInitialStateMessage<T> m) {
         return Behaviors.receive(Message.class);
     }
 
