@@ -74,7 +74,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.dlsc.formsfx.model.structure.Form;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
@@ -158,8 +157,6 @@ public class GameMainPaneController {
 
     @FXML
     public TextArea buildLogsText;
-
-    public Form mappingForm;
 
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
         resetCameraButton.setGraphic(new ImageView(toFXImage(
