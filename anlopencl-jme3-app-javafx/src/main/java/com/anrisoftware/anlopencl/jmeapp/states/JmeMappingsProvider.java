@@ -73,7 +73,7 @@ import javax.inject.Provider;
 
 /**
  * Provides the key mappings for JME3.
- * 
+ *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 public class JmeMappingsProvider implements Provider<Map<String, JmeMapping>> {
@@ -81,9 +81,9 @@ public class JmeMappingsProvider implements Provider<Map<String, JmeMapping>> {
     private final Map<String, JmeMapping> map;
 
     public JmeMappingsProvider() {
-        var map = new HashMap<String, JmeMapping>();
-        map.put(JmeMapping.CONTROL_MAPPING.name, JmeMapping.CONTROL_MAPPING);
-        this.map = Collections.unmodifiableMap(map);
+        var m = new HashMap<String, JmeMapping>();
+        m.put(JmeMapping.CONTROL_MAPPING.name, JmeMapping.CONTROL_MAPPING);
+        this.map = Collections.unmodifiableMap(m);
     }
 
     @Override

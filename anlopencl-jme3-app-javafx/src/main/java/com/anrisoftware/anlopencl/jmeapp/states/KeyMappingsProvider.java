@@ -80,12 +80,11 @@ public class KeyMappingsProvider implements Provider<Map<String, KeyMapping>> {
     private final Map<String, KeyMapping> map;
 
     public KeyMappingsProvider() {
-        var map = new HashMap<String, KeyMapping>();
+        var m = new HashMap<String, KeyMapping>();
         for (var v : DefaultKeyMappings.values()) {
-            map.put(v.name(),
-                    KeyMapping.create(v.name(), v.keyCode.orElse(null), v.keyTrigger.orElse(null), v.message));
+            m.put(v.name(), KeyMapping.create(v.name(), v.keyCode.orElse(null), v.keyTrigger.orElse(null), v.message));
         }
-        this.map = Collections.unmodifiableMap(map);
+        this.map = Collections.unmodifiableMap(m);
     }
 
     @Override
