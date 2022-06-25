@@ -120,7 +120,7 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
 
     /**
      * Creates {@link AboutDialogActor}.
-     * 
+     *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
     public interface AboutDialogActorFactory extends AbstractJavafxPaneActorFactory {
@@ -183,7 +183,7 @@ public class AboutDialogActor extends AbstractJavafxPaneActor<AboutDialogControl
         runFxThread(() -> {
             controller.updateLocale(gsp.get(), appImages, appTexts);
             controller.initializeListeners(actor.get(), onp.get());
-            pane.setPrefSize(camera.getWidth() - 100, camera.getHeight() - 100);
+            pane.setPrefSize(camera.getWidth() - (double) 100, camera.getHeight() - (double) 100);
         });
         tellLocalizeControlsSelf(gsp.get());
         return super.doActivate(m)//
