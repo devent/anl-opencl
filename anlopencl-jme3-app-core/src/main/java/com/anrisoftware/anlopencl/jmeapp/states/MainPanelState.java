@@ -97,11 +97,9 @@ public class MainPanelState extends BaseAppState {
         log.debug("initialize");
     }
 
-    /**
-     * Nothing to cleanup.
-     */
     @Override
     protected void cleanup(Application app) {
+        // Nothing to cleanup.
     }
 
     @Override
