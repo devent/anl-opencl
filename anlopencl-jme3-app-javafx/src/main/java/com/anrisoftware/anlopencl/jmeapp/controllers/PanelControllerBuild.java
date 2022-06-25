@@ -154,8 +154,7 @@ public class PanelControllerBuild {
     @SneakyThrows
     private PanelControllerResult loadFxml0(String fxmlfile, String... additionalCss) {
         log.debug("setupGui0");
-        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
-        // 14);
+        loadFone();
         var css = new ArrayList<String>();
         css.add(getCss());
         css.addAll(Arrays.asList(additionalCss));
@@ -165,7 +164,13 @@ public class PanelControllerBuild {
         return new PanelControllerResult(loadFxml(loader, fxmlfile), loader.getController());
     }
 
+    private void loadFone() {
+        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
+        // 14);
+    }
+
     protected void initializeFx(List<String> css) {
+        // call JavaFxUI.initialize if needed
     }
 
     @SneakyThrows
@@ -175,11 +180,10 @@ public class PanelControllerBuild {
 
     @SneakyThrows
     private Pane loadFxml(FXMLLoader loader, String res) {
-        var root = JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
+        return JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
             log.debug("Load FXML file {}", res);
             return (Pane) loader.load(getClass().getResourceAsStream(res));
         });
-        return root;
     }
 
 }
