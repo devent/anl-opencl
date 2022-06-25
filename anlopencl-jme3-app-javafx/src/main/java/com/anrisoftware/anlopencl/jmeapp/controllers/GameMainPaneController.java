@@ -171,9 +171,6 @@ public class GameMainPaneController {
         setupInputAccordion(np);
         statusProgress.setProgress(0);
         statusProgress.setVisible(false);
-        // JavaFxUtil.runFxThread(() -> {
-        // ScenicView.show(JavaFxUI.getInstance().getScene());
-        // });
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
