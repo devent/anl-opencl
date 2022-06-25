@@ -147,4 +147,8 @@ public class JavaFxUtil {
             return futureTask.get(timeout, unit);
         }
     }
+
+    private JavaFxUtil() {
+        // Utility class
+    }
 }
