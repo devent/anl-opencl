@@ -195,7 +195,7 @@ public class GameMainPaneController {
 
     private void updateLastExpandedPane(String id) {
         var list = inputAccordion.getPanes().filtered((n) -> n.getId().equals(id));
-        if (list.size() > 0) {
+        if (list.isEmpty()) {
             var pane = list.get(0);
             inputAccordion.setExpandedPane(pane);
         } else {
