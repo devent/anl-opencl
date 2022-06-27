@@ -90,6 +90,9 @@ import javafx.scene.input.KeyCombination.ModifierValue
 class GlobalKeys implements ActionListener {
 
     @Inject
+    InputManager inputManager
+
+    @Inject
     ActorSystemProvider actor
 
     @Inject
