@@ -75,7 +75,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- *
+ * Provides the mapping of {@link KeyTrigger}s for JME.
+ * 
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 @ToString

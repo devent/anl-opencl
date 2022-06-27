@@ -44,6 +44,7 @@
             <Spinner id="dimensionField" fx:id="dimensionField" maxWidth="8000.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
             <Label text="Code:" GridPane.rowIndex="6" />
                   <Button id="randomButton" fx:id="randomButton" mnemonicParsing="false" text="Rnd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button id="openExternEditorButton" fx:id="openExternEditorButton" mnemonicParsing="false" text="..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
           </children>
         </GridPane>
       </children>

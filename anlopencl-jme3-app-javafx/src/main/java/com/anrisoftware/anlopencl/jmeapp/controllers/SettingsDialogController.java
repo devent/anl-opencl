@@ -72,6 +72,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCancelTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenEditPathMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
@@ -85,6 +86,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -121,12 +124,27 @@ public class SettingsDialogController {
 
     public DirectoryChooser tempdirFileChooser;
 
+    @FXML
+    public Label editPathLabel;
+
+    @FXML
+    public TextField editPathField;
+
+    @FXML
+    public Button openEditPathButton;
+
+    public FileChooser editPathFileChooser;
+
     public void updateSettings(ObservableGameSettings gs) {
         tempdirFileChooser = new DirectoryChooser();
         tempdirFileChooser.setTitle("Open Directory");
-        var file = gs.tempDir.get().toFile();
-        tempdirFileChooser.setInitialDirectory(file);
-        tempdirField.setText(file.getAbsolutePath());
+        tempdirFileChooser.setInitialDirectory(gs.tempDir.get().toFile());
+        tempdirField.setText(gs.tempDir.get().toString());
+        editPathFileChooser = new FileChooser();
+        editPathFileChooser.setTitle("Editor Path");
+        editPathFileChooser.setInitialFileName(gs.editorPath.get().toString());
+        editPathFileChooser.setSelectedExtensionFilter(new ExtensionFilter("Editor Binary", "*"));
+        editPathField.setText(gs.editorPath.get().toString());
     }
 
     public void updateLocale(ObservableGameSettings gs, Images images) {
@@ -151,6 +169,9 @@ public class SettingsDialogController {
         });
         openTempdirButton.setOnAction((event) -> {
             actor.tell(new SettingsDialogOpenTempdirDialogMessage());
+        });
+        openEditPathButton.setOnAction((event) -> {
+            actor.tell(new SettingsDialogOpenEditPathMessage());
         });
     }
 }

@@ -72,6 +72,7 @@ import java.util.Map;
 import javax.inject.Provider;
 
 /**
+ * Provides the key mappings from {@link DefaultKeyMappings}.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */

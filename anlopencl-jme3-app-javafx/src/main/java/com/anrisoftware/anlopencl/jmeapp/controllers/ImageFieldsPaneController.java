@@ -142,6 +142,9 @@ public class ImageFieldsPaneController {
     @FXML
     public AnchorPane kernelCodePane;
 
+    @FXML
+    public Button openExternEditorButton;
+
     @SneakyThrows
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
         randomButton.setGraphic(

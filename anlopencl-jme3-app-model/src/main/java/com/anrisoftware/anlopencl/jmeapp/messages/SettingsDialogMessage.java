@@ -116,6 +116,17 @@ public class SettingsDialogMessage extends GuiMessage {
     }
 
     /**
+     * Message that the file chooser dialog for the external editor path should be
+     * opened.
+     *
+     * @author Erwin Müller {@literal <erwin@mullerlpublic.de}
+     */
+    @ToString(callSuper = true)
+    public static class SettingsDialogOpenEditPathMessage extends SettingsDialogMessage {
+
+    }
+
+    /**
      * Message to open the settings dialog.
      *
      * @author Erwin Müller {@literal <erwin@mullerlpublic.de}

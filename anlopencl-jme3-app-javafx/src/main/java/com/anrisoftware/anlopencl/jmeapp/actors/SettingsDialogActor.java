@@ -81,6 +81,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogApplyMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogCancelTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOkTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenEditPathMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTempdirDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
@@ -163,6 +164,7 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
                 .onMessage(SettingsDialogCancelTriggeredMessage.class, this::onSettingsDialogCanceled)//
                 .onMessage(SettingsDialogApplyMessage.class, this::onSettingsDialogApply)//
                 .onMessage(SettingsDialogOpenTempdirDialogMessage.class, this::onSettingsDialogOpenTempdirDialog)//
+                .onMessage(SettingsDialogOpenEditPathMessage.class, this::onSettingsDialogOpenEditPath)//
         ;
     }
 
@@ -177,7 +179,7 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
     private Behavior<Message> onSettingsDialogOked(SettingsDialogOkTriggeredMessage m) {
         log.debug("onSettingsDialogOked");
         runFxThread(() -> {
-            gsp.get().tempDir.set(Path.of(controller.tempdirField.getText()));
+            updateSettings();
             JavaFxUI.getInstance().removeDialog();
         });
         return Behaviors.same();
@@ -194,6 +196,7 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
     private Behavior<Message> onSettingsDialogApply(SettingsDialogApplyMessage m) {
         log.debug("onSettingsDialogApply");
         runFxThread(() -> {
+            updateSettings();
         });
         return Behaviors.same();
     }
@@ -210,6 +213,27 @@ public class SettingsDialogActor extends AbstractJavafxPaneActor<SettingsDialogC
             }
         });
         return Behaviors.same();
+    }
+
+    private Behavior<Message> onSettingsDialogOpenEditPath(SettingsDialogOpenEditPathMessage m) {
+        log.debug("onSettingsDialogOpenEditPath");
+        runFxThread(() -> {
+            var window = JavaFxUI.getInstance().getScene().getWindow();
+            controller.editPathFileChooser
+                    .setInitialDirectory(new File(controller.editPathField.getText()).getParentFile());
+            controller.editPathFileChooser.setInitialFileName(controller.editPathField.getText());
+            var file = controller.editPathFileChooser.showOpenDialog(window);
+            if (file != null) {
+                String path = file.getAbsolutePath();
+                controller.editPathField.setText(path);
+            }
+        });
+        return Behaviors.same();
+    }
+
+    private void updateSettings() {
+        gsp.get().tempDir.set(Path.of(controller.tempdirField.getText()));
+        gsp.get().editorPath.set(Path.of(controller.editPathField.getText()));
     }
 
 }
