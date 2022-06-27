@@ -270,10 +270,11 @@ public class AbstractJavafxPaneActor<T> {
         return Behaviors.stopped();
     }
 
-    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls {}", m);
+    private Behavior<Message> onLocalizeControls(Object m) {
+        var mm = (LocalizeControlsMessage) m;
+        log.debug("onLocalizeControls {}", mm);
         runFxThread(() -> {
-            setupIcons(m);
+            setupIcons(mm);
         });
         return Behaviors.same();
     }
