@@ -1,0 +1,81 @@
+@startuml
+[*] --> getBehaviorAfterAttachGui
+getBehaviorAfterAttachGui : ShutdownMessage
+getBehaviorAfterAttachGui : GameQuitMessage
+getBehaviorAfterAttachGui : MainWindowResizedMessage
+getBehaviorAfterAttachGui : BuildTriggeredMessage
+getBehaviorAfterAttachGui : SettingsDialogOpenTriggeredMessage
+getBehaviorAfterAttachGui : AboutDialogOpenTriggeredMessage
+getBehaviorAfterAttachGui : KernelStartedMessage
+getBehaviorAfterAttachGui : KernelFinishedMessage
+getBehaviorAfterAttachGui : OpenExternalEditorTriggeredMessage
+
+state SettingsDialog {
+getBehaviorAfterAttachGui --> onSettingsDialogOpenTriggered : SettingsDialogOpenTriggeredMessage
+onSettingsDialogOpenTriggered : ShutdownMessage
+onSettingsDialogOpenTriggered : GameQuitMessage
+onSettingsDialogOpenTriggered : MainWindowResizedMessage
+onSettingsDialogOpenTriggered : SettingsDialogMessage
+
+onSettingsDialogOpenTriggered --> onSettingsDialogClosed : SettingsDialogMessage
+onSettingsDialogClosed --> getBehaviorAfterAttachGui
+}
+
+state AboutDialog {
+getBehaviorAfterAttachGui --> onAboutDialogOpenTriggered : AboutDialogOpenTriggeredMessage
+onAboutDialogOpenTriggered : ShutdownMessage
+onAboutDialogOpenTriggered : GameQuitMessage
+onAboutDialogOpenTriggered : MainWindowResizedMessage
+onAboutDialogOpenTriggered : SettingsDialogMessage
+
+onAboutDialogOpenTriggered --> onAboutDialog : AboutDialogMessage
+onAboutDialog --> getBehaviorAfterAttachGui
+}
+
+state Build {
+getBehaviorAfterAttachGui --> onBuildTriggered : BuildTriggeredMessage
+
+onBuildTriggered : ShutdownMessage
+onBuildTriggered : GameQuitMessage
+onBuildTriggered : MainWindowResizedMessage
+onBuildTriggered : BuildStartMessage.BuildFinishedMessage
+onBuildTriggered : BuildStartMessage.BuildFailedMessage
+onBuildTriggered : KernelStartedMessage
+onBuildTriggered : KernelFinishedMessage
+
+state "build failed?" as buildFailed <<choice>>
+onBuildTriggered --> buildFailed
+buildFailed --> onBuildFailed : [yes]
+buildFailed --> onBuildFinished : [no]
+onBuildFinished --> getBehaviorAfterAttachGui
+onBuildFailed --> getBehaviorAfterAttachGui
+
+onBuildTriggered --> onKernelStarted : KernelStartedMessage
+onKernelStarted --> onBuildTriggered
+
+onBuildTriggered --> onKernelFinished : KernelFinishedMessage
+onKernelFinished --> onBuildTriggered
+}
+
+state ExternalEditor {
+getBehaviorAfterAttachGui ---> onOpenExternalEditorTriggered : OpenExternalEditorTriggeredMessage
+onOpenExternalEditorTriggered : ShutdownMessage
+onOpenExternalEditorTriggered : GameQuitMessage
+onOpenExternalEditorTriggered : MainWindowResizedMessage
+onOpenExternalEditorTriggered : BuildTriggeredMessage
+onOpenExternalEditorTriggered : SettingsDialogOpenTriggeredMessage
+onOpenExternalEditorTriggered : AboutDialogOpenTriggeredMessage
+onOpenExternalEditorTriggered : KernelStartedMessage
+onOpenExternalEditorTriggered : KernelFinishedMessage
+onOpenExternalEditorTriggered : OpenExternalEditorTriggeredMessage
+onOpenExternalEditorTriggered : ExternalEditorClosedMessage
+onOpenExternalEditorTriggered : ExternalEditorOpenErrorMessage
+
+onOpenExternalEditorTriggered --> onExternalEditorClosed : ExternalEditorClosedMessage
+onExternalEditorClosed --> getBehaviorAfterAttachGui
+
+onOpenExternalEditorTriggered --> onExternalEditorOpenError : ExternalEditorOpenErrorMessage
+onExternalEditorOpenError --> getBehaviorAfterAttachGui
+}
+
+@enduml

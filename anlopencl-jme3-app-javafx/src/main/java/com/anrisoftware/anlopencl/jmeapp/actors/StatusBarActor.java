@@ -80,6 +80,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorOpenErrorMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
@@ -147,6 +148,7 @@ public class StatusBarActor extends AbstractPaneActor<GameMainPaneController> {
                 .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
+                .onMessage(ExternalEditorOpenErrorMessage.class, this::onExternalEditorOpenError)//
         ;
     }
 
@@ -174,6 +176,16 @@ public class StatusBarActor extends AbstractPaneActor<GameMainPaneController> {
         log.debug("onBuildFailed {}", m);
         JavaFxUtil.runFxThread(() -> {
             controller.statusLabel.setText(format("Build failed: %s", m.cause.getLocalizedMessage()));
+            controller.statusProgress.setVisible(false);
+            controller.statusProgress.setProgress(0);
+        });
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onExternalEditorOpenError(ExternalEditorOpenErrorMessage m) {
+        log.debug("onExternalEditorOpenError {}", m);
+        JavaFxUtil.runFxThread(() -> {
+            controller.statusLabel.setText(format("Editor error: %s", m.cause.getLocalizedMessage()));
             controller.statusProgress.setVisible(false);
             controller.statusProgress.setProgress(0);
         });

@@ -73,7 +73,7 @@
     <parent>
         <groupId>com.anrisoftware.globalpom</groupId>
         <artifactId>globalpom-groovy-gmavenplus</artifactId>
-        <version>4.6.2</version>
+        <version>4.6.3</version>
     </parent>
 
     <groupId>com.anrisoftware.anlopencl</groupId>
@@ -108,6 +108,8 @@
         <globalpom.custom.javafx.version>16</globalpom.custom.javafx.version>
         <globalpom.custom.source.source>17</globalpom.custom.source.source>
         <globalpom.custom.source.target>17</globalpom.custom.source.target>
+        <!-- Versions -->
+        <globalpom.custom.anrisoftware.version>4.6.3</globalpom.custom.anrisoftware.version>
     </properties>
 
     <licenses>
@@ -167,6 +169,17 @@
                 <artifactId>resources-binary</artifactId>
                 <version>${globalpom.custom.anrisoftware.version}</version>
             </dependency>
+
+			<dependency>
+				<groupId>com.anrisoftware.globalpom</groupId>
+				<artifactId>globalpomutils-exec</artifactId>
+                <version>4.6.3-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.anrisoftware.globalpom</groupId>
+				<artifactId>globalpomutils-threads</artifactId>
+                <version>${globalpom.custom.anrisoftware.version}</version>
+			</dependency>
 
             <dependency>
                 <groupId>org.jmonkeyengine</groupId>

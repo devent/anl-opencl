@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,58 +63,70 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.actors;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import com.anrisoftware.anlopencl.jmeapp.actors.AboutDialogActor.AboutDialogActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.ExternalEditorActor.ExternalEditorActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.ExternalEditorBuild.ExternalEditorBuildFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.FileWatcher.FileWatcherFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor.GameMainPanelActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.ImageFieldsPaneActor.ImageFieldsPaneActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.MappingFieldsPaneActor.MappingFieldsPaneActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.SettingsDialogActor.SettingsDialogActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.StatusBarActor.StatusBarActorFactory;
-import com.anrisoftware.anlopencl.jmeapp.actors.ToolbarButtonsActor.ToolbarButtonsActorFactory;
-import com.anrisoftware.globalpom.exec.internal.command.DefaultCommandLineModule;
-import com.anrisoftware.globalpom.exec.internal.core.DefaultProcessModule;
-import com.anrisoftware.globalpom.exec.internal.logoutputs.LogOutputsModule;
-import com.anrisoftware.globalpom.exec.internal.pipeoutputs.PipeOutputsModule;
-import com.anrisoftware.globalpom.threads.properties.internal.PropertiesThreadsModule;
-import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
+import java.nio.file.Path;
+
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
+ * Messages related to the external editor.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-public class PaneActorsModule extends AbstractModule {
+public class OpenExternalEditorMessage {
 
-    @Override
-    protected void configure() {
-        install(new FactoryModuleBuilder().implement(AbstractMainPanelActor.class, GameMainPanelActor.class)
-                .build(GameMainPanelActorFactory.class));
-        install(new FactoryModuleBuilder().implement(ToolbarButtonsActor.class, ToolbarButtonsActor.class)
-                .build(ToolbarButtonsActorFactory.class));
-        install(new FactoryModuleBuilder().implement(StatusBarActor.class, StatusBarActor.class)
-                .build(StatusBarActorFactory.class));
-        install(new FactoryModuleBuilder().implement(ImageFieldsPaneActor.class, ImageFieldsPaneActor.class)
-                .build(ImageFieldsPaneActorFactory.class));
-        install(new FactoryModuleBuilder().implement(MappingFieldsPaneActor.class, MappingFieldsPaneActor.class)
-                .build(MappingFieldsPaneActorFactory.class));
-        install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, SettingsDialogActor.class)
-                .build(SettingsDialogActorFactory.class));
-        install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, AboutDialogActor.class)
-                .build(AboutDialogActorFactory.class));
-        install(new FactoryModuleBuilder().implement(FileWatcher.class, FileWatcher.class)
-                .build(FileWatcherFactory.class));
-        install(new FactoryModuleBuilder().implement(ExternalEditorActor.class, ExternalEditorActor.class)
-                .build(ExternalEditorActorFactory.class));
-        install(new FactoryModuleBuilder().implement(ExternalEditorBuild.class, ExternalEditorBuild.class)
-                .build(ExternalEditorBuildFactory.class));
-        install(new DefaultProcessModule());
-        install(new DefaultCommandLineModule());
-        install(new PipeOutputsModule());
-        install(new PropertiesThreadsModule());
-        install(new LogOutputsModule());
+    /**
+     * Message that the open external editor was triggered either by a click on a
+     * button or by a key combination.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @ToString(callSuper = true)
+    public static class OpenExternalEditorTriggeredMessage extends GuiMessage {
+
     }
+
+    /**
+     * Message send after the external editor was closed.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ExternalEditorClosedMessage extends Message {
+
+        public final Path file;
+
+    }
+
+    /**
+     * Message if there was an error opening the external editor.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ExternalEditorOpenErrorMessage extends Message {
+
+        public final Throwable cause;
+
+    }
+
+    /**
+     * Message send after there was an error reading the temporary kernel code file.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ErrorReadKernelCodeMessage extends Message {
+
+        public final Exception cause;
+
+    }
+
 }

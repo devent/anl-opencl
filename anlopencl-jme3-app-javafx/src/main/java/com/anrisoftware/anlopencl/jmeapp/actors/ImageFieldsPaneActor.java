@@ -82,6 +82,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.resources.images.external.IconSize;
@@ -171,6 +172,7 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
                 .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
+                .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
         ;
     }
 
@@ -192,6 +194,13 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
         return Behaviors.same();
     }
 
+    private Behavior<Message> onOpenExternalEditorTriggered(OpenExternalEditorTriggeredMessage m) {
+        log.debug("onOpenExternalEditorTriggered {}", m);
+        setDisableCodeArea(true);
+        setDisableOpenExternalEditorButton(true);
+        return Behaviors.same();
+    }
+
     private void setDisableControlButtons(boolean disabled) {
         runFxThread(() -> {
             controller.nameField.setDisable(disabled);
@@ -200,6 +209,20 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
             controller.heightField.setDisable(disabled);
             controller.zField.setDisable(disabled);
             controller.dimensionField.setDisable(disabled);
+            controller.codeArea.setDisable(disabled);
+        });
+    }
+
+    private void setDisableCodeArea(boolean disabled) {
+        runFxThread(() -> {
+            controller.codeArea.setDisable(disabled);
+            controller.codeArea.setEditable(!disabled);
+        });
+    }
+
+    private void setDisableOpenExternalEditorButton(boolean disabled) {
+        runFxThread(() -> {
+            controller.openExternEditorButton.setDisable(disabled);
         });
     }
 

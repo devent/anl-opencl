@@ -72,6 +72,7 @@ import java.util.Locale;
 import org.fxmisc.richtext.CodeArea;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
@@ -145,6 +146,8 @@ public class ImageFieldsPaneController {
     @FXML
     public Button openExternEditorButton;
 
+    public CodeArea codeArea;
+
     @SneakyThrows
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
         randomButton.setGraphic(
@@ -169,6 +172,9 @@ public class ImageFieldsPaneController {
         var dimensionValueFactory = createNumbersValueFactory(locale, dimList);
         dimensionValueFactory.valueProperty().bindBidirectional((Property) np.dim);
         dimensionField.setValueFactory(dimensionValueFactory);
+        openExternEditorButton.setOnAction((event) -> {
+            actor.tell(new OpenExternalEditorTriggeredMessage());
+        });
         setupKernelCode(np);
     }
 
@@ -198,17 +204,20 @@ public class ImageFieldsPaneController {
 
     private void setupKernelCode(ObservableGameMainPaneProperties np) {
         var editor = new OpenCLKeywordsEditor();
-        CodeArea area = editor.getCodeArea();
-        area.replaceText(0, area.getLength(), np.kernelCode.get());
-        area.textProperty().addListener((obs, oldText, newText) -> {
-            np.kernelCode.set(newText);
+        this.codeArea = editor.getCodeArea();
+        codeArea.replaceText(0, codeArea.getLength(), np.kernelCode.get());
+        codeArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            np.kernelCode.set(newValue);
             np.codeLastChange.set(System.currentTimeMillis());
         });
-        kernelCodePane.getChildren().add(area);
-        AnchorPane.setBottomAnchor(area, 0.0);
-        AnchorPane.setLeftAnchor(area, 0.0);
-        AnchorPane.setRightAnchor(area, 0.0);
-        AnchorPane.setTopAnchor(area, 0.0);
+        np.kernelCode.addListener((observable, oldValue, newValue) -> {
+            codeArea.replaceText(0, codeArea.getLength(), newValue);
+        });
+        kernelCodePane.getChildren().add(codeArea);
+        AnchorPane.setBottomAnchor(codeArea, 0.0);
+        AnchorPane.setLeftAnchor(codeArea, 0.0);
+        AnchorPane.setRightAnchor(codeArea, 0.0);
+        AnchorPane.setTopAnchor(codeArea, 0.0);
     }
 
 }

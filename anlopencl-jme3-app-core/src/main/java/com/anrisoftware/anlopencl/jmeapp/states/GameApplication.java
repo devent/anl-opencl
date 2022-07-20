@@ -89,6 +89,7 @@ import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.jme3.app.LostFocusBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.ConstantVerifierState;
 import com.jme3.system.AppSettings;
@@ -147,6 +148,7 @@ public class GameApplication extends SimpleApplication {
         s.setHeight(gsp.get().windowHeight.get());
         s.setVSync(false);
         s.setOpenCLSupport(true);
+        setLostFocusBehavior(LostFocusBehavior.PauseOnLostFocus);
         setSettings(s);
     }
 
