@@ -221,9 +221,7 @@ public class ExternalEditorActor {
      */
     private Behavior<Message> onShutdown(ShutdownMessage m) {
         log.debug("onShutdown {}", m);
-        initial.externalEditor.process.cancel(true);
-        initial.externalEditor.build.shutdown();
-        return Behaviors.stopped();
+        return stopActor();
     }
 
     /**
@@ -233,7 +231,7 @@ public class ExternalEditorActor {
     private Behavior<Message> onExternalEditorOpenError(ExternalEditorOpenErrorMessage m) {
         log.debug("onExternalEditorOpenError {}", m);
         actor.get().tell(m);
-        return Behaviors.stopped();
+        return stopActor();
     }
 
     /**
@@ -242,12 +240,18 @@ public class ExternalEditorActor {
     private Behavior<Message> onExternalEditorClosed(ExternalEditorClosedMessage m) {
         log.debug("onExternalEditorClosed: {}", m);
         actor.get().tell(m);
-        return Behaviors.stopped();
+        return stopActor();
     }
 
     private Behavior<Message> onErrorReadKernelCode(ErrorReadKernelCodeMessage m) {
         log.debug("onErrorReadKernelCode: {}", m);
         return Behaviors.same();
+    }
+
+    private Behavior<Message> stopActor() {
+        initial.externalEditor.process.cancel(true);
+        initial.externalEditor.build.shutdown();
+        return Behaviors.stopped();
     }
 
     private void watchForChanges(Executor executor, Path temp) {

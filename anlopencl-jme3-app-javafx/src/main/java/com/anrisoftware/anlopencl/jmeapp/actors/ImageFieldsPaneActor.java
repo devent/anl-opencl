@@ -82,6 +82,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedM
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorClosedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
@@ -173,6 +174,7 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
+                .onMessage(ExternalEditorClosedMessage.class, this::onExternalEditorClosed)//
         ;
     }
 
@@ -198,6 +200,13 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
         log.debug("onOpenExternalEditorTriggered {}", m);
         setDisableCodeArea(true);
         setDisableOpenExternalEditorButton(true);
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onExternalEditorClosed(ExternalEditorClosedMessage m) {
+        log.debug("onExternalEditorClosed {}", m);
+        setDisableCodeArea(false);
+        setDisableOpenExternalEditorButton(false);
         return Behaviors.same();
     }
 
