@@ -72,8 +72,6 @@ import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.BUILD_
 import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.QUIT_MAPPING;
 import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.RESET_CAMERA_MAPPING;
 import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.SETTINGS_MAPPING;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.Map;
@@ -89,12 +87,10 @@ import com.anrisoftware.anlopencl.jmeapp.messages.AboutDialogMessage.AboutDialog
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
@@ -103,11 +99,10 @@ import com.google.inject.assistedinject.Assisted;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -117,7 +112,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller
  */
 @Slf4j
-public class ToolbarButtonsActor {
+public class ToolbarButtonsActor extends AbstractPaneActor<GameMainPaneController> {
 
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
             ToolbarButtonsActor.class.getSimpleName());
@@ -143,14 +138,6 @@ public class ToolbarButtonsActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, create(injector));
     }
 
-    private final ActorContext<Message> context;
-
-    private final GameSettingsProvider gsp;
-
-    @Inject
-    @Named("AppIcons")
-    private Images appIcons;
-
     @Inject
     private GlobalKeys globalKeys;
 
@@ -161,26 +148,13 @@ public class ToolbarButtonsActor {
     private GameMainPaneController controller;
 
     @Inject
-    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
-        this.context = context;
-        this.gsp = gsp;
-        var gs = gsp.get();
-        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+    ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp,
+            @Named("AppIcons") Images appIcons) {
+        super(context, gsp, appIcons);
     }
 
-    public Behavior<Message> start() {
-        return Behaviors.receive(Message.class)//
-                .onMessage(InitialStateMessage.class, this::onInitialState)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .build();
-    }
-
-    private Behavior<Message> onInitialState(InitialStateMessage m) {
-        log.debug("onInitialState");
-        this.controller = (GameMainPaneController) m.controller;
-        tellLocalizeControlsSelf(gsp.get());
+    @Override
+    protected void initialState(InitialStateMessage m) {
         controller.buttonQuit.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get(QUIT_MAPPING.name()));
         });
@@ -196,30 +170,31 @@ public class ToolbarButtonsActor {
         controller.aboutButton.setOnAction((e) -> {
             globalKeys.runAction(keyMappings.get(ABOUT_DIALOG_MAPPING.name()));
         });
-        /*
-         * controller.commandsButtons.selectedToggleProperty().addListener((o, ov, nv)
-         * -> { System.out.printf("%s-%s-%s%n", o, ov, nv); // TODO if (ov != null &&
-         * !ov.isSelected()) {
-         *
-         * } if (nv != null && nv.isSelected()) {
-         * globalKeys.runAction(keyMappings.get().get("BUILDINGS_MAPPING")); } });
-         */
-        return getDefaultBehavior();
     }
 
-    private Behavior<Message> getDefaultBehavior() {
-        return Behaviors.receive(Message.class)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+    @Override
+    protected void setupController(InitialStateMessage m) {
+        this.controller = (GameMainPaneController) m.controller;
+    }
+
+    @Override
+    protected BehaviorBuilder<Message> getBehaviorInitialState() {
+        return getDefaultBehavior(super.getBehaviorInitialState())//
+        ;
+    }
+
+    private BehaviorBuilder<Message> getDefaultBehavior() {
+        return getDefaultBehavior(Behaviors.receive(Message.class));
+    }
+
+    private BehaviorBuilder<Message> getDefaultBehavior(BehaviorBuilder<Message> builder) {
+        return builder//
                 .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
                 .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutClicked)//
-                .build();
-    }
-
-    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs));
+        ;
     }
 
     private Behavior<Message> onBuildTriggered(BuildTriggeredMessage m) {
@@ -251,7 +226,7 @@ public class ToolbarButtonsActor {
     private Behavior<Message> onSettingsDialogClosed(SettingsDialogMessage m) {
         log.debug("onSettingsDialogClosed {}", m);
         setDisableControlButtons(false);
-        return getDefaultBehavior();
+        return getDefaultBehavior().build();
     }
 
     private Behavior<Message> onAboutClicked(AboutDialogOpenTriggeredMessage m) {
@@ -265,47 +240,7 @@ public class ToolbarButtonsActor {
     private Behavior<Message> onAboutDialogClosed(AboutDialogCloseTriggeredMessage m) {
         log.debug("onAboutDialogClosed {}", m);
         setDisableControlButtons(false);
-        return getDefaultBehavior();
-    }
-
-    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls");
-        runFxThread(() -> {
-            setupIcons(m);
-        });
-        return Behaviors.same();
-    }
-
-    private void setupIcons(LocalizeControlsMessage m) {
-        var contentDisplay = ContentDisplay.LEFT;
-        switch (m.textPosition) {
-        case NONE:
-            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
-            break;
-        case BOTTOM:
-            contentDisplay = ContentDisplay.TOP;
-            break;
-        case LEFT:
-            contentDisplay = ContentDisplay.RIGHT;
-            break;
-        case RIGHT:
-            contentDisplay = ContentDisplay.LEFT;
-            break;
-        case TOP:
-            contentDisplay = ContentDisplay.BOTTOM;
-            break;
-        }
-    }
-
-    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(
-                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
-    }
-
-    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(toFXImage(
-                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
-                null));
+        return getDefaultBehavior().build();
     }
 
     private void setDisableControlButtons(boolean disabled) {

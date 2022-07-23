@@ -7,6 +7,13 @@
 			<pattern>[%-5level] %-4relative [%thread] %logger{15} - %msg %n</pattern>
 		</encoder>
 		<immediateFlush>false</immediateFlush>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return message.contains("onBuildFinished") || message.contains("onBuildFailed");</expression>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
 	</appender>
 
 	<appender name="FILE_DAILY"
@@ -29,5 +36,7 @@
 	<logger name="com.anrisoftware" level="ERROR" />
 	<logger name="com.anrisoftware.easycl" level="ALL" />
 	<logger name="com.anrisoftware.anlopencl" level="ALL" />
+    <logger name="com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor" level="INFO" />
+    <logger name="com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageSystem" level="INFO" />
 
 </configuration>

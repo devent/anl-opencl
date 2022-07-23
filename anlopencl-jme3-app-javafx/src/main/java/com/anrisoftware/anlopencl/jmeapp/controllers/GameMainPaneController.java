@@ -74,7 +74,6 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
-import com.dlsc.formsfx.model.structure.Form;
 
 import akka.actor.typed.ActorRef;
 import javafx.fxml.FXML;
@@ -159,8 +158,6 @@ public class GameMainPaneController {
     @FXML
     public TextArea buildLogsText;
 
-    public Form mappingForm;
-
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
         resetCameraButton.setGraphic(new ImageView(toFXImage(
                 images.getResource("resetCameraButton", locale, iconSize).getBufferedImage(TYPE_INT_ARGB), null)));
@@ -174,9 +171,6 @@ public class GameMainPaneController {
         setupInputAccordion(np);
         statusProgress.setProgress(0);
         statusProgress.setVisible(false);
-        // JavaFxUtil.runFxThread(() -> {
-        // ScenicView.show(JavaFxUI.getInstance().getScene());
-        // });
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {
@@ -201,7 +195,7 @@ public class GameMainPaneController {
 
     private void updateLastExpandedPane(String id) {
         var list = inputAccordion.getPanes().filtered((n) -> n.getId().equals(id));
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             var pane = list.get(0);
             inputAccordion.setExpandedPane(pane);
         } else {

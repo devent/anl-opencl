@@ -92,6 +92,9 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage.KernelFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorClosedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorOpenErrorMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
@@ -99,6 +102,8 @@ import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
+import com.jme3.app.Application;
+import com.jme3.app.LostFocusBehavior;
 import com.jme3.opencl.KernelCompilationException;
 
 import akka.actor.typed.ActorRef;
@@ -153,6 +158,9 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     @Inject
     private GameMainPanePropertiesProvider onp;
 
+    @Inject
+    private Application app;
+
     private ActorRef<Message> openclBuildActor;
 
     @Inject
@@ -177,7 +185,8 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 }
             }
         });
-        return getDefaultBehavior();
+        return getDefaultBehavior()//
+        ;
     }
 
     private Behavior<Message> onBuildTriggered(BuildTriggeredMessage m) {
@@ -297,6 +306,7 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
                 .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
                 .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
+                .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
         ;
     }
 
@@ -311,6 +321,34 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
             setStartProgress(false);
         }
         return Behaviors.same();
+    }
+
+    private Behavior<Message> onOpenExternalEditorTriggered(OpenExternalEditorTriggeredMessage m) {
+        log.debug("onOpenExternalEditorTriggered {}", m);
+        app.setLostFocusBehavior(LostFocusBehavior.Disabled);
+        initial.actors.get(ImageFieldsPaneActor.NAME).tell(m);
+        return MainActor.sendMessageMayCreate(injector, ExternalEditorActor.ID, m, ExternalEditorActor::create,
+                getDefaultBehavior()//
+                        .onMessage(ExternalEditorClosedMessage.class, this::onExternalEditorClosed)//
+                        .onMessage(ExternalEditorOpenErrorMessage.class, this::onExternalEditorOpenError)//
+        );
+    }
+
+    /**
+     * The external editor was closed. Notify parent actor and stop this actor.
+     */
+    private Behavior<Message> onExternalEditorClosed(ExternalEditorClosedMessage m) {
+        log.debug("onExternalEditorClosed: {}", m);
+        app.setLostFocusBehavior(LostFocusBehavior.PauseOnLostFocus);
+        initial.actors.get(ImageFieldsPaneActor.NAME).tell(m);
+        return getDefaultBehavior().build();
+    }
+
+    private Behavior<Message> onExternalEditorOpenError(ExternalEditorOpenErrorMessage m) {
+        log.debug("onExternalEditorOpenError {}", m);
+        app.setLostFocusBehavior(LostFocusBehavior.PauseOnLostFocus);
+        initial.actors.get(StatusBarActor.NAME).tell(m);
+        return getDefaultBehavior().build();
     }
 
     private void forwardMessage(Message m) {

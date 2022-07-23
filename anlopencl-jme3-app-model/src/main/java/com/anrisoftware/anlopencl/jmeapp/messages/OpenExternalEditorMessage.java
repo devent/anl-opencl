@@ -3,7 +3,7 @@
  * Released as open-source under the Apache License, Version 2.0.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX
+ * ANL-OpenCL :: JME3 - App - Model
  * ****************************************************************************
  *
  * Copyright (C) 2021-2022 Erwin Müller <erwin@muellerpublic.de>
@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX is a derivative work based on Josua Tippetts' C++ library:
+ * ANL-OpenCL :: JME3 - App - Model is a derivative work based on Josua Tippetts' C++ library:
  * http://accidentalnoise.sourceforge.net/index.html
  * ****************************************************************************
  *
@@ -45,7 +45,7 @@
  *
  *
  * ****************************************************************************
- * ANL-OpenCL :: JME3 - App - JavaFX bundles and uses the RandomCL library:
+ * ANL-OpenCL :: JME3 - App - Model bundles and uses the RandomCL library:
  * https://github.com/bstatcomp/RandomCL
  * ****************************************************************************
  *
@@ -63,33 +63,70 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.messages;
 
-import static com.jme3.input.KeyInput.KEY_LCONTROL;
-import static com.jme3.input.KeyInput.KEY_RCONTROL;
+import java.nio.file.Path;
 
-import com.jme3.input.controls.KeyTrigger;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Provides the mapping of {@link KeyTrigger}s for JME.
- * 
+ * Messages related to the external editor.
+ *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString
-@RequiredArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class JmeMapping {
+public class OpenExternalEditorMessage {
 
-    public static final JmeMapping CONTROL_MAPPING = new JmeMapping("CONTROL_MAPPING",
-            new KeyTrigger[] { new KeyTrigger(KEY_RCONTROL), new KeyTrigger(KEY_LCONTROL) });
+    /**
+     * Message that the open external editor was triggered either by a click on a
+     * button or by a key combination.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @ToString(callSuper = true)
+    public static class OpenExternalEditorTriggeredMessage extends GuiMessage {
 
-    @EqualsAndHashCode.Include
-    public final String name;
+    }
 
-    public final KeyTrigger[] trigger;
+    /**
+     * Message send after the external editor was closed.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ExternalEditorClosedMessage extends Message {
+
+        public final Path file;
+
+    }
+
+    /**
+     * Message if there was an error opening the external editor.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ExternalEditorOpenErrorMessage extends Message {
+
+        public final Throwable cause;
+
+    }
+
+    /**
+     * Message send after there was an error reading the temporary kernel code file.
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @RequiredArgsConstructor
+    @ToString(callSuper = true)
+    public static class ErrorReadKernelCodeMessage extends Message {
+
+        public final Exception cause;
+
+    }
 
 }

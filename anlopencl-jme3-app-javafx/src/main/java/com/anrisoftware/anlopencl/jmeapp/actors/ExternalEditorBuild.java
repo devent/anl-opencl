@@ -63,127 +63,144 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.controllers;
+package com.anrisoftware.anlopencl.jmeapp.actors;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 
-import com.jayfella.jme.jfx.JavaFxUI;
-import com.jme3.app.Application;
+import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.globalpom.exec.external.command.CommandLineFactory;
+import com.anrisoftware.globalpom.exec.external.core.CommandExecFactory;
+import com.anrisoftware.globalpom.exec.external.core.ProcessTask;
+import com.anrisoftware.globalpom.exec.external.logoutputs.DebugLogCommandOutputFactory;
+import com.anrisoftware.globalpom.threads.external.core.ThreadsException;
+import com.anrisoftware.globalpom.threads.properties.external.PropertiesThreads;
+import com.anrisoftware.globalpom.threads.properties.external.PropertiesThreadsFactory;
+import com.google.common.base.Optional;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Loads the FXML and creates the panel controller.
+ * Starts the external editor.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
+@SuppressWarnings("deprecation")
 @Slf4j
-public class PanelControllerBuild {
+public class ExternalEditorBuild {
 
     /**
-     * Initializes the JavaFx UI and loads the FXML and creates the panel
-     * controller.
+     * Factory to create the {@link ExternalEditorBuild}.
      *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
-    public static class PanelControllerInitializeFxBuild extends PanelControllerBuild {
+    public interface ExternalEditorBuildFactory {
 
-        @Inject
-        PanelControllerInitializeFxBuild(Application app, GlobalKeys globalKeys) {
-            super(app, globalKeys);
-        }
-
-        @Override
-        @SneakyThrows
-        protected void initializeFx(List<String> css) {
-            var task = app.enqueue(() -> {
-                JavaFxUI.initialize(app, css.toArray(new String[0]));
-                return true;
-            });
-            task.get();
-            globalKeys.setup(JavaFxUI.getInstance(), app.getInputManager());
-        }
+        ExternalEditorBuild create();
     }
 
     /**
-     * Contains the loaded panel and controller.
+     * Information about the opened external editor.
      *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
     @RequiredArgsConstructor
-    public static class PanelControllerResult {
+    @ToString(callSuper = true)
+    public static class ExternalEditor {
 
-        public final Region root;
+        public final ExternalEditorBuild build;
 
-        public final Object controller;
+        public final Future<ProcessTask> process;
+
+        public final Path tempFile;
 
     }
 
-    protected final Application app;
-
-    protected final GlobalKeys globalKeys;
+    private final PropertiesThreads threads;
 
     @Inject
-    public PanelControllerBuild(Application app, GlobalKeys globalKeys) {
-        this.app = app;
-        this.globalKeys = globalKeys;
+    private GameSettingsProvider gsp;
+
+    @Inject
+    private GameMainPanePropertiesProvider gmppp;
+
+    @Inject
+    private CommandExecFactory commandExecFactory;
+
+    @Inject
+    private CommandLineFactory commandLineFactory;
+
+    @Inject
+    private DebugLogCommandOutputFactory debugLogCommandOutputFactory;
+
+    private Optional<Future<ProcessTask>> task;
+
+    @Inject
+    ExternalEditorBuild(PropertiesThreadsFactory propertiesThreadsFactory,
+            ThreadsPropertiesProvider threadsPropertiesProvider) throws ThreadsException {
+        this.threads = propertiesThreadsFactory.create();
+        threads.setProperties(threadsPropertiesProvider.get());
+        threads.setName("script");
     }
 
-    public CompletableFuture<PanelControllerResult> loadFxml(Executor executor, String fxmlfile,
-            String... additionalCss) {
+    /**
+     * Starts the editor asynchronously.
+     */
+    public CompletionStage<ExternalEditor> startEditor(Executor executor, Consumer<Path> commandClosesEvent) {
         return CompletableFuture.supplyAsync(() -> {
-            return loadFxml0(fxmlfile, additionalCss);
+            var temp = createKernelTempFile();
+            var process = startExternalEditor(temp, commandClosesEvent);
+            return new ExternalEditor(ExternalEditorBuild.this, process, temp);
         }, executor);
     }
 
-    @SneakyThrows
-    private PanelControllerResult loadFxml0(String fxmlfile, String... additionalCss) {
-        log.debug("setupGui0");
-        loadFone();
-        var css = new ArrayList<String>();
-        css.add(getCss());
-        css.addAll(Arrays.asList(additionalCss));
-        initializeFx(css);
-        var loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(fxmlfile));
-        return new PanelControllerResult(loadFxml(loader, fxmlfile), loader.getController());
-    }
-
-    private void loadFone() {
-        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
-        // 14);
-    }
-
-    protected void initializeFx(List<String> css) {
-        // call JavaFxUI.initialize if needed
+    /**
+     * Shutdowns the command threads.
+     */
+    public void shutdown() {
+        threads.shutdownNow();
     }
 
     @SneakyThrows
-    private String getCss() {
-        return IOUtils.resourceToURL("/game-theme.css").toExternalForm();
-    }
-
-    @SneakyThrows
-    private Pane loadFxml(FXMLLoader loader, String res) {
-        return JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
-            log.debug("Load FXML file {}", res);
-            return (Pane) loader.load(getClass().getResourceAsStream(res));
+    private Future<ProcessTask> startExternalEditor(Path file, Consumer<Path> commandClosesEvent) {
+        var commandExec = commandExecFactory.create();
+        commandExec.setThreads(threads);
+        var commandLine = commandLineFactory.create(gsp.get().editorPath.get().toFile().toString());
+        commandLine.add(file.toFile().toString());
+        commandExec.setCommandOutput(debugLogCommandOutputFactory.create(log, commandLine));
+        commandExec.setDestroyOnInterrupted(true);
+        commandExec.setObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                commandClosesEvent.accept(file);
+            }
         });
+        task = Optional.of(commandExec.exec(commandLine));
+        return task.get();
+    }
+
+    @SneakyThrows
+    private Path createKernelTempFile() {
+        var temp = Files.createTempFile(gsp.get().tempDir.get(), "kernel", "anl");
+        FileUtils.write(temp.toFile(), gmppp.get().kernelCode.get(), UTF_8);
+        return temp;
     }
 
 }

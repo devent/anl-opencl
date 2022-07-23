@@ -72,22 +72,24 @@ import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
 import com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorOpenErrorMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
+import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
 
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
@@ -99,7 +101,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller
  */
 @Slf4j
-public class StatusBarActor {
+public class StatusBarActor extends AbstractPaneActor<GameMainPaneController> {
 
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
             StatusBarActor.class.getSimpleName());
@@ -125,39 +127,29 @@ public class StatusBarActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, create(injector));
     }
 
-    private final ActorContext<Message> context;
-
-    private final GameSettingsProvider gsp;
-
-    private GameMainPaneController controller;
-
     @Inject
-    StatusBarActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
-        this.context = context;
-        this.gsp = gsp;
-        var gs = gsp.get();
-        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+    StatusBarActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp,
+            @Named("AppIcons") Images appIcons) {
+        super(context, gsp, appIcons);
     }
 
-    public Behavior<Message> start() {
-        return Behaviors.receive(Message.class)//
-                .onMessage(InitialStateMessage.class, this::onInitialState)//
-                .build();
+    @Override
+    protected void initialState(InitialStateMessage m) {
     }
 
-    private Behavior<Message> onInitialState(InitialStateMessage m) {
-        log.debug("onInitialState");
+    @Override
+    protected void setupController(InitialStateMessage m) {
         this.controller = (GameMainPaneController) m.controller;
-        tellLocalizeControlsSelf(gsp.get());
-        return Behaviors.receive(Message.class)//
+    }
+
+    @Override
+    protected BehaviorBuilder<Message> getBehaviorInitialState() {
+        return super.getBehaviorInitialState()//
                 .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
-                .build();
-    }
-
-    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs));
+                .onMessage(ExternalEditorOpenErrorMessage.class, this::onExternalEditorOpenError)//
+        ;
     }
 
     private Behavior<Message> onBuildClicked(BuildTriggeredMessage m) {
@@ -184,6 +176,16 @@ public class StatusBarActor {
         log.debug("onBuildFailed {}", m);
         JavaFxUtil.runFxThread(() -> {
             controller.statusLabel.setText(format("Build failed: %s", m.cause.getLocalizedMessage()));
+            controller.statusProgress.setVisible(false);
+            controller.statusProgress.setProgress(0);
+        });
+        return Behaviors.same();
+    }
+
+    private Behavior<Message> onExternalEditorOpenError(ExternalEditorOpenErrorMessage m) {
+        log.debug("onExternalEditorOpenError {}", m);
+        JavaFxUtil.runFxThread(() -> {
+            controller.statusLabel.setText(format("Editor error: %s", m.cause.getLocalizedMessage()));
             controller.statusProgress.setVisible(false);
             controller.statusProgress.setProgress(0);
         });

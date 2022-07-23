@@ -89,6 +89,8 @@ import javafx.scene.input.KeyCombination.ModifierValue
 @Slf4j
 class GlobalKeys implements ActionListener {
 
+    InputManager inputManager
+
     @Inject
     ActorSystemProvider actor
 
@@ -103,6 +105,7 @@ class GlobalKeys implements ActionListener {
     boolean controlDown = false
 
     void setup(JavaFxUI instance, InputManager inputManager) {
+        this.inputManager = inputManager
         setupControls(instance.scene)
         initKeys(inputManager)
     }

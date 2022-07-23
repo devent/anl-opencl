@@ -130,7 +130,7 @@ public class OpenCLKeywordsEditor {
                     + "|(?<VAR>" + VARIABLES_PATTERN + ")" //
     );
 
-    private static final String sampleCode = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
+    private static final String SAMPLE_CODE = "#include <noise_gen.h>\n" + "#include <kernel.h>\n" + "\n"
             + "kernel void value_noise2D_noInterp(\n" + "global vector2 *input,\n" + "global REAL *output\n" + ") {\n"
             + "    int id0 = get_global_id(0);\n" + "    printf(\"id=%d\\n\", id0);\n" + "    // a comment\n"
             + "    output[id0] = value_noise2D(input[id0], 200, noInterp);\n" + "}\n" + "";
@@ -162,7 +162,7 @@ public class OpenCLKeywordsEditor {
                 }).subscribe(this::applyHighlighting);
 
         // call when no longer need it: `cleanupWhenFinished.unsubscribe();`
-        codeArea.replaceText(0, 0, sampleCode);
+        codeArea.replaceText(0, 0, SAMPLE_CODE);
     }
 
     public CodeArea getCodeArea() {

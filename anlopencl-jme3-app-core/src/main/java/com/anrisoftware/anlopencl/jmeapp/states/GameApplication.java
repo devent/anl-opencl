@@ -89,6 +89,7 @@ import com.anrisoftware.anlopencl.jmeapp.view.actors.ViewActor;
 import com.badlogic.ashley.core.Engine;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.jme3.app.LostFocusBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.ConstantVerifierState;
 import com.jme3.system.AppSettings;
@@ -147,6 +148,7 @@ public class GameApplication extends SimpleApplication {
         s.setHeight(gsp.get().windowHeight.get());
         s.setVSync(false);
         s.setOpenCLSupport(true);
+        setLostFocusBehavior(LostFocusBehavior.PauseOnLostFocus);
         setSettings(s);
     }
 
@@ -159,7 +161,6 @@ public class GameApplication extends SimpleApplication {
     @SneakyThrows
     public void simpleInitApp() {
         log.debug("simpleInitApp");
-        // viewPort.setBackgroundColor(ColorRGBA.DarkGray.clone());
         GameMainPanelActor.create(injector, ofSeconds(1)).whenComplete((ret, ex) -> {
             mainWindowActor = ret;
             CompletionStage<AttachGuiFinishedMessage> result = AskPattern.ask(mainWindowActor,

@@ -74,7 +74,7 @@
     <parent>
         <groupId>com.anrisoftware.anlopencl</groupId>
         <artifactId>anlopencl</artifactId>
-        <version>0.0.5</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>anlopencl-jme3-app-core</artifactId>
@@ -91,11 +91,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -118,32 +113,32 @@
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-assets</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-javafx</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-model</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-app-view</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-jme3-opencl</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.anrisoftware.anlopencl</groupId>
             <artifactId>anlopencl-opencl</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Compile -->
@@ -151,6 +146,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
@@ -168,6 +167,10 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+		</dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>

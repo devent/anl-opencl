@@ -66,12 +66,20 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import com.anrisoftware.anlopencl.jmeapp.actors.AboutDialogActor.AboutDialogActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.ExternalEditorActor.ExternalEditorActorFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.ExternalEditorBuild.ExternalEditorBuildFactory;
+import com.anrisoftware.anlopencl.jmeapp.actors.FileWatcher.FileWatcherFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.GameMainPanelActor.GameMainPanelActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ImageFieldsPaneActor.ImageFieldsPaneActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.MappingFieldsPaneActor.MappingFieldsPaneActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.SettingsDialogActor.SettingsDialogActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.StatusBarActor.StatusBarActorFactory;
 import com.anrisoftware.anlopencl.jmeapp.actors.ToolbarButtonsActor.ToolbarButtonsActorFactory;
+import com.anrisoftware.globalpom.exec.internal.command.DefaultCommandLineModule;
+import com.anrisoftware.globalpom.exec.internal.core.DefaultProcessModule;
+import com.anrisoftware.globalpom.exec.internal.logoutputs.LogOutputsModule;
+import com.anrisoftware.globalpom.exec.internal.pipeoutputs.PipeOutputsModule;
+import com.anrisoftware.globalpom.threads.properties.internal.PropertiesThreadsModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
@@ -97,5 +105,16 @@ public class PaneActorsModule extends AbstractModule {
                 .build(SettingsDialogActorFactory.class));
         install(new FactoryModuleBuilder().implement(AbstractJavafxPaneActor.class, AboutDialogActor.class)
                 .build(AboutDialogActorFactory.class));
+        install(new FactoryModuleBuilder().implement(FileWatcher.class, FileWatcher.class)
+                .build(FileWatcherFactory.class));
+        install(new FactoryModuleBuilder().implement(ExternalEditorActor.class, ExternalEditorActor.class)
+                .build(ExternalEditorActorFactory.class));
+        install(new FactoryModuleBuilder().implement(ExternalEditorBuild.class, ExternalEditorBuild.class)
+                .build(ExternalEditorBuildFactory.class));
+        install(new DefaultProcessModule());
+        install(new DefaultCommandLineModule());
+        install(new PipeOutputsModule());
+        install(new PropertiesThreadsModule());
+        install(new LogOutputsModule());
     }
 }

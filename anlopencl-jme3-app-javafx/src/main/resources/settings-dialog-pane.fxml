@@ -22,13 +22,17 @@
           <ColumnConstraints fillWidth="false" hgrow="NEVER" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="NEVER" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <Label id="tempdirLabel" fx:id="tempdirLabel" text="Temp Dir:" />
             <TextField id="tempdirField" fx:id="tempdirField" GridPane.columnIndex="1" />
             <Button id="openTempdirButton" fx:id="openTempdirButton" mnemonicParsing="false" text="..." GridPane.columnIndex="2" />
+            <Label id="editPathLabel" fx:id="editPathLabel" text="Editor Path:" GridPane.rowIndex="1" />
+            <TextField id="editPathField" fx:id="editPathField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button id="openEditPathButton" fx:id="openEditPathButton" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

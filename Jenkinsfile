@@ -179,12 +179,18 @@ pipeline {
                         sh "/setup-gpg.sh; cd anlopencl-jme3-izpack-fat; mvn -s /m2/settings.xml -B clean install -Pcompile-izpack"
                         def artifactsOriginal = []
                         artifactsOriginal << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-izpack.jar.asc"
                         artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-allinone.jar.asc"
                         artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar"
+                        artifactsOriginal << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-install.jar.asc"
                         def artifacts = []
                         artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-${env.BRANCH_NAME}-izpack.jar"
+                        artifacts << "anlopencl-jme3-izpack/target/anlopencl-jme3-izpack-${version}-${env.BRANCH_NAME}-izpack.jar.asc"
                         artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-allinone.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-allinone.jar.asc"
                         artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-install.jar"
+                        artifacts << "anlopencl-jme3-izpack-fat/target/anlopencl-jme3-izpack-fat-${version}-${env.BRANCH_NAME}-install.jar.asc"
                         artifacts.eachWithIndex { a, index ->
                             sh "mv ${artifactsOriginal[index]} ${a}"
                             archiveArtifacts artifacts: a, followSymlinks: false

@@ -67,12 +67,9 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletionStage;
 
@@ -80,19 +77,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.anrisoftware.anlopencl.jmeapp.controllers.GameMainPaneController;
-import com.anrisoftware.anlopencl.jmeapp.controllers.GlobalKeys;
 import com.anrisoftware.anlopencl.jmeapp.controllers.ImageFieldsPaneController;
-import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFailedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishedMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.GuiMessage;
-import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorClosedMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
-import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
-import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
@@ -101,11 +94,10 @@ import com.google.inject.assistedinject.Assisted;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -114,7 +106,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Erwin Müller
  */
 @Slf4j
-public class ImageFieldsPaneActor {
+public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneController> {
 
     public static final ServiceKey<Message> KEY = ServiceKey.create(Message.class,
             ImageFieldsPaneActor.class.getSimpleName());
@@ -144,52 +136,22 @@ public class ImageFieldsPaneActor {
         return createNamedActor(system, timeout, ID, KEY, NAME, create(injector));
     }
 
-    private final ActorContext<Message> context;
-
-    private final GameSettingsProvider gsp;
-
-    @Inject
-    @Named("AppIcons")
-    private Images appIcons;
-
     @Inject
     private GameMainPanePropertiesProvider onp;
 
     @Inject
     private ActorSystemProvider actor;
 
-    @Inject
-    private GlobalKeys globalKeys;
-
-    @Inject
-    @Named("keyMappings")
-    private Map<String, KeyMapping> keyMappings;
-
-    private ImageFieldsPaneController controller;
-
     private final Random rnd = new Random(System.currentTimeMillis());
 
     @Inject
-    ImageFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp) {
-        this.context = context;
-        this.gsp = gsp;
-        var gs = gsp.get();
-        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
-        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+    ImageFieldsPaneActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp,
+            @Named("AppIcons") Images appIcons) {
+        super(context, gsp, appIcons);
     }
 
-    public Behavior<Message> start() {
-        return Behaviors.receive(Message.class)//
-                .onMessage(InitialStateMessage.class, this::onInitialState)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .build();
-    }
-
-    private Behavior<Message> onInitialState(InitialStateMessage m) {
-        log.debug("onInitialState");
-        var mainController = (GameMainPaneController) m.controller;
-        this.controller = mainController.imageFieldsPaneController;
+    @Override
+    protected void initialState(InitialStateMessage m) {
         runFxThread(() -> {
             controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
@@ -197,24 +159,23 @@ public class ImageFieldsPaneActor {
         controller.randomButton.setOnAction((e) -> {
             onp.get().seed.set(rnd.nextInt());
         });
-        tellLocalizeControlsSelf(gsp.get());
-        return Behaviors.receive(Message.class)//
-                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
-                .onMessage(AttachGuiMessage.class, this::onAttachGui)//
+    }
+
+    @Override
+    protected void setupController(InitialStateMessage m) {
+        var mainController = (GameMainPaneController) m.controller;
+        this.controller = mainController.imageFieldsPaneController;
+    }
+
+    @Override
+    protected BehaviorBuilder<Message> getBehaviorInitialState() {
+        return super.getBehaviorInitialState()//
                 .onMessage(BuildTriggeredMessage.class, this::onBuildClicked)//
                 .onMessage(BuildFinishedMessage.class, this::onBuildFinished)//
                 .onMessage(BuildFailedMessage.class, this::onBuildFailed)//
-                .onMessage(GuiMessage.class, this::onGuiCatchall)//
-                .build();
-    }
-
-    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
-        context.getSelf().tell(new LocalizeControlsMessage(gs));
-    }
-
-    private Behavior<Message> onAttachGui(AttachGuiMessage m) {
-        log.debug("onAttachGui {}", m);
-        return Behaviors.same();
+                .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
+                .onMessage(ExternalEditorClosedMessage.class, this::onExternalEditorClosed)//
+        ;
     }
 
     private Behavior<Message> onBuildClicked(BuildTriggeredMessage m) {
@@ -235,50 +196,18 @@ public class ImageFieldsPaneActor {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onGuiCatchall(GuiMessage m) {
-        log.debug("onGuiCatchall {}", m);
-        // buildings.tell(m);
+    private Behavior<Message> onOpenExternalEditorTriggered(OpenExternalEditorTriggeredMessage m) {
+        log.debug("onOpenExternalEditorTriggered {}", m);
+        setDisableCodeArea(true);
+        setDisableOpenExternalEditorButton(true);
         return Behaviors.same();
     }
 
-    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
-        log.debug("onLocalizeControls");
-        runFxThread(() -> {
-            setupIcons(m);
-        });
+    private Behavior<Message> onExternalEditorClosed(ExternalEditorClosedMessage m) {
+        log.debug("onExternalEditorClosed {}", m);
+        setDisableCodeArea(false);
+        setDisableOpenExternalEditorButton(false);
         return Behaviors.same();
-    }
-
-    private void setupIcons(LocalizeControlsMessage m) {
-        var contentDisplay = ContentDisplay.LEFT;
-        switch (m.textPosition) {
-        case NONE:
-            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
-            break;
-        case BOTTOM:
-            contentDisplay = ContentDisplay.TOP;
-            break;
-        case LEFT:
-            contentDisplay = ContentDisplay.RIGHT;
-            break;
-        case RIGHT:
-            contentDisplay = ContentDisplay.LEFT;
-            break;
-        case TOP:
-            contentDisplay = ContentDisplay.BOTTOM;
-            break;
-        }
-    }
-
-    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(
-                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
-    }
-
-    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
-        return new ImageView(toFXImage(
-                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
-                null));
     }
 
     private void setDisableControlButtons(boolean disabled) {
@@ -289,6 +218,20 @@ public class ImageFieldsPaneActor {
             controller.heightField.setDisable(disabled);
             controller.zField.setDisable(disabled);
             controller.dimensionField.setDisable(disabled);
+            controller.codeArea.setDisable(disabled);
+        });
+    }
+
+    private void setDisableCodeArea(boolean disabled) {
+        runFxThread(() -> {
+            controller.codeArea.setDisable(disabled);
+            controller.codeArea.setEditable(!disabled);
+        });
+    }
+
+    private void setDisableOpenExternalEditorButton(boolean disabled) {
+        runFxThread(() -> {
+            controller.openExternEditorButton.setDisable(disabled);
         });
     }
 

@@ -99,6 +99,7 @@ public class MainPanelState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
+        // Nothing to cleanup.
     }
 
     @Override

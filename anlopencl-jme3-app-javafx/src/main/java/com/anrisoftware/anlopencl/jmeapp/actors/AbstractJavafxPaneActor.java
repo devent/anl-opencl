@@ -66,7 +66,10 @@
 package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.actors.AdditionalCss.ADDITIONAL_CSS;
+import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
@@ -75,7 +78,11 @@ import java.util.concurrent.CompletionStage;
 import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild;
 import com.anrisoftware.anlopencl.jmeapp.controllers.PanelControllerBuild.PanelControllerResult;
 import com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
+import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
 
 import akka.actor.typed.ActorRef;
@@ -86,6 +93,8 @@ import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.StashBuffer;
 import akka.actor.typed.receptionist.Receptionist;
 import akka.actor.typed.receptionist.ServiceKey;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -95,25 +104,27 @@ import lombok.extern.slf4j.Slf4j;
  * Abstract actor that loads a pane from a FXML file.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @param <T> the controller type.
  */
 @Slf4j
-public class AbstractJavafxPaneActor<ControllerType> {
+public class AbstractJavafxPaneActor<T> {
 
     /**
      * Message that is send after the pane was successfully loaded from the FXML
      * file.
      *
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     * @param <T> the controller type.
      */
     @RequiredArgsConstructor
     @ToString(callSuper = true)
-    protected static class JavafxPaneInitialStateMessage<ControllerType> extends Message {
+    protected static class JavafxPaneInitialStateMessage<T> extends Message {
 
         public final ActorContext<Message> context;
 
         public final Region root;
 
-        public final ControllerType controller;
+        public final T controller;
     }
 
     /**
@@ -164,12 +175,12 @@ public class AbstractJavafxPaneActor<ControllerType> {
     }
 
     @SuppressWarnings("unchecked")
-    private static <ControllerType> Behavior<Message> createWithPane(Injector injector,
+    private static <T> Behavior<Message> createWithPane(Injector injector,
             AbstractJavafxPaneActorFactory paneActorFactory, ServiceKey<Message> key, String paneFxml) {
         return Behaviors.withStash(100, stash -> Behaviors.setup((context) -> {
             context.pipeToSelf(loadPanel(injector, context, paneFxml), (value, cause) -> {
                 if (cause == null) {
-                    return new JavafxPaneInitialStateMessage<>(context, value.root, (ControllerType) value.controller);
+                    return new JavafxPaneInitialStateMessage<>(context, value.root, (T) value.controller);
                 } else {
                     return new JavafxPaneErrorSetupControllerMessage(context, cause);
                 }
@@ -185,17 +196,28 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return build.loadFxml(context.getExecutionContext(), paneFxml, ADDITIONAL_CSS);
     }
 
+    protected final GameSettingsProvider gsp;
+
     protected final ActorContext<Message> context;
 
     protected final StashBuffer<Message> buffer;
 
-    protected ControllerType controller;
+    protected final Images appImages;
+
+    protected T controller;
 
     protected Region pane;
 
-    protected AbstractJavafxPaneActor(ActorContext<Message> context, StashBuffer<Message> buffer) {
+    protected AbstractJavafxPaneActor(ActorContext<Message> context, StashBuffer<Message> buffer,
+            GameSettingsProvider gsp, Images appImages) {
         this.context = context;
         this.buffer = buffer;
+        this.gsp = gsp;
+        this.appImages = appImages;
+        var gs = gsp.get();
+        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
     }
 
     public final Behavior<Message> start() {
@@ -206,8 +228,14 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return Behaviors.receive(Message.class)//
                 .onMessage(JavafxPaneInitialStateMessage.class, this::onInitialState)//
                 .onMessage(JavafxPaneErrorSetupControllerMessage.class, this::onErrorState)//
+                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
                 .onMessage(Message.class, this::stashOtherCommand)//
         ;
+    }
+
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        log.debug("tellLocalizeControlsSelf");
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
     private Behavior<Message> stashOtherCommand(Object m) {
@@ -217,20 +245,22 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return Behaviors.same();
     }
 
-    private Behavior<Message> onInitialState(JavafxPaneInitialStateMessage<ControllerType> m) {
+    private Behavior<Message> onInitialState(JavafxPaneInitialStateMessage<T> m) {
         log.debug("onInitialState {}", m);
         return buffer.unstashAll(active(m));
     }
 
-    private Behavior<Message> active(JavafxPaneInitialStateMessage<ControllerType> m) {
+    private Behavior<Message> active(JavafxPaneInitialStateMessage<T> m) {
         log.debug("activate {}", m);
         this.controller = m.controller;
         this.pane = m.root;
         return doActivate(m).build();
     }
 
-    protected BehaviorBuilder<Message> doActivate(JavafxPaneInitialStateMessage<ControllerType> m) {
-        return Behaviors.receive(Message.class);
+    protected BehaviorBuilder<Message> doActivate(JavafxPaneInitialStateMessage<T> m) {
+        return Behaviors.receive(Message.class)//
+                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+        ;
     }
 
     private Behavior<Message> onErrorState(Object m) {
@@ -240,4 +270,45 @@ public class AbstractJavafxPaneActor<ControllerType> {
         return Behaviors.stopped();
     }
 
+    private Behavior<Message> onLocalizeControls(Object m) {
+        var mm = (LocalizeControlsMessage) m;
+        log.debug("onLocalizeControls {}", mm);
+        runFxThread(() -> {
+            setupIcons(mm);
+        });
+        return Behaviors.same();
+    }
+
+    private void setupIcons(LocalizeControlsMessage m) {
+
+        var contentDisplay = ContentDisplay.LEFT;
+        switch (m.textPosition) {
+        case NONE:
+            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
+            break;
+        case BOTTOM:
+            contentDisplay = ContentDisplay.TOP;
+            break;
+        case LEFT:
+            contentDisplay = ContentDisplay.RIGHT;
+            break;
+        case RIGHT:
+            contentDisplay = ContentDisplay.LEFT;
+            break;
+        case TOP:
+            contentDisplay = ContentDisplay.BOTTOM;
+            break;
+        }
+    }
+
+    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
+        return new ImageView(
+                toFXImage(appImages.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+    }
+
+    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
+        return new ImageView(toFXImage(
+                appImages.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
+    }
 }

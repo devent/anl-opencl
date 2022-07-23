@@ -63,33 +63,99 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.actors
 
-import static com.jme3.input.KeyInput.KEY_LCONTROL;
-import static com.jme3.input.KeyInput.KEY_RCONTROL;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-import com.jme3.input.controls.KeyTrigger;
+import java.nio.file.Files
+import java.util.concurrent.TimeUnit
 
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import org.apache.commons.io.FileUtils
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Timeout
+
+import com.anrisoftware.anlopencl.jmeapp.actors.FileWatcher.FileEvent
+import com.anrisoftware.anlopencl.jmeapp.actors.FileWatcher.FileListener
+
+import groovy.util.logging.Slf4j
 
 /**
- * Provides the mapping of {@link KeyTrigger}s for JME.
- * 
+ * Tests that the content of a file was updated.
+ *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
-@ToString
-@RequiredArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class JmeMapping {
+@Slf4j
+class FileWatcherTest {
 
-    public static final JmeMapping CONTROL_MAPPING = new JmeMapping("CONTROL_MAPPING",
-            new KeyTrigger[] { new KeyTrigger(KEY_RCONTROL), new KeyTrigger(KEY_LCONTROL) });
+    @Test
+    @Timeout(value = 5l, unit = TimeUnit.SECONDS)
+    void "watch file on modification"() {
+        def watchServices = []
+        def temp = Files.createTempFile("watch-file", "anl");
+        FileUtils.write(temp.toFile(), "test", UTF_8);
+        def fileWatcher = new FileWatcher(temp)
+        boolean tempModified = false
+        fileWatcher.addListener(new FileListener() {
+                    @Override
+                    void onModified(FileEvent event) {
+                        log.info("onModified {}", event)
+                        if (temp == event.path) {
+                            tempModified = true
+                        }
+                    }
+                })
+        fileWatcher.watch()
+        Thread.sleep 100
+        FileUtils.write(temp.toFile(), "test new stuff", UTF_8);
+        while (!tempModified) {
+            Thread.sleep 10
+        }
+    }
 
-    @EqualsAndHashCode.Include
-    public final String name;
+    @Test
+    void "watch file on modification with timeout"() {
+        def watchServices = []
+        def temp = Files.createTempFile("watch-file", "anl");
+        FileUtils.write(temp.toFile(), "test", UTF_8);
+        def fileWatcher = new FileWatcher(temp)
+        boolean tempModified = false
+        fileWatcher.addListener(new FileListener() {
+                    @Override
+                    void onModified(FileEvent event) {
+                        log.info("onModified {}", event)
+                        if (temp == event.path) {
+                            tempModified = true
+                        }
+                    }
+                })
+        fileWatcher.watch(5, TimeUnit.SECONDS)
+        Thread.sleep 100
+        FileUtils.write(temp.toFile(), "test new stuff", UTF_8);
+        while (!tempModified) {
+            Thread.sleep 10
+        }
+    }
 
-    public final KeyTrigger[] trigger;
-
+    @Test
+    void "watch file on modification with timeout trigger timeout"() {
+        def watchServices = []
+        def temp = Files.createTempFile("watch-file", "anl");
+        FileUtils.write(temp.toFile(), "test", UTF_8);
+        def fileWatcher = new FileWatcher(temp)
+        boolean tempModified = false
+        fileWatcher.addListener(new FileListener() {
+                    @Override
+                    void onModified(FileEvent event) {
+                        log.info("onModified {}", event)
+                        if (temp == event.path) {
+                            tempModified = true
+                        }
+                    }
+                })
+        fileWatcher.watch(3, TimeUnit.SECONDS)
+        Thread.sleep TimeUnit.SECONDS.toMillis(4)
+        assertThat fileWatcher.watching, is(false)
+    }
 }

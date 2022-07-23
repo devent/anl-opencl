@@ -63,127 +63,126 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.controllers;
+package com.anrisoftware.anlopencl.jmeapp.actors;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import com.anrisoftware.anlopencl.jmeapp.messages.AttachGuiMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.LocalizeControlsMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
+import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
+import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameSettings;
+import com.anrisoftware.resources.images.external.Images;
 
-import javax.inject.Inject;
-
-import org.apache.commons.io.IOUtils;
-
-import com.jayfella.jme.jfx.JavaFxUI;
-import com.jme3.app.Application;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import akka.actor.typed.Behavior;
+import akka.actor.typed.javadsl.ActorContext;
+import akka.actor.typed.javadsl.BehaviorBuilder;
+import akka.actor.typed.javadsl.Behaviors;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Loads the FXML and creates the panel controller.
+ * Common actor for main window panes.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * @param <T> the controller type.
  */
 @Slf4j
-public class PanelControllerBuild {
+public abstract class AbstractPaneActor<T> {
 
-    /**
-     * Initializes the JavaFx UI and loads the FXML and creates the panel
-     * controller.
-     *
-     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
-     */
-    public static class PanelControllerInitializeFxBuild extends PanelControllerBuild {
+    protected final ActorContext<Message> context;
 
-        @Inject
-        PanelControllerInitializeFxBuild(Application app, GlobalKeys globalKeys) {
-            super(app, globalKeys);
-        }
+    protected final GameSettingsProvider gsp;
 
-        @Override
-        @SneakyThrows
-        protected void initializeFx(List<String> css) {
-            var task = app.enqueue(() -> {
-                JavaFxUI.initialize(app, css.toArray(new String[0]));
-                return true;
-            });
-            task.get();
-            globalKeys.setup(JavaFxUI.getInstance(), app.getInputManager());
-        }
+    protected final Images appIcons;
+
+    protected T controller;
+
+    protected AbstractPaneActor(ActorContext<Message> context, GameSettingsProvider gsp, Images appIcons) {
+        this.context = context;
+        this.gsp = gsp;
+        this.appIcons = appIcons;
+        var gs = gsp.get();
+        gs.locale.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+        gs.iconSize.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
+        gs.textPosition.addListener((observable, oldValue, newValue) -> tellLocalizeControlsSelf(gs));
     }
 
-    /**
-     * Contains the loaded panel and controller.
-     *
-     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
-     */
-    @RequiredArgsConstructor
-    public static class PanelControllerResult {
-
-        public final Region root;
-
-        public final Object controller;
-
+    private void tellLocalizeControlsSelf(ObservableGameSettings gs) {
+        context.getSelf().tell(new LocalizeControlsMessage(gs));
     }
 
-    protected final Application app;
-
-    protected final GlobalKeys globalKeys;
-
-    @Inject
-    public PanelControllerBuild(Application app, GlobalKeys globalKeys) {
-        this.app = app;
-        this.globalKeys = globalKeys;
+    public final Behavior<Message> start() {
+        return Behaviors.receive(Message.class)//
+                .onMessage(InitialStateMessage.class, this::onInitialState)//
+                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+                .build();
     }
 
-    public CompletableFuture<PanelControllerResult> loadFxml(Executor executor, String fxmlfile,
-            String... additionalCss) {
-        return CompletableFuture.supplyAsync(() -> {
-            return loadFxml0(fxmlfile, additionalCss);
-        }, executor);
+    private Behavior<Message> onInitialState(InitialStateMessage m) {
+        log.debug("onInitialState");
+        setupController(m);
+        initialState(m);
+        return getBehaviorInitialState().build();
     }
 
-    @SneakyThrows
-    private PanelControllerResult loadFxml0(String fxmlfile, String... additionalCss) {
-        log.debug("setupGui0");
-        loadFone();
-        var css = new ArrayList<String>();
-        css.add(getCss());
-        css.addAll(Arrays.asList(additionalCss));
-        initializeFx(css);
-        var loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(fxmlfile));
-        return new PanelControllerResult(loadFxml(loader, fxmlfile), loader.getController());
+    protected abstract void initialState(InitialStateMessage m);
+
+    protected abstract void setupController(InitialStateMessage m);
+
+    protected BehaviorBuilder<Message> getBehaviorInitialState() {
+        return Behaviors.receive(Message.class)//
+                .onMessage(LocalizeControlsMessage.class, this::onLocalizeControls)//
+                .onMessage(AttachGuiMessage.class, this::onAttachGui)//
+        ;
     }
 
-    private void loadFone() {
-        // Font.loadFont(MainPanelControllerBuild.class.getResource("/Fonts/Behrensschrift.ttf").toExternalForm(),
-        // 14);
+    private Behavior<Message> onAttachGui(AttachGuiMessage m) {
+        log.debug("onAttachGui {}", m);
+        return Behaviors.same();
     }
 
-    protected void initializeFx(List<String> css) {
-        // call JavaFxUI.initialize if needed
-    }
-
-    @SneakyThrows
-    private String getCss() {
-        return IOUtils.resourceToURL("/game-theme.css").toExternalForm();
-    }
-
-    @SneakyThrows
-    private Pane loadFxml(FXMLLoader loader, String res) {
-        return JavaFxUtil.runFxAndWait(10, SECONDS, () -> {
-            log.debug("Load FXML file {}", res);
-            return (Pane) loader.load(getClass().getResourceAsStream(res));
+    private Behavior<Message> onLocalizeControls(LocalizeControlsMessage m) {
+        log.debug("onLocalizeControls");
+        runFxThread(() -> {
+            setupIcons(m);
         });
+        return Behaviors.same();
+    }
+
+    private void setupIcons(LocalizeControlsMessage m) {
+        var contentDisplay = ContentDisplay.LEFT;
+        switch (m.textPosition) {
+        case NONE:
+            contentDisplay = ContentDisplay.GRAPHIC_ONLY;
+            break;
+        case BOTTOM:
+            contentDisplay = ContentDisplay.TOP;
+            break;
+        case LEFT:
+            contentDisplay = ContentDisplay.RIGHT;
+            break;
+        case RIGHT:
+            contentDisplay = ContentDisplay.LEFT;
+            break;
+        case TOP:
+            contentDisplay = ContentDisplay.BOTTOM;
+            break;
+        }
+    }
+
+    private ImageView loadCommandIcon(LocalizeControlsMessage m, String name) {
+        return new ImageView(
+                toFXImage(appIcons.getResource(name, m.locale, m.iconSize).getBufferedImage(TYPE_INT_ARGB), null));
+    }
+
+    private ImageView loadControlIcon(LocalizeControlsMessage m, String name) {
+        return new ImageView(toFXImage(
+                appIcons.getResource(name, m.locale, m.iconSize.getTwoSmaller()).getBufferedImage(TYPE_INT_ARGB),
+                null));
     }
 
 }

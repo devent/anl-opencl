@@ -123,6 +123,8 @@ public class ObservableGameSettings {
         public double mainSplitPosition = 0.71;
 
         public Path tempDir = Path.of(System.getProperty("java.io.tmpdir"));
+
+        public Path editorPath = null;
     }
 
     public final ObjectProperty<Locale> locale;
@@ -147,6 +149,8 @@ public class ObservableGameSettings {
 
     public final ObjectProperty<Path> tempDir;
 
+    public final ObjectProperty<Path> editorPath;
+
     @SuppressWarnings("unchecked")
     @SneakyThrows
     public ObservableGameSettings(GameSettings p) {
@@ -161,6 +165,7 @@ public class ObservableGameSettings {
         this.textPosition = JavaBeanObjectPropertyBuilder.create().bean(p).name("textPosition").build();
         this.mainSplitPosition = JavaBeanDoublePropertyBuilder.create().bean(p).name("mainSplitPosition").build();
         this.tempDir = JavaBeanObjectPropertyBuilder.create().bean(p).name("tempDir").build();
+        this.editorPath = JavaBeanObjectPropertyBuilder.create().bean(p).name("editorPath").build();
     }
 
     public void copy(GameSettings other) {
@@ -175,5 +180,6 @@ public class ObservableGameSettings {
         iconSize.set(other.iconSize);
         mainSplitPosition.set(other.mainSplitPosition);
         tempDir.set(other.tempDir);
+        editorPath.set(other.editorPath);
     }
 }

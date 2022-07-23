@@ -63,33 +63,29 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.anrisoftware.anlopencl.jmeapp.states;
+package com.anrisoftware.anlopencl.jmeapp.actors;
 
-import static com.jme3.input.KeyInput.KEY_LCONTROL;
-import static com.jme3.input.KeyInput.KEY_RCONTROL;
+import java.net.URL;
 
-import com.jme3.input.controls.KeyTrigger;
+import javax.inject.Singleton;
 
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import com.anrisoftware.globalpom.threads.properties.external.PropertiesThreads;
+import com.anrisoftware.propertiesutils.AbstractContextPropertiesProvider;
 
 /**
- * Provides the mapping of {@link KeyTrigger}s for JME.
- * 
- * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ * Returns properties for threads pool.
+ *
+ * @author Erwin Mueller, erwin.mueller@deventm.org
+ * @since 2.3
  */
-@ToString
-@RequiredArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class JmeMapping {
+@SuppressWarnings("serial")
+@Singleton
+public class ThreadsPropertiesProvider extends AbstractContextPropertiesProvider {
 
-    public static final JmeMapping CONTROL_MAPPING = new JmeMapping("CONTROL_MAPPING",
-            new KeyTrigger[] { new KeyTrigger(KEY_RCONTROL), new KeyTrigger(KEY_LCONTROL) });
+    private static final URL RES = ThreadsPropertiesProvider.class.getResource("/exec_threads.properties");
 
-    @EqualsAndHashCode.Include
-    public final String name;
-
-    public final KeyTrigger[] trigger;
+    ThreadsPropertiesProvider() {
+        super(PropertiesThreads.class, RES);
+    }
 
 }

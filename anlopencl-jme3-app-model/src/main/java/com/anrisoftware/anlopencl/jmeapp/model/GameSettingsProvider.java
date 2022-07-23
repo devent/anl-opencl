@@ -67,6 +67,9 @@ package com.anrisoftware.anlopencl.jmeapp.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -122,8 +125,36 @@ public class GameSettingsProvider implements Provider<ObservableGameSettings> {
         if (file.exists()) {
             log.debug("Load settings from {}", file);
             var p = mapper.readValue(file, GameSettings.class);
+            if (p.editorPath == null) {
+                p.editorPath = lookupEditorPaths();
+            }
             op.copy(p);
         }
+    }
+
+    private Path lookupEditorPaths() {
+        var system = System.getProperty("os.name").toLowerCase(Locale.US);
+        Path path = null;
+        if (system.startsWith("linux")) {
+            path = Path.of("/usr/bin/kwrite");
+            if (Files.isExecutable(path)) {
+                return path;
+            }
+            path = Path.of("/usr/bin/gedit");
+            if (Files.isExecutable(path)) {
+                return path;
+            }
+            path = Path.of("/usr/bin/gnome-text-editor");
+            if (Files.isExecutable(path)) {
+                return path;
+            }
+        } else if (system.startsWith("windows")) {
+            path = Path.of("C:\\OS\\Program Files\\Notepad++\\notepad++.exe");
+            if (Files.isReadable(path)) {
+                return path;
+            }
+        }
+        return path;
     }
 
     private File getFile() {

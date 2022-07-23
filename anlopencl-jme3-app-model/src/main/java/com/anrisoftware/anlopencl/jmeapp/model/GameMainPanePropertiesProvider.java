@@ -89,7 +89,7 @@ public class GameMainPanePropertiesProvider implements Provider<ObservableGameMa
     private final static String LAST_MAIN_PANE_PROPERTIES_FILE = GameMainPanePropertiesProvider.class.getPackageName()
             + ".last_main_pane_properties_file";
 
-    private static final File DEFAULT_LAST_MAIN_PANE_PROPERTIES_FILE = new File(
+    private final static File DEFAULT_LAST_MAIN_PANE_PROPERTIES_FILE = new File(
             System.getProperty("user.home") + "/.anlopencl-last.yaml");
 
     private final GameMainPaneProperties p;
@@ -122,8 +122,12 @@ public class GameMainPanePropertiesProvider implements Provider<ObservableGameMa
         if (file.exists()) {
             log.debug("Load properties from {}", file);
             var p = mapper.readValue(file, GameMainPaneProperties.class);
-            p.width = 512;
-            p.height = 512;
+            if (p.width > 512) {
+                p.width = 512;
+            }
+            if (p.height > 512) {
+                p.height = 512;
+            }
             op.copy(p);
         }
     }
