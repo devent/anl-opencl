@@ -152,12 +152,16 @@ public class MappingFieldsPaneController {
         mappingZ0Field.setValueFactory(z0ValueFactory);
         var z1ValueFactory = createFloatValueFactory(np.mapz1.get(), (Property) np.mapz1);
         mappingZ1Field.setValueFactory(z1ValueFactory);
+
         mappingZ0Field.setDisable(!np.map3d.get());
         mappingZ1Field.setDisable(!np.map3d.get());
-        threeDMappingBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            mappingZ0Field.setDisable(!newValue);
-            mappingZ1Field.setDisable(!newValue);
+        threeDMappingBox.setSelected(np.map3d.get());
+        threeDMappingBox.selectedProperty().bindBidirectional(np.map3d);
+        threeDMappingBox.selectedProperty().addListener((o, oldValue, newValue) -> {
+            mappingZ0Field.setDisable(!np.map3d.get());
+            mappingZ1Field.setDisable(!np.map3d.get());
         });
+
         var rowsValueFactory = createIntegerValueFactory(np.rows.get(), (Property) np.rows);
         rowsField.setValueFactory(rowsValueFactory);
         var columnsValueFactory = createIntegerValueFactory(np.columns.get(), (Property) np.columns);

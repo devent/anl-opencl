@@ -195,15 +195,20 @@ public class MappingFieldsPaneActor extends AbstractPaneActor<MappingFieldsPaneC
         return Behaviors.same();
     }
 
-    private void setDisableControlButtons(boolean disabled) {
+    private void setDisableControlButtons(boolean disable) {
         runFxThread(() -> {
-            controller.mappingX0Field.setDisable(disabled);
-            controller.mappingX1Field.setDisable(disabled);
-            controller.mappingY0Field.setDisable(disabled);
-            controller.mappingY1Field.setDisable(disabled);
-            controller.mappingZ0Field.setDisable(disabled);
-            controller.mappingZ1Field.setDisable(disabled);
-            controller.threeDMappingBox.setDisable(disabled);
+            controller.mappingX0Field.setDisable(disable);
+            controller.mappingX1Field.setDisable(disable);
+            controller.mappingY0Field.setDisable(disable);
+            controller.mappingY1Field.setDisable(disable);
+            controller.threeDMappingBox.setDisable(disable);
+            if (!disable && onp.get().map3d.get()) {
+                controller.mappingZ0Field.setDisable(false);
+                controller.mappingZ1Field.setDisable(false);
+            } else if (disable) {
+                controller.mappingZ0Field.setDisable(true);
+                controller.mappingZ1Field.setDisable(true);
+            }
         });
     }
 
