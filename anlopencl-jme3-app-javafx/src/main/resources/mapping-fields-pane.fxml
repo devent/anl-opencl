@@ -43,10 +43,10 @@
                   <Spinner id="columnsField" fx:id="columnsField" GridPane.columnIndex="4" />
                   <Spinner id="mappingX0Field" fx:id="mappingX0Field" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Spinner id="mappingY0Field" fx:id="mappingY0Field" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Spinner id="mappingZ0Field" fx:id="mappingZ0Field" disable="true" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Spinner id="mappingZ0Field" fx:id="mappingZ0Field" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Spinner id="mappingX1Field" fx:id="mappingX1Field" editable="true" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <Spinner id="mappingY1Field" fx:id="mappingY1Field" editable="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Spinner id="mappingZ1Field" fx:id="mappingZ1Field" disable="true" editable="true" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Spinner id="mappingZ1Field" fx:id="mappingZ1Field" editable="true" GridPane.columnIndex="4" GridPane.rowIndex="5" />
           </children>
         </GridPane>
       </children>
