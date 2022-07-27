@@ -155,9 +155,9 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
         runFxThread(() -> {
             controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
-        });
-        controller.randomButton.setOnAction((e) -> {
-            onp.get().seed.set(rnd.nextInt());
+            controller.randomButton.setOnAction((e) -> {
+                onp.get().seed.set(rnd.nextInt());
+            });
         });
     }
 
