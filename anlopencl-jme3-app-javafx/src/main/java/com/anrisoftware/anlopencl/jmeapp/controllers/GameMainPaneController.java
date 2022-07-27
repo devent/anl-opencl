@@ -65,13 +65,21 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.ABOUT_DIALOG_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.BUILD_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.QUIT_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.RESET_CAMERA_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.RUN_MAPPING;
+import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.SETTINGS_MAPPING;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static javafx.embed.swing.SwingFXUtils.toFXImage;
 
 import java.util.Locale;
+import java.util.Map;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
+import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 
@@ -91,7 +99,7 @@ import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * {@code game-main-pane.fxml} controller.
+ * {@code game-main-pane.fxml}
  *
  * @author Erwin Müller
  */
@@ -171,6 +179,29 @@ public class GameMainPaneController {
         setupInputAccordion(np);
         statusProgress.setProgress(0);
         statusProgress.setVisible(false);
+    }
+
+    public void initializeButtons(GlobalKeys globalKeys, Map<String, KeyMapping> keyMappings,
+            ObservableGameMainPaneProperties gmpp) {
+        buttonRun.setSelected(gmpp.kernelRun.get());
+        buttonQuit.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(QUIT_MAPPING.name()));
+        });
+        buttonBuild.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(BUILD_MAPPING.name()));
+        });
+        buttonRun.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(RUN_MAPPING.name()));
+        });
+        resetCameraButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(RESET_CAMERA_MAPPING.name()));
+        });
+        settingsButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(SETTINGS_MAPPING.name()));
+        });
+        aboutButton.setOnAction((e) -> {
+            globalKeys.runAction(keyMappings.get(ABOUT_DIALOG_MAPPING.name()));
+        });
     }
 
     private void setupImagePropertiesFields(ObservableGameMainPaneProperties np) {

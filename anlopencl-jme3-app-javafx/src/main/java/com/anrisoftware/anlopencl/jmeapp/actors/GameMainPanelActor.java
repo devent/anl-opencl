@@ -95,6 +95,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorClosedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.ExternalEditorOpenErrorMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.OpenExternalEditorMessage.OpenExternalEditorTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.messages.RunTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
@@ -302,12 +303,19 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
     private BehaviorBuilder<Message> getDefaultBehavior() {
         return super.getBehaviorAfterAttachGui()//
                 .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
+                .onMessage(RunTriggeredMessage.class, this::onRunTriggered)//
                 .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
                 .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
                 .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
                 .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
                 .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
         ;
+    }
+
+    private Behavior<Message> onRunTriggered(RunTriggeredMessage m) {
+        log.debug("onRunTriggered {}", m);
+        onp.get().kernelRun.set(!onp.get().kernelRun.get());
+        return Behaviors.same();
     }
 
     private Behavior<Message> onKernelStarted(KernelStartedMessage m) {

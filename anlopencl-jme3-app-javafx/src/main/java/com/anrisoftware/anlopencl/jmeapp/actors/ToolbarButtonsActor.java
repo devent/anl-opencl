@@ -67,13 +67,9 @@ package com.anrisoftware.anlopencl.jmeapp.actors;
 
 import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.runFxThread;
 import static com.anrisoftware.anlopencl.jmeapp.messages.CreateActorMessage.createNamedActor;
-import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.ABOUT_DIALOG_MAPPING;
-import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.BUILD_MAPPING;
-import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.QUIT_MAPPING;
-import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.RESET_CAMERA_MAPPING;
-import static com.anrisoftware.anlopencl.jmeapp.states.DefaultKeyMappings.SETTINGS_MAPPING;
 
 import java.time.Duration;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
@@ -90,8 +86,10 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildTriggeredMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.SettingsDialogMessage.SettingsDialogOpenTriggeredMessage;
+import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.GameSettingsProvider;
 import com.anrisoftware.anlopencl.jmeapp.states.KeyMapping;
+import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
 import com.google.inject.assistedinject.Assisted;
@@ -142,6 +140,9 @@ public class ToolbarButtonsActor extends AbstractPaneActor<GameMainPaneControlle
     private GlobalKeys globalKeys;
 
     @Inject
+    private GameMainPanePropertiesProvider gmppp;
+
+    @Inject
     @Named("keyMappings")
     private Map<String, KeyMapping> keyMappings;
 
@@ -155,20 +156,9 @@ public class ToolbarButtonsActor extends AbstractPaneActor<GameMainPaneControlle
 
     @Override
     protected void initialState(InitialStateMessage m) {
-        controller.buttonQuit.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get(QUIT_MAPPING.name()));
-        });
-        controller.buttonBuild.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get(BUILD_MAPPING.name()));
-        });
-        controller.resetCameraButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get(RESET_CAMERA_MAPPING.name()));
-        });
-        controller.settingsButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get(SETTINGS_MAPPING.name()));
-        });
-        controller.aboutButton.setOnAction((e) -> {
-            globalKeys.runAction(keyMappings.get(ABOUT_DIALOG_MAPPING.name()));
+        runFxThread(() -> {
+            controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
+            controller.initializeButtons(globalKeys, keyMappings, gmppp.get());
         });
     }
 

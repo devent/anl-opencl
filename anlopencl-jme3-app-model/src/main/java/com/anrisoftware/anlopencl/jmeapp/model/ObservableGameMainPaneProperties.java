@@ -76,17 +76,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanBooleanProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanDoubleProperty;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanFloatProperty;
 import javafx.beans.property.adapter.JavaBeanFloatPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanLongPropertyBuilder;
@@ -168,6 +166,11 @@ public class ObservableGameMainPaneProperties {
 
         public String fileName = "";
 
+        /**
+         * Flag that the kernel should be updated live.
+         */
+        public boolean kernelRun = false;
+
         @JsonIgnore
         public transient AnlKernel kernel;
 
@@ -218,23 +221,25 @@ public class ObservableGameMainPaneProperties {
 
     public final StringProperty fileName;
 
-    public final JavaBeanDoubleProperty z;
+    public final DoubleProperty z;
 
-    public final JavaBeanBooleanProperty map3d;
+    public final BooleanProperty map3d;
 
-    public final JavaBeanFloatProperty cameraPosX;
+    public final FloatProperty cameraPosX;
 
-    public final JavaBeanFloatProperty cameraPosY;
+    public final FloatProperty cameraPosY;
 
-    public final JavaBeanFloatProperty cameraPosZ;
+    public final FloatProperty cameraPosZ;
 
-    public final JavaBeanFloatProperty cameraRotX;
+    public final FloatProperty cameraRotX;
 
-    public final JavaBeanFloatProperty cameraRotY;
+    public final FloatProperty cameraRotY;
 
-    public final JavaBeanFloatProperty cameraRotZ;
+    public final FloatProperty cameraRotZ;
 
-    public final JavaBeanFloatProperty cameraRotW;
+    public final FloatProperty cameraRotW;
+
+    public final BooleanProperty kernelRun;
 
     @SuppressWarnings("unchecked")
     @SneakyThrows
@@ -269,6 +274,7 @@ public class ObservableGameMainPaneProperties {
         this.cameraRotY = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotY").build();
         this.cameraRotZ = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotZ").build();
         this.cameraRotW = JavaBeanFloatPropertyBuilder.create().bean(p).name("cameraRotW").build();
+        this.kernelRun = JavaBeanBooleanPropertyBuilder.create().bean(p).name("kernelRun").build();
     }
 
     public void copy(GameMainPaneProperties other) {
@@ -302,6 +308,7 @@ public class ObservableGameMainPaneProperties {
         kernel.set(other.kernel);
         kernelLog.set(other.kernelLog);
         fileName.set(other.fileName);
+        kernelRun.set(other.kernelRun);
     }
 
     public Vector3f getCameraPos() {

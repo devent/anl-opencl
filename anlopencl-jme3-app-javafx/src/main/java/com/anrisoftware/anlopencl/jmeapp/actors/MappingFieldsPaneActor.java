@@ -135,7 +135,7 @@ public class MappingFieldsPaneActor extends AbstractPaneActor<MappingFieldsPaneC
     }
 
     @Inject
-    private GameMainPanePropertiesProvider onp;
+    private GameMainPanePropertiesProvider gmppp;
 
     @Inject
     private ActorSystemProvider actor;
@@ -150,14 +150,14 @@ public class MappingFieldsPaneActor extends AbstractPaneActor<MappingFieldsPaneC
     protected void initialState(InitialStateMessage m) {
         runFxThread(() -> {
             controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
-            controller.initializeListeners(actor.get(), Locale.US, onp.get());
+            controller.initializeListeners(actor.get(), Locale.US, gmppp.get());
             controller.columnsField.valueProperty().addListener((observable, oldValue, newValue) -> {
                 actor.getActorSystem()
-                        .tell(new ColumnsRowsChangedMessage(onp.get().columns.get(), onp.get().rows.get()));
+                        .tell(new ColumnsRowsChangedMessage(gmppp.get().columns.get(), gmppp.get().rows.get()));
             });
             controller.rowsField.valueProperty().addListener((observable, oldValue, newValue) -> {
                 actor.getActorSystem()
-                        .tell(new ColumnsRowsChangedMessage(onp.get().columns.get(), onp.get().rows.get()));
+                        .tell(new ColumnsRowsChangedMessage(gmppp.get().columns.get(), gmppp.get().rows.get()));
             });
         });
     }
@@ -202,7 +202,7 @@ public class MappingFieldsPaneActor extends AbstractPaneActor<MappingFieldsPaneC
             controller.mappingY0Field.setDisable(disable);
             controller.mappingY1Field.setDisable(disable);
             controller.threeDMappingBox.setDisable(disable);
-            if (!disable && onp.get().map3d.get()) {
+            if (!disable && gmppp.get().map3d.get()) {
                 controller.mappingZ0Field.setDisable(false);
                 controller.mappingZ1Field.setDisable(false);
             } else if (disable) {
