@@ -158,12 +158,6 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
             controller.randomButton.setOnAction((e) -> {
                 onp.get().seed.set(rnd.nextInt());
             });
-            controller.codeArea.textProperty().addListener((o, oldValue, newValue) -> {
-                if (onp.get().kernelRun.get()) {
-                    onp.get().codeLastChange.set(System.currentTimeMillis());
-                    actor.getActorSystem().tell(new BuildTriggeredMessage());
-                }
-            });
         });
     }
 

@@ -112,6 +112,7 @@ import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.BehaviorBuilder;
 import akka.actor.typed.receptionist.ServiceKey;
 import akka.actor.typed.scaladsl.Behaviors;
+import javafx.beans.value.ObservableValue;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -186,8 +187,17 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
                 }
             }
         });
+        onp.get().seed.addListener(this::startBuildOnKernelRun);
+        onp.get().kernelCode.addListener(this::startBuildOnKernelRun);
         return getDefaultBehavior()//
         ;
+    }
+
+    private void startBuildOnKernelRun(ObservableValue<?> observable, Object oldValue, Object newValue) {
+        if (onp.get().kernelRun.get()) {
+            onp.get().codeLastChange.set(System.currentTimeMillis());
+            actor.getActorSystem().tell(new BuildTriggeredMessage());
+        }
     }
 
     private Behavior<Message> onBuildTriggered(BuildTriggeredMessage m) {
