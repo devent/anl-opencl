@@ -310,18 +310,6 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         return getDefaultBehavior().build();
     }
 
-    private BehaviorBuilder<Message> getDefaultBehavior() {
-        return super.getBehaviorAfterAttachGui()//
-                .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
-                .onMessage(RunTriggeredMessage.class, this::onRunTriggered)//
-                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
-                .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
-                .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
-                .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
-                .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
-        ;
-    }
-
     private Behavior<Message> onRunTriggered(RunTriggeredMessage m) {
         log.debug("onRunTriggered {}", m);
         onp.get().kernelRun.set(!onp.get().kernelRun.get());
@@ -347,8 +335,6 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         initial.actors.get(ImageFieldsPaneActor.NAME).tell(m);
         return MainActor.sendMessageMayCreate(injector, ExternalEditorActor.ID, m, ExternalEditorActor::create,
                 getDefaultBehavior()//
-                        .onMessage(ExternalEditorClosedMessage.class, this::onExternalEditorClosed)//
-                        .onMessage(ExternalEditorOpenErrorMessage.class, this::onExternalEditorOpenError)//
         );
     }
 
@@ -381,6 +367,20 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
             controller.statusProgress.setVisible(start);
             controller.statusProgress.setProgress(start ? -1 : 0);
         });
+    }
+
+    private BehaviorBuilder<Message> getDefaultBehavior() {
+        return super.getBehaviorAfterAttachGui()//
+                .onMessage(BuildTriggeredMessage.class, this::onBuildTriggered)//
+                .onMessage(RunTriggeredMessage.class, this::onRunTriggered)//
+                .onMessage(SettingsDialogOpenTriggeredMessage.class, this::onSettingsDialogOpenTriggered)//
+                .onMessage(AboutDialogOpenTriggeredMessage.class, this::onAboutDialogOpenTriggered)//
+                .onMessage(KernelStartedMessage.class, this::onKernelStarted)//
+                .onMessage(KernelFinishedMessage.class, this::onKernelFinished)//
+                .onMessage(OpenExternalEditorTriggeredMessage.class, this::onOpenExternalEditorTriggered)//
+                .onMessage(ExternalEditorClosedMessage.class, this::onExternalEditorClosed)//
+                .onMessage(ExternalEditorOpenErrorMessage.class, this::onExternalEditorOpenError)//
+        ;
     }
 
 }
