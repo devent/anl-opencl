@@ -155,9 +155,9 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
         runFxThread(() -> {
             controller.updateLocale(Locale.US, appIcons, IconSize.SMALL);
             controller.initializeListeners(actor.get(), Locale.US, onp.get());
-        });
-        controller.randomButton.setOnAction((e) -> {
-            onp.get().seed.set(rnd.nextInt());
+            controller.randomButton.setOnAction((e) -> {
+                onp.get().seed.set(rnd.nextInt());
+            });
         });
     }
 
@@ -210,28 +210,28 @@ public class ImageFieldsPaneActor extends AbstractPaneActor<ImageFieldsPaneContr
         return Behaviors.same();
     }
 
-    private void setDisableControlButtons(boolean disabled) {
+    private void setDisableControlButtons(boolean disable) {
         runFxThread(() -> {
-            controller.nameField.setDisable(disabled);
-            controller.seedField.setDisable(disabled);
-            controller.widthField.setDisable(disabled);
-            controller.heightField.setDisable(disabled);
-            controller.zField.setDisable(disabled);
-            controller.dimensionField.setDisable(disabled);
-            controller.codeArea.setDisable(disabled);
+            controller.nameField.setDisable(disable);
+            controller.seedField.setDisable(disable);
+            controller.widthField.setDisable(disable);
+            controller.heightField.setDisable(disable);
+            controller.zField.setDisable(disable);
+            controller.dimensionField.setDisable(disable);
+            controller.codeArea.setDisable(disable);
         });
     }
 
-    private void setDisableCodeArea(boolean disabled) {
+    private void setDisableCodeArea(boolean disable) {
         runFxThread(() -> {
-            controller.codeArea.setDisable(disabled);
-            controller.codeArea.setEditable(!disabled);
+            controller.codeArea.setDisable(disable);
+            controller.codeArea.setEditable(!disable);
         });
     }
 
-    private void setDisableOpenExternalEditorButton(boolean disabled) {
+    private void setDisableOpenExternalEditorButton(boolean disable) {
         runFxThread(() -> {
-            controller.openExternEditorButton.setDisable(disabled);
+            controller.openExternEditorButton.setDisable(disable);
         });
     }
 

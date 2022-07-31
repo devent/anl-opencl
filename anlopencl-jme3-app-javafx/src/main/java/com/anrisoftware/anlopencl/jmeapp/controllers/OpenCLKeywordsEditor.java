@@ -151,7 +151,7 @@ public class OpenCLKeywordsEditor {
         codeArea = new CodeArea();
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
         @SuppressWarnings("unused")
-        Subscription cleanupWhenDone = codeArea.multiPlainChanges().successionEnds(Duration.ofMillis(500))
+        Subscription cleanupWhenDone = codeArea.multiPlainChanges().successionEnds(Duration.ofMillis(100))
                 .supplyTask(this::computeHighlightingAsync).awaitLatest(codeArea.multiPlainChanges()).filterMap(t -> {
                     if (t.isSuccess()) {
                         return Optional.of(t.get());

@@ -205,8 +205,8 @@
             <artifactId>richtextfx</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.dlsc.formsfx</groupId>
-          <artifactId>formsfx-core</artifactId>
+            <groupId>com.dlsc.formsfx</groupId>
+            <artifactId>formsfx-core</artifactId>
         </dependency>
 
         <!-- Resources -->
