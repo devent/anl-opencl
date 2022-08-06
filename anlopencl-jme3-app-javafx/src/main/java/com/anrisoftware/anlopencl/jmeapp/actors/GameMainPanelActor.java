@@ -189,6 +189,17 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
         });
         onp.get().seed.addListener(this::startBuildOnKernelRun);
         onp.get().kernelCode.addListener(this::startBuildOnKernelRun);
+        onp.get().width.addListener(this::startBuildOnKernelRun);
+        onp.get().height.addListener(this::startBuildOnKernelRun);
+        onp.get().columns.addListener(this::startBuildOnKernelRun);
+        onp.get().rows.addListener(this::startBuildOnKernelRun);
+        onp.get().mapx0.addListener(this::startBuildOnKernelRun);
+        onp.get().mapx1.addListener(this::startBuildOnKernelRun);
+        onp.get().mapy0.addListener(this::startBuildOnKernelRun);
+        onp.get().mapy1.addListener(this::startBuildOnKernelRun);
+        onp.get().map3d.addListener(this::startBuildOnKernelRun);
+        onp.get().mapz0.addListener(this::startBuildOnKernelRun);
+        onp.get().mapz1.addListener(this::startBuildOnKernelRun);
         return getDefaultBehavior()//
         ;
     }
