@@ -71,7 +71,7 @@ import static org.hamcrest.Matchers.*
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent
 import com.badlogic.ashley.core.Engine
 
 /**
@@ -120,7 +120,7 @@ class NoiseImageEntitiesTest {
         assertThat "rows count is correct", entities.noiseImageEntities.get(0).size(), equalTo(rows)
         for (int c = 0; c < cols; c++) {
             for (int r = 0; r < rows; r++) {
-                def ic = entities.noiseImageEntities.get(c).get(r).getComponent(ImageComponent)
+                def ic = entities.noiseImageEntities.get(c).get(r).getComponent(ImageQuadComponent)
                 assertThat ic.column, equalTo(c)
                 assertThat ic.row, equalTo(r)
             }

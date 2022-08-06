@@ -82,9 +82,9 @@ import lombok.ToString;
  */
 @ToString
 @RequiredArgsConstructor
-public class KernelComponent implements Component {
+public class KernelTexComponent implements Component {
 
-    public static final ComponentMapper<KernelComponent> m = ComponentMapper.getFor(KernelComponent.class);
+    public static final ComponentMapper<KernelTexComponent> m = ComponentMapper.getFor(KernelTexComponent.class);
 
     public final Texture2D tex;
 

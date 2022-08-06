@@ -80,8 +80,8 @@ import com.anrisoftware.anlopencl.jmeapp.messages.BuildStartMessage.BuildFinishe
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
-import com.anrisoftware.anlopencl.jmeapp.view.components.KernelComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.KernelTexComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
 import com.anrisoftware.anlopencl.jmeapp.view.states.CameraPanningAppState;
 import com.anrisoftware.anlopencl.jmeapp.view.states.ViewAppState;
@@ -273,12 +273,12 @@ public class ViewActor {
         float z1 = gmp.mapz1.get();
         for (var rows : entities) {
             for (var entity : rows) {
-                if (KernelComponent.m.has(entity)) {
-                    var kc = entity.remove(KernelComponent.class);
+                if (KernelTexComponent.m.has(entity)) {
+                    var kc = entity.remove(KernelTexComponent.class);
                     kc.tex.getImage().dispose();
                     kc.ranges.release();
                 }
-                var ic = ImageComponent.m.get(entity);
+                var ic = ImageQuadComponent.m.get(entity);
                 try (var s = MemoryStack.stackPush()) {
                     int width = gmp.width.get();
                     int height = gmp.height.get();
@@ -290,7 +290,7 @@ public class ViewActor {
                         setMap2D(ranges, ncols, nrows, ic.column, ic.row, x0, x1, y0, y1, xx, yy);
                     }
                     var rangesb = new LwjglBuffer(ranges.getClBuffer(s, clContext.getContext()));
-                    entity.add(new KernelComponent(tex, rangesb));
+                    entity.add(new KernelTexComponent(tex, rangesb));
                 }
             }
         }

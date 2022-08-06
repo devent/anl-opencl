@@ -78,9 +78,9 @@ import lombok.ToString;
  */
 @ToString
 @RequiredArgsConstructor
-public class ImageComponent implements Component {
+public class ImageQuadComponent implements Component {
 
-    public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+    public static final ComponentMapper<ImageQuadComponent> m = ComponentMapper.getFor(ImageQuadComponent.class);
 
     public final int column;
 
