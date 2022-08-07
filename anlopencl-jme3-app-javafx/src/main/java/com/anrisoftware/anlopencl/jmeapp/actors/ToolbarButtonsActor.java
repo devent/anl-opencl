@@ -146,8 +146,6 @@ public class ToolbarButtonsActor extends AbstractPaneActor<GameMainPaneControlle
     @Named("keyMappings")
     private Map<String, KeyMapping> keyMappings;
 
-    private GameMainPaneController controller;
-
     @Inject
     ToolbarButtonsActor(@Assisted ActorContext<Message> context, GameSettingsProvider gsp,
             @Named("AppIcons") Images appIcons) {
