@@ -86,9 +86,13 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IntervalIteratingSystem;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.math.Vector3f;
 import com.jme3.opencl.CommandQueue;
 import com.jme3.opencl.Kernel;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.util.TempVars;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -120,6 +124,8 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
 
     private final CommandQueue queue;
 
+    private final Vector3f imageNodeBound;
+
     @Inject
     public NoiseImageSystem(GameMainPanePropertiesProvider onp, com.jme3.opencl.Context context) {
         super(FAMILY, 1f);
@@ -127,6 +133,25 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         this.noiseImageQuads = Maps.mutable.empty();
         this.queue = context.createQueue().register();
         this.imagesNode = new Node("imagesNode");
+        this.imageNodeBound = new Vector3f();
+        imagesNode.getWorldBound().getCenter(imageNodeBound);
+    }
+
+    /**
+     * Returns the top right and bottom left of the noise quad in screen
+     * coordinates.
+     */
+    public void getScreenCoordinatesNoiseImage(Camera camera, Vector3f topRight, Vector3f bottomLeft) {
+        var temp = TempVars.get();
+        try {
+            var bb = (BoundingBox) imagesNode.getWorldBound();
+            var btr = bb.getMax(temp.vect1);
+            var bbl = bb.getMin(temp.vect2);
+            camera.getScreenCoordinates(btr, topRight);
+            camera.getScreenCoordinates(bbl, bottomLeft);
+        } finally {
+            temp.release();
+        }
     }
 
     @Override
@@ -155,8 +180,8 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         noiseImageQuads.put(entity, quad);
         imagesNode.setLocalTranslation(0, 0, 0);
         imagesNode.attachChild(quad.getPic());
-        var bound = imagesNode.getWorldBound().getCenter();
-        imagesNode.setLocalTranslation(-bound.x, -bound.y, -bound.z);
+        imagesNode.getWorldBound().getCenter(imageNodeBound);
+        imagesNode.setLocalTranslation(-imageNodeBound.x, -imageNodeBound.y, -imageNodeBound.z);
         entity.componentRemoved.add((signal, object) -> {
             if (!KernelTexComponent.m.has(object)) {
                 quad.setNotSetTexture(true);

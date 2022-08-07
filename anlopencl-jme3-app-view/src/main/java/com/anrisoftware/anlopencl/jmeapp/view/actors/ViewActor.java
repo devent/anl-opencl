@@ -82,7 +82,7 @@ import com.anrisoftware.anlopencl.jmeapp.messages.ResetCameraMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.components.KernelTexComponent;
-import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
+import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewStateAppMessage.AttachViewAppStateDoneMessage;
 import com.anrisoftware.anlopencl.jmeapp.view.states.CameraPanningAppState;
 import com.anrisoftware.anlopencl.jmeapp.view.states.ViewAppState;
 import com.badlogic.ashley.core.Engine;
@@ -192,6 +192,7 @@ public class ViewActor {
                 app.getStateManager().attach(viewAppState);
             }
             if (!app.getStateManager().hasState(cameraPanningAppState.getId())) {
+                cameraPanningAppState.setNoiseImageSystem(viewAppState.getNoiseImageSystem());
                 app.getStateManager().attach(cameraPanningAppState);
             }
         });
