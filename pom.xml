@@ -173,7 +173,7 @@
 			<dependency>
 				<groupId>com.anrisoftware.globalpom</groupId>
 				<artifactId>globalpomutils-exec</artifactId>
-                <version>4.6.3-SNAPSHOT</version>
+                <version>${globalpom.custom.anrisoftware.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.anrisoftware.globalpom</groupId>
