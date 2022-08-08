@@ -71,7 +71,7 @@ import javax.inject.Named;
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
-import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewAppStateDoneMessage;
+import com.anrisoftware.anlopencl.jmeapp.view.messages.AttachViewStateAppMessage.AttachViewAppStateDoneMessage;
 import com.badlogic.ashley.core.Engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
@@ -118,6 +118,10 @@ public class ViewAppState extends BaseAppState {
 
     public void setActor(ActorRef<Message> actor) {
         this.actor = actor;
+    }
+
+    public NoiseImageSystem getNoiseImageSystem() {
+        return noiseImageSystem;
     }
 
     @Override

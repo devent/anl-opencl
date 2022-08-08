@@ -71,7 +71,7 @@ import javax.inject.Inject;
 
 import org.eclipse.collections.impl.factory.Lists;
 
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 
@@ -140,7 +140,7 @@ public class NoiseImageEntities {
     private void addImageComponent(List<Entity> rowlist, int col, int row) {
         var e = engine.createEntity();
         rowlist.add(e);
-        e.add(new ImageComponent(col, row, 1, 1));
+        e.add(new ImageQuadComponent(col, row, 1, 1));
         engine.addEntity(e);
     }
 

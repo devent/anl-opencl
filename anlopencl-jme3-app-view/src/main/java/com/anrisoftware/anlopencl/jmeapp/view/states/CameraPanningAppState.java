@@ -120,7 +120,13 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
     @Inject
     private Camera camera;
 
+    private NoiseImageSystem noiseImageSystem;
+
     private boolean middleMouseDown;
+
+    private final Vector3f noiseImageBottomLeft;
+
+    private final Vector3f noiseImageTopRight;
 
     @Inject
     public CameraPanningAppState(GameMainPanePropertiesProvider gpp) {
@@ -128,11 +134,18 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
         this.gp = gpp.get();
         this.middleMouseDown = false;
         this.mouse = new Vector2f();
+        this.noiseImageBottomLeft = new Vector3f();
+        this.noiseImageTopRight = new Vector3f();
     }
 
     public void resetCamera() {
         camera.setLocation(new Vector3f(-0.021643113f, 0.035976667f, 15.217747f));
         camera.setRotation(new Quaternion(-4.8154507E-6f, 0.9999911f, 0.0012241602f, 0.004027171f));
+    }
+
+    public void setNoiseImageSystem(NoiseImageSystem noiseImageSystem) {
+        this.noiseImageSystem = noiseImageSystem;
+        updateScreenCoordinatesNoiseImage();
     }
 
     @Override
@@ -176,6 +189,7 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
     public void onAction(String name, boolean isPressed, float tpf) {
         switch (name) {
         case MIDDLE_BUTTON_MAPPING:
+            updateScreenCoordinatesNoiseImage();
             middleMouseDown = isPressed;
             return;
         }
@@ -186,6 +200,7 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
         float m = 1f;
         var oldpos = camera.getWorldCoordinates(new Vector2f(camera.getWidth() / 2, camera.getHeight() / 2), 0.0f);
         var newpos = camera.getWorldCoordinates(mouse, 0.0f);
+        updateScreenCoordinatesNoiseImage();
         switch (name) {
         case ZOOM_IN_MAPPING:
             if (checkZoomAllowed(m)) {
@@ -202,10 +217,11 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
 
     private boolean checkZoomAllowed(float m) {
         Vector3f location = camera.getLocation();
-        if (m < 0) {
-            return location.z > 8.21f;
+        if (m > 0) {
+            return noiseImageTopRight.x - noiseImageBottomLeft.x > camera.getWidth() * (1f - gp.splitMainPosition.get())
+                    * 0.2f;
         } else {
-            return location.z < 50f;
+            return location.z + m > 1f;
         }
     }
 
@@ -232,15 +248,16 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
         if (!middleMouseDown) {
             return;
         }
+        updateScreenCoordinatesNoiseImage();
         float dx = evt.getDX();
         float dy = -evt.getDY();
-        if (!canMoveX(dx)) {
+        float s = calcSpeed(Math.max(abs(dx), abs(dy)));
+        if (!canMoveX(dx, s)) {
             dx = 0;
         }
-        if (!canMoveY(dy)) {
+        if (!canMoveY(dy, s)) {
             dy = 0;
         }
-        float s = calcSpeed(Math.max(abs(dx), abs(dy)));
         boundMove(-dx * s, dy * s, 0);
     }
 
@@ -255,26 +272,24 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
         camera.update();
     }
 
-    private boolean canMoveX(float dx) {
-        Vector3f location = camera.getLocation();
-        if (dx < 0) {
-            return location.x < 10f;
+    private boolean canMoveX(float dx, float s) {
+        if (dx > 0) {
+            return camera.getWidth() - (noiseImageBottomLeft.x + dx * s) > 50;
         } else {
-            return location.x > -10f;
+            return (noiseImageTopRight.x - dx * s) - camera.getWidth() * gp.splitMainPosition.get() > 50;
         }
     }
 
-    private boolean canMoveY(float dy) {
-        Vector3f location = camera.getLocation();
+    private boolean canMoveY(float dy, float s) {
         if (dy > 0) {
-            return location.y < 10f;
+            return noiseImageTopRight.y + dy * s > 50;
         } else {
-            return location.y > -10f;
+            return camera.getHeight() - (noiseImageBottomLeft.y - dy * s) > 50;
         }
     }
 
     private float calcSpeed(float d) {
-        return 0.025f;
+        return camera.getLocation().z * 0.0025f;
     }
 
     @Override
@@ -287,6 +302,10 @@ public class CameraPanningAppState extends BaseAppState implements ActionListene
 
     @Override
     public void onTouchEvent(TouchEvent evt) {
+    }
+
+    private void updateScreenCoordinatesNoiseImage() {
+        noiseImageSystem.getScreenCoordinatesNoiseImage(camera, noiseImageTopRight, noiseImageBottomLeft);
     }
 
 }

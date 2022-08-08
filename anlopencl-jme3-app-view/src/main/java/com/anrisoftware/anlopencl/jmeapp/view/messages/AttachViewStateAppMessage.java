@@ -69,7 +69,20 @@ import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
 
 import lombok.ToString;
 
+/**
+ *
+ * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+ */
 @ToString
 public class AttachViewStateAppMessage extends Message {
+
+    /**
+     *
+     * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
+     */
+    @ToString
+    public static class AttachViewAppStateDoneMessage extends Message {
+
+    }
 
 }

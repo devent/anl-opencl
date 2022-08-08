@@ -135,6 +135,7 @@ public class StatusBarActor extends AbstractPaneActor<GameMainPaneController> {
 
     @Override
     protected void initialState(InitialStateMessage m) {
+        // Nothing.
     }
 
     @Override

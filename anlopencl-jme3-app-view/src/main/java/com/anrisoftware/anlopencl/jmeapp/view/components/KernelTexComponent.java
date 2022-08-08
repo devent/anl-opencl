@@ -67,26 +67,28 @@ package com.anrisoftware.anlopencl.jmeapp.view.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
+import com.jme3.opencl.lwjgl.LwjglBuffer;
+import com.jme3.texture.Texture2D;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Sets the image quad width and height.
+ * Quad image component that contains the generated texture and the mapping
+ * ranges. Contains also a flag if the image from the kernel was already
+ * generated so that the image is not generated in every frame.
  *
  * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
  */
 @ToString
 @RequiredArgsConstructor
-public class ImageComponent implements Component {
+public class KernelTexComponent implements Component {
 
-    public static final ComponentMapper<ImageComponent> m = ComponentMapper.getFor(ImageComponent.class);
+    public static final ComponentMapper<KernelTexComponent> m = ComponentMapper.getFor(KernelTexComponent.class);
 
-    public final int column;
+    public final Texture2D tex;
 
-    public final int row;
+    public final LwjglBuffer ranges;
 
-    public final int width;
-
-    public final int height;
+    public boolean kernelRun = false;
 }

@@ -103,7 +103,6 @@ import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.resources.images.external.IconSize;
 import com.anrisoftware.resources.images.external.Images;
 import com.google.inject.Injector;
-import com.jme3.app.Application;
 import com.jme3.app.LostFocusBehavior;
 import com.jme3.opencl.KernelCompilationException;
 
@@ -159,9 +158,6 @@ public class GameMainPanelActor extends AbstractMainPanelActor {
 
     @Inject
     private GameMainPanePropertiesProvider onp;
-
-    @Inject
-    private Application app;
 
     private ActorRef<Message> openclBuildActor;
 

@@ -67,7 +67,7 @@ package com.anrisoftware.anlopencl.jmeapp.view.states;
 
 import javax.inject.Inject;
 
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent;
 import com.google.inject.assistedinject.Assisted;
 import com.jme3.asset.AssetManager;
 import com.jme3.opencl.Image;
@@ -90,7 +90,7 @@ public class NoiseImageQuad {
      * @author Erwin Müller, {@code <erwin@muellerpublic.de>}
      */
     public interface NoiseImageQuadFactory {
-        NoiseImageQuad create(ImageComponent c);
+        NoiseImageQuad create(ImageQuadComponent c);
     }
 
     private final Picture pic;
@@ -110,7 +110,7 @@ public class NoiseImageQuad {
     private Texture2D tex;
 
     @Inject
-    public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageComponent c) {
+    public NoiseImageQuad(AssetManager assetManager, com.jme3.opencl.Context context, @Assisted ImageQuadComponent c) {
         this.pic = new Picture(NoiseImageQuad.class.getSimpleName() + c.column + c.row);
         this.unsetTex = (Texture2D) assetManager.loadTexture("Textures/unset-image.png");
         this.assetManager = assetManager;

@@ -145,8 +145,6 @@ public class MappingRanges extends Struct implements NativeResource {
         LOOPZ1 = layout.offsetof(i++);
     }
 
-    private final ByteBuffer container;
-
     private Long clBuffer;
 
     /**
@@ -160,7 +158,6 @@ public class MappingRanges extends Struct implements NativeResource {
      */
     public MappingRanges(ByteBuffer container) {
         super(memAddress(container), __checkContainer(container, SIZEOF));
-        this.container = container;
     }
 
     public ByteBuffer getContainer() {

@@ -78,17 +78,21 @@ import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage;
 import com.anrisoftware.anlopencl.jmeapp.messages.KernelStartedMessage.KernelFinishedMessage;
 import com.anrisoftware.anlopencl.jmeapp.model.GameMainPanePropertiesProvider;
 import com.anrisoftware.anlopencl.jmeapp.model.ObservableGameMainPaneProperties;
-import com.anrisoftware.anlopencl.jmeapp.view.components.ImageComponent;
-import com.anrisoftware.anlopencl.jmeapp.view.components.KernelComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.ImageQuadComponent;
+import com.anrisoftware.anlopencl.jmeapp.view.components.KernelTexComponent;
 import com.anrisoftware.anlopencl.jmeapp.view.states.NoiseImageQuad.NoiseImageQuadFactory;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IntervalIteratingSystem;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.math.Vector3f;
 import com.jme3.opencl.CommandQueue;
 import com.jme3.opencl.Kernel;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.util.TempVars;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,7 +104,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NoiseImageSystem extends IntervalIteratingSystem {
 
-    private static final Family FAMILY = Family.one(ImageComponent.class).get();
+    private static final Family FAMILY = Family.one(ImageQuadComponent.class).get();
 
     private final Map<Entity, NoiseImageQuad> noiseImageQuads;
 
@@ -120,6 +124,8 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
 
     private final CommandQueue queue;
 
+    private final Vector3f imageNodeBound;
+
     @Inject
     public NoiseImageSystem(GameMainPanePropertiesProvider onp, com.jme3.opencl.Context context) {
         super(FAMILY, 1f);
@@ -127,6 +133,25 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         this.noiseImageQuads = Maps.mutable.empty();
         this.queue = context.createQueue().register();
         this.imagesNode = new Node("imagesNode");
+        this.imageNodeBound = new Vector3f();
+        imagesNode.getWorldBound().getCenter(imageNodeBound);
+    }
+
+    /**
+     * Returns the top right and bottom left of the noise quad in screen
+     * coordinates.
+     */
+    public void getScreenCoordinatesNoiseImage(Camera camera, Vector3f topRight, Vector3f bottomLeft) {
+        var temp = TempVars.get();
+        try {
+            var bb = (BoundingBox) imagesNode.getWorldBound();
+            var btr = bb.getMax(temp.vect1);
+            var bbl = bb.getMin(temp.vect2);
+            camera.getScreenCoordinates(btr, topRight);
+            camera.getScreenCoordinates(bbl, bottomLeft);
+        } finally {
+            temp.release();
+        }
     }
 
     @Override
@@ -150,15 +175,15 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
 
     private void createNoiseImageQuad(Entity entity) {
         log.debug("createNoiseImageQuad {}", entity);
-        var c = ImageComponent.m.get(entity);
+        var c = ImageQuadComponent.m.get(entity);
         var quad = noiseImageQuadFactory.create(c);
         noiseImageQuads.put(entity, quad);
         imagesNode.setLocalTranslation(0, 0, 0);
         imagesNode.attachChild(quad.getPic());
-        var bound = imagesNode.getWorldBound().getCenter();
-        imagesNode.setLocalTranslation(-bound.x, -bound.y, -bound.z);
+        imagesNode.getWorldBound().getCenter(imageNodeBound);
+        imagesNode.setLocalTranslation(-imageNodeBound.x, -imageNodeBound.y, -imageNodeBound.z);
         entity.componentRemoved.add((signal, object) -> {
-            if (!KernelComponent.m.has(object)) {
+            if (!KernelTexComponent.m.has(object)) {
                 quad.setNotSetTexture(true);
             }
         });
@@ -175,9 +200,9 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
 
     @Override
     protected void processEntity(Entity entity) {
-        if (KernelComponent.m.has(entity)) {
-            var ic = ImageComponent.m.get(entity);
-            var kc = KernelComponent.m.get(entity);
+        if (KernelTexComponent.m.has(entity)) {
+            var ic = ImageQuadComponent.m.get(entity);
+            var kc = KernelTexComponent.m.get(entity);
             var imageQuad = noiseImageQuads.get(entity);
             if (!imageQuad.isTextureSet()) {
                 imageQuad.setTex(kc.tex);
@@ -192,7 +217,7 @@ public class NoiseImageSystem extends IntervalIteratingSystem {
         }
     }
 
-    private void runKernel(ImageComponent ic, KernelComponent kc, NoiseImageQuad quad) {
+    private void runKernel(ImageQuadComponent ic, KernelTexComponent kc, NoiseImageQuad quad) {
         actor.get().tell(new KernelStartedMessage(ic.column, ic.row));
         try (var s = MemoryStack.stackPush()) {
             var work = new Kernel.WorkSize(gmpp.width.get(), gmpp.height.get());
