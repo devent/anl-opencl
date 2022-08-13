@@ -65,15 +65,20 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.anrisoftware.resources.images.external.ImageResource;
 import com.jayfella.jme.jfx.JavaFxUI;
 
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.ImageView;
 
 /**
  * Utils methods to run on the different threats.
@@ -146,6 +151,13 @@ public class JavaFxUtil {
             Platform.runLater(futureTask);
             return futureTask.get(timeout, unit);
         }
+    }
+
+    /**
+     * Returns a {@link ImageView} from the image resource.
+     */
+    public static ImageView toGraphicFromResource(ImageResource res) {
+        return new ImageView(SwingFXUtils.toFXImage(res.getBufferedImage(TYPE_INT_ARGB), null));
     }
 
     private JavaFxUtil() {

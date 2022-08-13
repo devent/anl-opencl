@@ -65,6 +65,10 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.toGraphicFromResource;
+
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 import com.anrisoftware.anlopencl.jmeapp.messages.MessageActor.Message;
@@ -79,6 +83,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.ToggleButton;
+import javafx.util.StringConverter;
+import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -134,7 +144,31 @@ public class MappingFieldsPaneController {
     @FXML
     public Spinner<Integer> columnsField;
 
+    @FXML
+    public ToggleButton linkXButton;
+
+    @FXML
+    public ToggleButton linkYButton;
+
+    @FXML
+    public TextField stepsXField;
+
+    @FXML
+    public TextField stepsYField;
+
+    private LinkMappingFieldListener linkXMappingFieldListener;
+
+    private LinkMappingFieldListener linkYMappingFieldListener;
+
+    private DecimalFormat df;
+
+    @SneakyThrows
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
+        df = new DecimalFormat("#.#####");
+        linkXButton.setGraphic(toGraphicFromResource(images.getResource("linkXButton", locale, iconSize)));
+        linkXButton.setText("");
+        linkYButton.setGraphic(toGraphicFromResource(images.getResource("linkYButton", locale, iconSize)));
+        linkYButton.setText("");
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -166,10 +200,84 @@ public class MappingFieldsPaneController {
         rowsField.setValueFactory(rowsValueFactory);
         var columnsValueFactory = createIntegerValueFactory(np.columns.get(), (Property) np.columns);
         columnsField.setValueFactory(columnsValueFactory);
+
+        linkXMappingFieldListener = new LinkMappingFieldListener(mappingX0Field, mappingX1Field, np);
+        registerOrUnregisterLinkXMappingField(np.linkX.get());
+        linkXButton.setSelected(np.linkX.get());
+        linkXButton.selectedProperty().bindBidirectional(np.linkX);
+        linkXButton.selectedProperty().addListener((o, oldValue, newValue) -> {
+            registerOrUnregisterLinkXMappingField(newValue);
+        });
+        linkYMappingFieldListener = new LinkMappingFieldListener(mappingY0Field, mappingY1Field, np);
+        registerOrUnregisterLinkYMappingField(np.linkY.get());
+        linkYButton.setSelected(np.linkY.get());
+        linkYButton.selectedProperty().bindBidirectional(np.linkY);
+        linkYButton.selectedProperty().addListener((o, oldValue, newValue) -> {
+            registerOrUnregisterLinkYMappingField(newValue);
+        });
+
+        linkYMappingFieldListener.setAmountToStepBy((float) np.stepsY.get());
+        stepsYField.setTextFormatter(new TextFormatter<>(createNumberConverter()));
+        stepsYField.getTextFormatter().valueProperty().bindBidirectional((Property) np.stepsY);
+        np.stepsY.addListener((o, oldValue, newValue) -> {
+            if (newValue != null) {
+                linkYMappingFieldListener.setAmountToStepBy((float) newValue);
+            }
+        });
+        linkXMappingFieldListener.setAmountToStepBy((float) np.stepsX.get());
+        stepsXField.setTextFormatter(new TextFormatter<>(createNumberConverter()));
+        stepsXField.getTextFormatter().valueProperty().bindBidirectional((Property) np.stepsX);
+        np.stepsX.addListener((o, oldValue, newValue) -> {
+            if (newValue != null) {
+                linkXMappingFieldListener.setAmountToStepBy((float) newValue);
+            }
+        });
+    }
+
+    private StringConverter<Float> createNumberConverter() {
+        return new StringConverter<>() {
+
+            @Override
+            public String toString(Float object) {
+                if (object == null) {
+                    return "";
+                }
+                return df.format(object);
+            }
+
+            @Override
+            public Float fromString(String string) {
+                try {
+                    return df.parse(string).floatValue();
+                } catch (ParseException e) {
+                    return null;
+                }
+            }
+        };
+    }
+
+    private void registerOrUnregisterLinkYMappingField(boolean register) {
+        mappingY0Field.setEditable(!register);
+        mappingY1Field.setEditable(!register);
+        if (register) {
+            linkYMappingFieldListener.register();
+        } else {
+            linkYMappingFieldListener.unregister();
+        }
+    }
+
+    private void registerOrUnregisterLinkXMappingField(boolean register) {
+        mappingX0Field.setEditable(!register);
+        mappingX1Field.setEditable(!register);
+        if (register) {
+            linkXMappingFieldListener.register();
+        } else {
+            linkXMappingFieldListener.unregister();
+        }
     }
 
     private SpinnerValueFactory<Float> createFloatValueFactory(float initialValue, Property<Float> p) {
-        var f = new MappingRangeSpinnerValueFactory(-5000, 5000, initialValue, 1);
+        var f = new MappingRangeSpinnerValueFactory(-5000, 5000, initialValue, 1, df);
         f.valueProperty().bindBidirectional(p);
         return f;
     }
@@ -180,4 +288,61 @@ public class MappingFieldsPaneController {
         return f;
     }
 
+    @Data
+    private class LinkMappingFieldListener {
+
+        private final Spinner<Float> mapping0Field;
+
+        private final Spinner<Float> mapping1Field;
+
+        private final ObservableGameMainPaneProperties np;
+
+        public void register() {
+            var mapping0 = (MappingRangeSpinnerValueFactory) mapping0Field.getValueFactory();
+            var mapping1 = (MappingRangeSpinnerValueFactory) mapping1Field.getValueFactory();
+            mapping0.setIncrementCallback((s) -> {
+                mapping0.setLock(true);
+                mapping1.setLock(true);
+                mapping1.increment(s);
+                mapping0.setLock(false);
+                mapping1.setLock(false);
+            });
+            mapping1.setIncrementCallback((s) -> {
+                mapping0.setLock(true);
+                mapping1.setLock(true);
+                mapping0.increment(s);
+                mapping0.setLock(false);
+                mapping1.setLock(false);
+            });
+            mapping0.setDecrementCallback((s) -> {
+                mapping0.setLock(true);
+                mapping1.setLock(true);
+                mapping1.decrement(s);
+                mapping0.setLock(false);
+                mapping1.setLock(false);
+            });
+            mapping1.setDecrementCallback((s) -> {
+                mapping0.setLock(true);
+                mapping1.setLock(true);
+                mapping0.decrement(s);
+                mapping0.setLock(false);
+                mapping1.setLock(false);
+            });
+        }
+
+        public void setAmountToStepBy(float amount) {
+            var mapping0 = (MappingRangeSpinnerValueFactory) mapping0Field.getValueFactory();
+            mapping0.setAmountToStepBy(amount);
+            var mapping1 = (MappingRangeSpinnerValueFactory) mapping1Field.getValueFactory();
+            mapping1.setAmountToStepBy(amount);
+        }
+
+        public void unregister() {
+            ((MappingRangeSpinnerValueFactory) (mapping0Field.getValueFactory())).setIncrementCallback(null);
+            ((MappingRangeSpinnerValueFactory) (mapping1Field.getValueFactory())).setIncrementCallback(null);
+            ((MappingRangeSpinnerValueFactory) (mapping0Field.getValueFactory())).setDecrementCallback(null);
+            ((MappingRangeSpinnerValueFactory) (mapping1Field.getValueFactory())).setDecrementCallback(null);
+        }
+
+    }
 }

@@ -68,6 +68,8 @@ package com.anrisoftware.anlopencl.jmeapp.controllers;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.util.StringConverter;
@@ -88,13 +90,19 @@ public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> 
 
     private float amountToStepBy;
 
-    public MappingRangeSpinnerValueFactory(float min, float max, float initialValue, float amountToStepBy) {
+    private Optional<Consumer<Integer>> decrementCallback;
+
+    private Optional<Consumer<Integer>> incrementCallback;
+
+    private boolean lock;
+
+    public MappingRangeSpinnerValueFactory(float min, float max, float initialValue, float amountToStepBy,
+            DecimalFormat df) {
         this.min = min;
         this.max = max;
         this.amountToStepBy = amountToStepBy;
+        this.decrementCallback = Optional.empty();
         setConverter(new StringConverter<Float>() {
-            private final DecimalFormat df = new DecimalFormat("#.#####");
-
             @Override
             public String toString(Float value) {
                 if (value == null) {
@@ -131,6 +139,22 @@ public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> 
         setValue(initialValue >= min && initialValue <= max ? initialValue : min);
     }
 
+    public void setDecrementCallback(Consumer<Integer> callback) {
+        decrementCallback = Optional.ofNullable(callback);
+    }
+
+    public void setIncrementCallback(Consumer<Integer> callback) {
+        incrementCallback = Optional.ofNullable(callback);
+    }
+
+    public void setLock(boolean b) {
+        this.lock = b;
+    }
+
+    public void setAmountToStepBy(float amount) {
+        this.amountToStepBy = amount;
+    }
+
     /** {@inheritDoc} */
     @Override
     public void decrement(int steps) {
@@ -141,6 +165,9 @@ public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> 
         BigDecimal newValue = currentValue.subtract(amountToStepByBigDecimal.multiply(BigDecimal.valueOf(steps)));
         setValue(newValue.compareTo(minBigDecimal) >= 0 ? newValue.floatValue()
                 : (isWrapAround() ? wrapValue(newValue, minBigDecimal, maxBigDecimal).floatValue() : min));
+        if (!lock && decrementCallback.isPresent()) {
+            decrementCallback.get().accept(steps);
+        }
     }
 
     /** {@inheritDoc} */
@@ -153,6 +180,9 @@ public class MappingRangeSpinnerValueFactory extends SpinnerValueFactory<Float> 
         BigDecimal newValue = currentValue.add(amountToStepByBigDecimal.multiply(BigDecimal.valueOf(steps)));
         setValue(newValue.compareTo(maxBigDecimal) <= 0 ? newValue.floatValue()
                 : (isWrapAround() ? wrapValue(newValue, minBigDecimal, maxBigDecimal).floatValue() : max));
+        if (!lock && incrementCallback.isPresent()) {
+            incrementCallback.get().accept(steps);
+        }
     }
 
     /*

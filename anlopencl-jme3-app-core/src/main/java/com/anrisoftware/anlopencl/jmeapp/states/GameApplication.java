@@ -92,6 +92,7 @@ import com.google.inject.Injector;
 import com.jme3.app.LostFocusBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.ConstantVerifierState;
+import com.jme3.renderer.Camera;
 import com.jme3.system.AppSettings;
 
 import akka.actor.typed.ActorRef;
@@ -153,7 +154,8 @@ public class GameApplication extends SimpleApplication {
     }
 
     private void loadAppIcon(AppSettings s) throws IOException {
-        s.setIcons(new BufferedImage[] { ImageIO.read(getClass().getResource("/app/logo.png")) });
+        BufferedImage logo = ImageIO.read(getClass().getResource("/app/logo.png"));
+        s.setIcons(new BufferedImage[] { logo });
         s.setTitle(IOUtils.toString(getClass().getResource("/app/title.txt"), UTF_8));
     }
 
@@ -179,16 +181,24 @@ public class GameApplication extends SimpleApplication {
     @Override
     public void stop() {
         var gmpp = injector.getInstance(GameMainPanePropertiesProvider.class);
-        gmpp.get().setCameraPos(getCamera().getLocation());
-        gmpp.get().setCameraRot(getCamera().getRotation());
-        gmpp.save();
         var gsp = injector.getInstance(GameSettingsProvider.class);
-        gsp.get().windowWidth.set(getCamera().getWidth());
-        gsp.get().windowHeight.set(getCamera().getHeight());
+        updateCammera(gmpp, gsp);
+        gmpp.save();
         gsp.get().windowFullscreen.set(context.getSettings().isFullscreen());
         gsp.save();
         actor.get().tell(new ShutdownMessage());
         super.stop();
+    }
+
+    private void updateCammera(GameMainPanePropertiesProvider gmpp, GameSettingsProvider gsp) {
+        Camera camera = getCamera();
+        if (camera == null) {
+            return;
+        }
+        gmpp.get().setCameraPos(camera.getLocation());
+        gmpp.get().setCameraRot(camera.getRotation());
+        gsp.get().windowWidth.set(camera.getWidth());
+        gsp.get().windowHeight.set(camera.getHeight());
     }
 
     @Override

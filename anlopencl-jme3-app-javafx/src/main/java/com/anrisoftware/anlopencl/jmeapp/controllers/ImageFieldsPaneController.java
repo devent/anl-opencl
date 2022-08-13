@@ -65,6 +65,8 @@
  */
 package com.anrisoftware.anlopencl.jmeapp.controllers;
 
+import static com.anrisoftware.anlopencl.jmeapp.controllers.JavaFxUtil.toGraphicFromResource;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -86,8 +88,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import lombok.SneakyThrows;
@@ -150,8 +150,7 @@ public class ImageFieldsPaneController {
 
     @SneakyThrows
     public void updateLocale(Locale locale, Images images, IconSize iconSize) {
-        randomButton.setGraphic(
-                new ImageView(new Image(images.getResource("dice", locale, iconSize).getURL().openStream())));
+        randomButton.setGraphic(toGraphicFromResource(images.getResource("dice", locale, iconSize)));
         randomButton.setText(null);
     }
 

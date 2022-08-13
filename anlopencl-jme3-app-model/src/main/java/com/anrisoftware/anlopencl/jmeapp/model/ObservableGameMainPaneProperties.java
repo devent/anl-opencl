@@ -142,6 +142,14 @@ public class ObservableGameMainPaneProperties {
 
         public float mapz1 = 1;
 
+        public float stepsX = 0.1f;
+
+        public float stepsY = 0.1f;
+
+        public boolean linkX = false;
+
+        public boolean linkY = false;
+
         public boolean map3d = false;
 
         public float cameraPosX = 0.002901543f;
@@ -207,6 +215,14 @@ public class ObservableGameMainPaneProperties {
 
     public final FloatProperty mapz1;
 
+    public final FloatProperty stepsX;
+
+    public final FloatProperty stepsY;
+
+    public final BooleanProperty linkX;
+
+    public final BooleanProperty linkY;
+
     public final StringProperty kernelName;
 
     public final StringProperty kernelCode;
@@ -260,6 +276,10 @@ public class ObservableGameMainPaneProperties {
         this.mapy1 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapy1").build();
         this.mapz1 = JavaBeanFloatPropertyBuilder.create().bean(p).name("mapz1").build();
         this.map3d = JavaBeanBooleanPropertyBuilder.create().bean(p).name("map3d").build();
+        this.stepsX = JavaBeanFloatPropertyBuilder.create().bean(p).name("stepsX").build();
+        this.stepsY = JavaBeanFloatPropertyBuilder.create().bean(p).name("stepsY").build();
+        this.linkX = JavaBeanBooleanPropertyBuilder.create().bean(p).name("linkX").build();
+        this.linkY = JavaBeanBooleanPropertyBuilder.create().bean(p).name("linkY").build();
         this.kernelName = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelName").build();
         this.kernelCode = JavaBeanStringPropertyBuilder.create().bean(p).name("kernelCode").build();
         this.codeLastChange = JavaBeanLongPropertyBuilder.create().bean(p).name("codeLastChange").build();
@@ -294,6 +314,10 @@ public class ObservableGameMainPaneProperties {
         mapy1.set(other.mapy1);
         mapz1.set(other.mapz1);
         map3d.set(other.map3d);
+        stepsX.set(other.stepsX);
+        stepsY.set(other.stepsY);
+        linkX.set(other.linkX);
+        linkY.set(other.linkY);
         cameraPosX.set(other.cameraPosX);
         cameraPosY.set(other.cameraPosY);
         cameraPosZ.set(other.cameraPosZ);
