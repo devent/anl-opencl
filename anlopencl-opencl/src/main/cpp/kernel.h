@@ -281,6 +281,7 @@ REAL simpleRidgedLayer4(vector4 v, noise_func4 basistype,
 		uint seed, interp_func interp,
 		REAL layerscale, REAL layerfreq, bool rot,
 		REAL angle, REAL ax, REAL ay, REAL az);
+
 /**
  * Returns simple ridged layer value for the coordinate.
  * @param v the vector8 (x,y,z,w,u,v) coordinate.
